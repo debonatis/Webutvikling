@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <
+        
     </h:head>
     <h:body>
         <div id="header">
@@ -15,18 +15,13 @@
 
         <h3>Innlogging</h3>
         <h:form>
-
-            <h:panelGroup rendered="#{login.loggedIn}">
-
-                signed in as #{currentUser.username}
-
-            </h:panelGroup>
+           
 
             <h:panelGrid columns="2" rendered="#{!innloggingsBean.erInnlogget()}">
 
 
 
-                <h:outputLabel for="Brukernavn">Username:</h:outputLabel>
+                <h:outputLabel for="#{texts.d}">Username:</h:outputLabel>
 
                 <h:inputText id="Brukernavn" value="#{innloggingsBean.brukernavn}" required="true"/>
 
