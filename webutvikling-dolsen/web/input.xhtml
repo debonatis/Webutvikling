@@ -21,7 +21,12 @@
             
             <h:outputLabel value="#{texts.category}"></h:outputLabel><br/>
             
-            <h:inputText id="kategori" value="#{treningsOkt.kategori}" required="true"/><br/>
+            <select> id="kategori" size="2" value="#{treningsOkt.kategori}" required="true"/><br/>
+            <option> value="#{texts.category1}" #{texts.category1}</option>
+            <option> value="#{texts.category2}" #{texts.category2}</option>
+            <option> value="#{texts.category3}" #{texts.category3}</option>
+            </select><br/>
+            
             
             <h:outputLabel value="#{texts.text}"></h:outputLabel><br/>
             
