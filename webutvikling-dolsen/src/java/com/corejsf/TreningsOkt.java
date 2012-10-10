@@ -48,6 +48,7 @@ public class TreningsOkt implements Serializable {
 //        this.kategori = kategori;
 //    }
     public int getOktNr() {
+        oktNr++;
         return oktNr;
     }
 
