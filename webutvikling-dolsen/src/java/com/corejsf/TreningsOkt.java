@@ -30,11 +30,12 @@ public class TreningsOkt implements Serializable {
         return tekst;
     }
     
-     @NotNull
-    @Length(min = 1, max = 30)
+    
     public void setTekst(String tekst) {
         this.tekst = tekst;
-    }
+    } 
+    @NotNull
+    @Length(min = 1, max = 30)
     private int varighet;
     private String kategori;
     private String tekst;
