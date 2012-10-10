@@ -17,8 +17,12 @@ import javax.inject.Named;
 @SessionScoped
 public class TreningsOkt implements Serializable {
 
-    int oktNr;
-    Date dato = new Date();
+    private int oktNr;
+    private Date dato = new Date();
+
+    public void setKategori(String kategori) {
+        this.kategori = kategori;
+    }
 
     public String getTekst() {
         return tekst;
@@ -27,9 +31,9 @@ public class TreningsOkt implements Serializable {
     public void setTekst(String tekst) {
         this.tekst = tekst;
     }
-    int varighet;
-    String kategori;
-    String tekst;
+    private int varighet;
+    private String kategori;
+    private String tekst;
 
     public TreningsOkt() {
     }
