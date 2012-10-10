@@ -69,10 +69,11 @@ public class TreningsOkt implements Serializable {
     public String getKategori() {
         return kategori;
     }
-   @NotNull
+  
     public void setOktNr(int nyOktNr) {
         oktNr = nyOktNr;
     }
+    @NotNull
 
     public void setDate(Date nyDato) {
         dato = nyDato;
@@ -81,8 +82,8 @@ public class TreningsOkt implements Serializable {
      *
      * @param oktVarighet
      */
-    @NotNull 
+   @NotNull 
     public void setVarighet(int oktVarighet) {
         varighet = oktVarighet;
-    }
+    } 
 }
