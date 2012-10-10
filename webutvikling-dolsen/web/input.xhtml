@@ -14,15 +14,15 @@
         </div>
         <h3>#{texts.welcome}</h3>
         <h:form>
-            <h:outputLabel value="#{texts}"></h:outputLabel>
+            <h:outputLabel value="#{texts.duration}"></h:outputLabel>
             
             <h:inputText id="varighet" value="#{treningsOkt.varighet}" required="true"/>
             
-            <h:outputLabel value="Kategori"></h:outputLabel>
+            <h:outputLabel value="#{texts.category}"></h:outputLabel>
             
             <h:inputText id="kategori" value="#{treningsOkt.kategori}" required="true"/>
             
-            <h:outputLabel value="tekst"></h:outputLabel>
+            <h:outputLabel value="#{texts.text}"></h:outputLabel>
             
             <h:inputTextarea id="tekst" value="#{treningsOkt.tekst}"> </h:inputTextarea> 
             
