@@ -27,7 +27,7 @@ public class TreningsOkt implements Serializable {
     private @NotNull
     String kategori;
     private @NotNull
-    @Length(min = 3, max = 25)
+    @Length(min = 0, max = 30)
     @Id
     String tekst;
 
