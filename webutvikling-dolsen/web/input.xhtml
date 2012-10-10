@@ -21,11 +21,11 @@
             
             <h:outputLabel value="#{texts.category}"></h:outputLabel><br/>
             
-            <select> id="kategori" size="2" value="#{treningsOkt.kategori}" required="true"/><br/>
-            <option value="#{texts.category1}"> #{texts.category1}</option>
-            <option value="#{texts.category2}"> #{texts.category2}</option>
-            <option value="#{texts.category3}"> #{texts.category3}</option>
-            </select><br/>
+            <h:selectOneListbox id="kategori" size="2" value="#{treningsOkt.kategori}" required="true"><br/>
+            <f:selectItem itemValue="#{texts.category1}" itemLabel="#{texts.category1}"/>
+            <f:selectItem itemvalue="#{texts.category2}" itemLabel="#{texts.category2}"/>
+            <f:selectItem itemvalue="#{texts.category3}" itemLabel="#{texts.category3}"/>
+           
             
             
             <h:outputLabel value="#{texts.text}"></h:outputLabel><br/>
