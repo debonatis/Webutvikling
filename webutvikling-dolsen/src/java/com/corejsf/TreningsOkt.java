@@ -31,7 +31,7 @@ public class TreningsOkt implements Serializable {
     }
     
      @NotNull
-    @Length(min = 0, max = 30)
+    @Length(min = 1, max = 30)
     public void setTekst(String tekst) {
         this.tekst = tekst;
     }
@@ -42,12 +42,12 @@ public class TreningsOkt implements Serializable {
     public TreningsOkt() {
     }
 
-    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori) {
-        this.oktNr = oktNr;
-        this.dato = dato;
-        this.varighet = varighet;
-        this.kategori = kategori;
-    }
+//    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori) {
+//        this.oktNr = oktNr;
+//        this.dato = dato;
+//        this.varighet = varighet;
+//        this.kategori = kategori;
+//    }
 
     public int getOktNr() {
         return oktNr;
