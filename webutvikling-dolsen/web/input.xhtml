@@ -14,13 +14,13 @@
         </div>
         <h3>#{texts.welcome}</h3>
         <h:form>
-            <h:outputLabel for="#{texts.duration}">Username:</h:outputLabel>
-            <h:inputText id="Brukernavn" value="#{treningsOkt.varighet}" required="true"/>
-            <h:outputLabel for="#{texts.continue}">Password:</h:outputLabel>
-            <h:inputText id="Passord" value="#{treningsOkt.kategori}" required="true"/>
-            <h:outputLabel for="#{texts.overview}"> Tekst: </h:outputLabel>
+            <h:outputLabel for="Kategori"></h:outputLabel>
+            <h:inputText id="varighet" value="#{treningsOkt.varighet}" required="true"/>
+            <h:outputLabel for="Kategori"></h:outputLabel>
+            <h:inputText id="kategori" value="#{treningsOkt.kategori}" required="true"/>
+            <h:outputLabel for="tekst"> Tekst: </h:outputLabel>
             <h:inputTextarea id="tekst" value="#{treningsOkt.tekst}"> </h:inputTextarea>  
-            <h:commandButton value="#{texts.loginbutton}" action="output1"/>
+            <h:commandButton value="Send" action="output1"/>
         </h:form>
 
 

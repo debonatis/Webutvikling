@@ -19,8 +19,17 @@ public class TreningsOkt implements Serializable {
 
     int oktNr;
     Date dato = new Date();
+
+    public String getTekst() {
+        return tekst;
+    }
+
+    public void setTekst(String tekst) {
+        this.tekst = tekst;
+    }
     int varighet;
     String kategori;
+    String tekst;
 
     public TreningsOkt() {
     }
