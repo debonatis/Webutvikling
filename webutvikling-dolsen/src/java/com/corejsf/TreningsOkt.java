@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
@@ -21,9 +22,14 @@ public class TreningsOkt implements Serializable {
 
     private int oktNr;
     private Date dato = new Date();
-    private int varighet;
-    private String kategori;
-    private String tekst;
+    private @NotNull
+    int varighet;
+    private @NotNull
+    String kategori;
+    private @NotNull
+    @Length(min = 3, max = 25)
+    @Id
+    String tekst;
 
     public void setKategori(String kategori) {
         this.kategori = kategori;
@@ -38,6 +44,7 @@ public class TreningsOkt implements Serializable {
     public void setTekst(String tekst) {
         this.tekst = tekst;
     }
+
     public TreningsOkt() {
     }
 
@@ -64,11 +71,11 @@ public class TreningsOkt implements Serializable {
         return varighet;
     }
 
+   
     public String getKategori() {
         return kategori;
     }
 
-    @NotNull
     public void setOktNr(int nyOktNr) {
         oktNr = nyOktNr;
     }
@@ -76,12 +83,7 @@ public class TreningsOkt implements Serializable {
     public void setDate(Date nyDato) {
         dato = nyDato;
     }
-
-    /**
-     *
-     * @param oktVarighet
-     */
-    @NotNull
+   
     public void setVarighet(int oktVarighet) {
         varighet = oktVarighet;
     }
