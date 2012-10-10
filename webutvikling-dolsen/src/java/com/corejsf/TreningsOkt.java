@@ -5,11 +5,12 @@
 package com.corejsf;
 
 import java.io.Serializable;
+
 import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-@Named("trening")
+@Named
 @SessionScoped
 /**
  *
