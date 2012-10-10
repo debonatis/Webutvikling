@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
 
     </h:head>
@@ -24,9 +25,13 @@
             
             <h:outputLabel value="#{texts.text}"></h:outputLabel>
             
+            <h:inputText value="#{treningsOkt.date}">
+                <f:convertDateTime pattern="dd/mm/yyy"/>
+            </h:inputText>
+            
             <h:inputTextarea id="tekst" value="#{treningsOkt.tekst}"> </h:inputTextarea> 
             
-            <h:commandButton value="Send" action="overview1"/>
+            <h:commandButton value="#{texts.submit}" action="overview1"/>
         </h:form>
 
 
