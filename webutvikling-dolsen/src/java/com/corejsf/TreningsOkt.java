@@ -21,6 +21,9 @@ public class TreningsOkt implements Serializable {
 
     private int oktNr;
     private Date dato = new Date();
+    private int varighet;
+    private String kategori;
+    private String tekst;
 
     public void setKategori(String kategori) {
         this.kategori = kategori;
@@ -29,27 +32,23 @@ public class TreningsOkt implements Serializable {
     public String getTekst() {
         return tekst;
     }
-    
-     @NotNull
-    @Length(min = 0, max = 30)
+
+    @NotNull
+    @Length(min = 1, max = 30)
     public void setTekst(String tekst) {
         this.tekst = tekst;
     }
-    private int varighet;
-    private String kategori;
-    private String tekst;
-
     public TreningsOkt() {
     }
 
-    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori) {
-        this.oktNr = oktNr;
-        this.dato = dato;
-        this.varighet = varighet;
-        this.kategori = kategori;
-    }
-
+//    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori) {
+//        this.oktNr = oktNr;
+//        this.dato = dato;
+//        this.varighet = varighet;
+//        this.kategori = kategori;
+//    }
     public int getOktNr() {
+        oktNr++;
         return oktNr;
     }
 
@@ -68,7 +67,8 @@ public class TreningsOkt implements Serializable {
     public String getKategori() {
         return kategori;
     }
-   @NotNull
+
+    @NotNull
     public void setOktNr(int nyOktNr) {
         oktNr = nyOktNr;
     }
@@ -76,11 +76,12 @@ public class TreningsOkt implements Serializable {
     public void setDate(Date nyDato) {
         dato = nyDato;
     }
+
     /**
      *
      * @param oktVarighet
      */
-    @NotNull 
+    @NotNull
     public void setVarighet(int oktVarighet) {
         varighet = oktVarighet;
     }
