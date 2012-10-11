@@ -8,14 +8,16 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <head>
-        <title>#{texts.overview}</title>
+        <title>IGNORED</title>
     </head>
     <body>
-        <div id="header">
-            <ui:insert name="header">
-                <ui:include src="/sections/header.xhtml"/>
-            </ui:insert>
-            </div>
+        <ui:composition template="/templates/mainTemplate.xhtml">
+            <ui:define name="windowTitle">
+                #{texts.overview}
+            </ui:define>
+        <h3>#{texts.welcome}</h3>
+        
+        <ui:define name="content">
             <h:outputText value="#{texts.category} :#{treningsOkt.kategori}."/><br/><br/>
             <h:outputText value="#{texts.duration} :#{treningsOkt.varighet}."/><br/><br/>
             <h:outputText value="#{texts.text} :#{treningsOkt.tekst}."/><br/><br/>
@@ -23,7 +25,8 @@ and open the template in the editor.
             <h:outputText value="#{texts.sessionNumber} :#{treningsOkt.oktNr}."/>
             
         
-        
+        </ui:define>
+        </ui:composition>
         
         
     </body>
