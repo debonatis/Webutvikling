@@ -18,11 +18,11 @@ and open the template in the editor.
         <h3>#{texts.welcome}</h3>
         
         <ui:define name="content">
-            <h:outputText value="#{texts.category} :#{treningsOkt.kategori}."/><br/><br/>
-            <h:outputText value="#{texts.duration} :#{treningsOkt.varighet}."/><br/><br/>
-            <h:outputText value="#{texts.text} :#{treningsOkt.tekst}."/><br/><br/>
-            <h:outputText value="#{texts.date} :#{treningsOkt.sqlDate}."/><br/><br/>
-            <h:outputText value="#{texts.sessionNumber} :#{treningsOkt.oktNr}."/>
+            <h:outputText value="#{texts.category}: #{treningsOkt.kategori}."/><br/><br/>
+            <h:outputText value="#{texts.duration}: #{treningsOkt.varighet}."/><br/><br/>
+            <h:outputText value="#{texts.text}: #{treningsOkt.tekst}."/><br/><br/>
+            <h:outputText value="#{texts.date}: #{treningsOkt.sqlDate}."/><br/><br/>
+            <h:outputText value="#{texts.sessionNumber}: #{treningsOkt.oktNr}."/>
             
         
         </ui:define>
