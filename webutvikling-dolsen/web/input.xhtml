@@ -21,11 +21,11 @@
             
             <h:outputLabel value="#{texts.category}"></h:outputLabel><br/>
             
-            <h:selectOneListbox id="kategori" size="5" value="#{treningsOkt.kategori}"><br/>
-            <f:selectItem itemvalue="fuck" itemLabel="mikken"/>
-            <f:selectItem itemValue="groose swnace" itemLabel="Volvo"/>            
-            <f:selectItem itemvalue="negro" itemLabel="Peggin Melby"/>
-            </h:selectOneListbox>
+            <h:selectOneListbox id="kategori" required="true" value="#{treningsOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
+                <f:selectItem itemValue ="#{texts.category1}" itemLabel="#{texts.category1}"/>
+                <f:selectItem itemValue ="#{texts.category2}" itemLabel="#{texts.category2}"/>
+                <f:selectItem itemValue ="#{texts.category3}" itemLabel="#{texts.category3}"/>
+                </h:selectOneListbox>
             
             
             <h:outputLabel value="#{texts.text}"></h:outputLabel><br/>
