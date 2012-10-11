@@ -32,16 +32,19 @@ public class TreningsOkt implements Serializable {
     String tekst;
 
     public void setKategori(String kategori) {
+        oktNr++;
         this.kategori = kategori;
     }
 
     public String getTekst() {
+        oktNr++;
         return tekst;
     }
 
     @NotNull
     @Length(min = 1, max = 30)
     public void setTekst(String tekst) {
+        oktNr++;
         this.tekst = tekst;
     }
 
@@ -54,8 +57,7 @@ public class TreningsOkt implements Serializable {
 //        this.varighet = varighet;
 //        this.kategori = kategori;
 //    }
-    public int getOktNr() {
-        oktNr++;
+    public int getOktNr() {        
         return oktNr;
     }
 
