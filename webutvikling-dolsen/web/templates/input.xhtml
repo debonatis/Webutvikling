@@ -5,15 +5,17 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-
+        <title>IGNORED</title>
     </h:head>
     <h:body>
-        <div id="header">
-            <ui:insert name="header">
-                <ui:include src="/sections/header.xhtml"/>
-            </ui:insert>
-        </div>
+        <ui:composition template="/templates/mainTemplate.xhtml">
+            <ui:define name="windowTitle">
+                #{texts.regtitle}
+            </ui:define>
         <h3>#{texts.welcome}</h3>
+        
+        <ui:define name="content">
+        
         <h:form>
             <h:outputLabel value="#{texts.duration}"></h:outputLabel><br/>
             
@@ -40,7 +42,8 @@
             <h:commandButton value="#{texts.submit}" action="overview1"/>
         </h:form>
 
-
+            </ui:define>
+        </ui:composition>
 
     </h:body>
 </html>
