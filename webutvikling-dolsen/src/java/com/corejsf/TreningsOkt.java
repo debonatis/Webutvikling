@@ -37,14 +37,13 @@ public class TreningsOkt implements Serializable {
     }
 
     public String getTekst() {
-        oktNr++;
+       
         return tekst;
     }
 
     @NotNull
     @Length(min = 1, max = 30)
-    public void setTekst(String tekst) {
-        oktNr++;
+    public void setTekst(String tekst) {        
         this.tekst = tekst;
     }
 
