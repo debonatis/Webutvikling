@@ -10,7 +10,7 @@
     <h:body>
         <ui:composition template="/templates/mainTemplate.xhtml">
             <ui:define name="windowTitle">
-                #{texts.regtitle}
+                #{texts.regTitle}
             </ui:define>
         <h3>#{texts.welcome}</h3>
         
@@ -27,7 +27,7 @@
                 <f:selectItem itemValue ="#{texts.category1}" itemLabel="#{texts.category1}"/>
                 <f:selectItem itemValue ="#{texts.category2}" itemLabel="#{texts.category2}"/>
                 <f:selectItem itemValue ="#{texts.category3}" itemLabel="#{texts.category3}"/>
-                </h:selectOneListbox>
+                </h:selectOneListbox><br/>
             
             
             <h:outputLabel value="#{texts.text}"></h:outputLabel><br/>
