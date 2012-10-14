@@ -22,7 +22,7 @@ and open the template in the editor.
                 <h:form>
 
                     <p>
-                        <h:outputText value="#{texts.date}: "/>
+                        <h:outputText value="#{texts.overview}: "/>
                         <h:inputText value="#{treningsOktBehandler.navn}"/>
                     </p>
 
@@ -34,10 +34,7 @@ and open the template in the editor.
 
                         <h:column>
                             #{sessions.treningsikOkt.oktNr}
-                        </h:column>
-                        <h:column>
-                            #{sessions.treningsikOkt.date}
-                        </h:column>
+                        </h:column>                      
                         <h:column>
                             #{sessions.treningsikOkt.varighet}
                         </h:column>
