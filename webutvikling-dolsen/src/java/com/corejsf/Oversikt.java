@@ -6,6 +6,7 @@ package com.corejsf;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -13,10 +14,38 @@ import java.util.ArrayList;
  */
 public class Oversikt implements Serializable{
     
-    private ArrayList<TreningsOkt> alleOkter = new ArrayList();
+    private ArrayList<TreningsOkt> alleOkter = new ArrayList();    
+    private String bruker;
     
     public ArrayList<TreningsOkt> getAlleOkter(){
-        return null;
+        return alleOkter;
+    }
+    
+    public ArrayList<TreningsOkt> getAlleOkterEnMnd(int s){
+        ArrayList<TreningsOkt> hjelp = new ArrayList<TreningsOkt>();
+        for(TreningsOkt e : alleOkter){            
+            if((e.getDate().getMonth()) == s){
+                 hjelp.add(e);
+            }
+        }
+        if(hjelp.isEmpty()){
+            return null;
+        }
+        return hjelp;
+    }
+    
+    public void registrerNyOkt(TreningsOkt e){
+        this.alleOkter.add(e);
+    }
+    
+    public boolean slettOkt(TreningsOkt t){
+        boolean hjelp2 = false;
+         for(TreningsOkt e : alleOkter){            
+            if(t.equals(e)){
+              hjelp2 = alleOkter.remove(e);
+            }
+        }
+         return hjelp2;
     }
     
 }
