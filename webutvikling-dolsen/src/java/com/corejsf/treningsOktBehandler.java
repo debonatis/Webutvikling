@@ -63,7 +63,7 @@ public class treningsOktBehandler implements Serializable {
                     tempOkt.getVarighet(), tempOkt.getKategori(), tempOkt.getKategori());
 
             nyOversikt.registrerNyOkt(nyOkt);
-            treningsOkter.add(new OktStatus(nyOkt));
+            treningsOkter.add(new OktStatus(nyOkt));            
             tempOkt.nullstill();
         }
 
