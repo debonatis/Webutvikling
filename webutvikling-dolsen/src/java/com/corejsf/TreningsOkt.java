@@ -37,8 +37,7 @@ public final class TreningsOkt implements Serializable {
         this.kategori = kategori;
     }
 
-    public String getTekst() {
-       
+    public String getTekst() {       
         return tekst;
     }
 
