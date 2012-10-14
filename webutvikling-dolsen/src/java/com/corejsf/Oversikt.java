@@ -39,7 +39,9 @@ public class Oversikt implements Serializable{
     }
     
     public void registrerNyOkt(TreningsOkt e){
+        if(e != null){
         this.alleOkter.add(e);
+        }
     }
     
     public boolean slettOkt(TreningsOkt t){
@@ -52,22 +54,14 @@ public class Oversikt implements Serializable{
          return hjelp2;
     }
     
+    public int antallOkter(){
+        return alleOkter.size();
+    }
     
-     
     public String getBrukernavn(){
-        return brukernavn;
+        return bruker;
     }
     public void setBrukernavn(String nyBruker){
-        brukernavn = nyBruker;
+        bruker = nyBruker;
     }
-    
-    public List getAlleOkter(){
-        List liste = new ArrayList();
-        for(TreningsOkt e : alleOkter){
-            liste.add(new SelectItem(e.getOktNr()));
-        }
-        return liste;
-    }
-    
-    
 }
