@@ -30,30 +30,32 @@ and open the template in the editor.
                         <h:outputText value="#{texts.overview}"
                                       rendered="#{not treningsOktBehandler.datafins}"/>
                     </p>
-                    <h:dataTable value="#{treningsOktBehandler.alleOkter}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
+                    <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
 
                         <h:column>
-                            #{sessions.oktNr}
+                            #{sessions.treningsikOkt.oktNr}
                         </h:column>
                         <h:column>
-                            #{sessions.kategori}
+                            #{sessions.treningsikOkt.date}
                         </h:column>
                         <h:column>
-                            #{sessions.varighet}
+                            #{sessions.treningsikOkt.varighet}
                         </h:column>
                         <h:column>
-                            #{sessions.kategori}
+                            #{sessions.treningsikOkt.kategori}
                         </h:column>
                         <h:column>
-                            #{sessions.tekst}
+                            #{sessions.treningsikOkt.tekst}
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{texts.duration}"/>
                             </f:facet>
-                            <h:selectBooleanCheckbox value="#{enTrans.skalSlettes}"/>
+                            <h:selectBooleanCheckbox value="#{sessions.setSkalSlettes(nySkalSlettes)}"/>
                         </h:column>
                     </h:dataTable>
+                    
+                    <h:commandButton value="#{texts.oppdater}" action="#{treningsOktBehandler.oppdater()}"/>
                 </h:form>
 
 
