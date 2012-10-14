@@ -15,9 +15,9 @@ import org.hibernate.validator.constraints.Length;
  * @author deb
  */
 
-public class TreningsOkt implements Serializable {
+public final class TreningsOkt implements Serializable {
     
-    private int oktNr;
+    private  static int oktNr;
     private Date dato = new Date();
 
   
@@ -48,6 +48,7 @@ public class TreningsOkt implements Serializable {
     }
 
     public TreningsOkt() {
+        nullstill();
     }
 
     public TreningsOkt(int oktNr, Date dato, int varighet, String kategori, String tekst) {
@@ -57,7 +58,7 @@ public class TreningsOkt implements Serializable {
         this.kategori = kategori;
         this.tekst = tekst;
     }
-    public int getOktNr() {        
+    public static int getOktNr() {        
         return oktNr;
     }
 
@@ -78,7 +79,7 @@ public class TreningsOkt implements Serializable {
         return kategori;
     }
 
-    public void setOktNr(int nyOktNr) {
+    public static void setOktNr(int nyOktNr) {
         oktNr = nyOktNr;
     }
 
