@@ -38,7 +38,17 @@ and open the template in the editor.
                     <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
 
                         <h:column>
-                            #{sessions.treningsikOkt.date}
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.date}"/>
+                                </f:facet>
+                                <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
                         </h:column>                      
                         <h:column>
                             #{sessions.treningsikOkt.varighet}
@@ -51,7 +61,7 @@ and open the template in the editor.
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{texts.duration}"/>
+                                <h:outputText value="#{texts.Slett}"/>
                             </f:facet>
                             <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                         </h:column>
