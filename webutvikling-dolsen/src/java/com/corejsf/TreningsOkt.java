@@ -23,6 +23,14 @@ public class TreningsOkt implements Serializable {
     private TreningsOkt nyTreningsokt = new TreningsOkt();
     private int oktNr;
     private Date dato = new Date();
+
+    public TreningsOkt getNyTreningsokt() {
+        return nyTreningsokt;
+    }
+
+    public void setNyTreningsokt(TreningsOkt nyTreningsokt) {
+        this.nyTreningsokt = nyTreningsokt;
+    }
     private @NotNull
     int varighet;
     private @NotNull
@@ -30,11 +38,8 @@ public class TreningsOkt implements Serializable {
     private @NotNull
     @Length(min = 0, max = 30)
     @Id
-    String tekst;
+    String tekst;    
     
-    public void nyTreningsOkt(TreningsOkt f){
-        this.nyTreningsokt = f;
-    }
 
     public void setKategori(String kategori) {
         oktNr++;
