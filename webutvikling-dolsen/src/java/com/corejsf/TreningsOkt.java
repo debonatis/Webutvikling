@@ -6,8 +6,6 @@ package com.corejsf;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -16,12 +14,13 @@ import org.hibernate.validator.constraints.Length;
  *
  * @author deb
  */
-@Named
-@SessionScoped
-public class TreningsOkt implements Serializable {
 
-    private int oktNr;
+public final class TreningsOkt implements Serializable {
+    
+    private  static int oktNr;
     private Date dato = new Date();
+
+  
     private @NotNull
     int varighet;
     private @NotNull
@@ -29,7 +28,8 @@ public class TreningsOkt implements Serializable {
     private @NotNull
     @Length(min = 0, max = 30)
     @Id
-    String tekst;
+    String tekst;    
+    
 
     public void setKategori(String kategori) {
         oktNr++;
@@ -48,15 +48,17 @@ public class TreningsOkt implements Serializable {
     }
 
     public TreningsOkt() {
+        nullstill();
     }
 
-//    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori) {
-//        this.oktNr = oktNr;
-//        this.dato = dato;
-//        this.varighet = varighet;
-//        this.kategori = kategori;
-//    }
-    public int getOktNr() {        
+    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori, String tekst) {
+        this.oktNr = oktNr;
+        this.dato = dato;
+        this.varighet = varighet;
+        this.kategori = kategori;
+        this.tekst = tekst;
+    }
+    public static int getOktNr() {        
         return oktNr;
     }
 
@@ -77,7 +79,7 @@ public class TreningsOkt implements Serializable {
         return kategori;
     }
 
-    public void setOktNr(int nyOktNr) {
+    public static void setOktNr(int nyOktNr) {
         oktNr = nyOktNr;
     }
 
@@ -87,5 +89,13 @@ public class TreningsOkt implements Serializable {
    
     public void setVarighet(int oktVarighet) {
         varighet = oktVarighet;
+    }
+    
+    public void nullstill(){
+        oktNr = 0;
+        dato = new Date();
+        kategori = "";
+        tekst = "";
+        varighet = 0;
     }
 }

@@ -9,38 +9,75 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
     <head>
-        <title>IGNORED</title>
+        <title>LOL</title>
     </head>
     <body>
         <ui:composition template="/templates/mainTemplate.xhtml">
+
             <ui:define name="windowTitle">
-                #{texts.overview}
+                #{texts.regTitle}
             </ui:define>
-        <h3>#{texts.welcome}</h3>
-        
-        <ui:define name="content">
-            <h:form>
-                <h:dataTable value="#{oversikt.alleOkter}" var="sessions">
-                             
-                    <h:column>
-                        #{sessions.oktNr}
-                    </h:column>
-                    <h:column>
-                        #{sessions.kategori}
-                    </h:column>
-                    <h:column>
-                        #{sessions.varighet}
-                    </h:column>
-                    <h:column>
-                        #{sessions.kategori}
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-            
-        
-        </ui:define>
+
+            <h3>#{texts.welcome}</h3>
+
+            <ui:define name="content">
+
+
+                <h:form>           
+
+                    <p>
+                        <h:outputText value="#{texts.overview}: "/>
+                        <h:outputText value="#{texts.navn}: "/>
+                        <h:inputText value="#{treningsOktBehandler.navn}"/>
+                    </p>
+
+                    <p>
+                        <h:outputText value="#{texts.overview}"
+                                      rendered="#{not treningsOktBehandler.datafins}"/>
+                    </p>
+                    <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
+
+                        <h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.date}"/>
+                                </f:facet>
+                                <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                        </h:column>                      
+                        <h:column>
+                            #{sessions.treningsikOkt.varighet}
+                        </h:column>
+                        <h:column>
+                            #{sessions.treningsikOkt.kategori}
+                        </h:column>
+                        <h:column>
+                            #{sessions.treningsikOkt.tekst}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{texts.Slett}"/>
+                            </f:facet>
+                            <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
+                        </h:column>
+                    </h:dataTable>
+
+                    <h:commandButton value="#{texts.oppdater}" action="#{treningsOktBehandler.oppdater()}"/>
+                    <h:commandButton value="#{texts.Back}" action="input"/><br/><br/>
+                    <h:outputText value="#{texts.Maned}: "/><br/><br/>
+                    <h:inputText value="#{treningsOktBehandler.maned}"/><br/><br/>
+                    <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.alleOkterEnMnd}"/>
+                </h:form>
+
+
+
+
+            </ui:define>
         </ui:composition>
-        
-        
     </body>
 </html>
