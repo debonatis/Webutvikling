@@ -86,6 +86,7 @@ public class treningsOktBehandler implements Serializable {
         }
         hjelp2 = treningsOkter;
         treningsOkter = hjelp;
+        oppdater();
 
     }
 }
