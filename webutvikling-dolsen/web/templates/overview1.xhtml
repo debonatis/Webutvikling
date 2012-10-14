@@ -51,11 +51,12 @@ and open the template in the editor.
                             <f:facet name="header">
                                 <h:outputText value="#{texts.duration}"/>
                             </f:facet>
-                            <h:selectBooleanCheckbox value="#{sessions.setSkalSlettes(nySkalSlettes)}"/>
+                            <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                         </h:column>
                     </h:dataTable>
                     
                     <h:commandButton value="#{texts.oppdater}" action="#{treningsOktBehandler.oppdater()}"/>
+                    <h:commandButton value="#{texts.Back}" action="input"/>
                 </h:form>
 
 
