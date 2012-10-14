@@ -6,6 +6,10 @@ package com.corejsf;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import javax.faces.model.SelectItem;
+import java.sql.Date;
+
 
 /**
  *
@@ -13,10 +17,29 @@ import java.util.ArrayList;
  */
 public class Oversikt implements Serializable{
     
-    private ArrayList<TreningsOkt> alleOkter = new ArrayList();
+    private String brukernavn;
+    private ArrayList<TreningsOkt> alleOkter = new ArrayList<TreningsOkt>();
     
-    public ArrayList<TreningsOkt> getAlleOkter(){
-        return null;
+    public Oversikt(String brukernavn){
+        this.brukernavn = brukernavn;
     }
+    
+    
+     
+    public String getBrukernavn(){
+        return brukernavn;
+    }
+    public void setBrukernavn(String nyBruker){
+        brukernavn = nyBruker;
+    }
+    
+    public List getAlleOkter(){
+        List liste = new ArrayList();
+        for(TreningsOkt e : alleOkter){
+            liste.add(new SelectItem(e.getOktNr()));
+        }
+        return liste;
+    }
+    
     
 }
