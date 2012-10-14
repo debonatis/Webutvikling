@@ -21,11 +21,11 @@ public class Oversikt implements Serializable{
     private ArrayList<TreningsOkt> alleOkter = new ArrayList();    
     private String bruker;
     
-    public ArrayList<TreningsOkt> getAlleOkter(){
+    public synchronized ArrayList<TreningsOkt> getAlleOkter(){
         return alleOkter;
     }
     
-    public ArrayList<TreningsOkt> getAlleOkterEnMnd(int s){
+    public synchronized ArrayList<TreningsOkt> getAlleOkterEnMnd(int s){
         ArrayList<TreningsOkt> hjelp = new ArrayList<TreningsOkt>();
         for(TreningsOkt e : alleOkter){            
             if((e.getDate().getMonth()) == s){
@@ -38,13 +38,12 @@ public class Oversikt implements Serializable{
         return hjelp;
     }
     
-    public void registrerNyOkt(TreningsOkt e){
-        if(e != null){
+    public synchronized void registrerNyOkt(TreningsOkt e){
         this.alleOkter.add(e);
         }
     }
     
-    public boolean slettOkt(TreningsOkt t){
+    public synchronized boolean slettOkt(TreningsOkt t){
         boolean hjelp2 = false;
          for(TreningsOkt e : alleOkter){            
             if(t.equals(e)){
