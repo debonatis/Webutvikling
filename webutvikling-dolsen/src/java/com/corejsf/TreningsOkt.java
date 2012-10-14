@@ -16,18 +16,11 @@ import org.hibernate.validator.constraints.Length;
  */
 
 public class TreningsOkt implements Serializable {
-
-    private TreningsOkt nyTreningsokt = new TreningsOkt();
+    
     private int oktNr;
     private Date dato = new Date();
 
-    public TreningsOkt getNyTreningsokt() {
-        return nyTreningsokt;
-    }
-
-    public void setNyTreningsokt(TreningsOkt nyTreningsokt) {
-        this.nyTreningsokt = nyTreningsokt;
-    }
+  
     private @NotNull
     int varighet;
     private @NotNull
