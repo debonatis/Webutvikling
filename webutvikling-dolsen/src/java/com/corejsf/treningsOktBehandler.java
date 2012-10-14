@@ -64,7 +64,7 @@ public class treningsOktBehandler implements Serializable {
 
             nyOversikt.registrerNyOkt(nyOkt);
             treningsOkter.add(new OktStatus(nyOkt));
-            nyOkt.nullstill();
+            tempOkt.nullstill();
         }
 
         int indeks = treningsOkter.size() - 1;

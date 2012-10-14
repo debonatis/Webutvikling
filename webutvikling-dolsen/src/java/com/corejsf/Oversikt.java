@@ -42,7 +42,7 @@ public class Oversikt implements Serializable{
     
     
     public synchronized void registrerNyOkt(TreningsOkt e){
-        this.alleOkter.add(e);
+        alleOkter.add(e);
     }
     
     public synchronized boolean slettOkt(TreningsOkt t){
