@@ -21,7 +21,7 @@ import javax.inject.Named;
 public class treningsOktBehandler implements Serializable{
     
  private Oversikt nyOversikt = new Oversikt(); 
- private List<Oktstatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
+ private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
  
  private TreningsOkt tempOkt = new TreningsOkt(); // midlertidig lager for ny transaksjon
 /* EGENSKAP: datafins */ // tabell skal vises kun hvis data fins
@@ -29,7 +29,7 @@ public synchronized boolean getDatafins() {
 return (!treningsOkter.isEmpty());
 }
 /* EGENSKAP: tabelldata */
-public synchronized List<TreningsOkt> getTabelldata() {
+public synchronized List<OktStatus> getTabelldata() {
 return treningsOkter;
 }
 /* EGENSKAP: navn */
@@ -50,32 +50,27 @@ return tempOkt;
 public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
 tempOkt = nyTempOkt;
 }
-/*
-* action-metode som kalles i JSF
-* Metoden behandler registrering av nye transaksjoner og
-* sletting av transaksjoner.
-* (Editering av data som vises i tabellen skjer automatisk)
-*/
+
 public synchronized void oppdater() {
-/* Ny transaksjon er midlertidig lagret i tempTrans */
+
 if (!tempOkt.getKategori().trim().equals("")) {
-/* Lagrer data om ny transaksjon permanent */
+
 TreningsOkt nyOkt = new TreningsOkt(tempOkt.getOktNr(), tempOkt.getDate(), tempOkt.getVarighet(), tempOkt.getKategori(), tempOkt.getKategori());
 
-nyOversikt.registrerNyOkt(nyOkt); // lagrer i problemdomeneobjekt
-treningsOkter.add(nyOkt); // lagrer i pres.-objektet
+nyOversikt.registrerNyOkt(nyOkt); 
+treningsOkter.add(new OktStatus(nyOkt)); 
 nyOkt.nullstill();
 }
-/* Sletter alle transaksjoner som er merket for sletting */
+
 int indeks = treningsOkter.size() - 1;
       
-// while (indeks >= 0) {
-//TreningsOkt ts = treningsOkter.get(indeks);
-//if (ts.getSkalSlettes()) { // sletter data, først i … oversikt.slettTransaksjon(ts.getTransaksjonen());// … problemdomeneobj.
-//tabelldata.remove(indeks); // deretter i presentasjonsobjektet
-//}
-//indeks--;
-// }
+ while (indeks >= 0) {
+OktStatus ts = treningsOkter.get(indeks);
+if (ts.getSkalSlettes()) { 
+treningsOkter.remove(indeks); 
+}
+indeks--;
+ }
 }
  
     
