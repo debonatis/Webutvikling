@@ -37,27 +37,52 @@ and open the template in the editor.
                     </p>
                     <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
 
+
                         <h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="#{texts.date}"/>
-                                </f:facet>
-                                <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
-                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
-                                </h:inputText>
-                                <f:facet name="footer">
-                                    <h:outputText value=""/>
-                                </f:facet>
-                            </h:column>
-                        </h:column>                      
+                            <f:facet name="header">
+                                <h:outputText value="#{texts.date}"/>
+                            </f:facet>
+                            <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
+                                <f:convertDateTime pattern="dd.MM.yyyy"/>
+                            </h:inputText>
+                            <f:facet name="footer">
+                                <h:outputText value=""/>
+                            </f:facet>
+                        </h:column>
+
                         <h:column>
-                            #{sessions.treningsikOkt.varighet}
+                            <f:facet name="header">
+                                <h:outputText value="#{texts.duration}"/>
+                            </f:facet>
+                            <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert">
+
+                            </h:inputText>
+                            <f:facet name="footer">
+                                <h:outputText value=""/>
+                            </f:facet>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{texts.category}"/>
+                            </f:facet>
+                            <h:inputText value="#{sessions.treningsikOkt.kategori}" styleClass="venstrejustert">
+                                <f:convertDateTime pattern="dd.MM.yyyy"/>
+                            </h:inputText>
+                            <f:facet name="footer">
+                                <h:outputText value=""/>
+                            </f:facet>
                         </h:column>
                         <h:column>
-                            #{sessions.treningsikOkt.kategori}
-                        </h:column>
-                        <h:column>
-                            #{sessions.treningsikOkt.tekst}
+                            <f:facet name="header">
+                                <h:outputText value="#{texts.text}"/>
+                            </f:facet>
+                            <h:inputText value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert">
+                                <f:convertDateTime pattern="dd.MM.yyyy"/>
+                            </h:inputText>
+                            <f:facet name="footer">
+                                <h:outputText value=""/>
+                            </f:facet>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
