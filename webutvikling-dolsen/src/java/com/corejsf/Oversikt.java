@@ -26,6 +26,10 @@ public class Oversikt implements Serializable{
         alleOkter.add(new TreningsOkt(1, new Date(2012, 11, 12), 2, "mikken"));
     }
     
+    /**
+     *
+     * @return
+     */
     public synchronized ArrayList<TreningsOkt> getAlleOkter(){
        
         return alleOkter;
