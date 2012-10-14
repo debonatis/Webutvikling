@@ -39,18 +39,7 @@ public class Oversikt implements Serializable{
         return alleOkter;
     }
     
-    public synchronized ArrayList<TreningsOkt> getAlleOkterEnMnd(int s){
-        ArrayList<TreningsOkt> hjelp = new ArrayList<TreningsOkt>();
-        for(TreningsOkt e : alleOkter){            
-            if((e.getDate().getMonth()) == s){
-                 hjelp.add(e);
-            }
-        }
-        if(hjelp.isEmpty()){
-            return null;
-        }
-        return hjelp;
-    }
+    
     
     public synchronized void registrerNyOkt(TreningsOkt e){
         this.alleOkter.add(e);
