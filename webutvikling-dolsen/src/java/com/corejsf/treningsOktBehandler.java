@@ -86,7 +86,7 @@ public class treningsOktBehandler implements Serializable {
         this.Maned = Maned;
     }
 
-    public synchronized void AlleOkterEnMnd() {
+    public synchronized void alleOkterEnMnd() {
 
         for (OktStatus e : treningsOkter) {
             if ((e.getTreningsikOkt().getDate().getMonth()) == Maned) {
