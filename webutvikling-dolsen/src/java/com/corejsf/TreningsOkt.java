@@ -79,7 +79,7 @@ public final class TreningsOkt implements Serializable {
         return kategori;
     }
 
-    public static void setOktNr(int nyOktNr) {
+    public void setOktNr(int nyOktNr) {
         oktNr = nyOktNr;
     }
 
