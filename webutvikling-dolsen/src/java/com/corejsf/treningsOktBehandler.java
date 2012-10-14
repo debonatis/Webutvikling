@@ -54,16 +54,16 @@ public class treningsOktBehandler implements Serializable {
         tempOkt = nyTempOkt;
     }
 
-    public synchronized void oppdater() {
+    public synchronized String oppdater() {
 
         if (!tempOkt.getKategori().trim().equals("")) {
 
             TreningsOkt nyOkt;
-            nyOkt = new TreningsOkt(TreningsOkt.getOktNr(), tempOkt.getDate(),
+            nyOkt = new TreningsOkt(tempOkt.getOktNr(), tempOkt.getDate(),
                     tempOkt.getVarighet(), tempOkt.getKategori(), tempOkt.getKategori());
 
             nyOversikt.registrerNyOkt(nyOkt);
-            treningsOkter.add(new OktStatus(nyOkt));
+            treningsOkter.add(new OktStatus(nyOkt));            
             tempOkt.nullstill();
         }
 
@@ -76,6 +76,7 @@ public class treningsOktBehandler implements Serializable {
             }
             indeks--;
         }
+         return "success";
     }
 
     public int getManed() {

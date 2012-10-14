@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.Length;
 
 public final class TreningsOkt implements Serializable {
     
-    private  static int oktNr;
+    private  int oktNr;
     private Date dato = new Date();
 
   
@@ -28,16 +28,16 @@ public final class TreningsOkt implements Serializable {
     private @NotNull
     @Length(min = 0, max = 30)
     @Id
-    String tekst;    
+    String tekst;
+    
+    
     
 
-    public void setKategori(String kategori) {
-        oktNr++;
+    public void setKategori(String kategori) {        
         this.kategori = kategori;
     }
 
-    public String getTekst() {
-       
+    public String getTekst() {       
         return tekst;
     }
 
@@ -58,7 +58,7 @@ public final class TreningsOkt implements Serializable {
         this.kategori = kategori;
         this.tekst = tekst;
     }
-    public static int getOktNr() {        
+    public int getOktNr() {        
         return oktNr;
     }
 
