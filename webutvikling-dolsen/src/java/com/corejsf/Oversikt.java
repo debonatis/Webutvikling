@@ -6,24 +6,28 @@ package com.corejsf;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
 
 /**
  *
  * @author Martin
  */
 
-@Named
-@SessionScoped
+
 public class Oversikt implements Serializable{
+
+    public String getBruker() {
+        return bruker;
+    }
+
+    public void setBruker(String bruker) {
+        this.bruker = bruker;
+    }
     
     private ArrayList<TreningsOkt> alleOkter = new ArrayList();    
     private String bruker;
     
     public Oversikt(){
-        alleOkter.add(new TreningsOkt(1, new Date(2012, 11, 12), 2, "mikken"));
+        
     }
     
     /**

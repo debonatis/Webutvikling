@@ -6,8 +6,6 @@ package com.corejsf;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -16,8 +14,7 @@ import org.hibernate.validator.constraints.Length;
  *
  * @author deb
  */
-@Named
-@SessionScoped
+
 public class TreningsOkt implements Serializable {
 
     private TreningsOkt nyTreningsokt = new TreningsOkt();
@@ -60,11 +57,12 @@ public class TreningsOkt implements Serializable {
     public TreningsOkt() {
     }
 
-    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori) {
+    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori, String tekst) {
         this.oktNr = oktNr;
         this.dato = dato;
         this.varighet = varighet;
         this.kategori = kategori;
+        this.tekst = tekst;
     }
     public int getOktNr() {        
         return oktNr;
@@ -97,5 +95,13 @@ public class TreningsOkt implements Serializable {
    
     public void setVarighet(int oktVarighet) {
         varighet = oktVarighet;
+    }
+    
+    public void nullstill(){
+        oktNr = 0;
+        dato = new Date();
+        kategori = "";
+        tekst = "";
+        varighet = 0;
     }
 }
