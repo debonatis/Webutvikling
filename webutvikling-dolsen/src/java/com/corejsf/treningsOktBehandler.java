@@ -54,7 +54,7 @@ public class treningsOktBehandler implements Serializable {
         tempOkt = nyTempOkt;
     }
 
-    public synchronized void oppdater() {
+    public synchronized String oppdater() {
 
         if (!tempOkt.getKategori().trim().equals("")) {
 
@@ -76,6 +76,7 @@ public class treningsOktBehandler implements Serializable {
             }
             indeks--;
         }
+         return "success";
     }
 
     public int getManed() {
