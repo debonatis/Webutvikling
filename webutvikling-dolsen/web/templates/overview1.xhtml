@@ -16,31 +16,50 @@ and open the template in the editor.
             <ui:define name="windowTitle">
                 #{texts.overview}
             </ui:define>
-        <h3>#{texts.welcome}</h3>
-        
-        <ui:define name="content">
-            <h:form>
-                <h:dataTable value="#{oversikt.alleOkter}" var="sessions">
-                             
-                    <h:column>
-                        #{sessions.oktNr}
-                    </h:column>
-                    <h:column>
-                        #{sessions.kategori}
-                    </h:column>
-                    <h:column>
-                        #{sessions.varighet}
-                    </h:column>
-                    <h:column>
-                        #{sessions.kategori}
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-            
-        
-        </ui:define>
+            <h3>#{texts.welcome}</h3>
+
+            <ui:define name="content">
+                <h:form>
+
+                    <p>
+                        <h:outputText value="#{texts.date}: "/>
+                        <h:inputText value="#{treningsOktBehandler.navn}"/>
+                    </p>
+
+                    <p>
+                        <h:outputText value="#{texts.overview}"
+                                      rendered="#{not treningsOktBehandler.datafins}"/>
+                    </p>
+                    <h:dataTable value="#{treningsOktBehandler.alleOkter}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
+
+                        <h:column>
+                            #{sessions.oktNr}
+                        </h:column>
+                        <h:column>
+                            #{sessions.kategori}
+                        </h:column>
+                        <h:column>
+                            #{sessions.varighet}
+                        </h:column>
+                        <h:column>
+                            #{sessions.kategori}
+                        </h:column>
+                        <h:column>
+                            #{sessions.tekst}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{texts.duration}"/>
+                            </f:facet>
+                            <h:selectBooleanCheckbox value="#{enTrans.skalSlettes}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+
+
+            </ui:define>
         </ui:composition>
-        
-        
+
+
     </body>
 </html>
