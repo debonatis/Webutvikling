@@ -6,12 +6,16 @@ package com.corejsf;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author Martin
  */
+
+@Named
+@SessionScoped
 public class Oversikt implements Serializable{
     
     private ArrayList<TreningsOkt> alleOkter = new ArrayList();    
