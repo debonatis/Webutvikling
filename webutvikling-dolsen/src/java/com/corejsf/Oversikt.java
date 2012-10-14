@@ -22,8 +22,12 @@ public class Oversikt implements Serializable{
     private ArrayList<TreningsOkt> alleOkter = new ArrayList();    
     private String bruker;
     
-    public synchronized ArrayList<TreningsOkt> getAlleOkter(){
+    public Oversikt(){
         alleOkter.add(new TreningsOkt(1, new Date(2012, 11, 12), 2, "mikken"));
+    }
+    
+    public synchronized ArrayList<TreningsOkt> getAlleOkter(){
+       
         return alleOkter;
     }
     
