@@ -4,19 +4,19 @@
  * Presentasjonsklasse for en transaksjon.
  */
 
-package regnskap;
+package com.corejsf;
 
-public class TransaksjonStatus {
-  private Transaksjon transaksjonen;
+public class OktStatus {
+  private TreningsOkt treningsOkten;
   private boolean skalSlettes;
 
-  public TransaksjonStatus() {
-    transaksjonen = new Transaksjon();
+  public OktStatus() {
+    treningsOkten = new TreningsOkt();
     skalSlettes = false;
   }
 
-  public TransaksjonStatus(Transaksjon transaksjonen) {
-    this.transaksjonen = transaksjonen;
+  public OktStatus(TreningsOkt treningsOkten) {
+    this.treningsOkten = treningsOkten;
     skalSlettes = false;
   }
 
@@ -29,11 +29,11 @@ public class TransaksjonStatus {
   }
 
   /* EGENSKAP: transaksjonen */
-  public Transaksjon getTransaksjonen() {
-    return transaksjonen;
+  public TreningsOkt getTreningsikOkt() {
+    return treningsOkten;
   }
-  public void setTransaksjonen(Transaksjon nyTransaksjon) {
-    transaksjonen = nyTransaksjon;
+  public void setTreningsOkten(TreningsOkt nyTreningsOkt) {
+    treningsOkten = nyTreningsOkt;
   }
 }
 

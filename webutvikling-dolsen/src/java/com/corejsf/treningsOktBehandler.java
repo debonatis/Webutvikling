@@ -21,7 +21,7 @@ import javax.inject.Named;
 public class treningsOktBehandler implements Serializable{
     
  private Oversikt nyOversikt = new Oversikt(); 
- private List<TreningsOkt> treningsOkter = Collections.synchronizedList(new ArrayList<TreningsOkt>());
+ private List<TreningsOktstatus> treningsOkter = Collections.synchronizedList(new ArrayList<TreningsOkt>());
  
  private TreningsOkt tempOkt = new TreningsOkt(); // midlertidig lager for ny transaksjon
 /* EGENSKAP: datafins */ // tabell skal vises kun hvis data fins
