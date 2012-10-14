@@ -6,7 +6,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
     <head>
         <title>IGNORED</title>
     </head>
@@ -18,11 +19,23 @@ and open the template in the editor.
         <h3>#{texts.welcome}</h3>
         
         <ui:define name="content">
-            <h:outputText value="#{texts.category}: #{treningsOkt.kategori}."/><br/><br/>
-            <h:outputText value="#{texts.duration}: #{treningsOkt.varighet}."/><br/><br/>
-            <h:outputText value="#{texts.text}: #{treningsOkt.tekst}."/><br/><br/>
-            <h:outputText value="#{texts.date}: #{treningsOkt.sqlDate}."/><br/><br/>
-            <h:outputText value="#{texts.sessionNumber}: #{treningsOkt.oktNr}."/>
+            <h:form>
+                <h:dataTable value="#{oversikt.alleOkter}" var="sessions">
+                             
+                    <h:column>
+                        #{sessions.oktNr}
+                    </h:column>
+                    <h:column>
+                        #{sessions.kategori}
+                    </h:column>
+                    <h:column>
+                        #{sessions.varighet}
+                    </h:column>
+                    <h:column>
+                        #{sessions.kategori}
+                    </h:column>
+                </h:dataTable>
+            </h:form>
             
         
         </ui:define>

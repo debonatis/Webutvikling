@@ -10,7 +10,7 @@
 body {
     background-color: white;/*#d9e6ed; */
     background-position: 0% 0%;
-    background-image:url("images/background.png");
+    background-image:url(images/background.png);
     background-repeat: repeat-x;
     color: white;
     font-family: "Helvetica", "Arial", "Tahoma", sans-serif;
