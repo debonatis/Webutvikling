@@ -6,6 +6,7 @@ package com.corejsf;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
@@ -22,6 +23,7 @@ public class Oversikt implements Serializable{
     private String bruker;
     
     public synchronized ArrayList<TreningsOkt> getAlleOkter(){
+        alleOkter.add(new TreningsOkt(1, new Date(2012, 11, 12), 2, "mikken"));
         return alleOkter;
     }
     

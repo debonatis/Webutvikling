@@ -50,12 +50,12 @@ public class TreningsOkt implements Serializable {
     public TreningsOkt() {
     }
 
-//    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori) {
-//        this.oktNr = oktNr;
-//        this.dato = dato;
-//        this.varighet = varighet;
-//        this.kategori = kategori;
-//    }
+    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori) {
+        this.oktNr = oktNr;
+        this.dato = dato;
+        this.varighet = varighet;
+        this.kategori = kategori;
+    }
     public int getOktNr() {        
         return oktNr;
     }
