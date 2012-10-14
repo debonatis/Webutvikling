@@ -24,6 +24,7 @@ public class treningsOktBehandler implements Serializable {
     List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
     List<OktStatus> hjelp2 = Collections.synchronizedList(new ArrayList<OktStatus>());
     private TreningsOkt tempOkt = new TreningsOkt();
+    private int 
 
     public synchronized boolean getDatafins() {
         return (!treningsOkter.isEmpty());
