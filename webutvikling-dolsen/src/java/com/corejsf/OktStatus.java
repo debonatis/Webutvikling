@@ -1,9 +1,7 @@
 /*
- * TransaksjonStatus.java
- *
- * Presentasjonsklasse for en transaksjon.
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
-
 package com.corejsf;
 
 public class OktStatus {
@@ -20,7 +18,7 @@ public class OktStatus {
     skalSlettes = false;
   }
 
-  /* EGENSKAP: skalSlettes */
+  
   public synchronized boolean getSkalSlettes() {
     return skalSlettes;
   }
@@ -28,7 +26,7 @@ public class OktStatus {
     skalSlettes = nySkalSlettes;
   }
 
-  /* EGENSKAP: transaksjonen */
+  
   public TreningsOkt getTreningsikOkt() {
     return treningsOkten;
   }
@@ -36,6 +34,7 @@ public class OktStatus {
     treningsOkten = nyTreningsOkt;
   }
 }
+
 
 
 
