@@ -20,6 +20,7 @@ import org.hibernate.validator.constraints.Length;
 @SessionScoped
 public class TreningsOkt implements Serializable {
 
+    private TreningsOkt nyTreningsokt = new TreningsOkt();
     private int oktNr;
     private Date dato = new Date();
     private @NotNull
@@ -30,6 +31,10 @@ public class TreningsOkt implements Serializable {
     @Length(min = 0, max = 30)
     @Id
     String tekst;
+    
+    public void nyTreningsOkt(TreningsOkt f){
+        this.nyTreningsokt = f;
+    }
 
     public void setKategori(String kategori) {
         oktNr++;
