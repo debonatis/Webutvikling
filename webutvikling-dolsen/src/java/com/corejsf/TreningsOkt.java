@@ -77,11 +77,7 @@ public final class TreningsOkt implements Serializable {
    
     public String getKategori() {
         return kategori;
-    }
-
-    public void setOktNr(int nyOktNr) {
-        oktNr = nyOktNr;
-    }
+    }  
 
     public void setDate(Date nyDato) {
         dato = nyDato;
