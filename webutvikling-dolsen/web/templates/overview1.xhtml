@@ -27,16 +27,7 @@ and open the template in the editor.
                                       rendered="#{not treningsOktBehandler.datafins}"/>
                     </p>
                     <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{texts.sessionNumber}"/>
-                            </f:facet><div id="padding">
-                                <h:outputText value="#{sessions.treningsikOkt.oktNr}" styleClass="venstrejustert"/>                              
-                            </div>
-                            <f:facet name="footer">
-                                <h:outputText value=""/>
-                            </f:facet>
-                        </h:column>
+
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{texts.date}"/>
