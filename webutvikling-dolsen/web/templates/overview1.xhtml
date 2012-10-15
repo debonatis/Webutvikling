@@ -74,10 +74,10 @@ and open the template in the editor.
                             <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                         </h:column>
                     </h:dataTable>
-                    
-                    <h:outputText value="#{treningsOktBehandler.antOkter}"/><br/>
-                    <h:outputText value="#{treningsOktBehandler.gjennomsnitt}"/><br/>
-                    
+                    <p class ="buttonRightOutput">
+                    <h:outputText value="#{treningsOktBehandler.antOkter}" /><br/>
+                    <h:outputText value="#{treningsOktBehandler.gjennomsnitt}" /><br/>
+                    </p>
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}"/>
                     <h:commandButton value="#{texts.Back}" action="input"/><br/><br/>                 
                 </h:form>
