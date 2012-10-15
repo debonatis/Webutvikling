@@ -76,9 +76,10 @@ public class treningsOktBehandler implements Serializable {
     public synchronized String oppdater() {
 
         if (!tempOkt.getKategori().trim().equals("")) {
-
+            int mick = 0;
+            mick++;
             TreningsOkt nyOkt;
-            nyOkt = new TreningsOkt(tempOkt.getOktNr(), tempOkt.getDate(),
+            nyOkt = new TreningsOkt((tempOkt.getOktNr()+mick), tempOkt.getDate(),
                     tempOkt.getVarighet(), tempOkt.getKategori(), tempOkt.getTekst());
 
             nyOversikt.registrerNyOkt(nyOkt);
