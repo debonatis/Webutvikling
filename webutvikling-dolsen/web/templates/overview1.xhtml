@@ -29,6 +29,16 @@ and open the template in the editor.
                     <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
                         <h:column>
                             <f:facet name="header">
+                                <h:outputText value="#{texts.sessionNumber}"/>
+                            </f:facet>
+                            <h:inputText value="#{sessions.treningsikOkt.oktNr}" styleClass="venstrejustert">                                
+                            </h:inputText>
+                            <f:facet name="footer">
+                                <h:outputText value=""/>
+                            </f:facet>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{texts.date}"/>
                             </f:facet>
                             <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
@@ -79,7 +89,7 @@ and open the template in the editor.
                     <h:outputText value="#{texts.average}" rendered="#{treningsOktBehandler.datafins}"/>
                     <h:outputText value="#{treningsOktBehandler.gjennomsnitt}" rendered="#{treningsOktBehandler.datafins}"/><br/>
                     <br/>
-                    
+
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}"/>
                     <h:commandButton value="#{texts.Back}" action="input"/><br/>
                     <h:inputText value="#{treningsOktBehandler.maned}" styleClass="venstrejustert"></h:inputText>
