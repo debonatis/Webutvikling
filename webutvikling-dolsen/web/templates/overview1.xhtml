@@ -49,9 +49,15 @@ and open the template in the editor.
                                 <h:outputText value=""/>
                             </f:facet>
                         </h:column>
-
-                        
-
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{texts.duration}"/>
+                            </f:facet>
+                        <f:facet name="footer">
+                            <h:outputText value=""/>
+                        </f:facet>
+                        <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
+                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{texts.category}"/>
