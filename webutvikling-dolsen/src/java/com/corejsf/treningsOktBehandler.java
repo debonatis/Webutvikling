@@ -103,7 +103,7 @@ public class treningsOktBehandler implements Serializable {
     public synchronized void alleOkterEnMnd() {
 
         for (OktStatus e : treningsOkter) {
-            if ((e.getTreningsikOkt().getDate().getMonth()) == maned) {
+            if ((e.getTreningsikOkt().getDate().getMonth()) == (maned-1)) {
                 hjelp.add(e);
             }
         }
