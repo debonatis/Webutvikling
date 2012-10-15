@@ -79,7 +79,11 @@ public class treningsOktBehandler implements Serializable {
         while (indeks >= 0) {
             OktStatus ts = treningsOkter.get(indeks);
             if (ts.getSkalSlettes()) {
-                nyOversikt.getAlleOkter().remove(indeks);
+               for(TreningsOkt e :nyOversikt.getAlleOkter()) {
+                   if(e.equals(ts.getTreningsikOkt())) {
+                       nyOversikt.slettOkt(e);
+                   }
+               }
                 treningsOkter.remove(indeks);
                 
             }
@@ -88,11 +92,11 @@ public class treningsOktBehandler implements Serializable {
          return "success";
     }
 
-    public int getManed() {
+    public synchronized int getManed() {
         return Maned;
     }
 
-    public void setManed(int Maned) {
+    public synchronized void setManed(int Maned) {
         this.Maned = Maned;
     }
 
