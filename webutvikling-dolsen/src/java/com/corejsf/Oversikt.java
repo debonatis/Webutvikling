@@ -19,9 +19,7 @@ public class Oversikt implements Serializable{
         return bruker;
     }
 
-    public void setBruker(String bruker) {
-        this.bruker = bruker;
-    }
+    
     
     private ArrayList<TreningsOkt> alleOkter = new ArrayList();    
     private String bruker;
@@ -62,7 +60,5 @@ public class Oversikt implements Serializable{
     public String getBrukernavn(){
         return bruker;
     }
-    public void setBrukernavn(String nyBruker){
-        bruker = nyBruker;
-    }
+    
 }
