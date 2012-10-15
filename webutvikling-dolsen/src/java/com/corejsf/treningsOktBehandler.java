@@ -25,6 +25,7 @@ public class treningsOktBehandler implements Serializable {
     List<OktStatus> hjelp2 = Collections.synchronizedList(new ArrayList<OktStatus>());
     private TreningsOkt tempOkt = new TreningsOkt();
     private int Maned = 0;
+    
 
     public synchronized boolean getDatafins() {
         return (!treningsOkter.isEmpty());
@@ -36,6 +37,12 @@ public class treningsOktBehandler implements Serializable {
             return treningsOkter;
         }
         return treningsOkter;
+    }
+    public synchronized int getAntOkter(){
+        return nyOversikt.getAntOkter();
+    }
+    public synchronized int getGjennomsnitt(){
+        return nyOversikt.getGjennomsnitt();
     }
 
     public synchronized String getNavn() {
@@ -72,7 +79,9 @@ public class treningsOktBehandler implements Serializable {
         while (indeks >= 0) {
             OktStatus ts = treningsOkter.get(indeks);
             if (ts.getSkalSlettes()) {
+                nyOversikt.getAlleOkter().remove(indeks);
                 treningsOkter.remove(indeks);
+                
             }
             indeks--;
         }

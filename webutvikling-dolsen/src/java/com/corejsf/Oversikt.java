@@ -39,7 +39,22 @@ public class Oversikt implements Serializable{
         return alleOkter;
     }
     
-    
+    public synchronized int getAntOkter(){
+        return alleOkter.size();
+    }
+    public synchronized int getGjennomsnitt(){
+        int max = 0;
+        int indeks = 0;
+        for(TreningsOkt t: alleOkter){
+            max +=t.getVarighet();
+            indeks++;
+        }
+        if(indeks == 0){
+            indeks = 1;
+        
+        }
+        return max/indeks;
+    }
     
     public synchronized void registrerNyOkt(TreningsOkt e){
         alleOkter.add(e);

@@ -9,34 +9,24 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
     <head>
-        <title>LOL</title>
+        <title>IGNORED</title>
     </head>
     <body>
         <ui:composition template="/templates/mainTemplate.xhtml">
-
             <ui:define name="windowTitle">
                 #{texts.regTitle}
             </ui:define>
-
             <h3>#{texts.welcome}</h3>
-
             <ui:define name="content">
-
-
                 <h:form>           
-
                     <p>
                         <h:outputText value="#{texts.overview}: "/>
-                        
                     </p>
-
                     <p>
                         <h:outputText value="#{texts.noData}"
                                       rendered="#{not treningsOktBehandler.datafins}"/>
                     </p>
                     <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
-
-
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{texts.date}"/>
@@ -52,18 +42,16 @@ and open the template in the editor.
                             <f:facet name="header">
                                 <h:outputText value="#{texts.duration}"/>
                             </f:facet>
-                        <f:facet name="footer">
-                            <h:outputText value=""/>
-                        </f:facet>
-                        <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
-                         </h:column>
+                            <f:facet name="footer">
+                                <h:outputText value=""/>
+                            </f:facet>
+                            <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
+                        </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{texts.category}"/>
                             </f:facet>
-                            <h:inputText value="#{sessions.treningsikOkt.kategori}" styleClass="venstrejustert">
-                                
-                            </h:inputText>
+                            <h:inputText value="#{sessions.treningsikOkt.kategori}" styleClass="venstrejustert"/>                              
                             <f:facet name="footer">
                                 <h:outputText value=""/>
                             </f:facet>
@@ -73,7 +61,7 @@ and open the template in the editor.
                                 <h:outputText value="#{texts.text}"/>
                             </f:facet>
                             <h:inputText value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert">
-                                
+
                             </h:inputText>
                             <f:facet name="footer">
                                 <h:outputText value=""/>
@@ -86,7 +74,10 @@ and open the template in the editor.
                             <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                         </h:column>
                     </h:dataTable>
-
+                    
+                    <h:outputText value="#{treningsOktBehandler.antOkter}"/><br/>
+                    <h:outputText value="#{treningsOktBehandler.gjennomsnitt}"/><br/>
+                    
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}"/>
                     <h:commandButton value="#{texts.Back}" action="input"/><br/><br/>                 
                 </h:form>
