@@ -59,11 +59,7 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized String getNavn() {
         return nyOversikt.getBruker();
-    }
-
-    public synchronized void setNavn(String nyttBrukernavn) {
-        nyOversikt.setBruker(nyttBrukernavn);
-    }
+    }  
 
     public synchronized TreningsOkt getTempOkt() {
         return tempOkt;
