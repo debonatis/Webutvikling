@@ -70,4 +70,14 @@ public class Oversikt implements Serializable{
          return hjelp2;
     }
     
+    public int antallOkter(){
+        return alleOkter.size();
+    }
+    
+    public String getBrukernavn(){
+        return bruker;
+    }
+    public void setBrukernavn(String nyBruker){
+        bruker = nyBruker;
+    }
 }
