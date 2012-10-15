@@ -26,8 +26,8 @@ public class treningsOktBehandler implements Serializable {
     List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
     List<OktStatus> hjelp2 = Collections.synchronizedList(new ArrayList<OktStatus>());
     private TreningsOkt tempOkt = new TreningsOkt();
-    private @NotNull int maned = 0;
-    
+    private @NotNull
+    int maned = 0;
 
     public synchronized boolean getDatafins() {
         return (!treningsOkter.isEmpty());
@@ -40,26 +40,28 @@ public class treningsOktBehandler implements Serializable {
         }
         return treningsOkter;
     }
-    public synchronized int getAntOkter(){
+
+    public synchronized int getAntOkter() {
         return treningsOkter.size();
     }
-    public synchronized int getGjennomsnitt(){
+
+    public synchronized int getGjennomsnitt() {
         int max = 0;
         int indeks = 0;
-        for(OktStatus t: treningsOkter){
-            max +=t.getTreningsikOkt().getVarighet();
+        for (OktStatus t : treningsOkter) {
+            max += t.getTreningsikOkt().getVarighet();
             indeks++;
         }
-        if(indeks == 0){
+        if (indeks == 0) {
             indeks = 1;
-        
+
         }
-        return max/indeks;
-    } 
+        return max / indeks;
+    }
 
     public synchronized String getNavn() {
         return nyOversikt.getBruker();
-    }  
+    }
 
     public synchronized TreningsOkt getTempOkt() {
         return tempOkt;
@@ -75,11 +77,11 @@ public class treningsOktBehandler implements Serializable {
             int mick = 0;
             mick++;
             TreningsOkt nyOkt;
-            nyOkt = new TreningsOkt((tempOkt.getOktNr()+mick), tempOkt.getDate(),
+            nyOkt = new TreningsOkt((tempOkt.getOktNr() + mick), tempOkt.getDate(),
                     tempOkt.getVarighet(), tempOkt.getKategori(), tempOkt.getTekst());
 
             nyOversikt.registrerNyOkt(nyOkt);
-            treningsOkter.add(new OktStatus(nyOkt));            
+            treningsOkter.add(new OktStatus(nyOkt));
             tempOkt.nullstill();
         }
 
@@ -88,17 +90,17 @@ public class treningsOktBehandler implements Serializable {
         while (indeks >= 0) {
             OktStatus ts = treningsOkter.get(indeks);
             if (ts.getSkalSlettes()) {
-               for(TreningsOkt e :nyOversikt.getAlleOkter()) {
-                   if(e.equals(ts.getTreningsikOkt())) {
-                       nyOversikt.slettOkt(e);
-                   }
-               }
+                for (TreningsOkt e : nyOversikt.getAlleOkter()) {
+                    if (e.equals(ts.getTreningsikOkt())) {
+                        nyOversikt.slettOkt(e);
+                    }
+                }
                 treningsOkter.remove(indeks);
-                
+
             }
             indeks--;
         }
-         return "success";
+        return "success";
     }
 
     public synchronized int getManed() {
@@ -110,24 +112,21 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized void alleOkterEnMnd() {
-        if(!(maned == 0)){
-            
-        
-
-        for (OktStatus e : treningsOkter) {
-            if ((e.getTreningsikOkt().getDate().getMonth()) == (maned-1)) {
-                hjelp.add(e);
-//                for(TreningsOkt f : nyOversikt.getAlleOkter()){
-//                    if(f.getDate().getMonth() == (maned -1)){
-//                        nyOversikt.slettOkt(f);
-//                    }
-//                }
+        if (!(maned == 0)) {
+            for (OktStatus e : treningsOkter) {
+                if ((e.getTreningsikOkt().getDate().getMonth()) == (maned - 1)) {
+                    hjelp.add(e);
+                for(TreningsOkt f : nyOversikt.getAlleOkter()){
+                    if(f.getDate().getMonth() == (maned -1)){
+                        nyOversikt.slettOkt(f);
+                    }
+                }
+                }
             }
-        }
-        hjelp2 = treningsOkter;
-        treningsOkter = hjelp;
-        oppdater();
+            hjelp2 = treningsOkter;
+            treningsOkter = hjelp;
+            oppdater();
 
-    }
+        }
     }
 }
