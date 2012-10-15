@@ -4,12 +4,14 @@
  */
 package com.corejsf;
 
+import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -24,7 +26,7 @@ public class treningsOktBehandler implements Serializable {
     List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
     List<OktStatus> hjelp2 = Collections.synchronizedList(new ArrayList<OktStatus>());
     private TreningsOkt tempOkt = new TreningsOkt();
-    private int maned = 0;
+    private @NotNull int maned = 0;
     
 
     public synchronized boolean getDatafins() {
@@ -39,11 +41,21 @@ public class treningsOktBehandler implements Serializable {
         return treningsOkter;
     }
     public synchronized int getAntOkter(){
-        return nyOversikt.getAntOkter();
+        return treningsOkter.size();
     }
     public synchronized int getGjennomsnitt(){
-        return nyOversikt.getGjennomsnitt();
-    }
+        int max = 0;
+        int indeks = 0;
+        for(OktStatus t: treningsOkter){
+            max +=t.getTreningsikOkt().getVarighet();
+            indeks++;
+        }
+        if(indeks == 0){
+            indeks = 1;
+        
+        }
+        return max/indeks;
+    } 
 
     public synchronized String getNavn() {
         return nyOversikt.getBruker();
@@ -101,15 +113,24 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized void alleOkterEnMnd() {
+        if(!(maned == 0)){
+            
+        
 
         for (OktStatus e : treningsOkter) {
             if ((e.getTreningsikOkt().getDate().getMonth()) == (maned-1)) {
                 hjelp.add(e);
+//                for(TreningsOkt f : nyOversikt.getAlleOkter()){
+//                    if(f.getDate().getMonth() == (maned -1)){
+//                        nyOversikt.slettOkt(f);
+//                    }
+//                }
             }
         }
         hjelp2 = treningsOkter;
         treningsOkter = hjelp;
         oppdater();
 
+    }
     }
 }

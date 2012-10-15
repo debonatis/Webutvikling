@@ -75,8 +75,8 @@ and open the template in the editor.
                         </h:column>
                     </h:dataTable>
                     
-                    <h:outputText value="#{treningsOktBehandler.antOkter}"/><br/>
-                    <h:outputText value="#{treningsOktBehandler.gjennomsnitt}"/><br/>
+                    <h:outputText value="#{treningsOktBehandler.antOkter}" rendered="#{treningsOktBehandler.datafins}"/><br/>
+                    <h:outputText value="#{treningsOktBehandler.gjennomsnitt}" rendered="#{treningsOktBehandler.datafins}"/><br/>
                     <h:inputText value="#{treningsOktBehandler.maned}" styleClass="venstrejustert"></h:inputText><br/>
                     
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}"/>
