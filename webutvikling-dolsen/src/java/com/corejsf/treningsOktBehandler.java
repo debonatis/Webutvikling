@@ -24,7 +24,7 @@ public class treningsOktBehandler implements Serializable {
     List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
     List<OktStatus> hjelp2 = Collections.synchronizedList(new ArrayList<OktStatus>());
     private TreningsOkt tempOkt = new TreningsOkt();
-    private int Maned = 0;
+    private int maned = 0;
     
 
     public synchronized boolean getDatafins() {
@@ -93,17 +93,17 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized int getManed() {
-        return Maned;
+        return maned;
     }
 
     public synchronized void setManed(int Maned) {
-        this.Maned = Maned;
+        this.maned = Maned;
     }
 
     public synchronized void alleOkterEnMnd() {
 
         for (OktStatus e : treningsOkter) {
-            if ((e.getTreningsikOkt().getDate().getMonth()) == Maned) {
+            if ((e.getTreningsikOkt().getDate().getMonth()) == maned) {
                 hjelp.add(e);
             }
         }

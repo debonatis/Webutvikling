@@ -77,9 +77,11 @@ and open the template in the editor.
                     
                     <h:outputText value="#{treningsOktBehandler.antOkter}"/><br/>
                     <h:outputText value="#{treningsOktBehandler.gjennomsnitt}"/><br/>
+                    <h:inputText value="#{treningsOktBehandler.maned}" styleClass="venstrejustert"></h:inputText>
                     
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}"/>
-                    <h:commandButton value="#{texts.Back}" action="input"/><br/><br/>                 
+                    <h:commandButton value="#{texts.Back}" action="input"/><br/><br/>
+                    <h:commandButton value="#{texts.maned}" action="#{treningsOktBehandler.alleOkterEnMnd()}"/>
                 </h:form>
 
 
