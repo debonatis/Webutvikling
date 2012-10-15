@@ -74,14 +74,16 @@ and open the template in the editor.
                             <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                         </h:column>
                     </h:dataTable>
-                    
+                    <h:outputText value="#{texts.}" rendered="#{treningsOktBehandler.datafins}"/>
                     <h:outputText value="#{treningsOktBehandler.antOkter}" rendered="#{treningsOktBehandler.datafins}"/><br/>
+                    <h:outputText value="#{treningsOktBehandler.antOkter}" rendered="#{treningsOktBehandler.datafins}"/>
                     <h:outputText value="#{treningsOktBehandler.gjennomsnitt}" rendered="#{treningsOktBehandler.datafins}"/><br/>
-                    <h:inputText value="#{treningsOktBehandler.maned}" styleClass="venstrejustert"></h:inputText><br/>
+                    <br/>
                     
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}"/>
-                    <h:commandButton value="#{texts.Back}" action="input"/>
-                    <h:commandButton value="#{texts.maned}" action="#{treningsOktBehandler.alleOkterEnMnd()}"/>
+                    <h:commandButton value="#{texts.Back}" action="input"/><br/>
+                    <h:inputText value="#{treningsOktBehandler.maned}" styleClass="venstrejustert"></h:inputText>
+                    <h:commandButton value="#{texts.monthsort}" action="#{treningsOktBehandler.alleOkterEnMnd()}"/>
                 </h:form>
 
 
