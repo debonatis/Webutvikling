@@ -7,6 +7,7 @@ package com.corejsf;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -54,7 +55,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized List<OktStatus> getTabelldata() {
-        if (!hjelp2.isEmpty()) {
+        if (!hjelp2.isEmpty()) {            
             treningsOkter = hjelp2;
             return treningsOkter;
         }
@@ -95,7 +96,7 @@ public class treningsOktBehandler implements Serializable {
         
         nyOkt = false;  
        
-
+       try{
         if (!(tempOkt.getVarighet() == 0)) {
             mick++;
             TreningsOkt nyOkt;
@@ -131,6 +132,9 @@ public class treningsOktBehandler implements Serializable {
             hjelp2 = treningsOkter;
             treningsOkter = hjelp;           
         }
+       } catch (ConcurrentModificationException e) {
+           System.out.println("e");
+       }
         return "success";
     } 
 
