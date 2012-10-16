@@ -21,13 +21,11 @@ import javax.validation.constraints.NotNull;
 public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTemptreningsOkter() {
-//        int i =0;
-//        tempOkt.nullstill();
-//        temptreningsOkter.add(new OktStatus(tempOkt));
-//        while(temptreningsOkter.size() <= 1){            
-//            treningsOkter.remove(i);
-//            i++;
-//        }
+        
+        temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
+        
+        tempOkt.nullstill();
+        temptreningsOkter.add(new OktStatus(tempOkt));
                 
         return temptreningsOkter;
     }
