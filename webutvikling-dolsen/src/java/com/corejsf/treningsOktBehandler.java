@@ -54,10 +54,12 @@ public class treningsOktBehandler implements Serializable {
         return (!treningsOkter.isEmpty());
     }
 
-    public synchronized List<OktStatus> getTabelldata() {
-        if (!hjelp2.isEmpty()) {            
-            treningsOkter = hjelp2;
-            return treningsOkter;
+    public synchronized List<OktStatus> getTabelldata() throws InterruptedException{
+        synchronized (treningsOkter){
+            if (!hjelp2.isEmpty()) {             
+            treningsOkter.wait();
+            return treningsOkter = hjelp2;
+        }
         }
         return treningsOkter;
     }
@@ -97,6 +99,7 @@ public class treningsOktBehandler implements Serializable {
         nyOkt = false;  
        
        try{
+           synchronized (treningsOkter){
         if (!(tempOkt.getVarighet() == 0)) {
             mick++;
             TreningsOkt nyOkt;
@@ -132,6 +135,8 @@ public class treningsOktBehandler implements Serializable {
             hjelp2 = treningsOkter;
             treningsOkter = hjelp;           
         }
+        treningsOkter.notify();
+           }
        } catch (ConcurrentModificationException e) {
            System.out.println("e");
        }
