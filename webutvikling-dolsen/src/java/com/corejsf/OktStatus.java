@@ -4,7 +4,7 @@
  */
 package com.corejsf;
 
-public class OktStatus {
+ public class OktStatus {
   private TreningsOkt treningsOkten;
   private boolean skalSlettes;
 
@@ -27,10 +27,10 @@ public class OktStatus {
   }
 
   
-  public TreningsOkt getTreningsikOkt() {
+  public synchronized TreningsOkt getTreningsikOkt() {
     return treningsOkten;
   }
-  public void setTreningsOkten(TreningsOkt nyTreningsOkt) {
+  public synchronized void setTreningsOkten(TreningsOkt nyTreningsOkt) {
     treningsOkten = nyTreningsOkt;
   }
 }
