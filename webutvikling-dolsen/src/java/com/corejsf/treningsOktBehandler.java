@@ -51,6 +51,9 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized boolean getDatafins() {
+        if((getManed() >= 1)){
+            return (!hjelp.isEmpty());
+        }
         return (!treningsOkter.isEmpty());
     }
 
