@@ -77,8 +77,8 @@ and open the template in the editor.
                     </h:dataTable>
                     <p class ="buttonRightOutput">
                         
-                        <h:outputText value="#{texts.totalSessions}  :#{treningsOktBehandler.antOkter}" rendered="#{treningsOktBehandler.datafins}"/><br/>
-                        <h:outputText value="#{texts.average}  :#{treningsOktBehandler.gjennomsnitt}" rendered="#{treningsOktBehandler.datafins}" /><br/>
+                        <h:outputText value="#{texts.totalSessions}  #{treningsOktBehandler.antOkter}" rendered="#{treningsOktBehandler.datafins}"/><br/>
+                        <h:outputText value="#{texts.average}  #{treningsOktBehandler.gjennomsnitt}" rendered="#{treningsOktBehandler.datafins}" /><br/>
                     </p>
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}"/>
                     <h:commandButton value="#{texts.Back}" action="input"/><br/>
