@@ -57,11 +57,9 @@ public class treningsOktBehandler implements Serializable {
     public synchronized List<OktStatus> getTabelldata() {
         Boolean sjekk = false;
         if ((getManed() >= 1)) {
-            sjekk = getPaManed(getManed());
-            return hjelp;
+            return getPaManed(getManed());           
         } else if ((getManed() == 0)){
-            return treningsOkter;
-        
+            return treningsOkter;      
        
     } 
          return treningsOkter;
@@ -93,7 +91,7 @@ public class treningsOktBehandler implements Serializable {
         return tempOkt;
     }
 
-    public synchronized boolean getPaManed(int m) {
+    public synchronized List<OktStatus> getPaManed(int m) {
         try {
             hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
             for (OktStatus k : treningsOkter) {
@@ -104,7 +102,7 @@ public class treningsOktBehandler implements Serializable {
         } catch (ConcurrentModificationException e) {
             getPaManed(m);
         }
-        return true;
+        return hjelp;
     }
 
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
@@ -145,9 +143,6 @@ public class treningsOktBehandler implements Serializable {
             System.out.println(e);
             oppdater();
         }
-
-
-
         return "success";
     }
 
