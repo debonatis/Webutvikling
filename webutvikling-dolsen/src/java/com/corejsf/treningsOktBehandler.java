@@ -65,7 +65,7 @@ public class treningsOktBehandler implements Serializable {
 
         if (!hjelp.isEmpty()) {
             return hjelp;             
-        } else if(isManedIkkeEksi()){
+        } if(isManedIkkeEksi()){
             setManedIkkeEksi(false);
             return hjelp;
         }
@@ -99,10 +99,10 @@ public class treningsOktBehandler implements Serializable {
     }
     public synchronized void getPaManed(int m){
         
-        hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
+        hjelp = treningsOkter;
         for(OktStatus k :treningsOkter){
-            if(k.getTreningsikOkt().getDate().getMonth() == (m-1)){
-                hjelp.add(k);
+            if(!(k.getTreningsikOkt().getDate().getMonth() == (m-1))){
+                hjelp.remove(k);
             } 
         } 
         if(hjelp.isEmpty()){
