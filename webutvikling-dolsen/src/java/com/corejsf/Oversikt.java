@@ -43,8 +43,7 @@ public class Oversikt implements Serializable{
         alleOkter.add(e);
     }
     
-    public synchronized void slettOkt(TreningsOkt t){
-        boolean hjelp2 = false;
+    public synchronized void slettOkt(TreningsOkt t){        
          for(TreningsOkt e : alleOkter){            
             if(t.equals(e)){
               alleOkter.remove(e);
