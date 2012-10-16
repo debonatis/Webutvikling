@@ -28,6 +28,15 @@ public class treningsOktBehandler implements Serializable {
     private @NotNull
     int maned = 0;
     private int mick = 0;
+    private boolean nyOkt = false;
+
+    public boolean isNyOkt() {
+        return nyOkt;
+    }
+
+    public void setNyOkt(boolean nyOkt) {
+        this.nyOkt = nyOkt;
+    }
 
     public synchronized boolean getDatafins() {
         return (!treningsOkter.isEmpty());
@@ -72,6 +81,8 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized String oppdater() {
+        
+        nyOkt = false;
 
         if (!tempOkt.getKategori().trim().equals("")) {
 
