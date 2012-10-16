@@ -133,7 +133,10 @@ public class treningsOktBehandler implements Serializable {
         }
         return "success";
     } 
-    
+
+    public int getManed() {
+        return maned;
+    }
 
     
 
