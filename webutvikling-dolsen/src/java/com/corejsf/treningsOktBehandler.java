@@ -22,11 +22,13 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTemptreningsOkter() {
         int i =0;
-        if(i == 0){
-            temptreningsOkter.add(new OktStatus(tempOkt));
+        tempOkt.nullstill();
+        temptreningsOkter.add(new OktStatus(tempOkt));
+        while(temptreningsOkter.size() <= 1){            
+            treningsOkter.remove(i);
             i++;
         }
-                tempOkt.nullstill();
+                
         return temptreningsOkter;
     }
 
