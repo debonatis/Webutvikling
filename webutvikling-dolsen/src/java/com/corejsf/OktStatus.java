@@ -22,7 +22,7 @@ public class OktStatus {
   public synchronized boolean getSkalSlettes() {
     return skalSlettes;
   }
-  public void setSkalSlettes(boolean nySkalSlettes) {
+  public synchronized void setSkalSlettes(boolean nySkalSlettes) {
     skalSlettes = nySkalSlettes;
   }
 

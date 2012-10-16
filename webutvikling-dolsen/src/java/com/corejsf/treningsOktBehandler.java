@@ -100,7 +100,7 @@ public class treningsOktBehandler implements Serializable {
             indeks--;
         }
 
-        if (!(getManed() == 13)) {
+        if (!(getManed() == 0)) {
             for (OktStatus e : treningsOkter) {
                 if ((e.getTreningsikOkt().getDate().getMonth()) == (getManed() - 1)) {
                     hjelp.add(e);
