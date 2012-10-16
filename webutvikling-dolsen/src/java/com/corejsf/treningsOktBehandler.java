@@ -22,15 +22,14 @@ import javax.validation.constraints.NotNull;
 public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTemptreningsOkter() {
-        
+
         temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
-        
+
         tempOkt.nullstill();
         temptreningsOkter.add(new OktStatus(tempOkt));
-                
-        return temptreningsOkter;
-    }   
 
+        return temptreningsOkter;
+    }
     private Oversikt nyOversikt = new Oversikt();
     private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
@@ -54,13 +53,13 @@ public class treningsOktBehandler implements Serializable {
         return (!treningsOkter.isEmpty());
     }
 
-    public synchronized List<OktStatus> getTabelldata() throws InterruptedException{
-       
-            if (!hjelp2.isEmpty()) {             
-            
+    public synchronized List<OktStatus> getTabelldata() throws InterruptedException {
+
+        if (!hjelp2.isEmpty()) {
+
             return treningsOkter = hjelp2;
         }
-        
+
         return treningsOkter;
     }
 
@@ -95,36 +94,39 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized String oppdater() {
-        
-        nyOkt = false;  
-       
-       try{           
-        if (!(tempOkt.getVarighet() == 0)) {
-            mick++;
-            TreningsOkt nyOkt;
-            nyOkt = new TreningsOkt((tempOkt.getOktNr() + mick), tempOkt.getDate(),
-                    tempOkt.getVarighet(), tempOkt.getKategori(), tempOkt.getTekst());
 
-            nyOversikt.registrerNyOkt(nyOkt);
-            treningsOkter.add(new OktStatus(nyOkt));
-            tempOkt.nullstill();
-        }
-        int indeks = treningsOkter.size() - 1;
+        nyOkt = false;
 
-        while (indeks >= 0) {
-            OktStatus ts = treningsOkter.get(indeks);
-            if (ts.getSkalSlettes()) {
-                for (TreningsOkt e : nyOversikt.getAlleOkter()) {
-                    if (e.equals(ts.getTreningsikOkt())) {
-                        nyOversikt.slettOkt(e);
-                    }
-                }
-                treningsOkter.remove(indeks);
+        try {
+            if (!(tempOkt.getVarighet() == 0)) {
+                mick++;
+                TreningsOkt nyOkt;
+                nyOkt = new TreningsOkt((tempOkt.getOktNr() + mick), tempOkt.getDate(),
+                        tempOkt.getVarighet(), tempOkt.getKategori(), tempOkt.getTekst());
 
+                nyOversikt.registrerNyOkt(nyOkt);
+                treningsOkter.add(new OktStatus(nyOkt));
+                tempOkt.nullstill();
             }
-            indeks--;
-        }
+            int indeks = treningsOkter.size() - 1;
 
+            while (indeks >= 0) {
+                OktStatus ts = treningsOkter.get(indeks);
+                if (ts.getSkalSlettes()) {
+                    for (TreningsOkt e : nyOversikt.getAlleOkter()) {
+                        if (e.equals(ts.getTreningsikOkt())) {
+                            nyOversikt.slettOkt(e);
+                        }
+                    }
+                    treningsOkter.remove(indeks);
+
+                }
+                indeks--;
+            }
+        } catch (ConcurrentModificationException e) {
+            System.out.println(e);
+            oppdater();
+        }
         if (!(maned == 0)) {
             for (OktStatus e : treningsOkter) {
                 if ((e.getTreningsikOkt().getDate().getMonth()) == (maned - 1)) {
@@ -132,27 +134,16 @@ public class treningsOktBehandler implements Serializable {
                 }
             }
             hjelp2 = treningsOkter;
-            treningsOkter = hjelp;           
+            treningsOkter = hjelp;
         }
-        
-       } catch (ConcurrentModificationException e) {
-           System.out.println(e);
-           oppdater();
-       } 
         return "success";
-    } 
+    }
 
     public int getManed() {
         return maned;
     }
 
-    
-
-    
-
     public synchronized void setManed(int Maned) {
         this.maned = Maned;
     }
-
-   
 }

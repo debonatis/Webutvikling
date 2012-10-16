@@ -19,7 +19,7 @@ import org.hibernate.validator.constraints.Range;
 public  final class TreningsOkt implements Serializable {
     
     private  int oktNr;
-    private Date dato = new Date();
+    private @NotNull Date dato = new Date();
 
   
     private @NotNull @Range(min = 1, max = 97696697)
