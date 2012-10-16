@@ -26,6 +26,8 @@ and open the template in the editor.
                     <h:commandButton value="#{texts.newsession}" action="#{treningsOktBehandler.setNyOkt(true)}"/>
                     
                     <h:panelGroup rendered="#{treningsOktBehandler.nyOkt}">
+                        
+                        <h:dataTable   styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="#{texts.date}"/>
@@ -60,12 +62,12 @@ and open the template in the editor.
                             <h:outputText value="#{texts.text}"/>
                         </f:facet>
                         <h:inputText value="#{treningsOktBehandler.tempOkt.tekst}" styleClass="venstrejustert">
-
                         </h:inputText>
                         <f:facet name="footer">
                             <h:outputText value=""/>
                         </f:facet>
-                    </h:column>                   
+                    </h:column>    
+                        </h:dataTable>
                         <br/>
                         <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/>
                         
