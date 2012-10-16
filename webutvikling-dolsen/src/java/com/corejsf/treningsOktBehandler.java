@@ -58,17 +58,13 @@ public class treningsOktBehandler implements Serializable {
         Boolean sjekk = false;
         if ((getManed() >= 1)) {
             sjekk = getPaManed(getManed());
-        } else {
-            hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
             return hjelp;
-        }
-        if (!hjelp.isEmpty() && sjekk) {
-            return hjelp;
-        }
-        if (getManed() == 0) {
+        } else if ((getManed() == 0)){
             return treningsOkter;
-        }
-        return treningsOkter;
+        
+       
+    } 
+         return treningsOkter;
     }
 
     public synchronized int getAntOkter() {
