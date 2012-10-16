@@ -58,7 +58,7 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTabelldata(){
 
-        if (!hjelp.isEmpty() ||(getManed() >= 1)) {
+        if (!hjelp.isEmpty() && (getManed() >= 1)) {
             return hjelp;             
         }  if(getManed() == 0){
             return treningsOkter;
