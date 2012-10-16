@@ -28,9 +28,7 @@ public class treningsOktBehandler implements Serializable {
         temptreningsOkter.add(new OktStatus(tempOkt));
                 
         return temptreningsOkter;
-    }
-
-    
+    }   
 
     private Oversikt nyOversikt = new Oversikt();
     private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
@@ -95,11 +93,10 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized String oppdater() {
         
-        nyOkt = false;        
+        nyOkt = false;  
        
 
         if (!tempOkt.getKategori().trim().equals("")) {
-
             mick++;
             TreningsOkt nyOkt;
             nyOkt = new TreningsOkt((tempOkt.getOktNr() + mick), tempOkt.getDate(),
