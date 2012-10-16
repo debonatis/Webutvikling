@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 /**
  *
@@ -21,8 +22,8 @@ public  final class TreningsOkt implements Serializable {
     private Date dato = new Date();
 
   
-    private @NotNull
-    int varighet;
+    private @NotNull @Range(min = 1, max = 97696697)
+    int varighet = 0;
     private @NotNull
     String kategori;
     private @NotNull
