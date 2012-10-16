@@ -100,11 +100,10 @@ public class treningsOktBehandler implements Serializable {
         try {
             hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
             for (OktStatus k : treningsOkter) {
-                if (!(k.getTreningsikOkt().getDate().getMonth() == (m - 1))) {
+                if (k.getTreningsikOkt().getDate().getMonth() == (m - 1)) {
                     hjelp.add(k);
                 }
             }
-
         } catch (ConcurrentModificationException e) {
             getPaManed(m);
         }
