@@ -26,7 +26,7 @@ public class treningsOktBehandler implements Serializable {
             temptreningsOkter.add(new OktStatus(tempOkt));
             i++;
         }
-                
+                tempOkt.nullstill();
         return temptreningsOkter;
     }
 
