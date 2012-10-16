@@ -96,7 +96,7 @@ public class treningsOktBehandler implements Serializable {
         nyOkt = false;  
        
 
-        if (!tempOkt.getKategori().trim().equals("")) {
+        if (!(tempOkt.getVarighet() == 0)) {
             mick++;
             TreningsOkt nyOkt;
             nyOkt = new TreningsOkt((tempOkt.getOktNr() + mick), tempOkt.getDate(),

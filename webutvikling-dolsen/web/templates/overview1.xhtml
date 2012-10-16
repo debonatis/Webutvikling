@@ -52,11 +52,11 @@ and open the template in the editor.
                         <f:facet name="header">
                             <h:outputText value="#{texts.category}"/>
                         </f:facet>
-                        <h:selectOneListbox id="kategori" required="true" value="#{session2.treningsikOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
+                        <h:selectOneMenu id="kategori" required="true" value="#{session2.treningsikOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
                         <f:selectItem itemValue ="#{texts.category1}" itemLabel="#{texts.category1}"/>
                         <f:selectItem itemValue ="#{texts.category2}" itemLabel="#{texts.category2}"/>
                         <f:selectItem itemValue ="#{texts.category3}" itemLabel="#{texts.category3}"/>
-                    </h:selectOneListbox><br/>                              
+                        </h:selectOneMenu><br/>                              
                         <f:facet name="footer">
                             <h:outputText value=""/>
                         </f:facet>
