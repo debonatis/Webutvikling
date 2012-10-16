@@ -55,8 +55,10 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTabelldata() throws InterruptedException {
 
-        if (!hjelp.isEmpty() && !manedIkkeEksi) {
+        if (!hjelp.isEmpty()) {
             return hjelp;             
+        } else if(manedIkkeEksi){
+            return hjelp;
         }
         return treningsOkter;
     }
