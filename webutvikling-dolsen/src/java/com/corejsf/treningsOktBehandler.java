@@ -122,9 +122,9 @@ public class treningsOktBehandler implements Serializable {
             indeks--;
         }
 
-        if (!(getManed() == 0)) {
+        if (!(maned == 0)) {
             for (OktStatus e : treningsOkter) {
-                if ((e.getTreningsikOkt().getDate().getMonth()) == (getManed() - 1)) {
+                if ((e.getTreningsikOkt().getDate().getMonth()) == (maned - 1)) {
                     hjelp.add(e);
                 }
             }
@@ -137,9 +137,7 @@ public class treningsOktBehandler implements Serializable {
 
     
 
-    public synchronized int getManed() {
-        return maned;
-    }
+    
 
     public synchronized void setManed(int Maned) {
         this.maned = Maned;

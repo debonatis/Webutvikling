@@ -43,14 +43,14 @@ public class Oversikt implements Serializable{
         alleOkter.add(e);
     }
     
-    public synchronized boolean slettOkt(TreningsOkt t){
+    public synchronized void slettOkt(TreningsOkt t){
         boolean hjelp2 = false;
          for(TreningsOkt e : alleOkter){            
             if(t.equals(e)){
-              hjelp2 = alleOkter.remove(e);
+              alleOkter.remove(e);
             }
         }
-         return hjelp2;
+         
     }
     
     public int antallOkter(){

@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.Length;
  * @author deb
  */
 
-public final class TreningsOkt implements Serializable {
+public  final class TreningsOkt implements Serializable {
     
     private  int oktNr;
     private Date dato = new Date();
