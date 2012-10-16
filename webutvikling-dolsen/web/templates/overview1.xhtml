@@ -137,7 +137,18 @@ and open the template in the editor.
                         <h:outputText value="#{texts.average}  #{treningsOktBehandler.gjennomsnitt}" rendered="#{treningsOktBehandler.datafins}" /><br/>
                     </p>
                     <h:outputLabel value="#{texts.monthsort}: "></h:outputLabel>
-                     <h:inputText value="#{treningsOktBehandler.maned}" rendered ="true" styleClass="venstrejustert"></h:inputText>
+                    <h:selectOneMenu id="kategori" required="true" value="#{treningsOktBehandler.maned}"  requiredMessage="#{texts.invalidactivity}">
+                        <f:selectItem itemValue ="0" itemLabel="#{texts.category1}"/>
+                        <f:selectItem itemValue ="2" itemLabel="#{texts.category2}"/>
+                        <f:selectItem itemValue ="1" itemLabel="#{texts.category3}"/>
+                        <f:selectItem itemValue ="2" itemLabel="#{texts.category3}"/>
+                        <f:selectItem itemValue ="3" itemLabel="#{texts.category3}"/>
+                        <f:selectItem itemValue ="4" itemLabel="#{texts.category3}"/>
+                        <f:selectItem itemValue ="5" itemLabel="#{texts.category3}"/>
+                        <f:selectItem itemValue ="6" itemLabel="#{texts.category3}"/>
+                        <f:selectItem itemValue ="7" itemLabel="#{texts.category3}"/>
+                        <f:selectItem itemValue ="9" itemLabel="#{texts.category3}"/>
+                        </h:selectOneMenu>
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test"/>
                     <h:commandButton value="#{texts.Back}" action="input" class="test1"/>
                    
