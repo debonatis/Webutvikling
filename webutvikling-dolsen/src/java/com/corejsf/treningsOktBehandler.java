@@ -26,7 +26,7 @@ public class treningsOktBehandler implements Serializable {
     List<OktStatus> hjelp2 = Collections.synchronizedList(new ArrayList<OktStatus>());
     private TreningsOkt tempOkt = new TreningsOkt();
     private @NotNull
-    int maned = 13;
+    int maned = 0;
     private int mick = 0;
 
     public synchronized boolean getDatafins() {
