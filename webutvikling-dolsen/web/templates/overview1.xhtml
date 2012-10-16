@@ -80,9 +80,10 @@ and open the template in the editor.
                         <h:outputText value="#{texts.totalSessions}  #{treningsOktBehandler.antOkter}" rendered="#{treningsOktBehandler.datafins}"/><br/>
                         <h:outputText value="#{texts.average}  #{treningsOktBehandler.gjennomsnitt}" rendered="#{treningsOktBehandler.datafins}" /><br/>
                     </p>
-                    <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}"/>
-                    <h:commandButton value="#{texts.Back}" action="input"/><br/>
-                    <h:inputText value="#{treningsOktBehandler.maned}" rendered ="true" styleClass="venstrejustert"></h:inputText>
+                     <h:inputText value="#{treningsOktBehandler.maned}" rendered ="true" styleClass="venstrejustert"></h:inputText>
+                    <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test"/>
+                    <h:commandButton value="#{texts.Back}" action="input" class="test1"/>
+                   
                     
                 </h:form>
 
