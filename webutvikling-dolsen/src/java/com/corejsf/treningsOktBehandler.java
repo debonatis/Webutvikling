@@ -34,21 +34,19 @@ public class treningsOktBehandler implements Serializable {
     private Oversikt nyOversikt = new Oversikt();
     private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());    
+    private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
     private TreningsOkt tempOkt = new TreningsOkt();
-    private @NotNull @Range(min =0, max = 12)
+    private @NotNull
+    @Range(min = 0, max = 12)
     int maned = 0;
     private int mick = 0;
     private boolean nyOkt = false;
-   
 
-   
-
-    public boolean isNyOkt() {
+    public synchronized boolean isNyOkt() {
         return nyOkt;
     }
 
-    public void setNyOkt(boolean nyOkt) {
+    public synchronized void setNyOkt(boolean nyOkt) {
         this.nyOkt = nyOkt;
     }
 
@@ -56,11 +54,17 @@ public class treningsOktBehandler implements Serializable {
         return (!treningsOkter.isEmpty());
     }
 
-    public synchronized List<OktStatus> getTabelldata(){
-
-        if (!hjelp.isEmpty() && (getManed() >= 1)) {
-            return hjelp;             
-        }  if(getManed() == 0){
+    public synchronized List<OktStatus> getTabelldata() {
+        Boolean sjekk = false;
+        if ((getManed() >= 1)) {
+            sjekk = getPaManed(getManed());
+        } else {
+            hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
+        }
+        if (!hjelp.isEmpty() && sjekk) {
+            return hjelp;
+        }
+        if (getManed() == 0) {
             return treningsOkter;
         }
         return treningsOkter;
@@ -91,16 +95,17 @@ public class treningsOktBehandler implements Serializable {
     public synchronized TreningsOkt getTempOkt() {
         return tempOkt;
     }
-    public synchronized boolean getPaManed(int m){
-        try{
-        hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());        
-        for(OktStatus k :treningsOkter){
-            if(!(k.getTreningsikOkt().getDate().getMonth() == (m-1))){
-                hjelp.add(k);
-            } 
-        } 
-        
-        }catch (ConcurrentModificationException e){
+
+    public synchronized boolean getPaManed(int m) {
+        try {
+            hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
+            for (OktStatus k : treningsOkter) {
+                if (!(k.getTreningsikOkt().getDate().getMonth() == (m - 1))) {
+                    hjelp.add(k);
+                }
+            }
+
+        } catch (ConcurrentModificationException e) {
             getPaManed(m);
         }
         return true;
@@ -144,13 +149,9 @@ public class treningsOktBehandler implements Serializable {
             System.out.println(e);
             oppdater();
         }
-        if ((getManed() >= 1)) {
-           Boolean sjekk;
-            sjekk = getPaManed(getManed());
-        } else {
-            hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
-            
-        }
+
+
+
         return "success";
     }
 
