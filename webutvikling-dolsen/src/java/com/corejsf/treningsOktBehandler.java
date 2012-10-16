@@ -58,6 +58,7 @@ public class treningsOktBehandler implements Serializable {
         if (!hjelp.isEmpty()) {
             return hjelp;             
         } else if(manedIkkeEksi){
+            manedIkkeEksi = false;
             return hjelp;
         }
         return treningsOkter;
