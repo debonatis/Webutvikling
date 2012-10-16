@@ -63,10 +63,12 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTabelldata(){
 
-        if (!hjelp.isEmpty()) {
+        if (!hjelp.isEmpty() && (getManed() >= 1)) {
             return hjelp;             
-        } if(isManedIkkeEksi()){            
+        } if(isManedIkkeEksi() && (getManed() >= 1)){            
             return hjelp;
+        } if(getManed() == 0){
+            return treningsOkter;
         }
         return treningsOkter;
     }
@@ -96,9 +98,9 @@ public class treningsOktBehandler implements Serializable {
     public synchronized TreningsOkt getTempOkt() {
         return tempOkt;
     }
-    public synchronized void getPaManed(int m){
+    public synchronized boolean getPaManed(int m){
         try{
-         hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
+        hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
         hjelp = treningsOkter;
         for(OktStatus k :treningsOkter){
             if(!(k.getTreningsikOkt().getDate().getMonth() == (m-1))){
@@ -111,6 +113,7 @@ public class treningsOktBehandler implements Serializable {
         }catch (ConcurrentModificationException e){
             getPaManed(m);
         }
+        return true;
     }
 
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
@@ -152,7 +155,8 @@ public class treningsOktBehandler implements Serializable {
             oppdater();
         }
         if (!(getManed() == 0)) {
-            getPaManed(getManed());
+           Boolean sjekk;
+            sjekk = getPaManed(getManed());
         } else {
             hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
             setManedIkkeEksi(false);
