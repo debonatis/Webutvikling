@@ -33,8 +33,7 @@ public class treningsOktBehandler implements Serializable {
     private Oversikt nyOversikt = new Oversikt();
     private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
-    List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
-    List<OktStatus> hjelp2 = Collections.synchronizedList(new ArrayList<OktStatus>());
+    private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());    
     private TreningsOkt tempOkt = new TreningsOkt();
     private @NotNull
     int maned = 0;
@@ -55,11 +54,10 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTabelldata() throws InterruptedException {
 
-        if (!hjelp2.isEmpty()) {
-
-            return treningsOkter = hjelp2;
+        if (!hjelp.isEmpty()) {
+            return hjelp; 
+            
         }
-
         return treningsOkter;
     }
 
@@ -87,6 +85,15 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized TreningsOkt getTempOkt() {
         return tempOkt;
+    }
+    public synchronized void getPaManed(int m){
+        
+        hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
+        for(OktStatus k :treningsOkter){
+            if(k.getTreningsikOkt().getDate().getMonth() == (m-1)){
+                hjelp.add(k);
+            }
+        } 
     }
 
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
@@ -128,13 +135,9 @@ public class treningsOktBehandler implements Serializable {
             oppdater();
         }
         if (!(maned == 0)) {
-            for (OktStatus e : treningsOkter) {
-                if ((e.getTreningsikOkt().getDate().getMonth()) == (maned - 1)) {
-                    hjelp.add(e);
-                }
-            }
-            hjelp2 = treningsOkter;
-            treningsOkter = hjelp;
+            getPaManed(maned);
+        } else {
+            hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
         }
         return "success";
     }
