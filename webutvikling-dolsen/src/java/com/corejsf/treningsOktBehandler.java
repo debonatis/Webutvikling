@@ -137,7 +137,8 @@ public class treningsOktBehandler implements Serializable {
         
        } catch (ConcurrentModificationException e) {
            System.out.println(e);
-       }
+           oppdater();
+       } 
         return "success";
     } 
 
