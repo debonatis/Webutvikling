@@ -39,6 +39,7 @@ public class treningsOktBehandler implements Serializable {
     int maned = 0;
     private int mick = 0;
     private boolean nyOkt = false;
+    private boolean manedIkkeEksi = false;
 
     public boolean isNyOkt() {
         return nyOkt;
@@ -54,9 +55,8 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTabelldata() throws InterruptedException {
 
-        if (!hjelp.isEmpty()) {
-            return hjelp; 
-            
+        if (!hjelp.isEmpty() && !manedIkkeEksi) {
+            return hjelp;             
         }
         return treningsOkter;
     }
@@ -92,6 +92,8 @@ public class treningsOktBehandler implements Serializable {
         for(OktStatus k :treningsOkter){
             if(k.getTreningsikOkt().getDate().getMonth() == (m-1)){
                 hjelp.add(k);
+            } else {
+                manedIkkeEksi = true;
             }
         } 
     }
