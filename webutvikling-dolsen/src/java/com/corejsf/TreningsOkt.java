@@ -34,17 +34,17 @@ public  final class TreningsOkt implements Serializable {
     
     
 
-    public void setKategori(String kategori) {        
+    public synchronized void setKategori(String kategori) {        
         this.kategori = kategori;
     }
 
-    public String getTekst() {       
+    public synchronized String getTekst() {       
         return tekst;
     }
 
     @NotNull
     @Length(min = 1, max = 30)
-    public void setTekst(String tekst) {        
+    public synchronized void setTekst(String tekst) {        
         this.tekst = tekst;
     }
 
@@ -59,36 +59,36 @@ public  final class TreningsOkt implements Serializable {
         this.kategori = kategori;
         this.tekst = tekst;
     }
-    public int getOktNr() {        
+    public synchronized int getOktNr() {        
         return oktNr;
     }
 
-    public java.sql.Date getSqlDate() {
+    public synchronized java.sql.Date getSqlDate() {
         return new java.sql.Date(dato.getYear(), dato.getMonth(), dato.getDate());
     }
 
-    public Date getDate() {
+    public synchronized Date getDate() {
         return dato;
     }
 
-    public int getVarighet() {
+    public synchronized int getVarighet() {
         return varighet;
     }
 
    
-    public String getKategori() {
+    public synchronized String getKategori() {
         return kategori;
     }  
 
-    public void setDate(Date nyDato) {
+    public synchronized void setDate(Date nyDato) {
         dato = nyDato;
     }
    
-    public void setVarighet(int oktVarighet) {
+    public synchronized void setVarighet(int oktVarighet) {
         varighet = oktVarighet;
     }
     
-    public void nullstill(){
+    public synchronized void nullstill(){
         oktNr = 0;
         dato = new Date();
         kategori = "";
