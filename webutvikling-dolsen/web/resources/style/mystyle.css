@@ -34,6 +34,7 @@ body {
     left: 25%;
     width: 60%;
     color: white;
+    padding-right: 25px
 }
 
 #cloud{
@@ -52,4 +53,13 @@ body {
 
 #padding{
      padding-left: 25px;
+}
+.test{
+    position: fixed;
+    left: 70%;
+       
+}
+.test1{
+    position: fixed;
+    left: 75%;
 }
