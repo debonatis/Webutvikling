@@ -144,7 +144,7 @@ public class treningsOktBehandler implements Serializable {
             System.out.println(e);
             oppdater();
         }
-        if (!(getManed() == 0)) {
+        if ((getManed() >= 1)) {
            Boolean sjekk;
             sjekk = getPaManed(getManed());
         } else {
