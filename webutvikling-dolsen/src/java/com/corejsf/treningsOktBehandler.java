@@ -60,6 +60,7 @@ public class treningsOktBehandler implements Serializable {
             sjekk = getPaManed(getManed());
         } else {
             hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
+            return hjelp;
         }
         if (!hjelp.isEmpty() && sjekk) {
             return hjelp;
