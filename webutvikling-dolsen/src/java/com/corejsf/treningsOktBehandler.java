@@ -20,8 +20,21 @@ import javax.validation.constraints.NotNull;
 @SessionScoped
 public class treningsOktBehandler implements Serializable {
 
+    public synchronized List<OktStatus> getTemptreningsOkter() {
+        int i =0;
+        if(i == 0){
+            temptreningsOkter.add(new OktStatus(tempOkt));
+            i++;
+        }
+                
+        return temptreningsOkter;
+    }
+
+    
+
     private Oversikt nyOversikt = new Oversikt();
     private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
+    private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
     List<OktStatus> hjelp2 = Collections.synchronizedList(new ArrayList<OktStatus>());
     private TreningsOkt tempOkt = new TreningsOkt();
@@ -83,6 +96,10 @@ public class treningsOktBehandler implements Serializable {
     public synchronized String oppdater() {
         
         nyOkt = false;
+        
+        if(!temptreningsOkter.isEmpty()){
+            treningsOkter.add(temptreningsOkter.get(0));
+        }
 
         if (!tempOkt.getKategori().trim().equals("")) {
 
@@ -134,22 +151,5 @@ public class treningsOktBehandler implements Serializable {
         this.maned = Maned;
     }
 
-    public synchronized void alleOkterEnMnd() {
-        if (!(getManed() == 12)) {
-            for (OktStatus e : treningsOkter) {
-                if ((e.getTreningsikOkt().getDate().getMonth()) == (getManed() - 1)) {
-                    hjelp.add(e);
-                    for (TreningsOkt f : nyOversikt.getAlleOkter()) {
-                        if (f.getDate().getMonth() == (getManed() - 1)) {
-                            nyOversikt.slettOkt(f);
-                        }
-                    }
-                }
-            }
-            hjelp2 = treningsOkter;
-            treningsOkter = hjelp;
-            oppdater();
-
-        }
-    }
+   
 }
