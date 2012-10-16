@@ -4,7 +4,6 @@
  */
 package com.corejsf;
 
-import com.sun.org.apache.bcel.internal.generic.BREAKPOINT;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +25,8 @@ public class treningsOktBehandler implements Serializable {
     List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
     List<OktStatus> hjelp2 = Collections.synchronizedList(new ArrayList<OktStatus>());
     private TreningsOkt tempOkt = new TreningsOkt();
-    private @NotNull int maned = 0;
+    private @NotNull
+    int maned = 13;
     private int mick = 0;
 
     public synchronized boolean getDatafins() {
@@ -74,7 +74,7 @@ public class treningsOktBehandler implements Serializable {
     public synchronized String oppdater() {
 
         if (!tempOkt.getKategori().trim().equals("")) {
-            
+
             mick++;
             TreningsOkt nyOkt;
             nyOkt = new TreningsOkt((tempOkt.getOktNr() + mick), tempOkt.getDate(),
@@ -84,7 +84,6 @@ public class treningsOktBehandler implements Serializable {
             treningsOkter.add(new OktStatus(nyOkt));
             tempOkt.nullstill();
         }
-
         int indeks = treningsOkter.size() - 1;
 
         while (indeks >= 0) {
@@ -100,8 +99,21 @@ public class treningsOktBehandler implements Serializable {
             }
             indeks--;
         }
+
+        if (!(getManed() == 13)) {
+            for (OktStatus e : treningsOkter) {
+                if ((e.getTreningsikOkt().getDate().getMonth()) == (getManed() - 1)) {
+                    hjelp.add(e);
+                }
+            }
+            hjelp2 = treningsOkter;
+            treningsOkter = hjelp;           
+        }
         return "success";
-    }
+    } 
+    
+
+    
 
     public synchronized int getManed() {
         return maned;
@@ -112,15 +124,15 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized void alleOkterEnMnd() {
-        if (!(maned == 0)) {
+        if (!(getManed() == 12)) {
             for (OktStatus e : treningsOkter) {
-                if ((e.getTreningsikOkt().getDate().getMonth()) == (maned - 1)) {
+                if ((e.getTreningsikOkt().getDate().getMonth()) == (getManed() - 1)) {
                     hjelp.add(e);
-                for(TreningsOkt f : nyOversikt.getAlleOkter()){
-                    if(f.getDate().getMonth() == (maned -1)){
-                        nyOversikt.slettOkt(f);
+                    for (TreningsOkt f : nyOversikt.getAlleOkter()) {
+                        if (f.getDate().getMonth() == (getManed() - 1)) {
+                            nyOversikt.slettOkt(f);
+                        }
                     }
-                }
                 }
             }
             hjelp2 = treningsOkter;
