@@ -12,6 +12,7 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Range;
 
 /**
  *
@@ -35,19 +36,13 @@ public class treningsOktBehandler implements Serializable {
     private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());    
     private TreningsOkt tempOkt = new TreningsOkt();
-    private @NotNull
+    private @NotNull @Range(min =0, max = 12)
     int maned = 0;
     private int mick = 0;
     private boolean nyOkt = false;
-    private boolean manedIkkeEksi = false;
+   
 
-    public synchronized boolean isManedIkkeEksi() {
-        return manedIkkeEksi;
-    }
-
-    public synchronized void setManedIkkeEksi(boolean manedIkkeEksi) {
-        this.manedIkkeEksi = manedIkkeEksi;
-    }
+   
 
     public boolean isNyOkt() {
         return nyOkt;
@@ -63,11 +58,9 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTabelldata(){
 
-        if (!hjelp.isEmpty() && (getManed() >= 1)) {
+        if (!hjelp.isEmpty() ||(getManed() >= 1)) {
             return hjelp;             
-        } if(isManedIkkeEksi() && (getManed() >= 1)){            
-            return hjelp;
-        } if(getManed() == 0){
+        }  if(getManed() == 0){
             return treningsOkter;
         }
         return treningsOkter;
@@ -100,16 +93,13 @@ public class treningsOktBehandler implements Serializable {
     }
     public synchronized boolean getPaManed(int m){
         try{
-        hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
-        hjelp = treningsOkter;
+        hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());        
         for(OktStatus k :treningsOkter){
             if(!(k.getTreningsikOkt().getDate().getMonth() == (m-1))){
-                hjelp.remove(k);
+                hjelp.add(k);
             } 
         } 
-        if(hjelp.isEmpty()){
-            setManedIkkeEksi(true);
-        }
+        
         }catch (ConcurrentModificationException e){
             getPaManed(m);
         }
@@ -159,7 +149,7 @@ public class treningsOktBehandler implements Serializable {
             sjekk = getPaManed(getManed());
         } else {
             hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
-            setManedIkkeEksi(false);
+            
         }
         return "success";
     }
