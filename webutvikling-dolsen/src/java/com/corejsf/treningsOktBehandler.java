@@ -142,8 +142,7 @@ public class treningsOktBehandler implements Serializable {
                 }
                 indeks--;
             }
-        } catch (ConcurrentModificationException e) {
-            System.out.println(e);
+        } catch (ConcurrentModificationException e) {            
             oppdater();
         }
         return "success";
