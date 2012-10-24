@@ -151,7 +151,7 @@ public class treningsOktBehandler implements Serializable {
         return "success";
     }
     
-    public void updateLists() {
+    public synchronized void updateArray() {
         TreningsOkt helpObject;
         objects = new ArrayList<TreningsOkt>();
         DBConnection conn = new DBConnection();
@@ -185,4 +185,53 @@ public class treningsOktBehandler implements Serializable {
     public synchronized void setManed(int Maned) {
         this.maned = Maned;
     }
+    
+    public synchronized boolean registrerTreningsOkt(TreningsOkt objekt) {
+        //oektnr blir autogenerert i databasen
+        //object.setSubjectNr(findSubjectNrFromCode(object.getSubcode()));
+        
+        DBConnection conn = new DBConnection();
+        Statement st = null;
+        try {
+
+            st = conn.getConn().createStatement();
+            st.executeUpdate("INSERT INTO TRENING(dato, varighet, "
+                    + "kategorinavn, tekst, brukernavn)"
+                    + "VALUES(" + objekt.getSqlDate() + 
+                    "', " + objekt.getVarighet() + ", " + objekt.getKategori() + 
+                    ", " + objekt.getTekst() + ", " + objekt.getBrukernavn());
+            updateArray();
+            return true;
+
+        } catch (SQLException e) {
+            conn.failed();
+            return false;
+        } finally {
+            conn.closeS(st);
+            conn.close();
+        }
+
+
+    }
+    
+    public boolean slettTreningsOkt(TreningsOkt objekt) {
+        DBConnection conn = new DBConnection();
+        Statement st = null;
+        try {
+            st = conn.getConn().createStatement();
+            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR = " 
+                    + objekt.getOktNr() + " AND BRUKERNAVN = '" + objekt.getBrukernavn() + "'");
+            return true;
+            
+        } catch (SQLException e) {
+            conn.failed();
+            return false;
+
+        } finally {
+            conn.closeS(st);
+            conn.close();
+        }
+
+    }
+    
 }
