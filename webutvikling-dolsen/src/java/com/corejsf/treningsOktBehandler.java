@@ -5,9 +5,13 @@
 package com.corejsf;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -23,14 +27,13 @@ import org.hibernate.validator.constraints.Range;
 public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTemptreningsOkter() {
-
         temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
-
         tempOkt.nullstill();
         temptreningsOkter.add(new OktStatus(tempOkt));
-
         return temptreningsOkter;
     }
+    
+    private ArrayList<TreningsOkt> objects;
     private Oversikt nyOversikt = new Oversikt();
     private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
@@ -41,7 +44,7 @@ public class treningsOktBehandler implements Serializable {
     int maned = 0;
     private int mick = 0;
     private boolean nyOkt = false;
-
+    
     public synchronized boolean isNyOkt() {
         return nyOkt;
     }
@@ -121,7 +124,7 @@ public class treningsOktBehandler implements Serializable {
                 mick++;
                 TreningsOkt nyOkt;
                 nyOkt = new TreningsOkt((tempOkt.getOktNr() + mick), tempOkt.getDate(),
-                        tempOkt.getVarighet(), tempOkt.getKategori(), tempOkt.getTekst());
+                        tempOkt.getVarighet(), tempOkt.getKategori(), tempOkt.getTekst(), tempOkt.getBrukernavn());
 
                 nyOversikt.registrerNyOkt(nyOkt);
                 treningsOkter.add(new OktStatus(nyOkt));
@@ -147,6 +150,33 @@ public class treningsOktBehandler implements Serializable {
         }
         return "success";
     }
+    
+    public synchronized void updateArray() {
+        TreningsOkt helpObject;
+        objects = new ArrayList<TreningsOkt>();
+        DBConnection conn = new DBConnection();
+        Statement st = null;
+        
+        ResultSet rs = null;
+        try{
+            st = conn.getConn().createStatement();
+            rs = st.executeQuery("SELECT * FROM WAPLJ.STUDIEOEKT");
+            // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
+
+            while (rs.next()) {
+                helpObject = new TreningsOkt(rs.getInt("OKTNR"), rs.getDate("DATO"), 
+                        rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"), 
+                        rs.getString("TEKST"), rs.getString("BRUKERNAVN"));
+                objects.add(helpObject);
+            }
+        } catch (SQLException e) {
+            conn.failed(); //Rollback
+        } finally {
+            conn.closeS(st);
+            conn.closeR(rs);
+            conn.close();
+        }
+    }
 
     public synchronized int getManed() {
         return maned;
@@ -155,4 +185,53 @@ public class treningsOktBehandler implements Serializable {
     public synchronized void setManed(int Maned) {
         this.maned = Maned;
     }
+    
+    public synchronized boolean registrerTreningsOkt(TreningsOkt objekt) {
+        //oektnr blir autogenerert i databasen
+        //object.setSubjectNr(findSubjectNrFromCode(object.getSubcode()));
+        
+        DBConnection conn = new DBConnection();
+        Statement st = null;
+        try {
+
+            st = conn.getConn().createStatement();
+            st.executeUpdate("INSERT INTO TRENING(dato, varighet, "
+                    + "kategorinavn, tekst, brukernavn)"
+                    + "VALUES(" + objekt.getSqlDate() + 
+                    "', " + objekt.getVarighet() + ", " + objekt.getKategori() + 
+                    ", " + objekt.getTekst() + ", " + objekt.getBrukernavn());
+            updateArray();
+            return true;
+
+        } catch (SQLException e) {
+            conn.failed();
+            return false;
+        } finally {
+            conn.closeS(st);
+            conn.close();
+        }
+
+
+    }
+    
+    public boolean slettTreningsOkt(TreningsOkt objekt) {
+        DBConnection conn = new DBConnection();
+        Statement st = null;
+        try {
+            st = conn.getConn().createStatement();
+            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR = " 
+                    + objekt.getOktNr() + " AND BRUKERNAVN = '" + objekt.getBrukernavn() + "'");
+            return true;
+            
+        } catch (SQLException e) {
+            conn.failed();
+            return false;
+
+        } finally {
+            conn.closeS(st);
+            conn.close();
+        }
+
+    }
+    
 }
