@@ -27,6 +27,10 @@ public class Oversikt implements Serializable{
     public Oversikt(){
         
     }
+
+    public void setBruker(String bruker) {
+        this.bruker = bruker;
+    }
     
     /**
      *
@@ -56,8 +60,6 @@ public class Oversikt implements Serializable{
         return alleOkter.size();
     }
     
-    public String getBrukernavn(){
-        return bruker;
-    }
+    
     
 }
