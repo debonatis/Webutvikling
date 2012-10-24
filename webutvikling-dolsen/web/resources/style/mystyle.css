@@ -11,9 +11,9 @@ body {
     background-color: white;/*#d9e6ed; */
     background-position: 0% 0%;
     background-image:url(images/noisy_grid.png);
-    background-repeat: repeat-x;
+    background-repeat: repeat-x,repeat-y;
     color: white;
-    font-family: "Helvetica", "Arial", "Tahoma", sans-serif;
+    font-family: "Helvetica", "Arial", "Tahoma", "sans-serif";
     font-size: small;
     line-height: 1.3em;
 }
