@@ -130,13 +130,7 @@ public class treningsOktBehandler implements Serializable {
                 registrerTreningsOkt(nyOkt);
                 tempOkt.nullstill();
             }
-            if (!updateArray().isEmpty()) {
-                treningsOkter.clear();
-
-                for (OktStatus s : updateArray()) {
-                    treningsOkter.add(s);
-                }
-            }
+            
             int indeks = treningsOkter.size() - 1;
 
             while (indeks >= 0) {
@@ -152,6 +146,13 @@ public class treningsOktBehandler implements Serializable {
 
                 }
                 indeks--;
+            }
+            if (!updateArray().isEmpty()) {
+                treningsOkter.clear();
+
+                for (OktStatus s : updateArray()) {
+                    treningsOkter.add(s);
+                }
             }
         } catch (ConcurrentModificationException e) {
             oppdater();
