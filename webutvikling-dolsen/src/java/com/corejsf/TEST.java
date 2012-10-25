@@ -27,7 +27,7 @@ public class TEST {
         DBConnection conn = new DBConnection();
         Statement st = null;
         Date lolo = new Date(2012,11,22);
-        TreningsOkt mick = new TreningsOkt(1, lolo, 23, "styrke", "mick", "anne");
+        TreningsOkt mick = new TreningsOkt(10, lolo, 23, "styrke", "mick", "anne");
         String sb = "";
         try {
 
