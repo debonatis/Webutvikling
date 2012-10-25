@@ -60,11 +60,15 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTabelldata() {
         Boolean sjekk = false;
+        try{
         if ((getManed() >= 1)) {
             return getPaManed(getManed());
         } else if ((getManed() == 0)) {
             return treningsOkter;
 
+        } 
+        } catch (ConcurrentModificationException e){
+            getTabelldata();
         }
         return treningsOkter;
     }
