@@ -118,7 +118,7 @@ public class treningsOktBehandler implements Serializable {
         nyOkt = false;
 
         try {
-            if (!(tempOkt.getVarighet() == 0)) {                
+            if (!(tempOkt.getVarighet() == 0)) {
                 TreningsOkt nyOkt;
                 nyOkt = new TreningsOkt(tempOkt.getOktNr(), tempOkt.getDate(),
                         tempOkt.getVarighet(), tempOkt.getKategori(),
@@ -129,7 +129,7 @@ public class treningsOktBehandler implements Serializable {
                 registrerTreningsOkt(nyOkt);
                 tempOkt.nullstill();
             }
-            
+
             int indeks = treningsOkter.size() - 1;
 
             while (indeks >= 0) {
@@ -149,7 +149,7 @@ public class treningsOktBehandler implements Serializable {
             if (!updateArray().isEmpty()) {
                 nyOversikt.slettAlle();
                 treningsOkter.clear();
-                
+
 
                 for (OktStatus s : updateArray()) {
                     nyOversikt.registrerNyOkt(s.getTreningsikOkt());
@@ -163,7 +163,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized List<OktStatus> updateArray() {
-        TreningsOkt helpObject;
+        TreningsOkt hjelpeobjekt;
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
         Statement st = null;
@@ -175,10 +175,10 @@ public class treningsOktBehandler implements Serializable {
             // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
 
             while (rs.next()) {
-                helpObject = new TreningsOkt(rs.getInt("OKTNR"), rs.getDate("DATO"),
+                hjelpeobjekt = new TreningsOkt(rs.getInt("OKTNR"), rs.getDate("DATO"),
                         rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"),
                         rs.getString("TEKST"), rs.getString("BRUKERNAVN"));
-                DBtreningsobjekter.add(new OktStatus(helpObject));
+                DBtreningsobjekter.add(new OktStatus(hjelpeobjekt));
 
             }
         } catch (SQLException e) {
@@ -206,8 +206,6 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized boolean registrerTreningsOkt(TreningsOkt mick) {
         //oktnr blir autogenerert i databasen
-
-
         DBConnection conn = new DBConnection();
         Statement st = null;
         try {
@@ -250,7 +248,7 @@ public class treningsOktBehandler implements Serializable {
         try {
             st = conn.getConn().createStatement();
             st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR = "
-                    + objekt.getOktNr() + " AND BRUKERNAVN = '" + objekt.getBrukernavn() + "'");
+                    + objekt.getOktNr() + " AND BRUKERNAVN = 'anne'");
             return true;
 
         } catch (SQLException e) {

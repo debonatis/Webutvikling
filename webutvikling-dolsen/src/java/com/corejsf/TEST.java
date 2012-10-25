@@ -28,49 +28,49 @@ public class TEST {
         Statement st = null;
         Date lolo = new Date(2012,11,22);
         TreningsOkt mick = new TreningsOkt(10, lolo, 23, "styrke", "mick", "anne");
-        String sb = "";
-        try {
-
-            st = conn.getConn().createStatement();
-           
+//        String sb = "";
+//        try {
+//
+//            st = conn.getConn().createStatement();
+//           
+//            
+//            
+//            sb += "INSERT INTO TRENING";
+//        sb +="(dato, varighet, kategorinavn, tekst, brukernavn)";
+//        sb +="VALUES ( ";
+//        sb +="  '" + mick.getSqlDate() + "'";
+//       sb +=", " + mick.getVarighet() + " ";
+//        sb +=", '" + mick.getKategori() + "' ";
+//        sb +=", '" + mick.getTekst() + "' ";
+//        sb +=", '" + mick.getBrukernavn()  + "'";
+//       sb +=")";
+//            System.out.println(sb);
+//            
+////            PreparedStatement stmt = conn.prepareStatement(sb.toString());
+//        st.executeUpdate(sb);
+//        
+//           
+//          
+//
+//        } catch (SQLException e) {
+//             
+//               conn.failed();
+//               
+//           
+//            System.out.println(e);
+//            
+//        } finally {
+//            synchronized (conn){
+//            conn.closeS(st);
+//            conn.close();
+//            conn.notify();
+//            }
             
-            
-            sb += "INSERT INTO TRENING";
-        sb +="(dato, varighet, kategorinavn, tekst, brukernavn)";
-        sb +="VALUES ( ";
-        sb +="  '" + mick.getSqlDate() + "'";
-       sb +=", " + mick.getVarighet() + " ";
-        sb +=", '" + mick.getKategori() + "' ";
-        sb +=", '" + mick.getTekst() + "' ";
-        sb +=", '" + mick.getBrukernavn()  + "'";
-       sb +=")";
-            System.out.println(sb);
-            
-//            PreparedStatement stmt = conn.prepareStatement(sb.toString());
-        st.executeUpdate(sb);
         
-           
-          
-
-        } catch (SQLException e) {
-             
-               conn.failed();
-               
-           
-            System.out.println(e);
-            
-        } finally {
-            synchronized (conn){
-            conn.closeS(st);
-            conn.close();
-            conn.notify();
-            }
-            
-        
-    }
+//    }
 
         
-      st = null;
+//      st = null;
         
         ResultSet rs = null;
         try{
