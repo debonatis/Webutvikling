@@ -146,12 +146,13 @@ public class treningsOktBehandler implements Serializable {
                 }
                 indeks--;
             }
-            if (!updateArray().isEmpty()) {
+            List<OktStatus> sjekk = updateArray(); 
+            if (!sjekk.isEmpty()) {
                 nyOversikt.slettAlle();
                 treningsOkter.clear();
 
 
-                for (OktStatus s : updateArray()) {
+                for (OktStatus s : sjekk) {
                     nyOversikt.registrerNyOkt(s.getTreningsikOkt());
                     treningsOkter.add(s);
                 }
