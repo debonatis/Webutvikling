@@ -123,11 +123,11 @@ public class treningsOktBehandler implements Serializable {
             if (!(tempOkt.getVarighet() == 0)) {
                 mick++;
                 TreningsOkt nyOkt;
-                nyOkt = new TreningsOkt((tempOkt.getOktNr() + mick), tempOkt.getDate(),
-                        tempOkt.getVarighet(), tempOkt.getKategori(), tempOkt.getTekst(), tempOkt.getBrukernavn());
+                nyOkt = new TreningsOkt(tempOkt.getDate(),
+                        tempOkt.getVarighet(), tempOkt.getKategori(), 
+                        tempOkt.getTekst(), "lars");
 
-                nyOversikt.registrerNyOkt(nyOkt);
-                
+                nyOversikt.registrerNyOkt(nyOkt);             
                 treningsOkter.add(new OktStatus(nyOkt));
                 registrerTreningsOkt(nyOkt);
                 tempOkt.nullstill();
