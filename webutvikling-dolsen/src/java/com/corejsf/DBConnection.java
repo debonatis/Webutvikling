@@ -21,7 +21,7 @@ public class DBConnection {
 
     public DBConnection() {
         String DBdriver = "org.apache.derby.jdbc.ClientDriver";
-        String DBname = "jdbc:derby://localhost:1527/Waplj;user=waplj;password=waplj";
+        String DBname = "jdbc:derby://localhost:1527/Waplj_prosjekt;user=waplj;password=waplj";
 
         try {
             Class.forName(DBdriver);
