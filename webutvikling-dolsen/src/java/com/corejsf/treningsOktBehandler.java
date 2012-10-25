@@ -201,12 +201,12 @@ public class treningsOktBehandler implements Serializable {
         try {
 
             st = conn.getConn().createStatement();
-            st.executeUpdate("INSERT INTO TRENING(dato, varighet, "
+            st.executeUpdate("INSERT INTO WAPLJ.TRENING(dato, varighet, "
                     + "kategorinavn, tekst, brukernavn)"
                     + "VALUES(" + objekt.getSqlDate() + 
-                    "', " + objekt.getVarighet() + ", " + objekt.getKategori() + 
+                    ", " + objekt.getVarighet() + ", " + objekt.getKategori() + 
                     ", " + objekt.getTekst() + ", " + objekt.getBrukernavn());
-            updateArray();
+            
             return true;
 
         } catch (SQLException e) {
@@ -215,6 +215,7 @@ public class treningsOktBehandler implements Serializable {
         } finally {
             conn.closeS(st);
             conn.close();
+            updateArray();
         }
 
 
