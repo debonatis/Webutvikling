@@ -50,17 +50,24 @@ public class TEST {
         st.executeUpdate(sb);
         
            
-           
+          
 
         } catch (SQLException e) {
-            conn.failed();
+             
+               conn.failed();
+               
+           
             System.out.println(e);
             
         } finally {
+            synchronized (conn){
             conn.closeS(st);
             conn.close();
+            conn.notify();
+            }
             
-        }
+        
+    }
 
         
       st = null;
@@ -89,21 +96,23 @@ public class TEST {
             TreningsOkt t = (TreningsOkt) e;
             System.out.println(t.getBrukernavn() + "" + t.getOktNr());
         }
-        
+        DBConnection jk = new DBConnection();
        st = null;
         try {
-            st = conn.getConn().createStatement();
+            synchronized (jk){
+                
+            st = jk.getConn().createStatement();
             st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR = "
                     + mick.getOktNr() + " AND BRUKERNAVN = '" + mick.getBrukernavn() + "'");
-           
+            }
 
         } catch (SQLException e) {
-            conn.failed();
+            jk.failed();
             
 
         } finally {
-            conn.closeS(st);
-            conn.close();
+            jk.closeS(st);
+            jk.close();
         }
         
     }
