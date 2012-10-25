@@ -21,7 +21,7 @@ public class DBConnection {
 
     public DBConnection() {
         String DBdriver = "org.apache.derby.jdbc.ClientDriver";
-        String DBname = "jdbc:derby://localhost:1527/Waplj-prosjekt;user=waplj;password=waplj";
+        String DBname = "jdbc:derby://localhost:1527/waplj-prosjekt;user=waplj;password=waplj";
 
         try {
             Class.forName(DBdriver);
@@ -49,7 +49,7 @@ public class DBConnection {
                 conn.close();
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println("COULD NOT CLOSE DATABASE CONNECTION (BT)");
+                System.out.println("COULD NOT CLOSE DATABASE CONNECTION (waplj)");
             }
         } 
     }
