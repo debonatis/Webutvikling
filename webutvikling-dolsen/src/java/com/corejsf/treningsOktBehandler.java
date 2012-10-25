@@ -122,9 +122,9 @@ public class treningsOktBehandler implements Serializable {
             if (!(tempOkt.getVarighet() == 0)) {
                 mick++;
                 TreningsOkt nyOkt;
-                nyOkt = new TreningsOkt(tempOkt.getDate(),
+                nyOkt = new TreningsOkt(tempOkt.getOktNr(), tempOkt.getDate(),
                         tempOkt.getVarighet(), tempOkt.getKategori(), 
-                        tempOkt.getTekst(), "lars");
+                        tempOkt.getTekst(), tempOkt.getBrukernavn());
 
                 nyOversikt.registrerNyOkt(nyOkt);             
                 treningsOkter.add(new OktStatus(nyOkt));
@@ -166,7 +166,7 @@ public class treningsOktBehandler implements Serializable {
             // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
 
             while (rs.next()) {
-                helpObject = new TreningsOkt(rs.getDate("DATO"), 
+                helpObject = new TreningsOkt(rs.getInt("OKTNR"), rs.getDate("DATO"), 
                         rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"), 
                         rs.getString("TEKST"), rs.getString("BRUKERNAVN"));
                 objects.add(helpObject);
