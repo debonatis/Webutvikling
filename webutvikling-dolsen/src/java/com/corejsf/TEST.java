@@ -90,6 +90,21 @@ public class TEST {
             System.out.println(t.getBrukernavn() + "" + t.getOktNr());
         }
         
+       st = null;
+        try {
+            st = conn.getConn().createStatement();
+            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR = "
+                    + mick.getOktNr() + " AND BRUKERNAVN = '" + mick.getBrukernavn() + "'");
+           
+
+        } catch (SQLException e) {
+            conn.failed();
+            
+
+        } finally {
+            conn.closeS(st);
+            conn.close();
+        }
         
     }
 }
