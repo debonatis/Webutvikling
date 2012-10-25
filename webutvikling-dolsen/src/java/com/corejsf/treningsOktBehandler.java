@@ -11,7 +11,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
-import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -33,7 +32,7 @@ public class treningsOktBehandler implements Serializable {
         return temptreningsOkter;
     }
     
-    private ArrayList<TreningsOkt> objects;
+    private List<OktStatus> DBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private Oversikt nyOversikt = new Oversikt();
     private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
@@ -132,6 +131,7 @@ public class treningsOktBehandler implements Serializable {
                 registrerTreningsOkt(nyOkt);
                 tempOkt.nullstill();
             }
+            updateArray();
             int indeks = treningsOkter.size() - 1;
 
             while (indeks >= 0) {
@@ -155,7 +155,7 @@ public class treningsOktBehandler implements Serializable {
     
     public synchronized void updateArray() {
         TreningsOkt helpObject;
-        objects = new ArrayList<TreningsOkt>();
+        DBtreningsobjekter = new Collections.synchronizedList(new ArrayList<OktStatus>());
         DBConnection conn = new DBConnection();
         Statement st = null;
         
