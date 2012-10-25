@@ -56,6 +56,10 @@ public class Oversikt implements Serializable{
          
     }
     
+    public synchronized void slettAlle(){
+        alleOkter.clear();
+    }
+    
     public int antallOkter(){
         return alleOkter.size();
     }

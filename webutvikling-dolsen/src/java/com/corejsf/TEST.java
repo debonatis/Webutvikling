@@ -114,6 +114,32 @@ public class TEST {
             jk.closeS(st);
             jk.close();
         }
+        st = null;
+        
+        rs = null;
+        try{
+            st = test.getConn().createStatement();
+            rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING");
+            // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
+
+            while (rs.next()) {
+                helpObject = new TreningsOkt(rs.getInt("OKTNR"),rs.getDate("DATO"), 
+                        rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"), 
+                        rs.getString("TEKST"), rs.getString("BRUKERNAVN"));
+                objects.add(helpObject);
+            }
+        } catch (SQLException e) {
+            test.failed(); //Rollback
+        } finally {
+            test.closeS(st);
+            test.closeR(rs);
+            test.close();
+        }
+        
+        for(Object e : objects){
+            TreningsOkt t = (TreningsOkt) e;
+            System.out.println(t.getBrukernavn() + "" + t.getOktNr());
         
     }
+}
 }
