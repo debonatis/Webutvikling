@@ -127,7 +127,9 @@ public class treningsOktBehandler implements Serializable {
                         tempOkt.getVarighet(), tempOkt.getKategori(), tempOkt.getTekst(), tempOkt.getBrukernavn());
 
                 nyOversikt.registrerNyOkt(nyOkt);
+                
                 treningsOkter.add(new OktStatus(nyOkt));
+                registrerTreningsOkt(nyOkt);
                 tempOkt.nullstill();
             }
             int indeks = treningsOkter.size() - 1;
@@ -160,11 +162,11 @@ public class treningsOktBehandler implements Serializable {
         ResultSet rs = null;
         try{
             st = conn.getConn().createStatement();
-            rs = st.executeQuery("SELECT * FROM WAPLJ.STUDIEOEKT");
+            rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING");
             // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
 
             while (rs.next()) {
-                helpObject = new TreningsOkt(rs.getInt("OKTNR"), rs.getDate("DATO"), 
+                helpObject = new TreningsOkt(rs.getDate("DATO"), 
                         rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"), 
                         rs.getString("TEKST"), rs.getString("BRUKERNAVN"));
                 objects.add(helpObject);
@@ -187,8 +189,8 @@ public class treningsOktBehandler implements Serializable {
     }
     
     public synchronized boolean registrerTreningsOkt(TreningsOkt objekt) {
-        //oektnr blir autogenerert i databasen
-        //object.setSubjectNr(findSubjectNrFromCode(object.getSubcode()));
+        //oktnr blir autogenerert i databasen
+        
         
         DBConnection conn = new DBConnection();
         Statement st = null;
