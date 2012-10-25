@@ -5,6 +5,7 @@
 package com.corejsf;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,22 +27,27 @@ public class TEST {
         DBConnection conn = new DBConnection();
         Statement st = null;
         Date lolo = new Date(2012,11,22);
-        TreningsOkt mick = new TreningsOkt(1, lolo, 23, "lol", "mick", "helvett");
-        String sb = "I";
+        TreningsOkt mick = new TreningsOkt(1, lolo, 23, "styrke", "mick", "anne");
+        String sb = "";
         try {
 
             st = conn.getConn().createStatement();
-            st.executeUpdate("INSERT INTO trening" + "(dato, varighet, kategorinavn, tekst, brukernavn)" + "VALUES(DATE('"+ mick.getSqlDate() +"')," + mick.getVarighet() +", '" + mick.getKategori()"', '" + mick.getTekst()"', '"+ mick.getBrukernavn() + "')");
+           
             
-            sb.concat("NSERT INTO USERS");
-        sb.concat("(dato, varighet, kategorinavn, tekst, brukernavn) ");
-        sb.concat("VALUES ( ");
-        sb.concat("  '" + mick.getSqlDate() + "'");
-        sb.concat(", '" + mick. + "' ");
-        sb.concat(", '" + myUser.GetLastname() + "' ");
-        sb.concat(", '" + mick. + "' ");
-        sb.concat(", '" + mick.getSqlDate()  + "'");
-        sb.concat(")");
+            
+            sb += "INSERT INTO TRENING";
+        sb +="(dato, varighet, kategorinavn, tekst, brukernavn)";
+        sb +="VALUES ( ";
+        sb +="  '" + mick.getSqlDate() + "'";
+       sb +=", " + mick.getVarighet() + " ";
+        sb +=", '" + mick.getKategori() + "' ";
+        sb +=", '" + mick.getTekst() + "' ";
+        sb +=", '" + mick.getBrukernavn()  + "'";
+       sb +=")";
+            System.out.println(sb);
+            
+//            PreparedStatement stmt = conn.prepareStatement(sb.toString());
+        st.executeUpdate(sb);
         
            
            
