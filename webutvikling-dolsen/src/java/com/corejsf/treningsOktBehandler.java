@@ -98,7 +98,7 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getPaManed(int m) {
         try {
-            hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
+            hjelp.clear();
             for (OktStatus k : treningsOkter) {
                 if (k.getTreningsikOkt().getDate().getMonth() == (m - 1)) {
                     hjelp.add(k);
@@ -155,7 +155,7 @@ public class treningsOktBehandler implements Serializable {
     
     public synchronized void updateArray() {
         TreningsOkt helpObject;
-        DBtreningsobjekter = new Collections.synchronizedList(new ArrayList<OktStatus>());
+        DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
         Statement st = null;
         
@@ -169,7 +169,8 @@ public class treningsOktBehandler implements Serializable {
                 helpObject = new TreningsOkt(rs.getInt("OKTNR"), rs.getDate("DATO"), 
                         rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"), 
                         rs.getString("TEKST"), rs.getString("BRUKERNAVN"));
-                objects.add(helpObject);
+                DBtreningsobjekter.add(new OktStatus(helpObject));
+                
             }
         } catch (SQLException e) {
             conn.failed(); //Rollback
@@ -177,6 +178,9 @@ public class treningsOktBehandler implements Serializable {
             conn.closeS(st);
             conn.closeR(rs);
             conn.close();
+            if(!DBtreningsobjekter.isEmpty()){
+                treningsOkter = DBtreningsobjekter;
+            }
         }
     }
 

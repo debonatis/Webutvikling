@@ -32,7 +32,7 @@ public class TEST {
             // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
 
             while (rs.next()) {
-                helpObject = new TreningsOkt(rs.getDate("DATO"), 
+                helpObject = new TreningsOkt(rs.getInt("OKTNR"),rs.getDate("DATO"), 
                         rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"), 
                         rs.getString("TEKST"), rs.getString("BRUKERNAVN"));
                 objects.add(helpObject);
@@ -47,7 +47,7 @@ public class TEST {
         
         for(Object e : objects){
             TreningsOkt t = (TreningsOkt) e;
-            System.out.println(t.getBrukernavn());
+            System.out.println(t.getBrukernavn() + "" + t.getOktNr());
         }
         
         
