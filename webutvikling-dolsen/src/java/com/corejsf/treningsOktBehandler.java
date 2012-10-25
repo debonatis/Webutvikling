@@ -145,6 +145,7 @@ public class treningsOktBehandler implements Serializable {
                     for (TreningsOkt e : nyOversikt.getAlleOkter()) {
                         if (e.equals(ts.getTreningsikOkt())) {
                             nyOversikt.slettOkt(e);
+                            slettTreningsOkt(e);
                         }
                     }
                     treningsOkter.remove(indeks);
