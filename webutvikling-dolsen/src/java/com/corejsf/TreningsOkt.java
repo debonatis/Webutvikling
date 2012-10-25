@@ -60,8 +60,8 @@ public  final class TreningsOkt implements Serializable {
     }
 
 
-    public TreningsOkt(Date dato, int varighet, String kategori, String tekst, String brukernavn) {
-        //this.oktNr = oktNr;
+    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori, String tekst, String brukernavn) {
+        this.oktNr = oktNr;
         this.dato = dato;
         this.varighet = varighet;
         this.kategori = kategori;
