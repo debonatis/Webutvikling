@@ -131,7 +131,13 @@ public class treningsOktBehandler implements Serializable {
                 registrerTreningsOkt(nyOkt);
                 tempOkt.nullstill();
             }
-            updateArray();
+            if(!updateArray().isEmpty()){
+                treningsOkter.clear();
+            
+            for( OktStatus s : updateArray()){
+                treningsOkter.add(s);
+            }
+            }
             int indeks = treningsOkter.size() - 1;
 
             while (indeks >= 0) {
@@ -153,7 +159,7 @@ public class treningsOktBehandler implements Serializable {
         return "success";
     }
     
-    public synchronized void updateArray() {
+    public synchronized  List<OktStatus> updateArray() {
         TreningsOkt helpObject;
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
@@ -179,7 +185,10 @@ public class treningsOktBehandler implements Serializable {
             conn.closeR(rs);
             conn.close();
             if(!DBtreningsobjekter.isEmpty()){
-                treningsOkter = DBtreningsobjekter;
+                return DBtreningsobjekter;
+            } else {
+                DBtreningsobjekter.clear();
+                return DBtreningsobjekter;
             }
         }
     }

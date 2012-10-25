@@ -4,6 +4,7 @@
  */
 package com.corejsf;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,8 +23,41 @@ public class TEST {
         
          TreningsOkt helpObject;
         ArrayList objects = new ArrayList<TreningsOkt>();
-        
+        DBConnection conn = new DBConnection();
         Statement st = null;
+        Date lolo = new Date(2012,11,22);
+        TreningsOkt mick = new TreningsOkt(1, lolo, 23, "lol", "mick", "helvett");
+        String sb = "I";
+        try {
+
+            st = conn.getConn().createStatement();
+            st.executeUpdate("INSERT INTO trening" + "(dato, varighet, kategorinavn, tekst, brukernavn)" + "VALUES(DATE('"+ mick.getSqlDate() +"')," + mick.getVarighet() +", '" + mick.getKategori()"', '" + mick.getTekst()"', '"+ mick.getBrukernavn() + "')");
+            
+            sb.concat("NSERT INTO USERS");
+        sb.concat("(dato, varighet, kategorinavn, tekst, brukernavn) ");
+        sb.concat("VALUES ( ");
+        sb.concat("  '" + mick.getSqlDate() + "'");
+        sb.concat(", '" + mick. + "' ");
+        sb.concat(", '" + myUser.GetLastname() + "' ");
+        sb.concat(", '" + mick. + "' ");
+        sb.concat(", '" + mick.getSqlDate()  + "'");
+        sb.concat(")");
+        
+           
+           
+
+        } catch (SQLException e) {
+            conn.failed();
+            System.out.println(e);
+            
+        } finally {
+            conn.closeS(st);
+            conn.close();
+            
+        }
+
+        
+      st = null;
         
         ResultSet rs = null;
         try{
