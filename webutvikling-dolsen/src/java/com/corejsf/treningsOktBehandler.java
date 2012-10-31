@@ -5,6 +5,7 @@
 package com.corejsf;
 
 import java.io.Serializable;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -128,12 +129,13 @@ public class treningsOktBehandler implements Serializable {
                 for (OktStatus j : treningsOkter) {
                     if (j.getTreningsikOkt().isEndret()) {
                         j.getTreningsikOkt().setEndret(false);
-                        endreTreningsOkt(j.getTreningsikOkt());
+                        oppdaterTreningsOktDB(treningsOkter);
 
                     }
                 }
 
             }
+            
             if (!(tempOkt.getVarighet() == 0)) {
                 TreningsOkt nyOkt;
                 nyOkt = new TreningsOkt(tempOkt.getOktNr(), tempOkt.getDate(),
@@ -163,7 +165,7 @@ public class treningsOktBehandler implements Serializable {
                 }
                 indeks--;
             }
-            List<OktStatus> sjekk = updateArray();
+            List<OktStatus> sjekk = getAlleTreningsOkter();
             if (!sjekk.isEmpty()) {
                 nyOversikt.slettAlle();
                 treningsOkter.clear();
@@ -180,7 +182,7 @@ public class treningsOktBehandler implements Serializable {
         return "success";
     }
 
-    public synchronized List<OktStatus> updateArray() {
+    public synchronized List<OktStatus> getAlleTreningsOkter() {
         TreningsOkt hjelpeobjekt;
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
@@ -254,7 +256,7 @@ public class treningsOktBehandler implements Serializable {
         } finally {
             conn.closeS(st);
             conn.close();
-            updateArray();
+            getAlleTreningsOkter();
         }
 
 
@@ -281,17 +283,47 @@ public class treningsOktBehandler implements Serializable {
 
     }
 
-    public boolean endreTreningsOkt(TreningsOkt objekt) {
+    public synchronized boolean oppdaterTreningsOktDB(List<OktStatus> liste) {
         DBConnection conn = new DBConnection();
         Statement st = null;
+        PreparedStatement oppdaterOkter = null;
+        String oppdaterString =
+                "update WAPLJ.TRENING "
+                + "set DATO = ? VARIGHET= ? "
+                + "KATEGORI= ? TEKST= ? "
+                + "where OKTNR = ? AND BRUKERNAVN= ?";
+        
+
         try {
-            st = conn.getConn().createStatement();
-            st.executeUpdate("UPDATE WAPLJ.TRENING SET DATO= '" + objekt.getSqlDate() + "', VARIGHET=" + objekt.getVarighet() + ", KATEGORINAVN ='" + objekt.getKategori() + "', TEKST='" + objekt.getTekst() + "' "
-                    + "WHERE OKTNR =" + objekt.getOktNr() + " AND  BRUKERNAVN = '" + objekt.getBrukernavn() + "';");
+            conn.getConn().setAutoCommit(false);
+            oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);
+            TreningsOkt hjelp5;
+            for(OktStatus f : liste){
+                oppdaterOkter.setDate(1, f.getTreningsikOkt().getSqlDate());
+                oppdaterOkter.setInt(2, f.getTreningsikOkt().getVarighet());
+                oppdaterOkter.setString(3, f.getTreningsikOkt().getKategori());
+                oppdaterOkter.setString(4, f.getTreningsikOkt().getTekst());
+                oppdaterOkter.setInt(5, f.getTreningsikOkt().getOktNr());
+                oppdaterOkter.setString(6, f.getTreningsikOkt().getBrukernavn());
+                oppdaterOkter.executeUpdate();
+                conn.getConn().commit();
+                
+            }
+//            st = conn.getConn().createStatement();
+//            st.executeUpdate("UPDATE TRENING SET DATO= '" + objekt.getSqlDate() + "', VARIGHET=" + objekt.getVarighet() + ", KATEGORINAVN ='" + objekt.getKategori() + "', TEKST='" + objekt.getTekst() + "' "
+//                    + "WHERE OKTNR =" + objekt.getOktNr() + " AND  BRUKERNAVN = '" + objekt.getBrukernavn() + "';");
             return true;
 
         } catch (SQLException e) {
             conn.failed();
+            if (conn.getConn() != null) {
+            try {
+                System.err.print("Endring har blitt trekk tilbake");
+                conn.getConn().rollback();
+            } catch(SQLException excep) {
+                conn.failed();
+            }
+            }
             return false;
 
         } finally {
