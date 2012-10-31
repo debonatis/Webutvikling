@@ -267,8 +267,7 @@ public class treningsOktBehandler implements Serializable {
         }
         try {
             st = conn.getConn().createStatement();
-            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR = "
-                    + objekt.getOktNr());
+            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + " AND  BRUKERNAVN = '" + objekt.getBrukernavn() + "';");
             return true;
 
         } catch (SQLException e) {
