@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -46,14 +45,8 @@ public class treningsOktBehandler implements Serializable {
     int maned = 0;
     private int mick = 0;
     private boolean nyOkt = false;
-    private FacesMessage lol = new FacesMessage();
-    private FacesContext lol2;
-    String global_error = ""; //Error that need to be shown at top of the page
-    String component_error = "";//Error that need to be shown on the component
-    String overviewform = "overviewform";// id til overview(bean) form
-    String oppdaterknapp = "submit";//oppdaterknapp
-    String rowIndex = "";//String value of row index
-    String message = "";//message type
+    private FacesMessage fm = new FacesMessage();
+    private FacesContext fc;
 
     public synchronized boolean isNyOkt() {
         return nyOkt;
@@ -133,34 +126,6 @@ public class treningsOktBehandler implements Serializable {
 
         nyOkt = false;
         try {
-
-            int indeks = treningsOkter.size() - 1;
-            if (!treningsOkter.isEmpty()) {
-                while (indeks >= 0) {
-                    OktStatus ts = treningsOkter.get(indeks);
-                    if (ts.getSkalSlettes()) {
-                        for (TreningsOkt e : nyOversikt.getAlleOkter()) {
-                            if (e.equals(ts.getTreningsikOkt())) {
-                                slettTreningsOkt(e);
-                                nyOversikt.slettOkt(e);
-
-                            }
-                        }
-                        treningsOkter.remove(indeks);
-                        lol.setSummary("Sletting utført!");
-                        lol = new FacesMessage(FacesMessage.SEVERITY_WARN, "Sletting utført!", "ja,Sletting utført!");
-                        lol2 = FacesContext.getCurrentInstance();
-                        lol2.addMessage(overviewform + ":" + oppdaterknapp, lol);
-                        lol2.renderResponse();
-
-                    }
-                    indeks--;
-                }
-            }
-
-
-
-
             if (!treningsOkter.isEmpty()) {
                 for (OktStatus j : treningsOkter) {
                     if (j.getTreningsikOkt().isEndret()) {
@@ -170,6 +135,22 @@ public class treningsOktBehandler implements Serializable {
                     }
                 }
 
+            }
+            int indeks = treningsOkter.size() - 1;
+            if (!treningsOkter.isEmpty()) {
+                while (indeks >= 0) {
+                    OktStatus ts = treningsOkter.get(indeks);
+                    if (ts.getSkalSlettes()) {
+                        for (TreningsOkt e : nyOversikt.getAlleOkter()) {
+                            if (e.equals(ts.getTreningsikOkt())) {
+                                slettTreningsOkt(e);
+                                nyOversikt.slettOkt(e);
+                            }
+                        }
+                        treningsOkter.remove(indeks);
+                    }
+                    indeks--;
+                }
             }
 
             if (!(tempOkt.getVarighet() == 0)) {
@@ -288,8 +269,11 @@ public class treningsOktBehandler implements Serializable {
         try {
             st = conn.getConn().createStatement();
             st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + " AND  BRUKERNAVN = '" + objekt.getBrukernavn() + "';");
-            lol.setSummary("Sletting utført!");
-            lol.rendered();
+            fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "Sletting utført!", "ja,Sletting utført!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
+
             return true;
 
 
