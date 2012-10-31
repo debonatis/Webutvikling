@@ -126,16 +126,17 @@ public class treningsOktBehandler implements Serializable {
 
         nyOkt = false;
         try {
+            
+
             if (!treningsOkter.isEmpty()) {
                 for (OktStatus j : treningsOkter) {
                     if (j.getTreningsikOkt().isEndret()) {
                         j.getTreningsikOkt().setEndret(false);
                         oppdaterTreningsOktDB(treningsOkter);
-
                     }
                 }
-
             }
+            
             int indeks = treningsOkter.size() - 1;
             if (!treningsOkter.isEmpty()) {
                 while (indeks >= 0) {
@@ -164,26 +165,16 @@ public class treningsOktBehandler implements Serializable {
                 registrerTreningsOkt(nyOkt);
                 tempOkt.nullstill();
             }
+            getAlleTreningsOkter();
 
 
-            List<OktStatus> sjekk = getAlleTreningsOkter();
-            if (!sjekk.isEmpty()) {
-                nyOversikt.slettAlle();
-                treningsOkter.clear();
-
-
-                for (OktStatus s : sjekk) {
-                    nyOversikt.registrerNyOkt(s.getTreningsikOkt());
-                    treningsOkter.add(s);
-                }
-            }
         } catch (ConcurrentModificationException e) {
             oppdater();
         }
         return "success";
     }
 
-    public synchronized List<OktStatus> getAlleTreningsOkter() {
+    public synchronized void getAlleTreningsOkter() {
         TreningsOkt hjelpeobjekt;
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
@@ -208,11 +199,14 @@ public class treningsOktBehandler implements Serializable {
             conn.closeS(st);
             conn.closeR(rs);
             conn.close();
+
             if (!DBtreningsobjekter.isEmpty()) {
-                return DBtreningsobjekter;
-            } else {
-                DBtreningsobjekter.clear();
-                return DBtreningsobjekter;
+                nyOversikt.slettAlle();
+                treningsOkter.clear();
+                for (OktStatus s : DBtreningsobjekter) {
+                    nyOversikt.registrerNyOkt(s.getTreningsikOkt());
+                    treningsOkter.add(s);
+                }
             }
         }
     }
