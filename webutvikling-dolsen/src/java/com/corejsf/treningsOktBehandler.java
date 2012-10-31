@@ -50,8 +50,8 @@ public class treningsOktBehandler implements Serializable {
     private FacesContext lol2;
     String global_error = ""; //Error that need to be shown at top of the page
     String component_error = "";//Error that need to be shown on the component
-    String overviewform = "";// id til overview(bean) form
-    String submit = "";//oppdaterknapp
+    String overviewform = "overviewform";// id til overview(bean) form
+    String oppdaterknapp = "submit";//oppdaterknapp
     String rowIndex = "";//String value of row index
     String message = "";//message type
 
@@ -150,7 +150,7 @@ public class treningsOktBehandler implements Serializable {
                         lol.setSummary("Sletting utført!");
                         lol = new FacesMessage(FacesMessage.SEVERITY_WARN, "Sletting utført!", "ja,Sletting utført!");
                         lol2 = FacesContext.getCurrentInstance();
-                        lol2.addMessage(overviewform + ":" + submit, lol);
+                        lol2.addMessage(overviewform + ":" + oppdaterknapp, lol);
                         lol2.renderResponse();
 
                     }
