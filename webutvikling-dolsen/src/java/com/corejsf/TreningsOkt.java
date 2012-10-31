@@ -29,7 +29,7 @@ public final class TreningsOkt implements Serializable {
     
     String tekst;
     private @Length(min = 6, max = 20)
-    @Id String  Brukernavn;
+    @Id String  Brukernavn = "anne";
     private boolean endret= false;
 
     public synchronized void setKategori(String kategori) {
@@ -67,7 +67,7 @@ public final class TreningsOkt implements Serializable {
 
     public synchronized void setBrukernavn(String brukernavn) {
         this.brukernavn = brukernavn;
-        endret = true;
+        
     }
 
 
