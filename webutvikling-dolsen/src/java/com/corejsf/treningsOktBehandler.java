@@ -121,10 +121,30 @@ public class treningsOktBehandler implements Serializable {
     public synchronized String oppdater() {
 
         nyOkt = false;
-
-
-
         try {
+        
+        int indeks = treningsOkter.size() - 1;
+         if (!treningsOkter.isEmpty()) {
+            while (indeks >= 0) {
+                OktStatus ts = treningsOkter.get(indeks);
+                if (ts.getSkalSlettes()) {
+                    for (TreningsOkt e : nyOversikt.getAlleOkter()) {
+                        if (e.equals(ts.getTreningsikOkt())) {
+                            slettTreningsOkt(e);
+                            nyOversikt.slettOkt(e);
+
+                        }
+                    }
+                    treningsOkter.remove(indeks);
+
+                }
+                indeks--;
+            }
+         }
+
+
+
+        
             if (!treningsOkter.isEmpty()) {
                 for (OktStatus j : treningsOkter) {
                     if (j.getTreningsikOkt().isEndret()) {
@@ -148,23 +168,7 @@ public class treningsOktBehandler implements Serializable {
                 tempOkt.nullstill();
             }
 
-            int indeks = treningsOkter.size() - 1;
-
-            while (indeks >= 0) {
-                OktStatus ts = treningsOkter.get(indeks);
-                if (ts.getSkalSlettes()) {
-                    for (TreningsOkt e : nyOversikt.getAlleOkter()) {
-                        if (e.equals(ts.getTreningsikOkt())) {
-                            slettTreningsOkt(e);
-                            nyOversikt.slettOkt(e);
-
-                        }
-                    }
-                    treningsOkter.remove(indeks);
-
-                }
-                indeks--;
-            }
+            
             List<OktStatus> sjekk = getAlleTreningsOkter();
             if (!sjekk.isEmpty()) {
                 nyOversikt.slettAlle();
@@ -307,9 +311,6 @@ public class treningsOktBehandler implements Serializable {
                 conn.getConn().commit();
                 
             }
-//            st = conn.getConn().createStatement();
-//            st.executeUpdate("UPDATE TRENING SET DATO= '" + objekt.getSqlDate() + "', VARIGHET=" + objekt.getVarighet() + ", KATEGORINAVN ='" + objekt.getKategori() + "', TEKST='" + objekt.getTekst() + "' "
-//                    + "WHERE OKTNR =" + objekt.getOktNr() + " AND  BRUKERNAVN = '" + objekt.getBrukernavn() + "';");
             return true;
 
         } catch (SQLException e) {

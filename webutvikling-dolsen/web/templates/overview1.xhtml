@@ -22,60 +22,60 @@ and open the template in the editor.
                     <p>
                         <h:outputText value="#{texts.overview}: "/>
                     </p>
-                    
+
                     <h:commandButton value="#{texts.newsession}" action="#{treningsOktBehandler.setNyOkt(true)}"/>
-                    
+
                     <h:panelGroup rendered="#{treningsOktBehandler.nyOkt}">
-                        
+
                         <h:dataTable  var="session2" value="#{treningsOktBehandler.temptreningsOkter}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{texts.date}"/>
-                        </f:facet>
-                        <h:inputText value="#{session2.treningsikOkt.date}" styleClass="venstrejustert">
-                            <f:convertDateTime pattern="dd.MM.yyyy"/>
-                        </h:inputText>
-                        <f:facet name="footer">
-                            <h:outputText value=""/>
-                        </f:facet>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{texts.duration}"/>
-                        </f:facet>
-                        <f:facet name="footer">
-                            <h:outputText value=""/>
-                        </f:facet>
-                        <h:inputText value="#{session2.treningsikOkt.varighet}" styleClass="venstrejustert"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{texts.category}"/>
-                        </f:facet>
-                        <h:selectOneMenu id="kategori" required="true" value="#{session2.treningsikOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
-                        <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}"/>
-                        <f:selectItem itemValue ="styrke" itemLabel="#{texts.category2}"/>
-                        <f:selectItem itemValue ="aerobics" itemLabel="#{texts.category3}"/>
-                        <f:selectItem itemValue ="jogging" itemLabel="#{texts.category4}"/>
-                        </h:selectOneMenu><br/>                              
-                        <f:facet name="footer">
-                            <h:outputText value=""/>
-                        </f:facet>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{texts.text}"/>
-                        </f:facet>
-                        <h:inputText value="#{session2.treningsikOkt.tekst}" styleClass="venstrejustert">
-                        </h:inputText>
-                        <f:facet name="footer">
-                            <h:outputText value=""/>
-                        </f:facet>
-                    </h:column>    
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.date}"/>
+                                </f:facet>
+                                <h:inputText value="#{session2.treningsikOkt.date}" styleClass="venstrejustert">
+                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.duration}"/>
+                                </f:facet>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:inputText value="#{session2.treningsikOkt.varighet}" styleClass="venstrejustert"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.category}"/>
+                                </f:facet>
+                                <h:selectOneMenu id="kategori" required="true" value="#{session2.treningsikOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
+                                    <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}"/>
+                                    <f:selectItem itemValue ="styrke" itemLabel="#{texts.category2}"/>
+                                    <f:selectItem itemValue ="aerobics" itemLabel="#{texts.category3}"/>
+                                    <f:selectItem itemValue ="jogging" itemLabel="#{texts.category4}"/>
+                                </h:selectOneMenu><br/>                              
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.text}"/>
+                                </f:facet>
+                                <h:inputText value="#{session2.treningsikOkt.tekst}" styleClass="venstrejustert">
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>    
                         </h:dataTable>
                         <br/>
                         <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/>
-                        
+
                     </h:panelGroup>
                     <br/>
                     <br/>
@@ -109,7 +109,11 @@ and open the template in the editor.
                             <f:facet name="header">
                                 <h:outputText value="#{texts.category}"/>
                             </f:facet>
-                            <h:inputText value="#{sessions.treningsikOkt.kategori}" styleClass="venstrejustert"/>                              
+                            <h:selectOneMenu required="false" value="#{sessions.treningsikOkt.kategori}"  styleClass="venstrejustert"/> 
+                            <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}"/>
+                            <f:selectItem itemValue ="styrke" itemLabel="#{texts.category2}"/>
+                            <f:selectItem itemValue ="aerobics" itemLabel="#{texts.category3}"/>
+                            <f:selectItem itemValue ="jogging" itemLabel="#{texts.category4}"/>
                             <f:facet name="footer">
                                 <h:outputText value=""/>
                             </f:facet>
@@ -152,10 +156,10 @@ and open the template in the editor.
                         <f:selectItem itemValue ="10" itemLabel="#{texts.October}"/>
                         <f:selectItem itemValue ="11" itemLabel="#{texts.November}"/>
                         <f:selectItem itemValue ="12" itemLabel="#{texts.decsember}"/>
-                        </h:selectOneMenu>
+                    </h:selectOneMenu>
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test"/>
                     <h:commandButton value="#{texts.Back}" action="input" class="test1"/>                  
-                    
+
                 </h:form>
             </ui:define>
         </ui:composition>
