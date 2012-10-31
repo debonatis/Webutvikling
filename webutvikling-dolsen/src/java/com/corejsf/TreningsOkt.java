@@ -30,9 +30,19 @@ public final class TreningsOkt implements Serializable {
     String tekst;
     private @Length(min = 6, max = 20)
     @Id String  Brukernavn;
+    private boolean endret= false;
 
     public synchronized void setKategori(String kategori) {
         this.kategori = kategori;
+        endret = true;
+    }
+
+    public boolean isEndret() {
+        return endret;
+    }
+
+    public void setEndret(boolean endret) {
+        this.endret = endret;
     }
 
     public synchronized String getTekst() {
@@ -43,6 +53,7 @@ public final class TreningsOkt implements Serializable {
     @Length(min = 1, max = 30)
     public synchronized void setTekst(String tekst) {
         this.tekst = tekst;
+        endret = true;
     }
 
     public TreningsOkt() {
@@ -56,6 +67,7 @@ public final class TreningsOkt implements Serializable {
 
     public synchronized void setBrukernavn(String brukernavn) {
         this.brukernavn = brukernavn;
+        endret = true;
     }
 
 
@@ -91,10 +103,12 @@ public final class TreningsOkt implements Serializable {
 
     public synchronized void setDate(Date nyDato) {
         dato = nyDato;
+        endret = true;
     }
 
     public synchronized void setVarighet(int oktVarighet) {
         varighet = oktVarighet;
+        endret = true;
     }
 
     public synchronized void nullstill() {
