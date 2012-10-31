@@ -157,7 +157,7 @@ public class ValidatorTekst implements Validator {
         }
 
         for (String k : hjelp) {
-            if (s.toLowerCase().equalsIgnoreCase(k)) {
+            if (s.equals(k)) {
                 return true;
             }
 
