@@ -18,7 +18,7 @@ and open the template in the editor.
             </ui:define>
             <h3>#{texts.welcome}</h3>
             <ui:define name="content">
-                <h:form>           
+                <h:form id="overviewform">           
                     <p>
                         <h:outputText value="#{texts.overview}: "/>
                     </p>
@@ -27,7 +27,7 @@ and open the template in the editor.
 
                     <h:panelGroup rendered="#{treningsOktBehandler.nyOkt}">
 
-                        <h:dataTable  var="session2" value="#{treningsOktBehandler.temptreningsOkter}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
+                        <h:dataTable  id="nyOKt" var="session2" value="#{treningsOktBehandler.temptreningsOkter}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.date}"/>
@@ -153,7 +153,7 @@ and open the template in the editor.
                         <f:selectItem itemValue ="11" itemLabel="#{texts.November}"/>
                         <f:selectItem itemValue ="12" itemLabel="#{texts.decsember}"/>
                     </h:selectOneMenu>
-                    <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test"/>
+                    <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test" id="submit"/>
                     <h:commandButton value="#{texts.Back}" action="input" class="test1"/>                  
 
                 </h:form>

@@ -14,6 +14,9 @@ import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
@@ -43,6 +46,14 @@ public class treningsOktBehandler implements Serializable {
     int maned = 0;
     private int mick = 0;
     private boolean nyOkt = false;
+    private FacesMessage lol = new FacesMessage();
+    private FacesContext lol2;
+    String global_error = ""; //Error that need to be shown at top of the page
+    String component_error = "";//Error that need to be shown on the component
+    String overviewform = "";// id til overview(bean) form
+    String submit = "";//oppdaterknapp
+    String rowIndex = "";//String value of row index
+    String message = "";//message type
 
     public synchronized boolean isNyOkt() {
         return nyOkt;
@@ -122,29 +133,34 @@ public class treningsOktBehandler implements Serializable {
 
         nyOkt = false;
         try {
-        
-        int indeks = treningsOkter.size() - 1;
-         if (!treningsOkter.isEmpty()) {
-            while (indeks >= 0) {
-                OktStatus ts = treningsOkter.get(indeks);
-                if (ts.getSkalSlettes()) {
-                    for (TreningsOkt e : nyOversikt.getAlleOkter()) {
-                        if (e.equals(ts.getTreningsikOkt())) {
-                            slettTreningsOkt(e);
-                            nyOversikt.slettOkt(e);
 
+            int indeks = treningsOkter.size() - 1;
+            if (!treningsOkter.isEmpty()) {
+                while (indeks >= 0) {
+                    OktStatus ts = treningsOkter.get(indeks);
+                    if (ts.getSkalSlettes()) {
+                        for (TreningsOkt e : nyOversikt.getAlleOkter()) {
+                            if (e.equals(ts.getTreningsikOkt())) {
+                                slettTreningsOkt(e);
+                                nyOversikt.slettOkt(e);
+
+                            }
                         }
+                        treningsOkter.remove(indeks);
+                        lol.setSummary("Sletting utført!");
+                        lol = new FacesMessage(FacesMessage.SEVERITY_WARN, "Sletting utført!", "ja,Sletting utført!");
+                        lol2 = FacesContext.getCurrentInstance();
+                        lol2.addMessage(overviewform + ":" + submit, lol);
+                        lol2.renderResponse();
+
                     }
-                    treningsOkter.remove(indeks);
-
+                    indeks--;
                 }
-                indeks--;
             }
-         }
 
 
 
-        
+
             if (!treningsOkter.isEmpty()) {
                 for (OktStatus j : treningsOkter) {
                     if (j.getTreningsikOkt().isEndret()) {
@@ -155,7 +171,7 @@ public class treningsOktBehandler implements Serializable {
                 }
 
             }
-            
+
             if (!(tempOkt.getVarighet() == 0)) {
                 TreningsOkt nyOkt;
                 nyOkt = new TreningsOkt(tempOkt.getOktNr(), tempOkt.getDate(),
@@ -168,7 +184,7 @@ public class treningsOktBehandler implements Serializable {
                 tempOkt.nullstill();
             }
 
-            
+
             List<OktStatus> sjekk = getAlleTreningsOkter();
             if (!sjekk.isEmpty()) {
                 nyOversikt.slettAlle();
@@ -269,12 +285,14 @@ public class treningsOktBehandler implements Serializable {
     public boolean slettTreningsOkt(TreningsOkt objekt) {
         DBConnection conn = new DBConnection();
         Statement st = null;
-        for (OktStatus f : treningsOkter) {
-        }
         try {
             st = conn.getConn().createStatement();
             st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + " AND  BRUKERNAVN = '" + objekt.getBrukernavn() + "';");
+            lol.setSummary("Sletting utført!");
+            lol.rendered();
             return true;
+
+
 
         } catch (SQLException e) {
             conn.failed();
@@ -295,12 +313,12 @@ public class treningsOktBehandler implements Serializable {
                 "update WAPLJ.TRENING "
                 + "set DATO = ?, VARIGHET= ?, "
                 + "KATEGORINAVN= ?, TEKST= ? "
-                + "where OKTNR = ? AND BRUKERNAVN= ?";       
+                + "where OKTNR = ? AND BRUKERNAVN= ?";
 
         try {
             conn.getConn().setAutoCommit(false);
-            oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);            
-            for(OktStatus f : liste){
+            oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);
+            for (OktStatus f : liste) {
                 oppdaterOkter.setDate(1, f.getTreningsikOkt().getSqlDate());
                 oppdaterOkter.setInt(2, f.getTreningsikOkt().getVarighet());
                 oppdaterOkter.setString(3, f.getTreningsikOkt().getKategori());
@@ -309,28 +327,27 @@ public class treningsOktBehandler implements Serializable {
                 oppdaterOkter.setString(6, f.getTreningsikOkt().getBrukernavn());
                 oppdaterOkter.executeUpdate();
                 conn.getConn().commit();
-                
+
             }
             return true;
 
         } catch (SQLException e) {
             conn.failed();
             if (conn.getConn() != null) {
-            try {
-                System.err.print("Endring har blitt trekk tilbake");
-                conn.getConn().rollback();
-            } catch(SQLException excep) {
-                conn.failed();
-            }
+                try {
+                    System.err.print("Endring har blitt trekk tilbake");
+                    conn.getConn().rollback();
+                } catch (SQLException excep) {
+                    conn.failed();
+                }
             }
             return false;
 
         } finally {
             conn.closeS(st);
             conn.close();
-        }      
-        
+        }
 
-    }    
-   
+
+    }
 }
