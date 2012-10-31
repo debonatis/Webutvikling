@@ -156,7 +156,7 @@ public class treningsOktBehandler implements Serializable {
                 TreningsOkt nyOkt;
                 nyOkt = new TreningsOkt(tempOkt.getOktNr(), tempOkt.getDate(),
                         tempOkt.getVarighet(), tempOkt.getKategori(),
-                        tempOkt.getTekst(), tempOkt.getBrukernavn());
+                        tempOkt.getTekst());
 
                 nyOversikt.registrerNyOkt(nyOkt);
                 treningsOkter.add(new OktStatus(nyOkt));
@@ -177,7 +177,7 @@ public class treningsOktBehandler implements Serializable {
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
         Statement st = null;
-
+String bruker ="";
         ResultSet rs = null;
         try {
             st = conn.getConn().createStatement();
@@ -187,7 +187,8 @@ public class treningsOktBehandler implements Serializable {
             while (rs.next()) {
                 hjelpeobjekt = new TreningsOkt(rs.getInt("OKTNR"), rs.getDate("DATO"),
                         rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"),
-                        rs.getString("TEKST"), rs.getString("BRUKERNAVN"));
+                        rs.getString("TEKST"));
+                bruker = rs.getString("BRUKERNAVN");
                 DBtreningsobjekter.add(new OktStatus(hjelpeobjekt));
 
             }

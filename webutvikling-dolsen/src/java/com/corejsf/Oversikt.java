@@ -6,6 +6,8 @@ package com.corejsf;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.persistence.Id;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -22,7 +24,8 @@ public class Oversikt implements Serializable{
     
     
     private ArrayList<TreningsOkt> alleOkter = new ArrayList();    
-    private String bruker;
+   private @Length(min = 6, max = 20)
+    @Id String  bruker;
     
     public Oversikt(){
         

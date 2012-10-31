@@ -112,7 +112,7 @@ public class TEST {
                 + "set DATO = ?, VARIGHET= ?, "
                 + "KATEGORINAVN= ?, TEKST= ? "
                 + "where OKTNR = ? AND BRUKERNAVN= ?";
-        OktStatus lol = new OktStatus(new TreningsOkt(2, new java.util.Date(), 3, "styrke", "lolol77", "tore"));
+        OktStatus lol = new OktStatus(new TreningsOkt(2, new java.util.Date(), 3, "styrke", "lolol77"));
         ArrayList<OktStatus> liste = new ArrayList<OktStatus>();
         liste.add(lol);
 

@@ -8,11 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.faces.validator.*;
+import java.util.regex.*;
 import javax.faces.application.*;
 import javax.faces.component.*;
 import javax.faces.context.*;
-import java.util.regex.*;
+import javax.faces.validator.*;
 
 /**
  *
@@ -35,7 +35,6 @@ public class ValidatorTekst implements Validator {
         passordSjekk = Pattern.compile(passordKrav);
         sjekker = passordSjekk.matcher(innlagtTekst);
         PassordSjekkOK = sjekker.matches();
-
         kategoriOK = kategoriSjekker(innlagtTekst);
 
 
@@ -49,18 +48,18 @@ public class ValidatorTekst implements Validator {
 
             }
         }
-        
-         if (uIComponent.getId().equalsIgnoreCase("passord")) {
-        if (!PassordSjekkOK) {
-            FacesMessage message = new FacesMessage();
-            message.setSummary("The password must contain at least one uppercase "
-                    + "and one lowercase letter and one number. "
-                    + "Password must be between 6-20 characters!");
 
-            throw new ValidatorException(message);
+        if (uIComponent.getId().equalsIgnoreCase("settpassord")) {
+            if (!PassordSjekkOK) {
+                FacesMessage message = new FacesMessage();
+                message.setSummary("The password must contain at least one uppercase "
+                        + "and one lowercase letter and one number. "
+                        + "Password must be between 6-20 characters!");
 
+                throw new ValidatorException(message);
+
+            }
         }
-    }
     }
 
     public synchronized boolean kategoriSjekker(String s) {
@@ -77,6 +76,75 @@ public class ValidatorTekst implements Validator {
 
             while (rs.next()) {
                 hjelp.add(rs.getString("KATEGORINAVN"));
+
+            }
+        } catch (SQLException e) {
+            conn.failed(); //Rollback
+        } finally {
+            conn.closeS(st);
+            conn.closeR(rs);
+            conn.close();
+
+        }
+
+        for (String k : hjelp) {
+            if (s.toLowerCase().equalsIgnoreCase(k)) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+    
+    public synchronized boolean brukerSjekker(String s) {
+
+        DBConnection conn = new DBConnection();
+        ArrayList<String> hjelp = new ArrayList<>();
+        Statement st = null;
+
+        ResultSet rs = null;
+        try {
+            st = conn.getConn().createStatement();
+            rs = st.executeQuery("SELECT * FROM WAPLJ.BRUKER");
+            // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
+
+            while (rs.next()) {
+                hjelp.add(rs.getString("BRUKERNAVN"));
+
+            }
+        } catch (SQLException e) {
+            conn.failed(); //Rollback
+        } finally {
+            conn.closeS(st);
+            conn.closeR(rs);
+            conn.close();
+
+        }
+
+        for (String k : hjelp) {
+            if (s.equalsIgnoreCase(k)) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+    public synchronized boolean passwordSjekker(String s) {
+
+        DBConnection conn = new DBConnection();
+        ArrayList<String> hjelp = new ArrayList<>();
+        Statement st = null;
+
+        ResultSet rs = null;
+        try {
+            st = conn.getConn().createStatement();
+            rs = st.executeQuery("SELECT * FROM WAPLJ.BRUKER");
+            // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
+
+            while (rs.next()) {
+                hjelp.add(rs.getString("PASSORD"));
 
             }
         } catch (SQLException e) {
