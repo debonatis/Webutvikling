@@ -328,7 +328,16 @@ public class treningsOktBehandler implements Serializable {
         } finally {
             conn.closeS(st);
             conn.close();
-        }
+        }      
+        
 
+    }
+    
+    public synchronized boolean kategoriSjekker(String s){
+        
+    
+        
+        
+        
     }
 }
