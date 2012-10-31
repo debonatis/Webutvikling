@@ -3,10 +3,10 @@
 <!-- =========== FULL CONFIGURATION FILE ================================== -->
 
 <faces-config version="2.1"
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
-<application>
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+    <application>
     
         <locale-config>
             <default-locale>en</default-locale>
@@ -26,6 +26,10 @@
             <to-view-id>/templates/overview1.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <validator>
+        <validator-id>sjekk</validator-id>
+        <validator-class>com.corejsf.ValidatorTekst</validator-class>
+    </validator>
     <navigation-rule>
         <from-view-id>/templates/overview1.xhtml</from-view-id>
         <navigation-case>

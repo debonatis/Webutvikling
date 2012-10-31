@@ -331,13 +331,6 @@ public class treningsOktBehandler implements Serializable {
         }      
         
 
-    }
-    
-    public synchronized boolean kategoriSjekker(String s){
-        
-    
-        
-        
-        
-    }
+    }    
+   
 }
