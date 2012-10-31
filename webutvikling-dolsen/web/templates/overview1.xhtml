@@ -109,8 +109,8 @@ and open the template in the editor.
                             <f:facet name="header">
                                 <h:outputText value="#{texts.category}"/>
                             </f:facet>
-                            <h:selectOneMenu required="true" value="#{sessions.treningsikOkt.kategori}"  styleClass="venstrejustert" requiredMessage="#{texts.invalidactivity}"/> 
-                            <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}"/>
+                            <h:selectOneMenu id="kategori2" required="true" value="#{sessions.treningsikOkt.kategori}"  styleClass="venstrejustert" requiredMessage="#{texts.invalidactivity}"/> 
+                            <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}" />
                             <f:selectItem itemValue ="styrke" itemLabel="#{texts.category2}"/>
                             <f:selectItem itemValue ="aerobics" itemLabel="#{texts.category3}"/>
                             <f:selectItem itemValue ="jogging" itemLabel="#{texts.category4}"/>
