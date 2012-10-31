@@ -260,7 +260,7 @@ public class treningsOktBehandler implements Serializable {
         Statement st = null;
         try {
             st = conn.getConn().createStatement();
-            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + ";");
+            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr());
             fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "Sletting utført!", "ja,Sletting utført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
