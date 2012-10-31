@@ -49,7 +49,8 @@ public class ValidatorTekst implements Validator {
 
             }
         }
-
+        
+         if (uIComponent.getId().equalsIgnoreCase("passord")) {
         if (!PassordSjekkOK) {
             FacesMessage message = new FacesMessage();
             message.setSummary("The password must contain at least one uppercase "
@@ -59,6 +60,7 @@ public class ValidatorTekst implements Validator {
             throw new ValidatorException(message);
 
         }
+    }
     }
 
     public synchronized boolean kategoriSjekker(String s) {
