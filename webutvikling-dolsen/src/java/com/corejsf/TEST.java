@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -75,8 +77,8 @@ public class TEST {
 //        st = null;
 //        
 //        rs = null;
-        
-  
+//        
+//  
 //        try{
 //            st = test.getConn().createStatement();
 //            rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING");
@@ -101,6 +103,55 @@ public class TEST {
 //            System.out.println(t.getBrukernavn() + "" + t.getOktNr());
 //        
 //    }
-//       
+        
+         DBConnection conn = new DBConnection();
+        Statement st = null;
+        PreparedStatement oppdaterOkter = null;
+        String oppdaterString =
+                "update WAPLJ.TRENING "
+                + "set DATO = ?, VARIGHET= ?, "
+                + "KATEGORINAVN= ?, TEKST= ? "
+                + "where OKTNR = ? AND BRUKERNAVN= ?";
+        OktStatus lol = new OktStatus(new TreningsOkt(2, new java.util.Date(), 3, "styrke", "lolol77", "tore"));
+        ArrayList<OktStatus> liste = new ArrayList<OktStatus>();
+        liste.add(lol);
+
+        try {
+            conn.getConn().setAutoCommit(false);
+            oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);            
+            for(OktStatus f : liste){
+                oppdaterOkter.setDate(1, f.getTreningsikOkt().getSqlDate());
+                oppdaterOkter.setInt(2, f.getTreningsikOkt().getVarighet());
+                oppdaterOkter.setString(3, f.getTreningsikOkt().getKategori());
+                oppdaterOkter.setString(4, f.getTreningsikOkt().getTekst());
+                oppdaterOkter.setInt(5, f.getTreningsikOkt().getOktNr());
+                oppdaterOkter.setString(6, f.getTreningsikOkt().getBrukernavn());
+                oppdaterOkter.executeUpdate();
+                conn.getConn().commit();
+                
+            }
+//            st = conn.getConn().createStatement();
+//            st.executeUpdate("UPDATE TRENING SET DATO= '" + objekt.getSqlDate() + "', VARIGHET=" + objekt.getVarighet() + ", KATEGORINAVN ='" + objekt.getKategori() + "', TEKST='" + objekt.getTekst() + "' "
+//                    + "WHERE OKTNR =" + objekt.getOktNr() + " AND  BRUKERNAVN = '" + objekt.getBrukernavn() + "';");
+           
+
+        } catch (SQLException e) {
+            conn.failed();
+             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, e);
+            if (conn.getConn() != null) {
+            try {
+                System.err.print("Endring har blitt trekk tilbake");
+                conn.getConn().rollback();
+            } catch(SQLException excep) {
+                conn.failed();
+            }
+            }
+            
+
+        } finally {
+            conn.closeS(st);
+            conn.close();
+        }
+       
 }
 }

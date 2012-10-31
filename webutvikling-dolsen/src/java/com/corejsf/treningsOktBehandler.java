@@ -289,15 +289,13 @@ public class treningsOktBehandler implements Serializable {
         PreparedStatement oppdaterOkter = null;
         String oppdaterString =
                 "update WAPLJ.TRENING "
-                + "set DATO = ? VARIGHET= ? "
-                + "KATEGORI= ? TEKST= ? "
-                + "where OKTNR = ? AND BRUKERNAVN= ?";
-        
+                + "set DATO = ?, VARIGHET= ?, "
+                + "KATEGORINAVN= ?, TEKST= ? "
+                + "where OKTNR = ? AND BRUKERNAVN= ?";       
 
         try {
             conn.getConn().setAutoCommit(false);
-            oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);
-            TreningsOkt hjelp5;
+            oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);            
             for(OktStatus f : liste){
                 oppdaterOkter.setDate(1, f.getTreningsikOkt().getSqlDate());
                 oppdaterOkter.setInt(2, f.getTreningsikOkt().getVarighet());
