@@ -60,14 +60,14 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTabelldata() {
         Boolean sjekk = false;
-        try{
-        if ((getManed() >= 1)) {
-            return getPaManed(getManed());
-        } else if ((getManed() == 0)) {
-            return treningsOkter;
+        try {
+            if ((getManed() >= 1)) {
+                return getPaManed(getManed());
+            } else if ((getManed() == 0)) {
+                return treningsOkter;
 
-        } 
-        } catch (ConcurrentModificationException e){
+            }
+        } catch (ConcurrentModificationException e) {
             getTabelldata();
         }
         return treningsOkter;
@@ -120,20 +120,20 @@ public class treningsOktBehandler implements Serializable {
     public synchronized String oppdater() {
 
         nyOkt = false;
-        
-        
+
+
 
         try {
-            if(!treningsOkter.isEmpty()){            
-                for(OktStatus j: treningsOkter){
-                    if(j.getTreningsikOkt().isEndret()){
+            if (!treningsOkter.isEmpty()) {
+                for (OktStatus j : treningsOkter) {
+                    if (j.getTreningsikOkt().isEndret()) {
                         j.getTreningsikOkt().setEndret(false);
                         endreTreningsOkt(j.getTreningsikOkt());
-                        
+
                     }
                 }
-            
-        }
+
+            }
             if (!(tempOkt.getVarighet() == 0)) {
                 TreningsOkt nyOkt;
                 nyOkt = new TreningsOkt(tempOkt.getOktNr(), tempOkt.getDate(),
@@ -155,7 +155,7 @@ public class treningsOktBehandler implements Serializable {
                         if (e.equals(ts.getTreningsikOkt())) {
                             slettTreningsOkt(e);
                             nyOversikt.slettOkt(e);
-                            
+
                         }
                     }
                     treningsOkter.remove(indeks);
@@ -163,7 +163,7 @@ public class treningsOktBehandler implements Serializable {
                 }
                 indeks--;
             }
-            List<OktStatus> sjekk = updateArray(); 
+            List<OktStatus> sjekk = updateArray();
             if (!sjekk.isEmpty()) {
                 nyOversikt.slettAlle();
                 treningsOkter.clear();
@@ -176,7 +176,7 @@ public class treningsOktBehandler implements Serializable {
             }
         } catch (ConcurrentModificationException e) {
             oppdater();
-        }        
+        }
         return "success";
     }
 
@@ -239,7 +239,7 @@ public class treningsOktBehandler implements Serializable {
             sb += ", " + mick.getVarighet() + " ";
             sb += ", '" + mick.getKategori() + "' ";
             sb += ", '" + mick.getTekst() + "' ";
-            sb += ", 'anne'";
+            sb += ", '" + mick.getBrukernavn() + "'";
             sb += ")";
             System.out.println(sb);
 
@@ -263,8 +263,7 @@ public class treningsOktBehandler implements Serializable {
     public boolean slettTreningsOkt(TreningsOkt objekt) {
         DBConnection conn = new DBConnection();
         Statement st = null;
-        for(OktStatus f : treningsOkter){
-            
+        for (OktStatus f : treningsOkter) {
         }
         try {
             st = conn.getConn().createStatement();
@@ -282,22 +281,14 @@ public class treningsOktBehandler implements Serializable {
         }
 
     }
-    
-     public boolean endreTreningsOkt(TreningsOkt objekt) {
+
+    public boolean endreTreningsOkt(TreningsOkt objekt) {
         DBConnection conn = new DBConnection();
         Statement st = null;
-        int hjelp = objekt.getOktNr();
-        String brukernavn = objekt.getBrukernavn();
-        
-//        UPDATE table_name
-//SET column1=value, column2=value2,...
-//WHERE some_column=some_value
-        
-        
         try {
             st = conn.getConn().createStatement();
-            st.executeUpdate("UPDATE WAPLJ.TRENING SET DATO= WHERE OKTNR =" 
-                    + hjelp + " AND  BRUKERNAVN = " + brukernavn +";");
+            st.executeUpdate("UPDATE WAPLJ.TRENING SET DATO= '" + objekt.getSqlDate() + "', VARIGHET=" + objekt.getVarighet() + ", KATEGORINAVN ='" + objekt.getKategori() + "', TEKST='" + objekt.getTekst() + "' "
+                    + "WHERE OKTNR =" + objekt.getOktNr() + " AND  BRUKERNAVN = '" + objekt.getBrukernavn() + "';");
             return true;
 
         } catch (SQLException e) {
