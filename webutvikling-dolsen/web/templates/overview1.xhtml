@@ -84,6 +84,7 @@ and open the template in the editor.
                         <h:outputText value="#{texts.noData}"
                                       rendered="#{not treningsOktBehandler.datafins}"/>
                     </p>
+                    <div style="height:200px;overflow-x:auto;overflow-y:scroll;">
                     <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
 
                         <h:column>
@@ -133,6 +134,7 @@ and open the template in the editor.
                             <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                         </h:column>
                     </h:dataTable>
+                    </div>
                     <p class ="buttonRightOutput">
 
                         <h:outputText value="#{texts.totalSessions}  #{treningsOktBehandler.antOkter}" rendered="#{treningsOktBehandler.datafins}"/><br/>
