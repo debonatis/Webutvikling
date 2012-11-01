@@ -26,11 +26,11 @@ public final class TreningsOkt implements Serializable {
     String kategori;
     private @NotNull
     @Length(min = 0, max = 30)
-    
     String tekst;
     private @Length(min = 6, max = 20)
-    @Id String  Brukernavn = "anne";
-    private boolean endret= false;
+    @Id
+    String Brukernavn = "anne";
+    private boolean endret = false;
 
     public synchronized void setKategori(String kategori) {
         this.kategori = kategori;
@@ -59,17 +59,17 @@ public final class TreningsOkt implements Serializable {
     public TreningsOkt() {
         nullstill();
     }
-    private @Length(min= 6, max = 20)String brukernavn;
-    
+    private @Length(min = 6, max = 20)
+    String brukernavn;
+
     public synchronized String getBrukernavn() {
         return brukernavn;
     }
 
     public synchronized void setBrukernavn(String brukernavn) {
         this.brukernavn = brukernavn;
-        
-    }
 
+    }
 
     public TreningsOkt(int oktNr, Date dato, int varighet, String kategori, String tekst) {
         this.oktNr = oktNr;
@@ -77,8 +77,8 @@ public final class TreningsOkt implements Serializable {
         this.varighet = varighet;
         this.kategori = kategori;
         this.tekst = tekst;
-       
-        
+
+
     }
 
     public synchronized int getOktNr() {

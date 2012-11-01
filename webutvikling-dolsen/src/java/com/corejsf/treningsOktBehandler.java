@@ -291,7 +291,6 @@ String bruker ="";
                 + "set DATO = ?, VARIGHET= ?, "
                 + "KATEGORINAVN= ?, TEKST= ? "
                 + "where OKTNR = ? AND BRUKERNAVN= ?";
-
         try {
             conn.getConn().setAutoCommit(false);
             oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);
