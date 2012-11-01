@@ -71,9 +71,8 @@ public class Oversikt implements Serializable{
             }
             return hjelp;
         } catch (ConcurrentModificationException e) {
-            getPaManed(m);
-        }
-        hjelp.clear();
+            
+        }        
         return hjelp;
     }
     
