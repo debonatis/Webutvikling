@@ -62,17 +62,21 @@ public class Oversikt implements Serializable{
          
     }
     public synchronized ArrayList<TreningsOkt> getPaManed(int m) {
-        try {
+       
+        try { 
+            synchronized (this){
             hjelp.clear();
             for (TreningsOkt k : alleOkter) {
                 if ((k.getSqlDate().getMonth()) == (m-1)) {
                     hjelp.add(k);
                 }
             }
+            }
             return hjelp;
         } catch (ConcurrentModificationException e) {
             
-        }        
+        }   
+        
         return hjelp;
     }
     

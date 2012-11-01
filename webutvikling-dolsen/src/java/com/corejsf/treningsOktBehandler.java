@@ -68,7 +68,8 @@ public class treningsOktBehandler implements Serializable {
         hjelp.clear();
         int m; 
         m= getManed();
-        if ((getManed() >= 1)) {            
+        if ((getManed() >= 1)) {  
+            synchronized (this){
             hjelp2 = nyOversikt.getPaManed(m);
             try {
                 for (TreningsOkt g : hjelp2) {
@@ -79,6 +80,7 @@ public class treningsOktBehandler implements Serializable {
                 getTabelldata();
             }
             setManed(0);
+        }
         }
         return treningsOkter;
     }
