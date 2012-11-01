@@ -247,7 +247,7 @@ String bruker ="";
 
     }
 
-    public boolean slettTreningsOkt(TreningsOkt objekt) {
+    public synchronized boolean slettTreningsOkt(TreningsOkt objekt) {
         DBConnection conn = new DBConnection();
         Statement st = null;
         try {
