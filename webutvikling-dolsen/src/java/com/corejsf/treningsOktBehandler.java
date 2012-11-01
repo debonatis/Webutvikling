@@ -303,6 +303,10 @@ String bruker ="";
                 conn.getConn().commit();
 
             }
+             fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "Oppdatering utført!", "ja,Oppdatering utført!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
             return true;
 
         } catch (SQLException e) {
