@@ -40,6 +40,7 @@ public class treningsOktBehandler implements Serializable {
     private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
     private TreningsOkt tempOkt = new TreningsOkt();
+    private ArrayList<TreningsOkt> hjelp2 = new ArrayList<>();
     private @NotNull
     @Range(min = 0, max = 12)
     int maned = 0;    
@@ -66,7 +67,12 @@ public class treningsOktBehandler implements Serializable {
         Boolean sjekk = false;
         try {
             if ((getManed() >= 1)) {
-                return getPaManed(getManed());
+                hjelp2 = nyOversikt.getPaManed(getManed());
+               for (TreningsOkt g :hjelp2){
+                   hjelp.add(new OktStatus(g));
+               }
+               return hjelp;
+                   
             } else if ((getManed() == 0)) {
                 return treningsOkter;
 
@@ -103,19 +109,7 @@ public class treningsOktBehandler implements Serializable {
         return tempOkt;
     }
 
-    public synchronized List<OktStatus> getPaManed(int m) {
-        try {
-            hjelp.clear();
-            for (OktStatus k : treningsOkter) {
-                if (k.getTreningsikOkt().getDate().getMonth() == (m - 1)) {
-                    hjelp.add(k);
-                }
-            }
-        } catch (ConcurrentModificationException e) {
-            getPaManed(m);
-        }
-        return hjelp;
-    }
+   
 
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
         tempOkt = nyTempOkt;

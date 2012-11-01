@@ -49,7 +49,7 @@ public class ValidatorTekst implements Validator {
             }
         }
 
-        if (uIComponent.getId().equalsIgnoreCase("settpassord")) {
+        else if (uIComponent.getId().equalsIgnoreCase("settpassord")) {
             if (!PassordSjekkOK) {
                 FacesMessage message = new FacesMessage();
                 message.setSummary("The password must contain at least one uppercase "
