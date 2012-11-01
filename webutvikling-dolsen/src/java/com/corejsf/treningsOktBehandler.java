@@ -231,7 +231,7 @@ public class treningsOktBehandler implements Serializable {
 
 
             st.executeUpdate(sb);
-            fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "Registrering fullført", "ja,Registreing fullført!");
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrering fullført", "ja,Registreing fullført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
@@ -256,7 +256,7 @@ public class treningsOktBehandler implements Serializable {
         try {
             st = conn.getConn().createStatement();
             st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr());
-            fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "Sletting utført!", "ja,Sletting utført!");
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
@@ -310,7 +310,7 @@ public class treningsOktBehandler implements Serializable {
                 conn.getConn().commit();
 
             }
-            fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "Oppdatering utført!", "ja,Oppdatering utført!");
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Oppdatering utført!", "ja,Oppdatering utført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
