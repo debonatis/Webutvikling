@@ -59,22 +59,23 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized boolean getDatafins() {
         if ((getManed() >= 1)) {
-            return (!hjelp2.isEmpty());
+            getTabelldata();
+            return (!hjelp.isEmpty());
         }
         return (!treningsOkter.isEmpty());
     }
 
     public synchronized List<OktStatus> getTabelldata() {       
         hjelp.clear();
-        int m; 
-        m= getManed();
+        int m;         
+        m= maned;        
         if ((getManed() >= 1)) {  
             synchronized (this){
             hjelp2 = nyOversikt.getPaManed(m);
             try {
                 for (TreningsOkt g : hjelp2) {
                     hjelp.add(new OktStatus(g));
-                }                
+                }                 
                 return hjelp;
             } catch (ConcurrentModificationException e) {
                 getTabelldata();
@@ -116,6 +117,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized String oppdater() {
+               
 
         nyOkt = false;
         try {
@@ -198,7 +200,7 @@ public class treningsOktBehandler implements Serializable {
         }
     }
 
-    public synchronized int getManed() {
+    public int getManed() {
         return maned;
     }
 
