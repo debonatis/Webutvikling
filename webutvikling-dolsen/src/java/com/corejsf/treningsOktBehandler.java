@@ -137,14 +137,7 @@ public class treningsOktBehandler implements Serializable {
                     indeks--;
                 }
             }
-            if (!treningsOkter.isEmpty()) {
-                for (OktStatus j : treningsOkter) {
-                    if (j.getTreningsikOkt().isEndret()) {
-                        j.getTreningsikOkt().setEndret(false);
-                        oppdaterTreningsOktDB(treningsOkter);
-                    }
-                }
-            }
+            oppdaterTreningsOktDB();
 
             if (!(tempOkt.getVarighet() == 0)) {
                 TreningsOkt nyOkt;
@@ -280,7 +273,18 @@ String bruker ="";
 
     }
 
-    public synchronized boolean oppdaterTreningsOktDB(List<OktStatus> liste) {
+    public synchronized boolean oppdaterTreningsOktDB() {
+        
+    hjelp.clear();
+        if (!treningsOkter.isEmpty()) {
+                for (OktStatus j : treningsOkter) {
+                    if (j.getTreningsikOkt().isEndret()) {
+                        j.getTreningsikOkt().setEndret(false);
+                        hjelp.add(j);
+                                }
+                }
+        }
+                
         DBConnection conn = new DBConnection();
         Statement st = null;
         PreparedStatement oppdaterOkter = null;
@@ -292,13 +296,13 @@ String bruker ="";
         try {
             conn.getConn().setAutoCommit(false);
             oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);
-            for (OktStatus f : liste) {
+            for (OktStatus f : hjelp) {
                 oppdaterOkter.setDate(1, f.getTreningsikOkt().getSqlDate());
                 oppdaterOkter.setInt(2, f.getTreningsikOkt().getVarighet());
                 oppdaterOkter.setString(3, f.getTreningsikOkt().getKategori());
                 oppdaterOkter.setString(4, f.getTreningsikOkt().getTekst());
                 oppdaterOkter.setInt(5, f.getTreningsikOkt().getOktNr());
-                oppdaterOkter.setString(6, f.getTreningsikOkt().getBrukernavn());
+                oppdaterOkter.setString(6, "anne");
                 oppdaterOkter.executeUpdate();
                 conn.getConn().commit();
 
