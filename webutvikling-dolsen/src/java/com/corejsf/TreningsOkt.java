@@ -5,6 +5,8 @@
 package com.corejsf;
 
 import java.io.Serializable;
+import java.sql.SQLClientInfoException;
+import java.sql.SQLData;
 import java.util.Date;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -18,12 +20,22 @@ import org.hibernate.validator.constraints.Range;
 public final class TreningsOkt implements Serializable {
 
     private int oktNr;
-    private Date dato = new Date();
+    private Date dato;
     private @NotNull
     @Range(min = 1, max = 97696697)
     int varighet = 0;
     private @NotNull
     String kategori;
+
+    public Date getDato() {
+        return dato;
+    }
+
+    
+
+    public void setDato(java.sql.Date dato) {
+        this.dato = dato;
+    }
     private @NotNull
     @Length(min = 0, max = 30)
     String tekst;
@@ -86,11 +98,15 @@ public final class TreningsOkt implements Serializable {
     }
 
     public synchronized java.sql.Date getSqlDate() {
-        return new java.sql.Date(dato.getYear(), dato.getMonth(), (dato.getDate()));
+        return new java.sql.Date(dato.getYear(), dato.getMonth(), (dato.getDate()+1));
     }
 
     public synchronized Date getDate() {
         return dato;
+    }
+
+    public void setDato(Date dato) {
+        this.dato = dato;
     }
 
     public synchronized int getVarighet() {
