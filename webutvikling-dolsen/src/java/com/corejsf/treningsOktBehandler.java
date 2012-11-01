@@ -164,7 +164,7 @@ public class treningsOktBehandler implements Serializable {
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
         Statement st = null;
-String bruker ="";
+        String bruker ="";
         ResultSet rs = null;
         try {
             st = conn.getConn().createStatement();
