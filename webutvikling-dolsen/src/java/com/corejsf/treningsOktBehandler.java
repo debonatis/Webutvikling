@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -138,7 +139,7 @@ public class treningsOktBehandler implements Serializable {
 
             if (!(tempOkt.getVarighet() == 0)) {
                 TreningsOkt nyOkt;
-                nyOkt = new TreningsOkt(tempOkt.getOktNr(), tempOkt.getDate(),
+                nyOkt = new TreningsOkt(tempOkt.getOktNr(), new Date(tempOkt.getDate().getYear(), tempOkt.getDate().getMonth(), (tempOkt.getDate().getDate()-3)),
                         tempOkt.getVarighet(), tempOkt.getKategori(),
                         tempOkt.getTekst());
 

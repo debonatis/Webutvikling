@@ -102,6 +102,7 @@ public final class TreningsOkt implements Serializable {
     }
 
     public synchronized Date getDate() {
+        dato = new Date(dato.getYear(), dato.getMonth(), (dato.getDate()+1));
         return dato;
     }
 
