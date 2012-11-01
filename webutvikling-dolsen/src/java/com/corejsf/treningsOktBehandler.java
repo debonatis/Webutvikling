@@ -229,12 +229,16 @@ String bruker ="";
             sb += ", " + mick.getVarighet() + " ";
             sb += ", '" + mick.getKategori() + "' ";
             sb += ", '" + mick.getTekst() + "' ";
-            sb += ", '" + mick.getBrukernavn() + "'";
+            sb += ", 'anne'";
             sb += ")";
             System.out.println(sb);
 
 
             st.executeUpdate(sb);
+            fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "Registrering fullført", "ja,Registreing fullført!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
 
             return true;
 
