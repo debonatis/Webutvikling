@@ -65,13 +65,15 @@ public class Oversikt implements Serializable{
         try {
             hjelp.clear();
             for (TreningsOkt k : alleOkter) {
-                if (k.getDate().getMonth() == (m - 1)) {
+                if ((k.getSqlDate().getMonth()) == (m - 1)) {
                     hjelp.add(k);
                 }
             }
+            return hjelp;
         } catch (ConcurrentModificationException e) {
             getPaManed(m);
         }
+        hjelp.clear();
         return hjelp;
     }
     

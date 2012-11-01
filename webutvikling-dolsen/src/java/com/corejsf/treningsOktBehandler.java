@@ -43,7 +43,7 @@ public class treningsOktBehandler implements Serializable {
     private ArrayList<TreningsOkt> hjelp2 = new ArrayList<>();
     private @NotNull
     @Range(min = 0, max = 12)
-    int maned = 0;    
+    int maned = 0;
     private boolean nyOkt = false;
     private FacesMessage fm = new FacesMessage();
     private FacesContext fc;
@@ -65,20 +65,19 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTabelldata() {
         Boolean sjekk = false;
-        try {
-            if ((getManed() >= 1)) {
-                hjelp2 = nyOversikt.getPaManed(getManed());
-               for (TreningsOkt g :hjelp2){
-                   hjelp.add(new OktStatus(g));
-               }
-               return hjelp;
-                   
-            } else if ((getManed() == 0)) {
-                return treningsOkter;
-
+        hjelp.clear();
+        if ((getManed() >= 1)) {
+            hjelp2 = nyOversikt.getPaManed(getManed());
+            try {
+                for (TreningsOkt g : hjelp2) {
+                    hjelp.add(new OktStatus(g));
+                }
+                
+                return hjelp;
+            } catch (ConcurrentModificationException e) {
+                getTabelldata();
             }
-        } catch (ConcurrentModificationException e) {
-            getTabelldata();
+            setManed(0);
         }
         return treningsOkter;
     }
@@ -109,8 +108,6 @@ public class treningsOktBehandler implements Serializable {
         return tempOkt;
     }
 
-   
-
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
         tempOkt = nyTempOkt;
     }
@@ -119,8 +116,8 @@ public class treningsOktBehandler implements Serializable {
 
         nyOkt = false;
         try {
-                     
-            
+
+
             int indeks = treningsOkter.size() - 1;
             if (!treningsOkter.isEmpty()) {
                 while (indeks >= 0) {
@@ -150,7 +147,7 @@ public class treningsOktBehandler implements Serializable {
                 registrerTreningsOkt(nyOkt);
                 tempOkt.nullstill();
             }
-            getAlleTreningsOkter(); 
+            getAlleTreningsOkter();
 
 
         } catch (ConcurrentModificationException e) {
@@ -161,10 +158,11 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized void getAlleTreningsOkter() {
         TreningsOkt hjelpeobjekt;
+        hjelpeobjekt = new TreningsOkt();
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
         Statement st = null;
-        String bruker ="";
+        String bruker = "";
         ResultSet rs = null;
         try {
             st = conn.getConn().createStatement();
@@ -218,7 +216,7 @@ public class treningsOktBehandler implements Serializable {
             sb += "INSERT INTO TRENING";
             sb += "(dato, varighet, kategorinavn, tekst, brukernavn)";
             sb += "VALUES ( ";
-            sb += "  '" + mick.getDate() + "'";
+            sb += "  '" + mick.getSqlDate() + "'";
             sb += ", " + mick.getVarighet() + " ";
             sb += ", '" + mick.getKategori() + "' ";
             sb += ", '" + mick.getTekst() + "' ";
@@ -274,17 +272,17 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized boolean oppdaterTreningsOktDB() {
-        
-    hjelp.clear();
+        String t = "anne";
+        hjelp.clear();
         if (!treningsOkter.isEmpty()) {
-                for (OktStatus j : treningsOkter) {
-                    if (j.getTreningsikOkt().isEndret()) {
-                        j.getTreningsikOkt().setEndret(false);
-                        hjelp.add(j);
-                                }
+            for (OktStatus j : treningsOkter) {
+                if (j.getTreningsikOkt().isEndret()) {
+                    j.getTreningsikOkt().setEndret(false);
+                    hjelp.add(j);
                 }
+            }
         }
-                
+
         DBConnection conn = new DBConnection();
         Statement st = null;
         PreparedStatement oppdaterOkter = null;
@@ -302,12 +300,12 @@ public class treningsOktBehandler implements Serializable {
                 oppdaterOkter.setString(3, f.getTreningsikOkt().getKategori());
                 oppdaterOkter.setString(4, f.getTreningsikOkt().getTekst());
                 oppdaterOkter.setInt(5, f.getTreningsikOkt().getOktNr());
-                oppdaterOkter.setString(6, "anne");
+                oppdaterOkter.setString(6, t);
                 oppdaterOkter.executeUpdate();
                 conn.getConn().commit();
 
             }
-             fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "Oppdatering utført!", "ja,Oppdatering utført!");
+            fm = new FacesMessage(FacesMessage.SEVERITY_WARN, "Oppdatering utført!", "ja,Oppdatering utført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
