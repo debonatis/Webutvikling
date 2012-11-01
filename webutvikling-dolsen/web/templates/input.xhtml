@@ -33,7 +33,7 @@
 
                         <h:outputLabel value="#{texts.category}"></h:outputLabel><br/>
 
-                        <h:selectOneListbox id="kategori" required="true" value="#{treningsOktBehandler.tempOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
+                        <h:selectOneMenu id="kategori" required="true" value="#{treningsOktBehandler.tempOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
                             <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}"/>
                             <f:selectItem itemValue ="styrke" itemLabel="#{texts.category2}"/>
                             <f:selectItem itemValue ="aerobics" itemLabel="#{texts.category3}"/>
