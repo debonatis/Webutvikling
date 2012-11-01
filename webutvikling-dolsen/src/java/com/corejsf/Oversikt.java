@@ -65,7 +65,7 @@ public class Oversikt implements Serializable{
         try {
             hjelp.clear();
             for (TreningsOkt k : alleOkter) {
-                if ((k.getSqlDate().getMonth()) == (m - 1)) {
+                if ((k.getSqlDate().getMonth()) == (m)) {
                     hjelp.add(k);
                 }
             }
