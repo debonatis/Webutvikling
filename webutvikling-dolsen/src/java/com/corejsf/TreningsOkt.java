@@ -98,7 +98,7 @@ public final class TreningsOkt implements Serializable {
     }
 
     public synchronized java.sql.Date getSqlDate() {
-        return new java.sql.Date(dato.getYear(), dato.getMonth(), (dato.getDate()+1));
+        return new java.sql.Date(dato.getYear(), dato.getMonth(), dato.getDate());
     }
 
     public synchronized Date getDate() {
