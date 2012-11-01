@@ -162,8 +162,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized void getAlleTreningsOkter() {
-        TreningsOkt hjelpeobjekt;
-        hjelpeobjekt = new TreningsOkt();
+        TreningsOkt hjelpeobjekt;        
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
         Statement st = null;

@@ -4,9 +4,6 @@
  */
 package com.corejsf;
 
-import java.io.Serializable;
-import java.sql.SQLClientInfoException;
-import java.sql.SQLData;
 import java.util.Date;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -17,7 +14,7 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author deb
  */
-public final class TreningsOkt implements Serializable {
+public final class TreningsOkt{
 
     private int oktNr;
     private Date dato;
