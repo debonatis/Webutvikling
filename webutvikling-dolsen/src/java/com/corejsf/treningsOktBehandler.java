@@ -87,13 +87,13 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized int getAntOkter() {
-        return treningsOkter.size();
+        return getTabelldata().size();
     }
 
     public synchronized int getGjennomsnitt() {
         int max = 0;
         int indeks = 0;
-        for (OktStatus t : treningsOkter) {
+        for (OktStatus t : getTabelldata()) {
             max += t.getTreningsikOkt().getVarighet();
             indeks++;
         }
