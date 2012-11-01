@@ -58,15 +58,17 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized boolean getDatafins() {
         if ((getManed() >= 1)) {
-            return (!hjelp.isEmpty());
+            return (!hjelp2.isEmpty());
         }
         return (!treningsOkter.isEmpty());
     }
 
     public synchronized List<OktStatus> getTabelldata() {       
         hjelp.clear();
+        int m; 
+        m= getManed();
         if ((getManed() >= 1)) {            
-            hjelp2 = nyOversikt.getPaManed(getManed());
+            hjelp2 = nyOversikt.getPaManed(m);
             try {
                 for (TreningsOkt g : hjelp2) {
                     hjelp.add(new OktStatus(g));
