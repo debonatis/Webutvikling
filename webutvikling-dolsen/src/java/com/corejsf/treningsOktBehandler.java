@@ -218,7 +218,7 @@ public class treningsOktBehandler implements Serializable {
             sb += "INSERT INTO TRENING";
             sb += "(dato, varighet, kategorinavn, tekst, brukernavn)";
             sb += "VALUES ( ";
-            sb += "  '" + mick.getSqlDate() + "'";
+            sb += "  '" + mick.getDate() + "'";
             sb += ", " + mick.getVarighet() + " ";
             sb += ", '" + mick.getKategori() + "' ";
             sb += ", '" + mick.getTekst() + "' ";
