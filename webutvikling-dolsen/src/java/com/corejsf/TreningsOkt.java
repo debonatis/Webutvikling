@@ -6,6 +6,7 @@ package com.corejsf;
 
 import java.util.Date;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
@@ -14,23 +15,17 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author deb
  */
-public final class TreningsOkt {
 
-    private int oktNr;
-    private Date dato;
+public class TreningsOkt {
+
+    private @Id int oktNr;
+    private @NotNull 
+    Date dato;
     private @NotNull
     @Range(min = 1, max = 97696697)
     int varighet = 0;
-    private @NotNull
+    private @NotNull @Id
     String kategori;
-
-    public Date getDato() {
-        return dato;
-    }
-
-    public void setDato(java.sql.Date dato) {
-        this.dato = dato;
-    }
     private @NotNull
     @Length(min = 0, max = 30)
     String tekst;
@@ -78,9 +73,9 @@ public final class TreningsOkt {
 
     }
 
-    public TreningsOkt(int oktNr, Date dato, int varighet, String kategori, String tekst) {
+    public TreningsOkt(int oktNr, Date date, int varighet, String kategori, String tekst) {
         this.oktNr = oktNr;
-        this.dato = dato;
+        this.dato = new Date(date.getTime());
         this.varighet = varighet;
         this.kategori = kategori;
         this.tekst = tekst;
@@ -94,16 +89,13 @@ public final class TreningsOkt {
     }
 
     public synchronized java.sql.Date getSqlDate() {
-        return new java.sql.Date(dato.getYear(), dato.getMonth(), dato.getDate());
+        java.sql.Date D = new java.sql.Date(dato.getTime());
+        return D;
     }
 
     public synchronized Date getDate() {
-        dato = new Date(dato.getYear(), dato.getMonth(), dato.getDate());
+        dato = new Date(dato.getTime());
         return dato;
-    }
-
-    public void setDato(Date dato) {
-        this.dato = dato;
     }
 
     public synchronized int getVarighet() {
@@ -113,9 +105,9 @@ public final class TreningsOkt {
     public synchronized String getKategori() {
         return kategori;
     }
-
+   @Transient    
     public synchronized void setDate(Date nyDato) {
-        dato = nyDato;
+        dato = new Date(nyDato.getTime());
         endret = true;
     }
 
@@ -126,9 +118,12 @@ public final class TreningsOkt {
 
     public synchronized void nullstill() {
         oktNr = 0;
-        dato = new Date();
+        dato = new Date(System.currentTimeMillis());
         kategori = "";
         tekst = "";
         varighet = 0;
+        
+        
+         
     }
 }

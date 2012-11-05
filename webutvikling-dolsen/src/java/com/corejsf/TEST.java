@@ -147,23 +147,35 @@ public class TEST {
 //        }
         
         
-        Date test1 = new Date(2012, 11, 15);
-        java.util.Date mick = new java.util.Date(2012, 11, 15);
+        Date test1 = new Date(2002, 11, 15);
+        java.util.Date micke = new java.util.Date(2012, 11, 15);
         
         System.out.println( test1.toString());
        
-        System.out.println(mick.toString());
+        System.out.println(micke.toString());
         System.out.println( test1.toString());
        
-        System.out.println(mick.toString());
+        System.out.println(micke.toString());
         
         System.out.println( test1.toString());
        
-        System.out.println(mick.toString());
+        System.out.println(micke.toString());
         
         System.out.println( test1.toString());
        
-        System.out.println(mick.toString());
+        System.out.println(micke.toString());
+        
+        TreningsOkt mick = new TreningsOkt(2, micke, 324, "lol", "dsak");
+        
+        System.out.println(mick.getDate().toString());
+        
+        mick.setDate(new Date(2012, 11, 15));
+         System.out.println(mick.getDate().toString());
+         
+         System.out.println(mick.getSqlDate().toString());
+        
+         Date mick7 = new Date(System.currentTimeMillis());
+         System.out.println(mick7.toString());
         
         
        

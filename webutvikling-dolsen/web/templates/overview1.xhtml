@@ -34,7 +34,7 @@ and open the template in the editor.
                                     <h:outputText value="#{texts.date}"/>
                                 </f:facet>
                                 <h:inputText value="#{session2.treningsikOkt.date}" styleClass="venstrejustert">
-                                    <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                     <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
                                 </h:inputText>
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
@@ -92,7 +92,7 @@ and open the template in the editor.
                                 <h:outputText value="#{texts.date}"/>
                             </f:facet>
                             <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
-                                <f:convertDateTime pattern="dd.MM.yyyy"/>
+                                <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
                             </h:inputText>
                             <f:facet name="footer">
                                 <h:outputText value=""/>

@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -143,7 +144,7 @@ public class treningsOktBehandler implements Serializable {
 
             if (!(tempOkt.getVarighet() == 0)) {
                 TreningsOkt nyOkt;
-                nyOkt = new TreningsOkt(tempOkt.getOktNr(), new Date(tempOkt.getDate().getYear(), tempOkt.getDate().getMonth(), (tempOkt.getDate().getDate()-4)),
+                nyOkt = new TreningsOkt(tempOkt.getOktNr(), new Date(tempOkt.getDate().getTime()),
                         tempOkt.getVarighet(), tempOkt.getKategori(),
                         tempOkt.getTekst());
 
@@ -174,7 +175,7 @@ public class treningsOktBehandler implements Serializable {
             // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
 
             while (rs.next()) {
-                hjelpeobjekt = new TreningsOkt(rs.getInt("OKTNR"), rs.getDate("DATO"),
+                hjelpeobjekt = new TreningsOkt(rs.getInt("OKTNR"), new Date(rs.getDate("DATO").getTime()),
                         rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"),
                         rs.getString("TEKST"));
                 bruker = rs.getString("BRUKERNAVN");
@@ -295,7 +296,9 @@ public class treningsOktBehandler implements Serializable {
                 + "set DATO = ?, VARIGHET= ?, "
                 + "KATEGORINAVN= ?, TEKST= ? "
                 + "where OKTNR = ? AND BRUKERNAVN= ?";
-        try {
+        if(!hjelp.isEmpty()){
+            try {
+            
             conn.getConn().setAutoCommit(false);
             oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);
             for (OktStatus f : hjelp) {
@@ -331,7 +334,13 @@ public class treningsOktBehandler implements Serializable {
             conn.closeS(st);
             conn.close();
         }
+        } 
+        return true;
 
 
+    }
+    public synchronized TimeZone getTidssone(){
+    TimeZone tidssone = TimeZone.getDefault();
+    return tidssone;
     }
 }
