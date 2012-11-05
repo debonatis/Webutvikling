@@ -21,10 +21,10 @@ and open the template in the editor.
             <ui:define name="content">
                 <h:form id="overviewform">           
                     <p>
-                        <h:outputText value="#{texts.overview}: "/>
+                        <h:outputText value="#{texts.overview}: " id="overskrift"/>
                     </p>
 
-                    <h:commandButton value="#{texts.newsession}" action="#{treningsOktBehandler.setNyOkt(true)}"/>
+                    <h:commandButton id="NyOktknapp" value="#{texts.newsession}" action="#{treningsOktBehandler.setNyOkt(true)}"/>
 
                     <h:panelGroup rendered="#{treningsOktBehandler.nyOkt}">
 
@@ -111,7 +111,12 @@ and open the template in the editor.
                             <f:facet name="header">
                                 <h:outputText value="#{texts.category}"/>
                             </f:facet>
-                            <h:inputText id="kategori3" value="#{sessions.treningsikOkt.kategori}" styleClass="venstrejustert" > <f:validator validatorId="sjekk" /> </h:inputText>
+                           <h:selectOneMenu id="kategori3" required="true" value="#{sessions.treningsikOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
+                                    <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}"/>
+                                    <f:selectItem itemValue ="styrke" itemLabel="#{texts.category2}"/>
+                                    <f:selectItem itemValue ="aerobics" itemLabel="#{texts.category3}"/>
+                                    <f:selectItem itemValue ="jogging" itemLabel="#{texts.category4}"/>
+                                </h:selectOneMenu><br/>          <f:validator validatorId="sjekk" /> 
                             <f:facet name="footer">
                                 <h:outputText value=""/>
                             </f:facet>

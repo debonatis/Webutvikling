@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author deb
  */
-public final class TreningsOkt{
+public final class TreningsOkt {
 
     private int oktNr;
     private Date dato;
@@ -27,8 +27,6 @@ public final class TreningsOkt{
     public Date getDato() {
         return dato;
     }
-
-    
 
     public void setDato(java.sql.Date dato) {
         this.dato = dato;
@@ -100,7 +98,7 @@ public final class TreningsOkt{
     }
 
     public synchronized Date getDate() {
-        dato = new Date(dato.getYear(), dato.getMonth(), (dato.getDate()+1));
+        dato = new Date(dato.getYear(), dato.getMonth(), (dato.getDate() + 1));
         return dato;
     }
 
