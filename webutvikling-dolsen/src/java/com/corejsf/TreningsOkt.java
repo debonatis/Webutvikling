@@ -98,7 +98,7 @@ public final class TreningsOkt {
     }
 
     public synchronized Date getDate() {
-        dato = new Date(dato.getYear(), dato.getMonth(), (dato.getDate() + 1));
+        dato = new Date(dato.getYear(), dato.getMonth(), dato.getDate());
         return dato;
     }
 

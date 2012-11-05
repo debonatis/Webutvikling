@@ -143,7 +143,7 @@ public class treningsOktBehandler implements Serializable {
 
             if (!(tempOkt.getVarighet() == 0)) {
                 TreningsOkt nyOkt;
-                nyOkt = new TreningsOkt(tempOkt.getOktNr(), new Date(tempOkt.getDate().getYear(), tempOkt.getDate().getMonth(), (tempOkt.getDate().getDate()-3)),
+                nyOkt = new TreningsOkt(tempOkt.getOktNr(), new Date(tempOkt.getDate().getYear(), tempOkt.getDate().getMonth(), (tempOkt.getDate().getDate()-4)),
                         tempOkt.getVarighet(), tempOkt.getKategori(),
                         tempOkt.getTekst());
 
