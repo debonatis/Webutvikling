@@ -86,6 +86,7 @@ public final class TreningsOkt{
         this.varighet = varighet;
         this.kategori = kategori;
         this.tekst = tekst;
+        this.endret = false;
 
 
     }

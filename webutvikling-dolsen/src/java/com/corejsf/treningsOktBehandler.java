@@ -30,7 +30,7 @@ import org.hibernate.validator.constraints.Range;
 public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTemptreningsOkter() {
-        temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
+        temptreningsOkter.clear();
         tempOkt.nullstill();
         temptreningsOkter.add(new OktStatus(tempOkt));
         return temptreningsOkter;
