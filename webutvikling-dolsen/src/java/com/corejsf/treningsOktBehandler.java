@@ -66,23 +66,23 @@ public class treningsOktBehandler implements Serializable {
         return (!treningsOkter.isEmpty());
     }
 
-    public synchronized List<OktStatus> getTabelldata() {       
+    public synchronized List<OktStatus> getTabelldata() {
         hjelp.clear();
-        int m;         
-        m= maned;        
-        if ((getManed() >= 1)) {  
-            synchronized (this){
-            hjelp2 = nyOversikt.getPaManed(m);
-            try {
-                for (TreningsOkt g : hjelp2) {
-                    hjelp.add(new OktStatus(g));
-                }                 
-                return hjelp;
-            } catch (ConcurrentModificationException e) {
-                getTabelldata();
+        int m;
+        m = maned;
+        if ((getManed() >= 1)) {
+            synchronized (this) {
+                hjelp2 = nyOversikt.getPaManed(m);
+                try {
+                    for (TreningsOkt g : hjelp2) {
+                        hjelp.add(new OktStatus(g));
+                    }
+                    return hjelp;
+                } catch (ConcurrentModificationException e) {
+                    getTabelldata();
+                }
+                setManed(0);
             }
-            setManed(0);
-        }
         }
         return treningsOkter;
     }
@@ -118,12 +118,10 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized String oppdater() {
-               
+
 
         nyOkt = false;
         try {
-
-
             int indeks = treningsOkter.size() - 1;
             if (!treningsOkter.isEmpty()) {
                 while (indeks >= 0) {
@@ -163,7 +161,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized void getAlleTreningsOkter() {
-        TreningsOkt hjelpeobjekt;        
+        TreningsOkt hjelpeobjekt;
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
         Statement st = null;
@@ -231,7 +229,7 @@ public class treningsOktBehandler implements Serializable {
 
 
             st.executeUpdate(sb);
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrering fullført", "ja,Registreing fullført!");
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført", "ja,Nyregistreing fullført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
@@ -296,51 +294,52 @@ public class treningsOktBehandler implements Serializable {
                 + "set DATO = ?, VARIGHET= ?, "
                 + "KATEGORINAVN= ?, TEKST= ? "
                 + "where OKTNR = ? AND BRUKERNAVN= ?";
-        if(!hjelp.isEmpty()){
+        if (!hjelp.isEmpty()) {
             try {
-            
-            conn.getConn().setAutoCommit(false);
-            oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);
-            for (OktStatus f : hjelp) {
-                oppdaterOkter.setDate(1, f.getTreningsikOkt().getSqlDate());
-                oppdaterOkter.setInt(2, f.getTreningsikOkt().getVarighet());
-                oppdaterOkter.setString(3, f.getTreningsikOkt().getKategori());
-                oppdaterOkter.setString(4, f.getTreningsikOkt().getTekst());
-                oppdaterOkter.setInt(5, f.getTreningsikOkt().getOktNr());
-                oppdaterOkter.setString(6, t);
-                oppdaterOkter.executeUpdate();
-                conn.getConn().commit();
 
-            }
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Oppdatering utført!", "ja,Oppdatering utført!");
-            fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);
-            fc.renderResponse();
-            return true;
+                conn.getConn().setAutoCommit(false);
+                oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);
+                for (OktStatus f : hjelp) {
+                    oppdaterOkter.setDate(1, f.getTreningsikOkt().getSqlDate());
+                    oppdaterOkter.setInt(2, f.getTreningsikOkt().getVarighet());
+                    oppdaterOkter.setString(3, f.getTreningsikOkt().getKategori());
+                    oppdaterOkter.setString(4, f.getTreningsikOkt().getTekst());
+                    oppdaterOkter.setInt(5, f.getTreningsikOkt().getOktNr());
+                    oppdaterOkter.setString(6, t);
+                    oppdaterOkter.executeUpdate();
+                    conn.getConn().commit();
 
-        } catch (SQLException e) {
-            conn.failed();
-            if (conn.getConn() != null) {
-                try {
-                    System.err.print("Endring har blitt trekk tilbake");
-                    conn.getConn().rollback();
-                } catch (SQLException excep) {
-                    conn.failed();
                 }
-            }
-            return false;
+                fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Oppdatering utført!", "ja,Oppdatering utført!");
+                fc = FacesContext.getCurrentInstance();
+                fc.addMessage("null", fm);
+                fc.renderResponse();
+                return true;
 
-        } finally {
-            conn.closeS(st);
-            conn.close();
+            } catch (SQLException e) {
+                conn.failed();
+                if (conn.getConn() != null) {
+                    try {
+                        System.err.print("Endring har blitt trekk tilbake");
+                        conn.getConn().rollback();
+                    } catch (SQLException excep) {
+                        conn.failed();
+                    }
+                }
+                return false;
+
+            } finally {
+                conn.closeS(st);
+                conn.close();
+            }
         }
-        } 
         return true;
 
 
     }
-    public synchronized TimeZone getTidssone(){
-    TimeZone tidssone = TimeZone.getDefault();
-    return tidssone;
+
+    public synchronized TimeZone getTidssone() {
+        TimeZone tidssone = TimeZone.getDefault();
+        return tidssone;
     }
 }
