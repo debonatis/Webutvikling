@@ -12,7 +12,7 @@ and open the template in the editor.
         <title>IGNORED</title>
     </head>
     <body>
-        
+
         <ui:composition template="/templates/mainTemplate.xhtml">
             <ui:define name="windowTitle">
                 #{texts.regTitle}
@@ -34,7 +34,7 @@ and open the template in the editor.
                                     <h:outputText value="#{texts.date}"/>
                                 </f:facet>
                                 <h:inputText value="#{session2.treningsikOkt.date}" styleClass="venstrejustert">
-                                     <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
+                                    <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
                                 </h:inputText>
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
@@ -85,60 +85,60 @@ and open the template in the editor.
                                       rendered="#{not treningsOktBehandler.datafins}"/>
                     </p>
                     <div style="height:200px;overflow-x:auto;overflow-y:scroll;">
-                    <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
+                        <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
 
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{texts.date}"/>
-                            </f:facet>
-                            <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
-                                <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
-                            </h:inputText>
-                            <f:facet name="footer">
-                                <h:outputText value=""/>
-                            </f:facet>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{texts.duration}"/>
-                            </f:facet>
-                            <f:facet name="footer">
-                                <h:outputText value=""/>
-                            </f:facet>
-                            <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{texts.category}"/>
-                            </f:facet>
-                           <h:selectOneMenu id="kategori3" required="true" value="#{sessions.treningsikOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.date}"/>
+                                </f:facet>
+                                <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
+                                    <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.duration}"/>
+                                </f:facet>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.category}"/>
+                                </f:facet>
+                                <h:selectOneMenu id="kategori3" required="true" value="#{sessions.treningsikOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
                                     <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}"/>
                                     <f:selectItem itemValue ="styrke" itemLabel="#{texts.category2}"/>
                                     <f:selectItem itemValue ="aerobics" itemLabel="#{texts.category3}"/>
                                     <f:selectItem itemValue ="jogging" itemLabel="#{texts.category4}"/>
-                           </h:selectOneMenu><br/>          
-                            <f:facet name="footer">
-                                <h:outputText value=""/>
-                            </f:facet>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{texts.text}"/>
-                            </f:facet>
-                            <h:inputText value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert">
+                                </h:selectOneMenu><br/>          
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.text}"/>
+                                </f:facet>
+                                <h:inputText value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert">
 
-                            </h:inputText>
-                            <f:facet name="footer">
-                                <h:outputText value=""/>
-                            </f:facet>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{texts.delete}"/>
-                            </f:facet>
-                            <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
-                        </h:column>
-                    </h:dataTable>
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.delete}"/>
+                                </f:facet>
+                                <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
+                            </h:column>
+                        </h:dataTable>
                     </div>
                     <p class ="buttonRightOutput">
 
@@ -163,7 +163,7 @@ and open the template in the editor.
                     </h:selectOneMenu>
                     <h:commandButton value="#{texts.slettAlle}" action="#{treningsOktBehandler.slettAlleOkter()}" class="test" id="slettalle"/>
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test" id="submit"/>
-                    <h:commandButton value="#{texts.Back}" action="input" class="test1"/>                  
+                    <h:commandButton value="#{texts.Back}" action="input" class="test1"/>                 
 
                 </h:form>
             </ui:define>
