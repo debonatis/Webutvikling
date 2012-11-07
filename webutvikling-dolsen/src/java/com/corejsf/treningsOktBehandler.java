@@ -204,29 +204,27 @@ public class treningsOktBehandler implements Serializable {
         this.maned = Maned;
     }
 
-    public synchronized boolean registrerTreningsOkt(TreningsOkt mick) {
+    public synchronized boolean registrerTreningsOkt(TreningsOkt okt) {
         //oktnr blir autogenerert i databasen
-        DBConnection conn = new DBConnection();
-        Statement st = null;
+        DBConnection conn = new DBConnection();        
+        PreparedStatement reg = null;
+        String regTekst = "INSERT INTO WAPLJ.TRENING (dato, varighet, kategorinavn, tekst, brukernavn) " +
+             "VALUES ( ?,?,?,?,?)";
+        String t = "anne";
         try {
+            
+            conn.getConn().setAutoCommit(false);
+            reg = conn.getConn().prepareStatement(regTekst);
+            reg.setDate(1, okt.getSqlDate());
+                    reg.setInt(2, okt.getVarighet());
+                    reg.setString(3, okt.getKategori());
+                    reg.setString(4, okt.getTekst());
+                    reg.setInt(5, okt.getOktNr());
+                    reg.setString(6, t);
+                    reg.executeUpdate();
+                    conn.getConn().commit();          
 
-            st = conn.getConn().createStatement();
-
-            String sb = "";
-
-            sb += "INSERT INTO TRENING";
-            sb += "(dato, varighet, kategorinavn, tekst, brukernavn)";
-            sb += "VALUES ( ";
-            sb += "  '" + mick.getSqlDate() + "'";
-            sb += ", " + mick.getVarighet() + " ";
-            sb += ", '" + mick.getKategori() + "' ";
-            sb += ", '" + mick.getTekst() + "' ";
-            sb += ", 'anne'";
-            sb += ")";
-            System.out.println(sb);
-
-
-            st.executeUpdate(sb);
+            
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført", "ja,Nyregistreing fullført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
@@ -238,7 +236,7 @@ public class treningsOktBehandler implements Serializable {
             conn.failed();
             return false;
         } finally {
-            conn.closeS(st);
+            conn.closeS(reg);
             conn.close();
             getAlleTreningsOkter();
         }
@@ -284,8 +282,7 @@ public class treningsOktBehandler implements Serializable {
             }
         }
 
-        DBConnection conn = new DBConnection();
-        Statement st = null;
+        DBConnection conn = new DBConnection();        
         PreparedStatement oppdaterOkter = null;
         String oppdaterString =
                 "update WAPLJ.TRENING "
@@ -327,7 +324,7 @@ public class treningsOktBehandler implements Serializable {
                 return false;
 
             } finally {
-                conn.closeS(st);
+                conn.closeS(oppdaterOkter);
                 conn.close();
             }
         }
