@@ -19,6 +19,7 @@ import java.util.TimeZone;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.facelets.FaceletException;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
@@ -124,15 +125,17 @@ public class treningsOktBehandler implements Serializable {
             for (Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();) {
                 TreningsOkt k = slett.next().getTreningsikOkt();
                 nyOversikt.slettOkt(k);
-                slettTreningsOkt(k);
+                slettTreningsOkt(k, 1);
                 slett.remove();
-
             }
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting av all data utført!", "ja,Sletting utført!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
             setGetAlle(true);
         } catch (ConcurrentModificationException s) {
             slettAlleOkter();
         }
-
     }
 
     public synchronized String oppdater() {
@@ -143,7 +146,7 @@ public class treningsOktBehandler implements Serializable {
                 if (r.getSkalSlettes()) {
                     for (TreningsOkt e : nyOversikt.getAlleOkter()) {
                         if (e.equals(r.getTreningsikOkt())) {
-                            slettTreningsOkt(e);
+                            slettTreningsOkt(e, 0);
                             nyOversikt.slettOkt(e);
                         }
                     }
@@ -275,16 +278,18 @@ public class treningsOktBehandler implements Serializable {
         this.getAlle = getAlle;
     }
 
-    public synchronized boolean slettTreningsOkt(TreningsOkt objekt) {
+    public synchronized boolean slettTreningsOkt(TreningsOkt objekt, int i) {
         DBConnection conn = new DBConnection();
         Statement st = null;
         try {
             st = conn.getConn().createStatement();
             st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr());
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
-            fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);
-            fc.renderResponse();
+            if (i == 0) {
+                fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
+                fc = FacesContext.getCurrentInstance();
+                fc.addMessage("null", fm);
+                fc.renderResponse();
+            }
 
             return true;
 
