@@ -15,16 +15,17 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author deb
  */
-
 public class TreningsOkt {
 
-    private @Id int oktNr;
-    private @NotNull 
+    private @Id
+    int oktNr;
+    private @NotNull
     Date dato;
     private @NotNull
     @Range(min = 1, max = 97696697)
     int varighet = 0;
-    private @NotNull @Id
+    private @NotNull
+    @Id
     String kategori;
     private @NotNull
     @Length(min = 0, max = 30)
@@ -35,8 +36,11 @@ public class TreningsOkt {
     private boolean endret = false;
 
     public synchronized void setKategori(String kategori) {
-        this.kategori = kategori;
-        endret = true;
+        if (!(this.kategori.trim().equalsIgnoreCase(kategori))) {
+            this.setEndret(true);
+            this.kategori = kategori;
+        }
+
     }
 
     public boolean isEndret() {
@@ -54,8 +58,12 @@ public class TreningsOkt {
     @NotNull
     @Length(min = 1, max = 30)
     public synchronized void setTekst(String tekst) {
-        this.tekst = tekst;
-        endret = true;
+        if (!(this.tekst.trim().equalsIgnoreCase(tekst))) {
+            this.setEndret(true);
+            this.tekst = tekst;
+        }
+
+
     }
 
     public TreningsOkt() {
@@ -105,15 +113,24 @@ public class TreningsOkt {
     public synchronized String getKategori() {
         return kategori;
     }
-   @Transient    
+
+    @Transient
     public synchronized void setDate(Date nyDato) {
-        dato = new Date(nyDato.getTime());
-        endret = true;
+        if (!(this.dato.equals(nyDato))) {
+            this.setEndret(true);
+            dato = new Date(nyDato.getTime());
+        }
+
+
     }
 
     public synchronized void setVarighet(int oktVarighet) {
-        varighet = oktVarighet;
-        endret = true;
+        if (!(this.varighet == oktVarighet)) {
+            varighet = oktVarighet;
+            this.setEndret(true);
+        }
+
+
     }
 
     public synchronized void nullstill() {
@@ -122,8 +139,8 @@ public class TreningsOkt {
         kategori = "";
         tekst = "";
         varighet = 0;
-        
-        
-         
+
+
+
     }
 }
