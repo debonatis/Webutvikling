@@ -15,8 +15,8 @@ import javax.sql.DataSource;
  * @author Bjørn Tore
  */
 public class DBConnection {
-    //@Resource(name="jdbc/waplj_prosjekt")
-    //private DataSource source;
+//    @Resource(name="jdbc/waplj_prosjekt")
+//    private DataSource source;
     private Connection conn;
 
     public DBConnection() {

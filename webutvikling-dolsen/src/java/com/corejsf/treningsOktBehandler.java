@@ -136,6 +136,7 @@ public class treningsOktBehandler implements Serializable {
         } catch (ConcurrentModificationException s) {
             slettAlleOkter();
         }
+
     }
 
     public synchronized String oppdater() {
