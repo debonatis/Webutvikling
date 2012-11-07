@@ -118,8 +118,6 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized String oppdater() {
-
-
         nyOkt = false;
         try {
             int indeks = treningsOkter.size() - 1;
