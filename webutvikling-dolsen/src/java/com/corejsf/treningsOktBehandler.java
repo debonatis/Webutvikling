@@ -125,19 +125,17 @@ public class treningsOktBehandler implements Serializable {
             for (Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();) {
                 TreningsOkt k = slett.next().getTreningsikOkt();
                 nyOversikt.slettOkt(k);
-                try{
-                slettTreningsOkt(k,1);
-                } catch (FaceletException p){
-                    
-                }
+                slettTreningsOkt(k, 1);
                 slett.remove();
-
             }
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting av all data utført!", "ja,Sletting utført!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
             setGetAlle(true);
         } catch (ConcurrentModificationException s) {
             slettAlleOkter();
         }
-
     }
 
     public synchronized String oppdater() {
@@ -148,7 +146,7 @@ public class treningsOktBehandler implements Serializable {
                 if (r.getSkalSlettes()) {
                     for (TreningsOkt e : nyOversikt.getAlleOkter()) {
                         if (e.equals(r.getTreningsikOkt())) {
-                            slettTreningsOkt(e,0);
+                            slettTreningsOkt(e, 0);
                             nyOversikt.slettOkt(e);
                         }
                     }
@@ -286,17 +284,11 @@ public class treningsOktBehandler implements Serializable {
         try {
             st = conn.getConn().createStatement();
             st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr());
-            if(i == 0){
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
-            fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);
-            fc.renderResponse();
-            } else if (i == 1){
-                 fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting av all data utført!", "ja,Sletting utført!");
-            fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);
-            fc.renderResponse();
-                
+            if (i == 0) {
+                fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
+                fc = FacesContext.getCurrentInstance();
+                fc.addMessage("null", fm);
+                fc.renderResponse();
             }
 
             return true;
