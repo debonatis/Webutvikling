@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
 import javax.enterprise.context.SessionScoped;
@@ -47,7 +48,7 @@ public class treningsOktBehandler implements Serializable {
     @Range(min = 0, max = 12)
     int maned = 0;
     private boolean nyOkt = false;
-    private boolean getAlle = false;
+    private boolean getAlle = true;
     private FacesMessage fm = new FacesMessage();
     private FacesContext fc;
 
@@ -116,6 +117,15 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
         tempOkt = nyTempOkt;
+    }
+    
+    public synchronized void slettAlleOkter(){
+       for(Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();){
+           TreningsOkt k = slett.next().getTreningsikOkt();
+           nyOversikt.slettOkt(k);
+           slettTreningsOkt(k);
+       }
+  
     }
 
     public synchronized String oppdater() {
