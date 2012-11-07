@@ -125,7 +125,10 @@ public class treningsOktBehandler implements Serializable {
                 TreningsOkt k = slett.next().getTreningsikOkt();
                 nyOversikt.slettOkt(k);
                 slettTreningsOkt(k);
+                slett.remove();
+
             }
+            setGetAlle(true);
         } catch (ConcurrentModificationException s) {
             slettAlleOkter();
         }
@@ -135,22 +138,19 @@ public class treningsOktBehandler implements Serializable {
     public synchronized String oppdater() {
         nyOkt = false;
         try {
-            int indeks = treningsOkter.size() - 1;
-            if (!treningsOkter.isEmpty()) {
-                while (indeks >= 0) {
-                    OktStatus ts = treningsOkter.get(indeks);
-                    if (ts.getSkalSlettes()) {
-                        for (TreningsOkt e : nyOversikt.getAlleOkter()) {
-                            if (e.equals(ts.getTreningsikOkt())) {
-                                slettTreningsOkt(e);
-                                nyOversikt.slettOkt(e);
-                            }
+            for (Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();) {
+                OktStatus r = slett.next();
+                if (r.getSkalSlettes()) {
+                    for (TreningsOkt e : nyOversikt.getAlleOkter()) {
+                        if (e.equals(r.getTreningsikOkt())) {
+                            slettTreningsOkt(e);
+                            nyOversikt.slettOkt(e);
                         }
-                        treningsOkter.remove(indeks);
                     }
-                    indeks--;
+                    slett.remove();
                 }
             }
+
             oppdaterTreningsOktDB();
 
             if (!(tempOkt.getVarighet() == 0)) {
