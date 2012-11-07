@@ -233,7 +233,7 @@ public class treningsOktBehandler implements Serializable {
         DBConnection conn = new DBConnection();
         PreparedStatement reg = null;
         String regTekst = "INSERT INTO WAPLJ.TRENING (dato, varighet, kategorinavn, tekst, brukernavn) "
-                + "VALUES ( ?,?,?,?,?)";
+                + "VALUES (?,?,?,?,?)";
         String t = "anne";
         try {
 
@@ -243,8 +243,7 @@ public class treningsOktBehandler implements Serializable {
             reg.setInt(2, okt.getVarighet());
             reg.setString(3, okt.getKategori());
             reg.setString(4, okt.getTekst());
-            reg.setInt(5, okt.getOktNr());
-            reg.setString(6, t);
+            reg.setString(5, t);
             reg.executeUpdate();
             conn.getConn().commit();
 
