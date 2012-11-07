@@ -118,18 +118,18 @@ public class treningsOktBehandler implements Serializable {
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
         tempOkt = nyTempOkt;
     }
-    
-    public synchronized void slettAlleOkter(){
-        try{
-       for(Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();){
-           TreningsOkt k = slett.next().getTreningsikOkt();
-           nyOversikt.slettOkt(k);
-           slettTreningsOkt(k);
-       }
-        } catch (ConcurrentModificationException s){
+
+    public synchronized void slettAlleOkter() {
+        try {
+            for (Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();) {
+                TreningsOkt k = slett.next().getTreningsikOkt();
+                nyOversikt.slettOkt(k);
+                slettTreningsOkt(k);
+            }
+        } catch (ConcurrentModificationException s) {
             slettAlleOkter();
         }
-  
+
     }
 
     public synchronized String oppdater() {
