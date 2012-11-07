@@ -32,7 +32,7 @@ public class userBean implements Serializable{
     private int count;
     private boolean loggedIn;
     private static final Logger logger = Logger.getLogger("com.corejsf");
-    @Resource(name = "jdbc/Waplj-prosjekt")
+    @Resource(name = "jdbc/waplj-prosjekt")
     private DataSource ds;
 
     public void changePassword() {
