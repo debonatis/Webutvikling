@@ -120,11 +120,15 @@ public class treningsOktBehandler implements Serializable {
     }
     
     public synchronized void slettAlleOkter(){
+        try{
        for(Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();){
            TreningsOkt k = slett.next().getTreningsikOkt();
            nyOversikt.slettOkt(k);
            slettTreningsOkt(k);
        }
+        } catch (ConcurrentModificationException s){
+            slettAlleOkter();
+        }
   
     }
 
