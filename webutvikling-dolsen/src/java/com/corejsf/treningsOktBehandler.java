@@ -47,6 +47,7 @@ public class treningsOktBehandler implements Serializable {
     @Range(min = 0, max = 12)
     int maned = 0;
     private boolean nyOkt = false;
+    private boolean getAlle = false;
     private FacesMessage fm = new FacesMessage();
     private FacesContext fc;
 
@@ -149,7 +150,12 @@ public class treningsOktBehandler implements Serializable {
                 registrerTreningsOkt(nyOkt);
                 tempOkt.nullstill();
             }
-            getAlleTreningsOkter();
+            if (isGetAlle()) {
+                setGetAlle(false);
+                getAlleTreningsOkter();
+
+            }
+
 
 
         } catch (ConcurrentModificationException e) {
@@ -178,6 +184,10 @@ public class treningsOktBehandler implements Serializable {
                 DBtreningsobjekter.add(new OktStatus(hjelpeobjekt));
 
             }
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alle Okter skaffet!", "ja,Okter skaffet!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
         } catch (SQLException e) {
             conn.failed(); //Rollback
         } finally {
@@ -206,26 +216,26 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized boolean registrerTreningsOkt(TreningsOkt okt) {
         //oktnr blir autogenerert i databasen
-        DBConnection conn = new DBConnection();        
+        DBConnection conn = new DBConnection();
         PreparedStatement reg = null;
-        String regTekst = "INSERT INTO WAPLJ.TRENING (dato, varighet, kategorinavn, tekst, brukernavn) " +
-             "VALUES ( ?,?,?,?,?)";
+        String regTekst = "INSERT INTO WAPLJ.TRENING (dato, varighet, kategorinavn, tekst, brukernavn) "
+                + "VALUES ( ?,?,?,?,?)";
         String t = "anne";
         try {
-            
+
             conn.getConn().setAutoCommit(false);
             reg = conn.getConn().prepareStatement(regTekst);
             reg.setDate(1, okt.getSqlDate());
-                    reg.setInt(2, okt.getVarighet());
-                    reg.setString(3, okt.getKategori());
-                    reg.setString(4, okt.getTekst());
-                    reg.setInt(5, okt.getOktNr());
-                    reg.setString(6, t);
-                    reg.executeUpdate();
-                    conn.getConn().commit();          
+            reg.setInt(2, okt.getVarighet());
+            reg.setString(3, okt.getKategori());
+            reg.setString(4, okt.getTekst());
+            reg.setInt(5, okt.getOktNr());
+            reg.setString(6, t);
+            reg.executeUpdate();
+            conn.getConn().commit();
 
-            
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført", "ja,Nyregistreing fullført!");
+
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført!", "ja,Nyregistreing fullført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
@@ -242,6 +252,14 @@ public class treningsOktBehandler implements Serializable {
         }
 
 
+    }
+
+    public boolean isGetAlle() {
+        return getAlle;
+    }
+
+    public void setGetAlle(boolean getAlle) {
+        this.getAlle = getAlle;
     }
 
     public synchronized boolean slettTreningsOkt(TreningsOkt objekt) {
@@ -282,7 +300,8 @@ public class treningsOktBehandler implements Serializable {
             }
         }
 
-        DBConnection conn = new DBConnection();        
+
+        DBConnection conn = new DBConnection();
         PreparedStatement oppdaterOkter = null;
         String oppdaterString =
                 "update WAPLJ.TRENING "
@@ -290,6 +309,7 @@ public class treningsOktBehandler implements Serializable {
                 + "KATEGORINAVN= ?, TEKST= ? "
                 + "where OKTNR = ? AND BRUKERNAVN= ?";
         if (!hjelp.isEmpty()) {
+            setGetAlle(true);
             try {
 
                 conn.getConn().setAutoCommit(false);
