@@ -28,5 +28,16 @@
 <form-login-page>/login/login.xhtml</form-login-page>
 <form-error-page>/login/login.xhtml</form-error-page>
 </form-login-config>
-</login-config>   
+</login-config>  
+<security-constraint>
+<web-resource-collection>
+<web-resource-name>beskyttede Sider</web-resource-name>
+<url-pattern>/faces/templates/*</url-pattern>
+<url-pattern>/templates/*</url-pattern>
+</web-resource-collection>
+<auth-constraint>
+<role-name>bruker</role-name>
+<role-name>admin</role-name>
+</auth-constraint>
+</security-constraint> 
 </web-app>
