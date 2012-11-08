@@ -12,20 +12,20 @@
                 #{texts.welcome}
             </ui:define>
             <h3>#{texts.welcome}</h3>
-             <ui:define name="content">
-                 <h:form>
-                     <h:outputLabel value="#{texts.username}"></h:outputLabel><br/>
+            <ui:define name="content">
+                <h:form>
+                    <h:outputLabel value="#{texts.username}"></h:outputLabel><br/>
 
-                     <h:inputText id="brukernavn" value="#{user.name}" required="true"/><br/>
+                    <h:inputText id="brukernavn" value="#{user.name}" required="true"/><br/>
 
-                        <h:outputLabel value="#{texts.password}"></h:outputLabel><br/>
+                    <h:outputLabel value="#{texts.password}"></h:outputLabel><br/>
 
-                        <h:inputSecret id="kategori" required="true" value="#{user.password}"/><br/>
-                        <h:commandButton value="#{texts.login}" action="#{user.login()}" />
-                        
-                           
+                    <h:inputSecret id="kategori" required="true" value="#{user.password}"/><br/>
+                    <h:commandButton value="#{texts.login}" action="#{user.login()}" />
+
+
                 </h:form>
-                </ui:define>
+            </ui:define>
         </ui:composition>
     </h:body>
 </html>
