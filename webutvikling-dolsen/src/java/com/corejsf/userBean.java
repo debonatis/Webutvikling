@@ -31,9 +31,7 @@ public class userBean implements Serializable {
     private String newPassword;
     private int count;
     private boolean loggedIn;
-    private static final Logger logger = Logger.getLogger("com.corejsf");
-    private @Resource(name = "jdbc/waplj-prosjekt")
-    DataSource ds;
+    private static final Logger logger = Logger.getLogger("com.corejsf");   
     private FacesMessage fm = new FacesMessage();
     private FacesContext fc;
 
