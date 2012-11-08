@@ -7,17 +7,18 @@ package com.corejsf;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
+@Named("user")
+@SessionScoped
 public class Bruker implements Serializable {
 
     private String name;
-    private String rolle;
-    private String password;
+    private String rolle;    
     private String newPassword;
     private int count;
     private boolean loggedIn;
@@ -54,15 +55,7 @@ public class Bruker implements Serializable {
 
     public String getNewPassword() {
         return newPassword;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String newValue) {
-        password = newValue;
-    }
+    }  
     
 
     public void getUserData() {

@@ -50,6 +50,11 @@ public class treningsOktBehandler implements Serializable {
     private boolean nyOkt = false;
     private boolean getAlle = true;
     private FacesMessage fm = new FacesMessage();
+
+    public TimeZone getTidssone() {
+        this.tidssone = TimeZone.getDefault();
+        return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
+    }
     private FacesContext fc;
     private Bruker bruker;
     private String navn = bruker.getName();
@@ -373,8 +378,5 @@ public class treningsOktBehandler implements Serializable {
 
     }
 
-    public synchronized TimeZone getTidssone() {
-        this.tidssone = TimeZone.getDefault();
-        return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
-    }
+    
 }
