@@ -20,9 +20,25 @@
 
                     <h:outputLabel value="#{texts.password}"></h:outputLabel><br/>
 
-                    <h:inputSecret id="kategori" required="true" value="#{user.password}"/><br/>
+                    <h:inputSecret id="passord" required="true" value="#{user.password}"/><br/>
                     <h:commandButton value="#{texts.login}" action="#{user.login()}" />
-
+                    <h:commandButton value="#{texts.changePassword}" action="#{user.setChangePassword()}" />
+                    <div rendered="#{user.getChangePassword()}" >
+                    
+                        
+                    <h:outputLabel value="#{texts.username}"></h:outputLabel><br/>
+                    <h:inputText id="brukernavn" value="#{user.name}" required="true"/><br/>
+                    
+                    <h:outputLabel value="#{texts.password}"></h:outputLabel><br/>
+                    <h:inputSecret id="passord" required="true" value="#{user.password}"/><br/>
+                    
+                    <h:outputLabel value="#{texts.newPassword}"></h:outputLabel><br/>
+                    <h:inputSecret id="passord" required="true" value="#{user.password}" /><br/>
+                    
+                    <h:outputLabel value="#{texts.retypeNewPassword}"></h:outputLabel><br/>
+                    <h:inputSecret id="passord" required="true" value="#{user.password}"/><br/>
+                                     
+                    </div>
 
                 </h:form>
             </ui:define>
