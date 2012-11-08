@@ -26,7 +26,64 @@ public class TEST {
     
     public static void main(String[] args) throws Exception {
     
-    
+//        DBConnection test = new DBConnection();
+//        
+//         TreningsOkt helpObject;
+//        ArrayList objects = new ArrayList<TreningsOkt>();
+//        DBConnection conn = new DBConnection();
+        
+//        
+//        for(Object e : objects){
+//            TreningsOkt t = (TreningsOkt) e;
+//            System.out.println(t.getBrukernavn() + "" + t.getOktNr());
+//        }
+//        DBConnection jk = new DBConnection();
+//       st = null;
+//        try {
+//            synchronized (jk){
+//                
+//            st = jk.getConn().createStatement();
+//            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR = "
+//                    + mick.getOktNr() + " AND BRUKERNAVN = '" + mick.getBrukernavn() + "'");
+//            }
+//
+//        } catch (SQLException e) {
+//            jk.failed();
+//            
+//
+//        } finally {
+//            jk.closeS(st);
+//            jk.close();
+//        }
+//        st = null;
+//        
+//        rs = null;
+//        
+//  
+//        try{
+//            st = test.getConn().createStatement();
+//            rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING");
+//            // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
+//
+//            while (rs.next()) {
+//                helpObject = new TreningsOkt(rs.getInt("OKTNR"),rs.getDate("DATO"), 
+//                        rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"), 
+//                        rs.getString("TEKST"), rs.getString("BRUKERNAVN"));
+//                objects.add(helpObject);
+//            }
+//        } catch (SQLException e) {
+//            test.failed(); //Rollback
+//        } finally {
+//            test.closeS(st);
+//            test.closeR(rs);
+//            test.close();
+//        }
+//        
+//        for(Object e : objects){
+//            TreningsOkt t = (TreningsOkt) e;
+//            System.out.println(t.getBrukernavn() + "" + t.getOktNr());
+//        
+//    }
         
          TreningsOkt helpObject;
         ArrayList objects = new ArrayList<TreningsOkt>();
