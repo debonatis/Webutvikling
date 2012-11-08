@@ -53,6 +53,7 @@ public class treningsOktBehandler implements Serializable {
     private FacesContext fc;
     private Bruker bruker;
     private String navn = bruker.getName();
+    private TimeZone tidssone;
 
     public synchronized boolean isNyOkt() {
         return nyOkt;
@@ -188,7 +189,7 @@ public class treningsOktBehandler implements Serializable {
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
         Statement st = null;
-        ResultSet rs = null;       
+        ResultSet rs = null;
         try {
             st = conn.getConn().createStatement();
             rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING "
@@ -373,7 +374,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized TimeZone getTidssone() {
-        TimeZone tidssone = TimeZone.getDefault();
-        return tidssone;
+        this.tidssone = TimeZone.getDefault();
+        return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
     }
 }
