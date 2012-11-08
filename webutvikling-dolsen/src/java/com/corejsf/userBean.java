@@ -117,8 +117,7 @@ public class userBean implements Serializable {
             conn.setAutoCommit(false);
             boolean committed = false;
             try {
-                PreparedStatement passwordQuery = conn.prepareStatement("select BRUKER.PASSORD from WAPLJ.BRUKER where BRUKER.BRUKERNAVN = ? ", ResultSet.TYPE_SCROLL_SENSITIVE,
-                        ResultSet.CONCUR_UPDATABLE);
+                PreparedStatement passwordQuery = conn.prepareStatement("select BRUKER.PASSORD from WAPLJ.BRUKER where BRUKER.BRUKERNAVN = ? ");
                 passwordQuery.setString(1, name);
                 ResultSet k = passwordQuery.executeQuery();
                 if (!k.next()) {
