@@ -13,18 +13,18 @@
             </ui:define>
             <h3>#{texts.welcome}</h3>
             <ui:define name="content">
-                <h:form method="post">
+                <form method="POST" action="j_security_check">
                     <h:outputLabel value="#{texts.username}"></h:outputLabel><br/>
 
-                    <h:inputText id="brukernavn" value="#{user.name}" required="true"/><br/>
+                    <input type="text" name="j_username"/><br/>
 
-                    <h:outputLabel value="#{texts.password}"></h:outputLabel><br/>
+                    <h:outputLabel value="#{texts.password}"/><br/>
 
-                    <h:inputSecret id="kategori" required="true" value="#{user.password}"/><br/>
-                    <h:commandButton value="#{texts.login}" action="#{user.login()}" />
+                    <input type="password" name="j_username"/><br/>
+                    <h:commandButton value="#{texts.login}" action="#{user.login()}" type="submit"/>
 
 
-                </h:form>
+                </form>
             </ui:define>
         </ui:composition>
     </h:body>

@@ -11,14 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
 import javax.annotation.Resource;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 @Named("user")
@@ -26,6 +25,7 @@ import javax.sql.DataSource;
 public class userBean implements Serializable {
 
     private String name;
+    private String rolle;
 
     public String getName() {
         return name;
@@ -140,4 +140,26 @@ public class userBean implements Serializable {
             conn.close();
         }
     }
+    public void getUserData(){
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        Object forsporrselobject = context.getRequest();
+        if(!(forsporrselobject instanceof HttpServletRequest)){
+            logger.log(Level.SEVERE, "Det forespurte objektet er av type {0}", forsporrselobject.getClass());
+            return;
+        }
+        HttpServletRequest foresporrsel = (HttpServletRequest) forsporrselobject;
+        name = foresporrsel.getRemoteUser();
+    }
+    
+    public boolean isInRole(){
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        Object forsporrselobject = context.getRequest();
+        if(!(forsporrselobject instanceof HttpServletRequest)){
+            logger.log(Level.SEVERE, "Det forespurte objektet er av type {0}", forsporrselobject.getClass());
+            return false;
+        }
+        HttpServletRequest foresporrsel = (HttpServletRequest) forsporrselobject;
+        return foresporrsel.isUserInRole(rolle);
+    }
+    
 }
