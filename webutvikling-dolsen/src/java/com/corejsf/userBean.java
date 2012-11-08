@@ -6,9 +6,12 @@ package com.corejsf;
  */
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -33,7 +36,18 @@ public class userBean implements Serializable {
     private boolean loggedIn;
     private static final Logger logger = Logger.getLogger("com.corejsf");   
     private FacesMessage fm = new FacesMessage();
+    private @Resource(name = "jdbc/waplj_prosjekt") DataSource ds;
     private FacesContext fc;
+
+    public String getFjas() throws SQLException {
+        this.fjas = this.getSkrot();
+        return fjas;
+    }
+
+    public void setFjas(String fjas) {
+        this.fjas = fjas;
+    }
+    private String fjas;
 
     public String getRolle() {
         return rolle == null ? "" : rolle;
@@ -86,68 +100,68 @@ public class userBean implements Serializable {
      }
      }*/
     //Count = antall ganger besøkt
-    // public int getCount(){
-    //   return count;
-    //}
-//    public String login() {
-//        try {
-//            doLogin();
-//        } catch (SQLException ex) {
-//            logger.log(Level.SEVERE, "login failed", ex);
-//            return "internalError";
-//
-//        }
-//        if (loggedIn) {
-//            return "loginSuccess";
-//        } else {
-//            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Username or password is wrong!", "ja,Oppdatering utført!");
-//            fc = FacesContext.getCurrentInstance();
-//            fc.addMessage("null", fm);
-//            fc.renderResponse();
-//            return "loginFailure";
-//
-//        }
-//    }
-//
-//    public String logout() {
-//        loggedIn = false;
-//        return "login";
-//    }
-//
-//    public void doLogin() throws SQLException {
-//        if (ds == null) {
-//            throw new SQLException("No data source");
-//        }
-//        Connection conn = ds.getConnection("waplj", "waplj");
-//        if (conn == null) {
-//            throw new SQLException("No conection");
-//        }
-//
-//        try {
-//            conn.setAutoCommit(false);
-//            boolean committed = false;
-//            try {
-//                PreparedStatement passwordQuery = conn.prepareStatement("select BRUKER.PASSORD from WAPLJ.BRUKER where BRUKER.BRUKERNAVN = ? ");
-//                passwordQuery.setString(1, this.getName());
-//                ResultSet k = passwordQuery.executeQuery();
-//                conn.commit();
-//                if (!k.next()) {
-//                    return;
-//                }
-//                String storedPassword = k.getString(1);
-//                loggedIn = password.equals(storedPassword.trim());
-//
-//
-//                committed = true;
-//            } finally {
-//                if (!committed) {
-//                    conn.rollback();
-//                }
-//            }
-//        } finally {
-//            conn.close();
-//        }
-//    }
+     public int getCount(){
+       return count;
+    }
+    public String login() {
+        try {
+            doLogin();
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "login failed", ex);
+            return "internalError";
+
+        }
+        if (loggedIn) {
+            return "loginSuccess";
+        } else {
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Username or password is wrong!", "ja,Oppdatering utført!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
+            return "loginFailure";
+
+        }
+    }
+
+    public String logout() {
+        loggedIn = false;
+        return "login";
+    }
+
+    public void doLogin() throws SQLException {
+        if (ds == null) {
+            throw new SQLException("No data source");
+        }
+        Connection conn = ds.getConnection("waplj", "waplj");
+        if (conn == null) {
+            throw new SQLException("No conection");
+        }
+
+        try {
+            conn.setAutoCommit(false);
+            boolean committed = false;
+            try {
+                PreparedStatement passwordQuery = conn.prepareStatement("select BRUKER.PASSORD from WAPLJ.BRUKER where BRUKER.BRUKERNAVN = ? ");
+                passwordQuery.setString(1, this.getName());
+                ResultSet k = passwordQuery.executeQuery();
+                conn.commit();
+                if (!k.next()) {
+                    return;
+                }
+                String storedPassword = k.getString(1);
+                loggedIn = password.equals(storedPassword.trim());
+
+
+                committed = true;
+            } finally {
+                if (!committed) {
+                    conn.rollback();
+                }
+            }
+        } finally {
+            conn.close();
+        }
+    }
 
     public void getUserData() {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -158,6 +172,42 @@ public class userBean implements Serializable {
         }
         HttpServletRequest foresporrsel = (HttpServletRequest) forsporrselobject;
         name = foresporrsel.getRemoteUser();
+    }
+    
+    public String getSkrot() throws SQLException{
+        
+        Statement st = null;
+        TreningsOkt helpObject;
+        Date lolo = new Date(2012,11,22);
+        TreningsOkt mick = new TreningsOkt(10, lolo, 23, "styrke", "mick");
+
+        ArrayList<Object> objects = null;
+        ResultSet rs = null;
+        Connection conn = ds.getConnection();
+        try{
+            st = ds.getConnection().createStatement();
+            rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING");
+            // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
+
+            while (rs.next()) {
+                helpObject = new TreningsOkt(rs.getInt("OKTNR"),rs.getDate("DATO"), 
+                        rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"), 
+                        rs.getString("TEKST"));
+                objects.add(helpObject);
+            }
+        } catch (SQLException e) {
+            conn.rollback(); //Rollback
+        } finally {
+            conn.close();
+//            test.closeR(rs);
+//            test.close();
+        }
+        TreningsOkt mick1337 = null;
+        for(Object to : objects){
+            mick1337 = (TreningsOkt) to;
+            
+        }
+        return mick1337.getKategori();
     }
 
     public boolean isInRole() {

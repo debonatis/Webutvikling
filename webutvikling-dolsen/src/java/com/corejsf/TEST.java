@@ -20,30 +20,7 @@ public class TEST {
 //         TreningsOkt helpObject;
 //        ArrayList objects = new ArrayList<TreningsOkt>();
 //        DBConnection conn = new DBConnection();
-//        Statement st = null;
-//        Date lolo = new Date(2012,11,22);
-//        TreningsOkt mick = new TreningsOkt(10, lolo, 23, "styrke", "mick", "anne");
-//
-//        
-//        ResultSet rs = null;
-//        try{
-//            st = test.getConn().createStatement();
-//            rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING");
-//            // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
-//
-//            while (rs.next()) {
-//                helpObject = new TreningsOkt(rs.getInt("OKTNR"),rs.getDate("DATO"), 
-//                        rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"), 
-//                        rs.getString("TEKST"), rs.getString("BRUKERNAVN"));
-//                objects.add(helpObject);
-//            }
-//        } catch (SQLException e) {
-//            test.failed(); //Rollback
-//        } finally {
-//            test.closeS(st);
-//            test.closeR(rs);
-//            test.close();
-//        }
+        
 //        
 //        for(Object e : objects){
 //            TreningsOkt t = (TreningsOkt) e;
