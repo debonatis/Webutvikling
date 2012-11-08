@@ -3,13 +3,13 @@
 
 DROP TABLE trening;
 DROP TABLE kategori;
-DROP TABLE bruker;
 DROP TABLE rolle;
+DROP TABLE bruker;
 
-CREATE TABLE ROLLE(
-bruker varchar(30),
-rolle varchar(30),
-CONSTRAINT rolle_pk PRIMARY KEY(bruker));
+CREATE TABLE rolle(
+brukernavn varchar(10) NOT NULL,
+rolle varchar(10) NOT NULL);
+alter table rolle add primary key(brukernavn,rolle);
 
 CREATE TABLE trening(
   oktnr        INTEGER GENERATED ALWAYS AS IDENTITY,
@@ -27,6 +27,10 @@ CREATE TABLE bruker(
 CREATE TABLE kategori(
   kategorinavn VARCHAR(15)PRIMARY KEY);
   
+ALTER TABLE rolle
+    ADD CONSTRAINT rolle_fk1 FOREIGN KEY (brukernavn)
+    REFERENCES bruker;
+
 ALTER TABLE trening
   ADD CONSTRAINT trening_fk1 FOREIGN KEY (kategorinavn)
   REFERENCES kategori;
@@ -52,5 +56,5 @@ INSERT INTO trening(dato, varighet, kategorinavn, tekst, brukernavn)
 INSERT INTO trening(dato, varighet, kategorinavn, tekst, brukernavn)
             VALUES(DATE('2009-09-18'), 45, 'aerobics', 'helsestudio', 'anne');
 
-INSERT INTO ROLLE(bruker, rolle) VALUES('anne', 'bruker');
-INSERT INTO ROLLE(bruker, rolle) VALUES('tore', 'admin');
+INSERT INTO ROLLE(brukernavn, rolle) VALUES('anne', 'bruker');
+INSERT INTO ROLLE(brukernavn, rolle) VALUES('tore', 'admin');
