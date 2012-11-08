@@ -27,7 +27,7 @@ public class Bruker implements Serializable {
     private FacesContext fc;   
     
 
-    private String getRolle() {
+    public String getRolle() {
         return rolle == null ? "" : rolle;
     }
 

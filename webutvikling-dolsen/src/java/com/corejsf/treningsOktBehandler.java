@@ -37,6 +37,7 @@ public class treningsOktBehandler implements Serializable {
         temptreningsOkter.add(new OktStatus(tempOkt));
         return temptreningsOkter;
     }
+    private FacesMessage fm = new FacesMessage();
     private List<OktStatus> DBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private Oversikt nyOversikt = new Oversikt();
     private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
@@ -49,7 +50,7 @@ public class treningsOktBehandler implements Serializable {
     int maned = 0;
     private boolean nyOkt = false;
     private boolean getAlle = true;
-    private FacesMessage fm = new FacesMessage();
+    
 
     public TimeZone getTidssone() {
         this.tidssone = TimeZone.getDefault();
