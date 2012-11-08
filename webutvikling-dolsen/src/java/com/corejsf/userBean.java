@@ -26,6 +26,14 @@ import javax.sql.DataSource;
 public class userBean implements Serializable {
 
     private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     private String password;
     private String newPassword;
     private int count;
@@ -67,13 +75,7 @@ public class userBean implements Serializable {
      logger.log(level.SEVERE, "DataSource lookup failed", ex);
      }
      }*/
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String newValue) {
-        password = newValue;
-    }
+   
     //Count = antall ganger besøkt
     // public int getCount(){
     //   return count;
@@ -118,9 +120,9 @@ public class userBean implements Serializable {
             boolean committed = false;
             try {
                 PreparedStatement passwordQuery = conn.prepareStatement("select BRUKER.PASSORD from WAPLJ.BRUKER where BRUKER.BRUKERNAVN = ? ");
-                passwordQuery.setString(1, name);
-                conn.commit();
+                passwordQuery.setString(1, this.getName()); 
                 ResultSet k = passwordQuery.executeQuery();
+                conn.commit();               
                 if (!k.next()) {
                     return;
                 }
