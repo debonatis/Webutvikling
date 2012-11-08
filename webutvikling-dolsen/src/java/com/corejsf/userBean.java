@@ -117,15 +117,14 @@ public class userBean implements Serializable {
             conn.setAutoCommit(false);
             boolean committed = false;
             try {
-                PreparedStatement passwordQuery = conn.prepareStatement("select PASSORD from WAPLJ.BRUKER where brukernavn = '" + name + "'");
-
-
+                PreparedStatement passwordQuery = conn.prepareStatement("select BRUKER.PASSORD from WAPLJ.BRUKER where BRUKER.BRUKERNAVN = ? ", ResultSet.TYPE_SCROLL_SENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE);
+                passwordQuery.setString(1, name);
                 ResultSet k = passwordQuery.executeQuery();
-
-//                if (!k.next()) {
-//                    return;
-//                }
-                String storedPassword = k.getString("passord");
+                if (!k.next()) {
+                    return;
+                }
+                String storedPassword = k.getString(1);
                 loggedIn = password.equals(storedPassword.trim());
 
                 conn.commit();
