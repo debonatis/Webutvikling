@@ -44,8 +44,8 @@ INSERT INTO kategori(kategorinavn) VALUES('styrke');
 INSERT INTO kategori(kategorinavn) VALUES('aerobics');
 INSERT INTO kategori(kategorinavn) VALUES('jogging');
 
-INSERT INTO bruker(brukernavn, passord) VALUES('anne', 'xyz_1b');
-INSERT INTO bruker(brukernavn, passord) VALUES('tore', 'xcg_5');
+INSERT INTO bruker(brukernavn, passord) VALUES('anne', '1234');
+INSERT INTO bruker(brukernavn, passord) VALUES('tore', '5678');
 
 INSERT INTO trening(dato, varighet, kategorinavn, tekst, brukernavn)
             VALUES(DATE('2009-09-18'), 50, 'styrke', 'helsestudio', 'anne');
