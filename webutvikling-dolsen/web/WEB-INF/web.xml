@@ -36,8 +36,8 @@
         <auth-method>FORM</auth-method>
         <realm-name>waplj-realm</realm-name>
         <form-login-config>
-            <form-login-page>index.xhtml</form-login-page>
-            <form-error-page>index.xhtml</form-error-page>            
+            <form-login-page>/faces/index.xhtml</form-login-page>
+            <form-error-page>/faces/ikkelogin.xhtml</form-error-page>            
         </form-login-config>
     </login-config>   
     <security-role>
