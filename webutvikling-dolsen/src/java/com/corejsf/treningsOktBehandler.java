@@ -191,6 +191,7 @@ public class treningsOktBehandler implements Serializable {
         try {
             st = conn.getConn().createStatement();
             rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING");
+            conn.getConn().commit();
             // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
 
             while (rs.next()) {
@@ -199,6 +200,7 @@ public class treningsOktBehandler implements Serializable {
                         rs.getString("TEKST"));
                 bruker = rs.getString("BRUKERNAVN");
                 DBtreningsobjekter.add(new OktStatus(hjelpeobjekt));
+                
 
             }
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alle Okter skaffet!", "ja,Okter skaffet!");
