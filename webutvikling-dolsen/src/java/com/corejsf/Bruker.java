@@ -8,17 +8,12 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
-
-@Named("user")
-@SessionScoped
-public class userBean implements Serializable {
+public class Bruker implements Serializable {
 
     private String name;
     private String rolle;
@@ -27,9 +22,7 @@ public class userBean implements Serializable {
     private int count;
     private boolean loggedIn;
    private static final Logger logger = Logger.getLogger("com.corejsf");
-    private FacesMessage fm = new FacesMessage();
-    private @Resource(name = "jdbc/waplj_prosjekt")
-    DataSource ds;
+    private FacesMessage fm = new FacesMessage();    
     private FacesContext fc;
 
     public String getRolle() {

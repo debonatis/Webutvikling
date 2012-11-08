@@ -51,6 +51,7 @@ public class treningsOktBehandler implements Serializable {
     private boolean getAlle = true;
     private FacesMessage fm = new FacesMessage();
     private FacesContext fc;
+    Bruker bruker;
 
     public synchronized boolean isNyOkt() {
         return nyOkt;
@@ -185,20 +186,19 @@ public class treningsOktBehandler implements Serializable {
         TreningsOkt hjelpeobjekt;
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
-        Statement st = null;
-        String bruker = "";
-        ResultSet rs = null;
+        Statement st = null;        
+        ResultSet rs = null;       
         try {
             st = conn.getConn().createStatement();
-            rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING");
+            rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING "
+                    + "where BRUKERNAVN = '"+ bruker.getName() +"'");
             conn.getConn().commit();
             // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
 
             while (rs.next()) {
                 hjelpeobjekt = new TreningsOkt(rs.getInt("OKTNR"), new Date(rs.getDate("DATO").getTime()),
                         rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"),
-                        rs.getString("TEKST"));
-                bruker = rs.getString("BRUKERNAVN");
+                        rs.getString("TEKST"));                
                 DBtreningsobjekter.add(new OktStatus(hjelpeobjekt));
                 
 
@@ -238,8 +238,7 @@ public class treningsOktBehandler implements Serializable {
         DBConnection conn = new DBConnection();
         PreparedStatement reg = null;
         String regTekst = "INSERT INTO WAPLJ.TRENING (dato, varighet, kategorinavn, tekst, brukernavn) "
-                + "VALUES (?,?,?,?,?)";
-        String t = "anne";
+                + "VALUES (?,?,?,?,?)";        
         try {
 
             conn.getConn().setAutoCommit(false);
@@ -248,7 +247,7 @@ public class treningsOktBehandler implements Serializable {
             reg.setInt(2, okt.getVarighet());
             reg.setString(3, okt.getKategori());
             reg.setString(4, okt.getTekst());
-            reg.setString(5, t);
+            reg.setString(5, bruker.getName());
             reg.executeUpdate();
             conn.getConn().commit();
 
@@ -285,7 +284,7 @@ public class treningsOktBehandler implements Serializable {
         Statement st = null;
         try {
             st = conn.getConn().createStatement();
-            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr());
+            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + " AND BRUKERNAVN = '" + bruker.getName() +"'");
             if (i == 0) {
                 fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
                 fc = FacesContext.getCurrentInstance();
@@ -308,8 +307,7 @@ public class treningsOktBehandler implements Serializable {
 
     }
 
-    public synchronized boolean oppdaterTreningsOktDB() {
-        String t = "anne";
+    public synchronized boolean oppdaterTreningsOktDB() {        
         hjelp.clear();
         if (!treningsOkter.isEmpty()) {
             for (OktStatus j : treningsOkter) {
@@ -340,7 +338,7 @@ public class treningsOktBehandler implements Serializable {
                     oppdaterOkter.setString(3, f.getTreningsikOkt().getKategori());
                     oppdaterOkter.setString(4, f.getTreningsikOkt().getTekst());
                     oppdaterOkter.setInt(5, f.getTreningsikOkt().getOktNr());
-                    oppdaterOkter.setString(6, t);
+                    oppdaterOkter.setString(6, bruker.getName());
                     oppdaterOkter.executeUpdate();
                     conn.getConn().commit();
 
