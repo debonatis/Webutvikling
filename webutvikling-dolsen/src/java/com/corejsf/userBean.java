@@ -185,7 +185,7 @@ public class userBean implements Serializable {
         ResultSet rs = null;
         Connection conn = ds.getConnection();
         try{
-            st = ds.getConnection().createStatement();
+            st = ds.getConnection("waplj", "waplj").createStatement();
             rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING");
             // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
 
@@ -193,6 +193,7 @@ public class userBean implements Serializable {
                 helpObject = new TreningsOkt(rs.getInt("OKTNR"),rs.getDate("DATO"), 
                         rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"), 
                         rs.getString("TEKST"));
+                conn.commit();
                 objects.add(helpObject);
             }
         } catch (SQLException e) {
