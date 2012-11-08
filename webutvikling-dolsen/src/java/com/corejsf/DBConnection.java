@@ -15,17 +15,15 @@ import javax.sql.DataSource;
  * @author Bjørn Tore
  */
 public class DBConnection {
-//    @Resource(name="jdbc/waplj_prosjekt")
-//    private DataSource source;
+
+    @Resource(name = "jdbc/waplj_prosjekt")
+    private DataSource source;
     private Connection conn;
 
     public DBConnection() {
-        String DBdriver = "org.apache.derby.jdbc.ClientDriver";
-        String DBname = "jdbc:derby://localhost:1527/waplj_prosjekt;user=waplj;password=waplj";
-
         try {
-            Class.forName(DBdriver);
-            conn = DriverManager.getConnection(DBname);
+
+            conn = source.getConnection("waplj","waplj");
         } catch (Exception e) {
             System.out.println("Could not connect to database(dev): " + e);
         }
@@ -51,7 +49,7 @@ public class DBConnection {
                 Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("COULD NOT CLOSE DATABASE CONNECTION (waplj)");
             }
-        } 
+        }
     }
 
     public void closeS(Statement s) {
@@ -61,7 +59,7 @@ public class DBConnection {
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } 
+        }
     }
 
     public void closeR(ResultSet r) {
@@ -71,6 +69,6 @@ public class DBConnection {
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } 
+        }
     }
 }
