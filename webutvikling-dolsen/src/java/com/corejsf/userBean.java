@@ -31,8 +31,8 @@ public class userBean implements Serializable {
     private int count;
     private boolean loggedIn;
     private static final Logger logger = Logger.getLogger("com.corejsf");
-    @Resource(name = "jdbc/waplj-prosjekt")
-    private DataSource ds;
+   
+    private  @Resource(name = "jdbc/waplj-prosjekt") DataSource ds;
     private FacesMessage fm = new FacesMessage();
     private FacesContext fc;
 
@@ -119,6 +119,7 @@ public class userBean implements Serializable {
             try {
                 PreparedStatement passwordQuery = conn.prepareStatement("select BRUKER.PASSORD from WAPLJ.BRUKER where BRUKER.BRUKERNAVN = ? ");
                 passwordQuery.setString(1, name);
+                conn.commit();
                 ResultSet k = passwordQuery.executeQuery();
                 if (!k.next()) {
                     return;
@@ -126,7 +127,7 @@ public class userBean implements Serializable {
                 String storedPassword = k.getString(1);
                 loggedIn = password.equals(storedPassword.trim());
 
-                conn.commit();
+
                 committed = true;
             } finally {
                 if (!committed) {
