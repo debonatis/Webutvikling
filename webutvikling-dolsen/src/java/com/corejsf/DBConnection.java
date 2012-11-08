@@ -19,23 +19,29 @@ import javax.sql.DataSource;
  */
 public class DBConnection {
 
-    @Resource(name = "jdbc/waplj_prosjekt")
-    private DataSource source;
+    
+    private @Resource(name = "jdbc/waplj_prosjekt") DataSource source;
     private Connection conn;
     private static final Logger logger = Logger.getLogger("com.corejsf");
 
     public DBConnection() {
+        int t = 0;
         try {
             if (source == null) {
-                throw new SQLException("No data source");
+                 t++;
+                 throw new SQLException("No data source");
+               
             }
             conn = source.getConnection();
             if (conn == null) {
+                t++;
                 throw new SQLException("No connection");
+                
             }
         } catch (Exception e) {
             System.out.println("Could not connect to database(dev): " + e);
         }
+        if(t > 0){
         try {
             Context ctx = new InitialContext();
             source = (DataSource) ctx.lookup("java:comp/env/jdbc/waplj_prosjekt");
@@ -46,6 +52,7 @@ public class DBConnection {
             }
         } catch (NamingException e) {
             logger.log(Level.SEVERE, "Lookup failed!");
+        }
         }
     }
 
