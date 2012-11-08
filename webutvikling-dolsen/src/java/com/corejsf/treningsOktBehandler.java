@@ -200,7 +200,7 @@ public class treningsOktBehandler implements Serializable {
             rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING "
                     + "where BRUKERNAVN = '" + nyOversikt.getBruker() + "'");
             conn.getConn().commit();
-            // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
+            
 
             while (rs.next()) {
                 hjelpeobjekt = new TreningsOkt(rs.getInt("OKTNR"), new Date(rs.getDate("DATO").getTime()),
