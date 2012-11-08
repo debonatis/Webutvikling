@@ -24,9 +24,10 @@ public class Bruker implements Serializable {
     private boolean loggedIn;
    private static final Logger logger = Logger.getLogger("com.corejsf");
     private FacesMessage fm = new FacesMessage();    
-    private FacesContext fc;
+    private FacesContext fc;   
+    
 
-    public String getRolle() {
+    private String getRolle() {
         return rolle == null ? "" : rolle;
     }
 

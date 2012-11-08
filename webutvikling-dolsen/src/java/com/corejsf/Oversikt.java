@@ -29,8 +29,11 @@ public class Oversikt implements Serializable{
     private ArrayList<TreningsOkt> hjelp = new ArrayList(); 
    private @Length(min = 6, max = 20)
     @Id String  bruker;
+   private Bruker sessionBruker;
     
     public Oversikt(){
+        sessionBruker = new Bruker();
+        bruker = sessionBruker.getName();
         
     }
 
