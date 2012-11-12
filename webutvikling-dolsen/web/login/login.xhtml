@@ -9,12 +9,12 @@
     <h:body>
         <ui:composition template="/templates/mainTemplate.xhtml">
             <ui:define name="windowTitle">
-                #{texts.regTitle}
+                #{texts.loginwelcome}
             </ui:define>
             <h3>#{texts.ikkelogin}</h3>
 
             <ui:define name="content">
-        <p>Login to access secure pages:</p>
+        <p>#{texts.loginwelcome}</p>
         <h:form method="post" action="j_security_check">
             <h:panelGrid columns="2">
                 <h:outputLabel for="j_username" value="#{texts.username}" />
