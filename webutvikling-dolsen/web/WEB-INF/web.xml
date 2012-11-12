@@ -38,6 +38,9 @@
             <role-name>bruker</role-name>
             <role-name>admin</role-name>
         </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
     </security-constraint>
     <security-constraint>
         <web-resource-collection>
@@ -55,6 +58,9 @@
         <auth-constraint>            
             <role-name>admin</role-name>
         </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
     </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
