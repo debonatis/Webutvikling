@@ -22,18 +22,17 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Named("user")
 @DeclareRoles({"admin", "bruker"})
-@RolesAllowed({"admin","bruker"})  
+@RolesAllowed({"admin", "bruker"})
 public class Bruker implements Serializable {
 
     private String name;
-    private String rolle;    
+    private String rolle;
     private String newPassword;
     private int count;
     private boolean loggedIn;
-   private static final Logger logger = Logger.getLogger("com.corejsf");
-    private FacesMessage fm = new FacesMessage();    
-    private FacesContext fc;   
-    
+    private static final Logger logger = Logger.getLogger("com.corejsf");
+    private FacesMessage fm = new FacesMessage();
+    private FacesContext fc;
 
     public String getRolle() {
         return rolle == null ? "" : rolle;
@@ -64,8 +63,7 @@ public class Bruker implements Serializable {
 
     public String getNewPassword() {
         return newPassword;
-    }  
-    
+    }
 
     public void getUserData() {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -75,7 +73,7 @@ public class Bruker implements Serializable {
             return;
         }
         HttpServletRequest foresporrsel = (HttpServletRequest) forsporrselobject;
-        setName(foresporrsel.getRemoteUser()); 
+        setName(foresporrsel.getRemoteUser());
     }
 
     public boolean isInRole() {
@@ -100,21 +98,21 @@ public class Bruker implements Serializable {
         HttpServletRequest foresporrsel2 = (HttpServletRequest) forsporrselobject;
         return foresporrsel2.isUserInRole(hjelp);
     }
-     private static Logger log = Logger.getLogger(Bruker.class.getName());
    
-  public String logout() {
-    String result="/index?faces-redirect=true";
-     
-    FacesContext context = FacesContext.getCurrentInstance();
-    HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
-     
-    try {
-      request.logout();
-    } catch (ServletException e) {
-      log.log(Level.SEVERE, "Failed to logout user!", e);
-      result = "/loginError?faces-redirect=true";
+
+    public String logout() {
+        String result = "/index?faces-redirect=true";
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+
+        try {
+            request.logout();
+        } catch (ServletException e) {
+            logger.log(Level.SEVERE, "Failed to logout user!", e);
+            result = "/loginError?faces-redirect=true";
+        }
+
+        return result;
     }
-     
-    return result;
-  }
 }
