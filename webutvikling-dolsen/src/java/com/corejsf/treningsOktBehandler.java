@@ -48,8 +48,8 @@ public class treningsOktBehandler implements Serializable {
     int maned = 0;
     private boolean nyOkt = false;
     private boolean getAlle = true;
-    final Object venteobject = new Object();
-
+    final Object laas1 = new Object();
+    final Object laas2 = new Object();
 
     public TimeZone getTidssone() {
         this.tidssone = TimeZone.getDefault();
@@ -74,36 +74,34 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public boolean getDatafins() throws InterruptedException {
-        synchronized (venteobject){
-        venteobject.wait();
-        if ((getManed() >= 1)) {
-            
-            return (!hjelp.isEmpty());
-        }
-        return (!treningsOkter.isEmpty());
+        synchronized (laas1) {
+            if ((getManed() >= 1)) {
+
+                return (!hjelp.isEmpty());
+            }
+            return (!treningsOkter.isEmpty());
         }
     }
 
-    public  List<OktStatus> getTabelldata() {
-        synchronized (venteobject){
-        hjelp.clear();
-        int m;
-        m = maned;
-        if ((getManed() >= 1)) {
-            hjelp2 = nyOversikt.getPaManed(m);
-            try {
-                for (TreningsOkt g : hjelp2) {
-                    hjelp.add(new OktStatus(g));
+    public List<OktStatus> getTabelldata() {
+        synchronized (laas1) {
+            int m;
+            m = maned;
+            if ((getManed() >= 1)) {
+                hjelp2 = nyOversikt.getPaManed(m);
+                try {
+                    for (TreningsOkt g : hjelp2) {
+                        hjelp.add(new OktStatus(g));
+                    }
+                    return hjelp;
+                } catch (ConcurrentModificationException e) {
+                    getTabelldata();
                 }
-                return hjelp;
-            } catch (ConcurrentModificationException e) {
-                getTabelldata();
-            }
-            setManed(0);
+                setManed(0);
 
-        }
-        venteobject.notify();
-        return treningsOkter;
+            }
+            
+            return treningsOkter;
         }
     }
 
@@ -303,6 +301,7 @@ public class treningsOktBehandler implements Serializable {
         try {
             st = conn.getConn().createStatement();
             st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + " AND BRUKERNAVN = '" + nyOversikt.getBruker() + "'");
+            st.getConnection().commit();
             if (i == 0) {
                 fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
                 fc = FacesContext.getCurrentInstance();
