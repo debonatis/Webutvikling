@@ -16,8 +16,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
-import javax.enterprise.context.SessionScoped;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -29,6 +31,8 @@ import org.hibernate.validator.constraints.Range;
  */
 @Named
 @SessionScoped
+@DeclareRoles({"admin", "bruker"})
+@RolesAllowed({"admin","bruker"})  
 public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTemptreningsOkter() {
@@ -37,6 +41,7 @@ public class treningsOktBehandler implements Serializable {
         temptreningsOkter.add(new OktStatus(tempOkt));
         return temptreningsOkter;
     }
+    private FacesMessage fm = new FacesMessage();
     private List<OktStatus> DBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private Oversikt nyOversikt = new Oversikt();
     private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
@@ -49,8 +54,15 @@ public class treningsOktBehandler implements Serializable {
     int maned = 0;
     private boolean nyOkt = false;
     private boolean getAlle = true;
-    private FacesMessage fm = new FacesMessage();
+    
+
+    
+    public TimeZone getTidssone() {
+        this.tidssone = TimeZone.getDefault();
+        return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
+    }
     private FacesContext fc;
+    private TimeZone tidssone;
 
     public synchronized boolean isNyOkt() {
         return nyOkt;
@@ -186,19 +198,20 @@ public class treningsOktBehandler implements Serializable {
         DBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
         Statement st = null;
-        String bruker = "";
         ResultSet rs = null;
         try {
             st = conn.getConn().createStatement();
-            rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING");
-            // WHERE BRUKERNAVN = '" + user + "' (for senere bruk)
+            rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING "
+                    + "where BRUKERNAVN = '" + nyOversikt.getBruker() + "'");
+            conn.getConn().commit();
+
 
             while (rs.next()) {
                 hjelpeobjekt = new TreningsOkt(rs.getInt("OKTNR"), new Date(rs.getDate("DATO").getTime()),
                         rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"),
                         rs.getString("TEKST"));
-                bruker = rs.getString("BRUKERNAVN");
                 DBtreningsobjekter.add(new OktStatus(hjelpeobjekt));
+
 
             }
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alle Okter skaffet!", "ja,Okter skaffet!");
@@ -237,7 +250,6 @@ public class treningsOktBehandler implements Serializable {
         PreparedStatement reg = null;
         String regTekst = "INSERT INTO WAPLJ.TRENING (dato, varighet, kategorinavn, tekst, brukernavn) "
                 + "VALUES (?,?,?,?,?)";
-        String t = "anne";
         try {
 
             conn.getConn().setAutoCommit(false);
@@ -246,7 +258,7 @@ public class treningsOktBehandler implements Serializable {
             reg.setInt(2, okt.getVarighet());
             reg.setString(3, okt.getKategori());
             reg.setString(4, okt.getTekst());
-            reg.setString(5, t);
+            reg.setString(5, nyOversikt.getBruker());
             reg.executeUpdate();
             conn.getConn().commit();
 
@@ -283,7 +295,7 @@ public class treningsOktBehandler implements Serializable {
         Statement st = null;
         try {
             st = conn.getConn().createStatement();
-            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr());
+            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + " AND BRUKERNAVN = '" + nyOversikt.getBruker() + "'");
             if (i == 0) {
                 fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
                 fc = FacesContext.getCurrentInstance();
@@ -307,7 +319,6 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized boolean oppdaterTreningsOktDB() {
-        String t = "anne";
         hjelp.clear();
         if (!treningsOkter.isEmpty()) {
             for (OktStatus j : treningsOkter) {
@@ -338,7 +349,7 @@ public class treningsOktBehandler implements Serializable {
                     oppdaterOkter.setString(3, f.getTreningsikOkt().getKategori());
                     oppdaterOkter.setString(4, f.getTreningsikOkt().getTekst());
                     oppdaterOkter.setInt(5, f.getTreningsikOkt().getOktNr());
-                    oppdaterOkter.setString(6, t);
+                    oppdaterOkter.setString(6, nyOversikt.getBruker());
                     oppdaterOkter.executeUpdate();
                     conn.getConn().commit();
 
@@ -369,10 +380,5 @@ public class treningsOktBehandler implements Serializable {
         return true;
 
 
-    }
-
-    public synchronized TimeZone getTidssone() {
-        TimeZone tidssone = TimeZone.getDefault();
-        return tidssone;
     }
 }

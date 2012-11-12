@@ -133,7 +133,7 @@ public class TreningsOkt {
 
     }
 
-    public synchronized void nullstill() {
+    public final synchronized void nullstill() {
         oktNr = 0;
         dato = new Date(System.currentTimeMillis());
         kategori = "";
