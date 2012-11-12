@@ -48,6 +48,7 @@ public class treningsOktBehandler implements Serializable {
     int maned = 0;
     private boolean nyOkt = false;
     private boolean getAlle = true;
+    final Object venteobject = new Object();
 
 
     public TimeZone getTidssone() {
@@ -72,15 +73,19 @@ public class treningsOktBehandler implements Serializable {
         this.nyOkt = nyOkt;
     }
 
-    public synchronized boolean getDatafins() {
+    public boolean getDatafins() throws InterruptedException {
+        synchronized (venteobject){
+        venteobject.wait();
         if ((getManed() >= 1)) {
-            getTabelldata();
+            
             return (!hjelp.isEmpty());
         }
         return (!treningsOkter.isEmpty());
+        }
     }
 
-    public synchronized List<OktStatus> getTabelldata() {
+    public  List<OktStatus> getTabelldata() {
+        synchronized (venteobject){
         hjelp.clear();
         int m;
         m = maned;
@@ -97,8 +102,9 @@ public class treningsOktBehandler implements Serializable {
             setManed(0);
 
         }
-        
+        venteobject.notify();
         return treningsOkter;
+        }
     }
 
     public synchronized int getAntOkter() {
