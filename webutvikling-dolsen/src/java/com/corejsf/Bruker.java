@@ -13,6 +13,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+
 @Named("user")
 @SessionScoped
 public class Bruker implements Serializable {
