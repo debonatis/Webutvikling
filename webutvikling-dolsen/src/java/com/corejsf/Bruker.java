@@ -43,7 +43,8 @@ public class Bruker implements Serializable {
                 return r;
             }
         }
-        return "FEIL";
+        logout();
+        return "NO ROLE, logging you out!";
     }
 
     public void setRolle(String rolle) {
