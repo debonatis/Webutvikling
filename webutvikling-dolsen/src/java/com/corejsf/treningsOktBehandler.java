@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.TimeZone;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
@@ -29,7 +29,7 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author deb
  */
-@Named
+@ManagedBean
 @SessionScoped
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
@@ -241,15 +241,14 @@ public class treningsOktBehandler implements Serializable {
         }
     }
 
-    public int getManed() {
+    public synchronized int getManed() {
         return maned;
     }
 
     public void setManed(int Maned) {
         synchronized (laas1){
            this.maned = Maned; 
-        }
-        
+        }        
     }
 
     public synchronized boolean registrerTreningsOkt(TreningsOkt okt) {
