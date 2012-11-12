@@ -20,11 +20,11 @@ import javax.sql.DataSource;
  * @author deb
  */
 @DeclareRoles({"admin", "bruker"})
-@RolesAllowed({"admin","bruker"})  
+@RolesAllowed({"admin", "bruker"})
 public class DBConnection {
 
-    
-    private @Resource(name = "jdbc/waplj_prosjekt") DataSource source;
+    private @Resource(name = "jdbc/waplj_prosjekt")
+    DataSource source;
     private Connection conn;
     private static final Logger logger = Logger.getLogger("com.corejsf");
 
@@ -32,34 +32,34 @@ public class DBConnection {
         int t = 0;
         try {
             if (source == null) {
-                 t++;
-                 throw new SQLException("No data source");
-               
+                t++;
+                throw new SQLException("No data source");
+
             }
             conn = source.getConnection();
             if (conn == null) {
                 t++;
                 throw new SQLException("No connection");
-                
+
             }
         } catch (Exception e) {
             System.out.println("Could not connect to database(dev): " + e);
         }
-        if(t > 0){
-        try {
-            Context ctx = new InitialContext();
-            source = (DataSource) ctx.lookup("java:comp/env/jdbc/waplj_prosjekt");
+        if (t > 0) {
             try {
-                conn = source.getConnection(); 
-                 System.out.println("OK!! Database");             
-            } catch (SQLException ex) {
-                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-                
+                Context ctx = new InitialContext();
+                source = (DataSource) ctx.lookup("java:comp/env/jdbc/waplj_prosjekt");
+                try {
+                    conn = source.getConnection();
+                    System.out.println("OK!! Database");
+                } catch (SQLException ex) {
+                    Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+
+                }
+            } catch (NamingException e) {
+                logger.log(Level.SEVERE, "Lookup failed!");
             }
-        } catch (NamingException e) {
-            logger.log(Level.SEVERE, "Lookup failed!");
-        }
-       
+            System.out.println("OK!! Database");
         }
     }
 

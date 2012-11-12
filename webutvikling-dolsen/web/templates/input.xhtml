@@ -50,7 +50,9 @@
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </h:inputText><br/>
                         <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}" /><br/>
-                        <h:outputLabel value="#{user.name}"/>
+                        <h:outputLabel value="#{user.name}"/><br/>
+                        <h:outputLabel value="#{user.rolle}"/>
+                        
                     </h:panelGrid>
                 </h:form>
 

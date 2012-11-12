@@ -33,9 +33,15 @@ public class Bruker implements Serializable {
     private static final Logger logger = Logger.getLogger("com.corejsf");
     private FacesMessage fm = new FacesMessage();
     private FacesContext fc;
+    private final String[] roller = {"admin", "bruker"};
 
     public String getRolle() {
-        return rolle == null ? "" : rolle;
+        for (String r : roller) {
+            if (isInRole(r)) {
+                return r;
+            }
+        }
+        return "FEIL";
     }
 
     public void setRolle(String rolle) {
@@ -76,7 +82,7 @@ public class Bruker implements Serializable {
         setName(foresporrsel.getRemoteUser());
     }
 
-    public boolean isInRole() {
+    public boolean isInRole(String k) {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         Object forsporrselobject = context.getRequest();
         if (!(forsporrselobject instanceof HttpServletRequest)) {
@@ -84,7 +90,7 @@ public class Bruker implements Serializable {
             return false;
         }
         HttpServletRequest foresporrsel = (HttpServletRequest) forsporrselobject;
-        return foresporrsel.isUserInRole(rolle);
+        return foresporrsel.isUserInRole(k);
     }
 
     public boolean isAdmin() {
@@ -98,7 +104,6 @@ public class Bruker implements Serializable {
         HttpServletRequest foresporrsel2 = (HttpServletRequest) forsporrselobject;
         return foresporrsel2.isUserInRole(hjelp);
     }
-   
 
     public String logout() {
         String result = "/index?faces-redirect=true";
