@@ -103,6 +103,7 @@ public class treningsOktBehandler implements Serializable {
             setManed(0);
 
         }
+        
         return treningsOkter;
     }
 
