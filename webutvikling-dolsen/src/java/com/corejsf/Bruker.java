@@ -7,6 +7,8 @@ package com.corejsf;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -14,8 +16,14 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ *
+ * @author deb
+ */
 @Named("user")
 @SessionScoped
+@DeclareRoles({"admin", "bruker"})
+@RolesAllowed({"admin","bruker"})  
 public class Bruker implements Serializable {
 
     private String name;

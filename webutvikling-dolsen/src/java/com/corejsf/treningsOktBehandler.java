@@ -32,18 +32,12 @@ import org.hibernate.validator.constraints.Range;
 @Named
 @SessionScoped
 @DeclareRoles({"admin", "bruker"})
-@RolesAllowed({"admin","bruker"})  
+@RolesAllowed({"admin", "bruker"})
 public class treningsOktBehandler implements Serializable {
 
-    public synchronized List<OktStatus> getTemptreningsOkter() {
-        temptreningsOkter.clear();
-        tempOkt.nullstill();
-        temptreningsOkter.add(new OktStatus(tempOkt));
-        return temptreningsOkter;
-    }
     private FacesMessage fm = new FacesMessage();
     private List<OktStatus> DBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private Oversikt nyOversikt = new Oversikt();
+    private Oversikt nyOversikt;
     private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
@@ -54,9 +48,11 @@ public class treningsOktBehandler implements Serializable {
     int maned = 0;
     private boolean nyOkt = false;
     private boolean getAlle = true;
-    
 
-    
+    public treningsOktBehandler() {
+        nyOversikt = new Oversikt();
+    }
+
     public TimeZone getTidssone() {
         this.tidssone = TimeZone.getDefault();
         return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
@@ -66,6 +62,13 @@ public class treningsOktBehandler implements Serializable {
 
     public synchronized boolean isNyOkt() {
         return nyOkt;
+    }
+
+    public synchronized List<OktStatus> getTemptreningsOkter() {
+        temptreningsOkter.clear();
+        tempOkt.nullstill();
+        temptreningsOkter.add(new OktStatus(tempOkt));
+        return temptreningsOkter;
     }
 
     public synchronized void setNyOkt(boolean nyOkt) {
@@ -85,18 +88,17 @@ public class treningsOktBehandler implements Serializable {
         int m;
         m = maned;
         if ((getManed() >= 1)) {
-            synchronized (this) {
-                hjelp2 = nyOversikt.getPaManed(m);
-                try {
-                    for (TreningsOkt g : hjelp2) {
-                        hjelp.add(new OktStatus(g));
-                    }
-                    return hjelp;
-                } catch (ConcurrentModificationException e) {
-                    getTabelldata();
+            hjelp2 = nyOversikt.getPaManed(m);
+            try {
+                for (TreningsOkt g : hjelp2) {
+                    hjelp.add(new OktStatus(g));
                 }
-                setManed(0);
+                return hjelp;
+            } catch (ConcurrentModificationException e) {
+                getTabelldata();
             }
+            setManed(0);
+
         }
         return treningsOkter;
     }
