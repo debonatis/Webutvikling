@@ -33,12 +33,7 @@
             <url-pattern>/faces/templates/*</url-pattern>
             <url-pattern>/templates/*</url-pattern>
             <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>PUT</http-method>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
-            <http-method>DELETE</http-method>
+            <http-method>POST</http-method>           
         </web-resource-collection>
         <auth-constraint>
             <role-name>bruker</role-name>
@@ -51,12 +46,7 @@
             <url-pattern>/faces/admin/*</url-pattern>
             <url-pattern>/admin/*</url-pattern>
             <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>HEAD</http-method>
-            <http-method>PUT</http-method>
-            <http-method>OPTIONS</http-method>
-            <http-method>TRACE</http-method>
-            <http-method>DELETE</http-method>
+            <http-method>POST</http-method>            
         </web-resource-collection>
         <auth-constraint>            
             <role-name>admin</role-name>
