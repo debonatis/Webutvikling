@@ -136,7 +136,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     @RolesAllowed("admin")
-    public synchronized void slettAlleOkter() {
+    public synchronized void slettAlleOkter() {        
         try {
             for (Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();) {
                 TreningsOkt k = slett.next().getTreningsikOkt();
@@ -207,7 +207,7 @@ public class treningsOktBehandler implements Serializable {
         try {
             st = conn.getConn().createStatement();
             rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING "
-                    + "where BRUKERNAVN = '" + nyOversikt.getBruker() + "'");
+                    + "where BRUKERNAVN = '" + getNavn() + "'");
             conn.getConn().commit();
 
 
@@ -263,7 +263,7 @@ public class treningsOktBehandler implements Serializable {
             reg.setInt(2, okt.getVarighet());
             reg.setString(3, okt.getKategori());
             reg.setString(4, okt.getTekst());
-            reg.setString(5, nyOversikt.getBruker());
+            reg.setString(5, getNavn());
             reg.executeUpdate();
             conn.getConn().commit();
 
@@ -300,7 +300,7 @@ public class treningsOktBehandler implements Serializable {
         Statement st = null;
         try {
             st = conn.getConn().createStatement();
-            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + " AND BRUKERNAVN = '" + nyOversikt.getBruker() + "'");
+            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + " AND BRUKERNAVN = '" + getNavn() + "'");
             st.getConnection().commit();
             if (i == 0) {
                 fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
@@ -355,7 +355,7 @@ public class treningsOktBehandler implements Serializable {
                     oppdaterOkter.setString(3, f.getTreningsikOkt().getKategori());
                     oppdaterOkter.setString(4, f.getTreningsikOkt().getTekst());
                     oppdaterOkter.setInt(5, f.getTreningsikOkt().getOktNr());
-                    oppdaterOkter.setString(6, nyOversikt.getBruker());
+                    oppdaterOkter.setString(6, getNavn());
                     oppdaterOkter.executeUpdate();
                     conn.getConn().commit();
 
