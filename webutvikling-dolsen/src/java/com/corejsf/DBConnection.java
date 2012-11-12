@@ -50,13 +50,16 @@ public class DBConnection {
             Context ctx = new InitialContext();
             source = (DataSource) ctx.lookup("java:comp/env/jdbc/waplj_prosjekt");
             try {
-                conn = source.getConnection();
+                conn = source.getConnection(); 
+                 System.out.println("OK!! Database");             
             } catch (SQLException ex) {
                 Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+                
             }
         } catch (NamingException e) {
             logger.log(Level.SEVERE, "Lookup failed!");
         }
+       
         }
     }
 
