@@ -13,6 +13,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.persistence.Cacheable;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 @Named("user")
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
+@Cacheable(false)
 public class Bruker implements Serializable {
 
     private String name;
