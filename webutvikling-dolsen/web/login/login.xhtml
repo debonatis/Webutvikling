@@ -15,7 +15,7 @@
 
             <ui:define name="content">
                 <p>#{texts.loginwelcome}</p>
-                <h:panelGrid columns="2" cellspacing="5" styleClass="center">
+                <h:panelGrid styleClass="center">
                     <form method="post" action="j_security_check">
                         <h:outputLabel for="j_username" value="#{texts.username}" />
                         <h:inputText  id="j_username"/>
