@@ -16,6 +16,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -29,6 +31,8 @@ import org.hibernate.validator.constraints.Range;
  */
 @Named
 @SessionScoped
+@DeclareRoles({"admin", "bruker"})
+@RolesAllowed({"admin","bruker"})  
 public class treningsOktBehandler implements Serializable {
 
     public synchronized List<OktStatus> getTemptreningsOkter() {
@@ -52,12 +56,12 @@ public class treningsOktBehandler implements Serializable {
     private boolean getAlle = true;
     
 
+    
     public TimeZone getTidssone() {
         this.tidssone = TimeZone.getDefault();
         return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
     }
     private FacesContext fc;
-    
     private TimeZone tidssone;
 
     public synchronized boolean isNyOkt() {
@@ -200,7 +204,7 @@ public class treningsOktBehandler implements Serializable {
             rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING "
                     + "where BRUKERNAVN = '" + nyOversikt.getBruker() + "'");
             conn.getConn().commit();
-            
+
 
             while (rs.next()) {
                 hjelpeobjekt = new TreningsOkt(rs.getInt("OKTNR"), new Date(rs.getDate("DATO").getTime()),
@@ -377,6 +381,4 @@ public class treningsOktBehandler implements Serializable {
 
 
     }
-
-    
 }

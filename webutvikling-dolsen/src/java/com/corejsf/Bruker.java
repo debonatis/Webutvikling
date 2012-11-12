@@ -68,7 +68,7 @@ public class Bruker implements Serializable {
             return;
         }
         HttpServletRequest foresporrsel = (HttpServletRequest) forsporrselobject;
-        name = foresporrsel.getRemoteUser();
+        setName(foresporrsel.getRemoteUser()); 
     }
 
     public boolean isInRole() {
