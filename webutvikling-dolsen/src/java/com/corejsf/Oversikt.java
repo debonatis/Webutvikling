@@ -7,7 +7,6 @@ package com.corejsf;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
-import java.util.List;
 import javax.persistence.Id;
 import org.hibernate.validator.constraints.Length;
 
@@ -17,8 +16,9 @@ import org.hibernate.validator.constraints.Length;
  */
 public class Oversikt implements Serializable {
 
+    Bruker sessionBruker = new Bruker();
+
     public String getBruker() {
-       Bruker sessionBruker = new Bruker();
         return bruker == null ? sessionBruker.getName() : bruker;
     }
     private ArrayList<TreningsOkt> alleOkter = new ArrayList();
@@ -26,7 +26,6 @@ public class Oversikt implements Serializable {
     private @Length(min = 6, max = 20)
     @Id
     String bruker;
-    
 
     public synchronized ArrayList<TreningsOkt> getAlleOkter() {
 
@@ -49,14 +48,13 @@ public class Oversikt implements Serializable {
     public synchronized ArrayList<TreningsOkt> getPaManed(int m) {
 
         try {
-            synchronized (this) {
-                hjelp.clear();
-                for (TreningsOkt k : alleOkter) {
-                    if ((k.getDate().getMonth()) == (m - 1)) {
-                        hjelp.add(k);
-                    }
+            hjelp.clear();
+            for (TreningsOkt k : alleOkter) {
+                if ((k.getDate().getMonth()) == (m - 1)) {
+                    hjelp.add(k);
                 }
             }
+
             return hjelp;
         } catch (ConcurrentModificationException e) {
         }

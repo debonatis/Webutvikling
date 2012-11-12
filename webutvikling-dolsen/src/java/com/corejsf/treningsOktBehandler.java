@@ -132,7 +132,7 @@ public class treningsOktBehandler implements Serializable {
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
         tempOkt = nyTempOkt;
     }
-
+    @RolesAllowed("admin")
     public synchronized void slettAlleOkter() {
         try {
             for (Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();) {
