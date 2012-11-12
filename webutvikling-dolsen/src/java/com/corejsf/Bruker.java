@@ -7,26 +7,32 @@ package com.corejsf;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ *
+ * @author deb
+ */
 @Named("user")
-@SessionScoped
+@DeclareRoles({"admin", "bruker"})
+@RolesAllowed({"admin", "bruker"})
 public class Bruker implements Serializable {
 
     private String name;
-    private String rolle;    
+    private String rolle;
     private String newPassword;
     private int count;
     private boolean loggedIn;
-   private static final Logger logger = Logger.getLogger("com.corejsf");
-    private FacesMessage fm = new FacesMessage();    
-    private FacesContext fc;   
-    
+    private static final Logger logger = Logger.getLogger("com.corejsf");
+    private FacesMessage fm = new FacesMessage();
+    private FacesContext fc;
 
     public String getRolle() {
         return rolle == null ? "" : rolle;
@@ -57,8 +63,7 @@ public class Bruker implements Serializable {
 
     public String getNewPassword() {
         return newPassword;
-    }  
-    
+    }
 
     public void getUserData() {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -68,7 +73,7 @@ public class Bruker implements Serializable {
             return;
         }
         HttpServletRequest foresporrsel = (HttpServletRequest) forsporrselobject;
-        setName(foresporrsel.getRemoteUser()); 
+        setName(foresporrsel.getRemoteUser());
     }
 
     public boolean isInRole() {
@@ -92,5 +97,22 @@ public class Bruker implements Serializable {
         String hjelp = "admin";
         HttpServletRequest foresporrsel2 = (HttpServletRequest) forsporrselobject;
         return foresporrsel2.isUserInRole(hjelp);
+    }
+   
+
+    public String logout() {
+        String result = "/index?faces-redirect=true";
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+
+        try {
+            request.logout();
+        } catch (ServletException e) {
+            logger.log(Level.SEVERE, "Failed to logout user!", e);
+            result = "/loginError?faces-redirect=true";
+        }
+
+        return result;
     }
 }

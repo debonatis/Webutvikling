@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -17,6 +19,8 @@ import javax.sql.DataSource;
  *
  * @author deb
  */
+@DeclareRoles({"admin", "bruker"})
+@RolesAllowed({"admin","bruker"})  
 public class DBConnection {
 
     
