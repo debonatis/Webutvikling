@@ -115,7 +115,8 @@ public class Bruker implements Serializable {
             request.logout();
         } catch (ServletException e) {
             logger.log(Level.SEVERE, "Failed to logout user!", e);
-            result = "ikkeok";
+            logout();
+            
         }
 
         return result;
