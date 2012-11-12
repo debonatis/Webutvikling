@@ -106,7 +106,7 @@ public class Bruker implements Serializable {
     }
 
     public String logout() {
-        String result = "/index?faces-redirect=true";
+        String result = "ok";
 
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
@@ -115,7 +115,7 @@ public class Bruker implements Serializable {
             request.logout();
         } catch (ServletException e) {
             logger.log(Level.SEVERE, "Failed to logout user!", e);
-            result = "/loginError?faces-redirect=true";
+            result = "ikkeok";
         }
 
         return result;
