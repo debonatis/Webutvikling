@@ -22,6 +22,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
+import javax.servlet.annotation.ServletSecurity.TransportGuarantee;
+import javax.servlet.annotation.WebServlet;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
@@ -33,6 +37,10 @@ import org.hibernate.validator.constraints.Range;
 @SessionScoped
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
+@WebServlet(name = "GreetingServlet", urlPatterns = {"/greeting"})
+@ServletSecurity(
+@HttpConstraint(transportGuarantee = TransportGuarantee.CONFIDENTIAL,
+    rolesAllowed = {"TutorialUser"}))
 public class treningsOktBehandler implements Serializable {
 
     private FacesMessage fm = new FacesMessage();
