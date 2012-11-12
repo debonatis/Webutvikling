@@ -19,6 +19,7 @@ import java.util.TimeZone;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -36,6 +37,7 @@ import org.hibernate.validator.constraints.Range;
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
 @HttpConstraint(transportGuarantee = TransportGuarantee.CONFIDENTIAL)
+@RequestScoped
 public class treningsOktBehandler implements Serializable {
 
     private FacesMessage fm = new FacesMessage();
