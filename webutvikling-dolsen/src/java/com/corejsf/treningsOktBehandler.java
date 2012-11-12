@@ -124,7 +124,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized String getNavn() {
-        return nyOversikt.getBruker();
+        return "anne";
     }
 
     public synchronized TreningsOkt getTempOkt() {
