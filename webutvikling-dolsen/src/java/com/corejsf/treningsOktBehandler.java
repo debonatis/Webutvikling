@@ -245,8 +245,11 @@ public class treningsOktBehandler implements Serializable {
         return maned;
     }
 
-    public synchronized void setManed(int Maned) {
-        this.maned = Maned;
+    public void setManed(int Maned) {
+        synchronized (laas1){
+           this.maned = Maned; 
+        }
+        
     }
 
     public synchronized boolean registrerTreningsOkt(TreningsOkt okt) {
