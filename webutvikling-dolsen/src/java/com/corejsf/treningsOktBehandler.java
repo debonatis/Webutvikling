@@ -37,10 +37,7 @@ import org.hibernate.validator.constraints.Range;
 @SessionScoped
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
-@WebServlet(name = "GreetingServlet", urlPatterns = {"/greeting"})
-@ServletSecurity(
-@HttpConstraint(transportGuarantee = TransportGuarantee.CONFIDENTIAL,
-    rolesAllowed = {"TutorialUser"}))
+@HttpConstraint(transportGuarantee = TransportGuarantee.CONFIDENTIAL,rolesAllowed = {"bruker", "admin"})
 public class treningsOktBehandler implements Serializable {
 
     private FacesMessage fm = new FacesMessage();
@@ -140,6 +137,7 @@ public class treningsOktBehandler implements Serializable {
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
         tempOkt = nyTempOkt;
     }
+
     @RolesAllowed("admin")
     public synchronized void slettAlleOkter() {
         try {

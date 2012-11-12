@@ -10,10 +10,10 @@ import java.util.logging.Logger;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
  * @author deb
  */
 @Named("user")
-@SessionScoped
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin","bruker"})  
 public class Bruker implements Serializable {
@@ -101,4 +100,21 @@ public class Bruker implements Serializable {
         HttpServletRequest foresporrsel2 = (HttpServletRequest) forsporrselobject;
         return foresporrsel2.isUserInRole(hjelp);
     }
+     private static Logger log = Logger.getLogger(Bruker.class.getName());
+   
+  public String logout() {
+    String result="/index?faces-redirect=true";
+     
+    FacesContext context = FacesContext.getCurrentInstance();
+    HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
+     
+    try {
+      request.logout();
+    } catch (ServletException e) {
+      log.log(Level.SEVERE, "Failed to logout user!", e);
+      result = "/loginError?faces-redirect=true";
+    }
+     
+    return result;
+  }
 }

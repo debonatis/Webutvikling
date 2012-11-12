@@ -7,6 +7,8 @@ package com.corejsf;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.Id;
 import org.hibernate.validator.constraints.Length;
 
@@ -14,6 +16,8 @@ import org.hibernate.validator.constraints.Length;
  *
  * @author Martin
  */
+@DeclareRoles({"admin", "bruker"})
+@RolesAllowed({"admin","bruker"})  
 public class Oversikt implements Serializable {
 
     Bruker sessionBruker = new Bruker();
