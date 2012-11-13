@@ -88,8 +88,10 @@ public class treningsOktBehandler implements Serializable {
         if ((getManed() >= 1)) {
             hjelp2 = nyOversikt.getPaManed(m);
             try {
+                synchronized(laas1){
                 for (TreningsOkt g : hjelp2) {
                     hjelp.add(new OktStatus(g));
+                }
                 }
                 return hjelp;
             } catch (ConcurrentModificationException e) {
@@ -187,9 +189,6 @@ public class treningsOktBehandler implements Serializable {
                 getAlleTreningsOkter();
 
             }
-
-
-
         } catch (ConcurrentModificationException e) {
             oppdater();
         }
@@ -205,8 +204,7 @@ public class treningsOktBehandler implements Serializable {
         try {
             st = conn.getConn().createStatement();
             rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING "
-                    + "where BRUKERNAVN = '" + getNavn() + "'");
-            
+                    + "where BRUKERNAVN = '" + getNavn() + "'");          
 
 
             while (rs.next()) {
@@ -288,11 +286,11 @@ public class treningsOktBehandler implements Serializable {
 
     }
 
-    public boolean isGetAlle() {
+    public synchronized boolean isGetAlle() {
         return getAlle;
     }
 
-    public void setGetAlle(boolean getAlle) {
+    public synchronized void setGetAlle(boolean getAlle) {
         this.getAlle = getAlle;
     }
 
@@ -326,6 +324,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized boolean oppdaterTreningsOktDB() {
+        synchronized (laas1){
         hjelp.clear();
         if (!treningsOkter.isEmpty()) {
             for (OktStatus j : treningsOkter) {
@@ -334,6 +333,7 @@ public class treningsOktBehandler implements Serializable {
                     hjelp.add(j);
                 }
             }
+        }
         }
 
 

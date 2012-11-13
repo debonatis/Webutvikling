@@ -4,6 +4,7 @@
  */
 package com.corejsf;
 
+import java.io.Serializable;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,11 +22,11 @@ import javax.sql.DataSource;
  */
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
-public class DBConnection {
+public class DBConnection implements Serializable{
 
-    private @Resource(name = "jdbc/waplj_prosjekt")
+    private transient @Resource(name = "jdbc/waplj_prosjekt")
     DataSource source;
-    private Connection conn;
+    private transient Connection conn;
     private static final Logger logger = Logger.getLogger("com.corejsf");
 
     public DBConnection() {
