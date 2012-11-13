@@ -4,6 +4,7 @@
  */
 package com.corejsf;
 
+import java.io.Serializable;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,43 +21,46 @@ import javax.sql.DataSource;
  * @author deb
  */
 @DeclareRoles({"admin", "bruker"})
-@RolesAllowed({"admin","bruker"})  
-public class DBConnection {
+@RolesAllowed({"admin", "bruker"})
+public class DBConnection implements Serializable{
 
-    
-    private @Resource(name = "jdbc/waplj_prosjekt") DataSource source;
-    private Connection conn;
+    private transient @Resource(name = "jdbc/waplj_prosjekt")
+    DataSource source;
+    private transient Connection conn;
     private static final Logger logger = Logger.getLogger("com.corejsf");
 
     public DBConnection() {
         int t = 0;
         try {
             if (source == null) {
-                 t++;
-                 throw new SQLException("No data source");
-               
+                t++;
+                throw new SQLException("No data source");
+
             }
             conn = source.getConnection();
             if (conn == null) {
                 t++;
                 throw new SQLException("No connection");
-                
+
             }
         } catch (Exception e) {
             System.out.println("Could not connect to database(dev): " + e);
         }
-        if(t > 0){
-        try {
-            Context ctx = new InitialContext();
-            source = (DataSource) ctx.lookup("java:comp/env/jdbc/waplj_prosjekt");
+        if (t > 0) {
             try {
-                conn = source.getConnection();
-            } catch (SQLException ex) {
-                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+                Context ctx = new InitialContext();
+                source = (DataSource) ctx.lookup("java:comp/env/jdbc/waplj_prosjekt");
+                try {
+                    conn = source.getConnection();
+                    System.out.println("OK!! Database");
+                } catch (SQLException ex) {
+                    Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+
+                }
+            } catch (NamingException e) {
+                logger.log(Level.SEVERE, "Lookup failed!");
             }
-        } catch (NamingException e) {
-            logger.log(Level.SEVERE, "Lookup failed!");
-        }
+           
         }
     }
 
@@ -94,6 +98,16 @@ public class DBConnection {
     }
 
     public void closeR(ResultSet r) {
+        if (r != null) {
+            try {
+                r.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+     public void closeP(PreparedStatement r) {
         if (r != null) {
             try {
                 r.close();

@@ -8,8 +8,8 @@
         <title>IGNORED</title>
     </h:head>
     <h:body>
-        
-        
+
+
         <ui:composition template="/templates/mainTemplate.xhtml">
             <ui:define name="windowTitle">
                 #{texts.regTitle}
@@ -20,9 +20,10 @@
 
                 <h:form>
 
-                    <h:outputLabel value="login failed"/>
-                    <h:outputLabel value="#{user.name}"/>
-                    
+                    <h:outputLabel value="#{texts.loginfailed}"/><br/>            
+
+                    <p><a href="faces/templates/input.xhtml">#{texts.loginny}</a></p>
+
                 </h:form>
 
             </ui:define>

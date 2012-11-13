@@ -39,20 +39,19 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/login/index.xhtml</from-view-id>
+        <from-view-id>/templates/overview1.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{user.login()}</from-action>
-            <from-outcome>loginFailure</from-outcome>
-            <to-view-id>/login/index.xhtml</to-view-id>
+            <from-action>#{user.logout()}</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/templates/overview1.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
+    </navigation-rule>  
     <navigation-rule>
-        <from-view-id>/login/index.xhtml</from-view-id>
+        <from-view-id>/templates/overview1.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{user.login()}</from-action>
-            <from-outcome>loginSuccess</from-outcome>
-            <to-view-id>/templates/input.xhtml</to-view-id>
+            <from-action>#{user.logout()}</from-action>
+            <from-outcome>ikkeok</from-outcome>
+            <to-view-id>/templates/overview1.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
-
+    </navigation-rule>     
 </faces-config>

@@ -6,10 +6,9 @@
 package com.corejsf;
 import java.io.Serializable;
 import java.util.Locale;
-
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 @Named
 @SessionScoped

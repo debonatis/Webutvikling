@@ -17,14 +17,10 @@ import org.hibernate.validator.constraints.Length;
  * @author Martin
  */
 @DeclareRoles({"admin", "bruker"})
-@RolesAllowed({"admin","bruker"})  
+@RolesAllowed({"admin", "bruker"})
 public class Oversikt implements Serializable {
 
-    Bruker sessionBruker = new Bruker();
-
-    public String getBruker() {
-        return bruker == null ? sessionBruker.getName() : bruker;
-    }
+    private Bruker sessionBruker = new Bruker();
     private ArrayList<TreningsOkt> alleOkter = new ArrayList();
     private ArrayList<TreningsOkt> hjelp = new ArrayList();
     private @Length(min = 6, max = 20)
@@ -34,6 +30,10 @@ public class Oversikt implements Serializable {
     public synchronized ArrayList<TreningsOkt> getAlleOkter() {
 
         return alleOkter;
+    }
+
+    public synchronized String getBruker() {
+        return bruker == null ? sessionBruker.getName() : bruker;
     }
 
     public synchronized void registrerNyOkt(TreningsOkt e) {

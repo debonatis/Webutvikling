@@ -18,14 +18,10 @@ import java.util.List;
 import java.util.TimeZone;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import javax.servlet.annotation.HttpConstraint;
-import javax.servlet.annotation.ServletSecurity;
-import javax.servlet.annotation.ServletSecurity.TransportGuarantee;
-import javax.servlet.annotation.WebServlet;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
@@ -33,16 +29,15 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author deb
  */
-@Named
+@ManagedBean
 @SessionScoped
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
-@HttpConstraint(transportGuarantee = TransportGuarantee.CONFIDENTIAL,rolesAllowed = {"bruker", "admin"})
 public class treningsOktBehandler implements Serializable {
 
     private FacesMessage fm = new FacesMessage();
     private List<OktStatus> DBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private Oversikt nyOversikt;
+    private Oversikt nyOversikt = new Oversikt();
     private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
@@ -53,20 +48,17 @@ public class treningsOktBehandler implements Serializable {
     int maned = 0;
     private boolean nyOkt = false;
     private boolean getAlle = true;
-
-    public treningsOktBehandler() {
-        nyOversikt = new Oversikt();
-    }
-
-    public TimeZone getTidssone() {
-        this.tidssone = TimeZone.getDefault();
-        return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
-    }
+    final Object laas1 = new Object();
     private FacesContext fc;
     private TimeZone tidssone;
 
     public synchronized boolean isNyOkt() {
         return nyOkt;
+    }
+
+    public synchronized TimeZone getTidssone() {
+        this.tidssone = TimeZone.getDefault();
+        return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
     }
 
     public synchronized List<OktStatus> getTemptreningsOkter() {
@@ -80,24 +72,27 @@ public class treningsOktBehandler implements Serializable {
         this.nyOkt = nyOkt;
     }
 
-    public synchronized boolean getDatafins() {
+    public boolean getDatafins() throws InterruptedException {
+       
         if ((getManed() >= 1)) {
             getTabelldata();
             return (!hjelp.isEmpty());
         }
         return (!treningsOkter.isEmpty());
+        
     }
 
     public synchronized List<OktStatus> getTabelldata() {
-        hjelp.clear();
+
         int m;
         m = maned;
         if ((getManed() >= 1)) {
+            hjelp.clear();
             hjelp2 = nyOversikt.getPaManed(m);
-            try {
-                for (TreningsOkt g : hjelp2) {
-                    hjelp.add(new OktStatus(g));
-                }
+            try {                
+                    for (TreningsOkt g : hjelp2) {
+                        hjelp.add(new OktStatus(g));
+                    }                
                 return hjelp;
             } catch (ConcurrentModificationException e) {
                 getTabelldata();
@@ -105,7 +100,9 @@ public class treningsOktBehandler implements Serializable {
             setManed(0);
 
         }
+          
         return treningsOkter;
+          
     }
 
     public synchronized int getAntOkter() {
@@ -141,11 +138,11 @@ public class treningsOktBehandler implements Serializable {
     @RolesAllowed("admin")
     public synchronized void slettAlleOkter() {
         try {
-            for (Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();) {
-                TreningsOkt k = slett.next().getTreningsikOkt();
+            for (OktStatus z : treningsOkter) {
+                TreningsOkt k = z.getTreningsikOkt();
                 nyOversikt.slettOkt(k);
                 slettTreningsOkt(k, 1);
-                slett.remove();
+                treningsOkter.remove(z);
             }
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting av all data utført!", "ja,Sletting utført!");
             fc = FacesContext.getCurrentInstance();
@@ -161,8 +158,7 @@ public class treningsOktBehandler implements Serializable {
     public synchronized String oppdater() {
         nyOkt = false;
         try {
-            for (Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();) {
-                OktStatus r = slett.next();
+            for (OktStatus r : treningsOkter) {
                 if (r.getSkalSlettes()) {
                     for (TreningsOkt e : nyOversikt.getAlleOkter()) {
                         if (e.equals(r.getTreningsikOkt())) {
@@ -170,7 +166,7 @@ public class treningsOktBehandler implements Serializable {
                             nyOversikt.slettOkt(e);
                         }
                     }
-                    slett.remove();
+                    treningsOkter.remove(r);
                 }
             }
 
@@ -192,9 +188,6 @@ public class treningsOktBehandler implements Serializable {
                 getAlleTreningsOkter();
 
             }
-
-
-
         } catch (ConcurrentModificationException e) {
             oppdater();
         }
@@ -210,8 +203,7 @@ public class treningsOktBehandler implements Serializable {
         try {
             st = conn.getConn().createStatement();
             rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING "
-                    + "where BRUKERNAVN = '" + nyOversikt.getBruker() + "'");
-            conn.getConn().commit();
+                    + "where BRUKERNAVN = '" + getNavn() + "'");
 
 
             while (rs.next()) {
@@ -222,6 +214,7 @@ public class treningsOktBehandler implements Serializable {
 
 
             }
+            conn.getConn().commit();
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alle Okter skaffet!", "ja,Okter skaffet!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
@@ -244,12 +237,14 @@ public class treningsOktBehandler implements Serializable {
         }
     }
 
-    public int getManed() {
+    public synchronized int getManed() {
         return maned;
     }
 
     public synchronized void setManed(int Maned) {
-        this.maned = Maned;
+        
+            this.maned = Maned;
+        
     }
 
     public synchronized boolean registrerTreningsOkt(TreningsOkt okt) {
@@ -266,7 +261,7 @@ public class treningsOktBehandler implements Serializable {
             reg.setInt(2, okt.getVarighet());
             reg.setString(3, okt.getKategori());
             reg.setString(4, okt.getTekst());
-            reg.setString(5, nyOversikt.getBruker());
+            reg.setString(5, getNavn());
             reg.executeUpdate();
             conn.getConn().commit();
 
@@ -282,7 +277,7 @@ public class treningsOktBehandler implements Serializable {
             conn.failed();
             return false;
         } finally {
-            conn.closeS(reg);
+            conn.closeP(reg);
             conn.close();
             getAlleTreningsOkter();
         }
@@ -290,11 +285,11 @@ public class treningsOktBehandler implements Serializable {
 
     }
 
-    public boolean isGetAlle() {
+    public synchronized boolean isGetAlle() {
         return getAlle;
     }
 
-    public void setGetAlle(boolean getAlle) {
+    public synchronized void setGetAlle(boolean getAlle) {
         this.getAlle = getAlle;
     }
 
@@ -303,7 +298,8 @@ public class treningsOktBehandler implements Serializable {
         Statement st = null;
         try {
             st = conn.getConn().createStatement();
-            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + " AND BRUKERNAVN = '" + nyOversikt.getBruker() + "'");
+            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + " AND BRUKERNAVN = '" + getNavn() + "'");
+            st.getConnection().commit();
             if (i == 0) {
                 fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
                 fc = FacesContext.getCurrentInstance();
@@ -327,15 +323,17 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized boolean oppdaterTreningsOktDB() {
-        hjelp.clear();
-        if (!treningsOkter.isEmpty()) {
-            for (OktStatus j : treningsOkter) {
-                if (j.getTreningsikOkt().isEndret()) {
-                    j.getTreningsikOkt().setEndret(false);
-                    hjelp.add(j);
+        
+            hjelp.clear();
+            if (!treningsOkter.isEmpty()) {
+                for (OktStatus j : treningsOkter) {
+                    if (j.getTreningsikOkt().isEndret()) {
+                        j.getTreningsikOkt().setEndret(false);
+                        hjelp.add(j);
+                    }
                 }
             }
-        }
+        
 
 
         DBConnection conn = new DBConnection();
@@ -357,7 +355,7 @@ public class treningsOktBehandler implements Serializable {
                     oppdaterOkter.setString(3, f.getTreningsikOkt().getKategori());
                     oppdaterOkter.setString(4, f.getTreningsikOkt().getTekst());
                     oppdaterOkter.setInt(5, f.getTreningsikOkt().getOktNr());
-                    oppdaterOkter.setString(6, nyOversikt.getBruker());
+                    oppdaterOkter.setString(6, getNavn());
                     oppdaterOkter.executeUpdate();
                     conn.getConn().commit();
 
@@ -386,7 +384,5 @@ public class treningsOktBehandler implements Serializable {
             }
         }
         return true;
-
-
     }
 }
