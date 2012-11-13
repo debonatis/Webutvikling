@@ -59,7 +59,7 @@ public class DBConnection {
             } catch (NamingException e) {
                 logger.log(Level.SEVERE, "Lookup failed!");
             }
-            System.out.println("OK!! Database");
+           
         }
     }
 
