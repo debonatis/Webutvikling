@@ -73,13 +73,13 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public boolean getDatafins() throws InterruptedException {
-        synchronized (laas1){
-            laas1.wait();
-        if ((getManed() >= 1)) {            
+       
+        if ((getManed() >= 1)) {
+            getTabelldata();
             return (!hjelp.isEmpty());
         }
         return (!treningsOkter.isEmpty());
-        }
+        
     }
 
     public synchronized List<OktStatus> getTabelldata() {
@@ -102,10 +102,9 @@ public class treningsOktBehandler implements Serializable {
             setManed(0);
 
         }
-          synchronized (laas1){
-              laas1.notify();
+          
         return treningsOkter;
-          }
+          
     }
 
     public synchronized int getAntOkter() {
