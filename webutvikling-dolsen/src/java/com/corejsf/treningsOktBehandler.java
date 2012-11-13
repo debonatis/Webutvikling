@@ -86,13 +86,14 @@ public class treningsOktBehandler implements Serializable {
         int m;
         m = maned;
         if ((getManed() >= 1)) {
+            hjelp.clear();
             hjelp2 = nyOversikt.getPaManed(m);
             try {
-                synchronized (laas1) {
+                
                     for (TreningsOkt g : hjelp2) {
                         hjelp.add(new OktStatus(g));
                     }
-                }
+                
                 return hjelp;
             } catch (ConcurrentModificationException e) {
                 getTabelldata();
@@ -323,7 +324,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized boolean oppdaterTreningsOktDB() {
-        synchronized (laas1) {
+        
             hjelp.clear();
             if (!treningsOkter.isEmpty()) {
                 for (OktStatus j : treningsOkter) {
@@ -333,7 +334,7 @@ public class treningsOktBehandler implements Serializable {
                     }
                 }
             }
-        }
+        
 
 
         DBConnection conn = new DBConnection();
