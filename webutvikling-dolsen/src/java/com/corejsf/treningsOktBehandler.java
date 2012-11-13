@@ -72,13 +72,14 @@ public class treningsOktBehandler implements Serializable {
         this.nyOkt = nyOkt;
     }
 
-    public synchronized boolean getDatafins() {
-        if ((getManed() >= 1)) {
-            getTabelldata();
+    public boolean getDatafins() throws InterruptedException {
+        synchronized (laas1){
+            laas1.wait();
+        if ((getManed() >= 1)) {            
             return (!hjelp.isEmpty());
         }
         return (!treningsOkter.isEmpty());
-
+        }
     }
 
     public synchronized List<OktStatus> getTabelldata() {
@@ -101,9 +102,10 @@ public class treningsOktBehandler implements Serializable {
             setManed(0);
 
         }
-
+          synchronized (laas1){
+              laas1.notify();
         return treningsOkter;
-
+          }
     }
 
     public synchronized int getAntOkter() {
@@ -242,10 +244,10 @@ public class treningsOktBehandler implements Serializable {
         return maned;
     }
 
-    public void setManed(int Maned) {
-        synchronized (laas1) {
+    public synchronized void setManed(int Maned) {
+        
             this.maned = Maned;
-        }
+        
     }
 
     public synchronized boolean registrerTreningsOkt(TreningsOkt okt) {
