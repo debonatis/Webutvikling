@@ -88,10 +88,10 @@ public class treningsOktBehandler implements Serializable {
         if ((getManed() >= 1)) {
             hjelp2 = nyOversikt.getPaManed(m);
             try {
-                synchronized(laas1){
-                for (TreningsOkt g : hjelp2) {
-                    hjelp.add(new OktStatus(g));
-                }
+                synchronized (laas1) {
+                    for (TreningsOkt g : hjelp2) {
+                        hjelp.add(new OktStatus(g));
+                    }
                 }
                 return hjelp;
             } catch (ConcurrentModificationException e) {
@@ -138,11 +138,11 @@ public class treningsOktBehandler implements Serializable {
     @RolesAllowed("admin")
     public synchronized void slettAlleOkter() {
         try {
-            for (Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();) {
-                TreningsOkt k = slett.next().getTreningsikOkt();
+            for (OktStatus z : treningsOkter) {
+                TreningsOkt k = z.getTreningsikOkt();
                 nyOversikt.slettOkt(k);
                 slettTreningsOkt(k, 1);
-                slett.remove();
+                treningsOkter.remove(z);
             }
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting av all data utført!", "ja,Sletting utført!");
             fc = FacesContext.getCurrentInstance();
@@ -158,8 +158,7 @@ public class treningsOktBehandler implements Serializable {
     public synchronized String oppdater() {
         nyOkt = false;
         try {
-            for (Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();) {
-                OktStatus r = slett.next();
+            for (OktStatus r : treningsOkter) {
                 if (r.getSkalSlettes()) {
                     for (TreningsOkt e : nyOversikt.getAlleOkter()) {
                         if (e.equals(r.getTreningsikOkt())) {
@@ -167,7 +166,7 @@ public class treningsOktBehandler implements Serializable {
                             nyOversikt.slettOkt(e);
                         }
                     }
-                    slett.remove();
+                    treningsOkter.remove(r);
                 }
             }
 
@@ -204,7 +203,7 @@ public class treningsOktBehandler implements Serializable {
         try {
             st = conn.getConn().createStatement();
             rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING "
-                    + "where BRUKERNAVN = '" + getNavn() + "'");          
+                    + "where BRUKERNAVN = '" + getNavn() + "'");
 
 
             while (rs.next()) {
@@ -324,16 +323,16 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized boolean oppdaterTreningsOktDB() {
-        synchronized (laas1){
-        hjelp.clear();
-        if (!treningsOkter.isEmpty()) {
-            for (OktStatus j : treningsOkter) {
-                if (j.getTreningsikOkt().isEndret()) {
-                    j.getTreningsikOkt().setEndret(false);
-                    hjelp.add(j);
+        synchronized (laas1) {
+            hjelp.clear();
+            if (!treningsOkter.isEmpty()) {
+                for (OktStatus j : treningsOkter) {
+                    if (j.getTreningsikOkt().isEndret()) {
+                        j.getTreningsikOkt().setEndret(false);
+                        hjelp.add(j);
+                    }
                 }
             }
-        }
         }
 
 
