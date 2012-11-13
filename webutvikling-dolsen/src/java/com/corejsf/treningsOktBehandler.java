@@ -89,12 +89,10 @@ public class treningsOktBehandler implements Serializable {
         if ((getManed() >= 1)) {
             hjelp.clear();
             hjelp2 = nyOversikt.getPaManed(m);
-            try {
-                
+            try {                
                     for (TreningsOkt g : hjelp2) {
                         hjelp.add(new OktStatus(g));
-                    }
-                
+                    }                
                 return hjelp;
             } catch (ConcurrentModificationException e) {
                 getTabelldata();
