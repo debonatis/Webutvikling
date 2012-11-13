@@ -49,17 +49,16 @@ public class treningsOktBehandler implements Serializable {
     private boolean nyOkt = false;
     private boolean getAlle = true;
     final Object laas1 = new Object();
-    final Object laas2 = new Object();
-
-    public TimeZone getTidssone() {
-        this.tidssone = TimeZone.getDefault();
-        return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
-    }
     private FacesContext fc;
     private TimeZone tidssone;
 
     public synchronized boolean isNyOkt() {
         return nyOkt;
+    }
+
+    public synchronized TimeZone getTidssone() {
+        this.tidssone = TimeZone.getDefault();
+        return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
     }
 
     public synchronized List<OktStatus> getTemptreningsOkter() {
@@ -73,36 +72,37 @@ public class treningsOktBehandler implements Serializable {
         this.nyOkt = nyOkt;
     }
 
-    public boolean getDatafins() throws InterruptedException {
-        synchronized (laas1) {
-            if ((getManed() >= 1)) {
+    public synchronized boolean getDatafins() throws InterruptedException {
 
-                return (!hjelp.isEmpty());
-            }
-            return (!treningsOkter.isEmpty());
+
+        if ((getManed() >= 1)) {
+            getTabelldata();
+            return (!hjelp.isEmpty());
         }
+        return (!treningsOkter.isEmpty());
+
     }
 
-    public List<OktStatus> getTabelldata() {
-        synchronized (laas1) {
-            int m;
-            m = maned;
-            if ((getManed() >= 1)) {
-                hjelp2 = nyOversikt.getPaManed(m);
-                try {
-                    for (TreningsOkt g : hjelp2) {
-                        hjelp.add(new OktStatus(g));
-                    }
-                    return hjelp;
-                } catch (ConcurrentModificationException e) {
-                    getTabelldata();
-                }
-                setManed(0);
+    public synchronized List<OktStatus> getTabelldata() {
 
+        int m;
+        m = maned;
+        if ((getManed() >= 1)) {
+            hjelp2 = nyOversikt.getPaManed(m);
+            try {
+                for (TreningsOkt g : hjelp2) {
+                    hjelp.add(new OktStatus(g));
+                }
+                return hjelp;
+            } catch (ConcurrentModificationException e) {
+                getTabelldata();
             }
-            
-            return treningsOkter;
+            setManed(0);
+
         }
+
+        return treningsOkter;
+
     }
 
     public synchronized int getAntOkter() {
@@ -136,7 +136,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     @RolesAllowed("admin")
-    public synchronized void slettAlleOkter() {        
+    public synchronized void slettAlleOkter() {
         try {
             for (Iterator<OktStatus> slett = treningsOkter.iterator(); slett.hasNext();) {
                 TreningsOkt k = slett.next().getTreningsikOkt();
@@ -246,9 +246,9 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public void setManed(int Maned) {
-        synchronized (laas1){
-           this.maned = Maned; 
-        }        
+        synchronized (laas1) {
+            this.maned = Maned;
+        }
     }
 
     public synchronized boolean registrerTreningsOkt(TreningsOkt okt) {
@@ -386,7 +386,5 @@ public class treningsOktBehandler implements Serializable {
             }
         }
         return true;
-
-
     }
 }
