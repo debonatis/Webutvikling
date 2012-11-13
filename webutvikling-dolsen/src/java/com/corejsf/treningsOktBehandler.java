@@ -72,9 +72,7 @@ public class treningsOktBehandler implements Serializable {
         this.nyOkt = nyOkt;
     }
 
-    public synchronized boolean getDatafins() throws InterruptedException {
-
-
+    public synchronized boolean getDatafins() {
         if ((getManed() >= 1)) {
             getTabelldata();
             return (!hjelp.isEmpty());
@@ -208,7 +206,7 @@ public class treningsOktBehandler implements Serializable {
             st = conn.getConn().createStatement();
             rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING "
                     + "where BRUKERNAVN = '" + getNavn() + "'");
-            conn.getConn().commit();
+            
 
 
             while (rs.next()) {
@@ -219,6 +217,7 @@ public class treningsOktBehandler implements Serializable {
 
 
             }
+            conn.getConn().commit();
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alle Okter skaffet!", "ja,Okter skaffet!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
@@ -281,7 +280,7 @@ public class treningsOktBehandler implements Serializable {
             conn.failed();
             return false;
         } finally {
-            conn.closeS(reg);
+            conn.closeP(reg);
             conn.close();
             getAlleTreningsOkter();
         }

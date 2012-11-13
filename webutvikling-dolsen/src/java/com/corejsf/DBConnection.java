@@ -105,4 +105,14 @@ public class DBConnection {
             }
         }
     }
+    
+     public void closeP(PreparedStatement r) {
+        if (r != null) {
+            try {
+                r.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
