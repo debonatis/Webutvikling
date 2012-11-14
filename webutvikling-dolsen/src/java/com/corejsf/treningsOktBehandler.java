@@ -155,6 +155,11 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public String oppdater() {
+        if (isGetAlle()) {
+                setGetAlle(false);
+                getAlleTreningsOkter();
+
+            }
         nyOkt = false;
         try {
             if(!(treningsOkter.isEmpty())){
@@ -184,11 +189,7 @@ public class treningsOktBehandler implements Serializable {
                 registrerTreningsOkt(nyOkt);
                 tempOkt = new TreningsOkt();
             }
-            if (isGetAlle()) {
-                setGetAlle(false);
-                getAlleTreningsOkter();
-
-            }
+            
         } catch (ConcurrentModificationException e) {
             oppdater();
         }
@@ -326,7 +327,7 @@ public class treningsOktBehandler implements Serializable {
     public synchronized boolean oppdaterTreningsOktDB() {
         
             hjelp.clear();
-            if (!this.treningsOkter.isEmpty()) {
+            if (!(treningsOkter.isEmpty())) {
                 for (OktStatus j : treningsOkter) {
                     if (j.getTreningsikOkt().isEndret()) {
                         j.getTreningsikOkt().setEndret(false);
