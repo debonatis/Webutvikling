@@ -19,8 +19,8 @@ import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
@@ -28,7 +28,7 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author deb
  */
-@ManagedBean
+@Named
 @SessionScoped
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
