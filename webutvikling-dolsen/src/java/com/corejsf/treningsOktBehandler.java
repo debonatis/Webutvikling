@@ -29,6 +29,7 @@ import org.hibernate.validator.constraints.Range;
  * @author deb
  */
 @ManagedBean
+@SessionScoped
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
 public class treningsOktBehandler implements Serializable {
@@ -68,7 +69,7 @@ public class treningsOktBehandler implements Serializable {
         return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
     }
 
-    public List<OktStatus> getTemptreningsOkter() {
+    public synchronized List<OktStatus> getTemptreningsOkter() {
         temptreningsOkter.clear();
         tempOkt = new TreningsOkt();
         temptreningsOkter.add(new OktStatus(tempOkt));
@@ -162,9 +163,13 @@ public class treningsOktBehandler implements Serializable {
 
     }
 
-    public synchronized void registrer() {
-        
-        if (!(getTempOkt().getVarighet() == 0)) {
+    
+
+    public synchronized String oppdater() {
+
+
+        try {
+              if (!(getTempOkt().getVarighet() == 0)) {
             TreningsOkt nyOkt;
             nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
                     getTempOkt().getVarighet(), getTempOkt().getKategori(),
@@ -188,12 +193,7 @@ public class treningsOktBehandler implements Serializable {
         }
         
         nyOkt = false;
-    }
-
-    public synchronized String oppdater() {
-
-
-        try {
+        
             if (!(treningsOkter.isEmpty())) {
                 for (OktStatus r : treningsOkter) {
                     if (r.getSkalSlettes()) {
