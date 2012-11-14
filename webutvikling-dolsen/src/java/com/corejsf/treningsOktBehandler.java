@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
 import javax.annotation.security.DeclareRoles;
@@ -52,16 +51,16 @@ public class treningsOktBehandler implements Serializable {
     private FacesContext fc;
     private TimeZone tidssone;
 
-    public synchronized boolean isNyOkt() {
+    public boolean isNyOkt() {
         return nyOkt;
     }
 
-    public synchronized TimeZone getTidssone() {
+    public TimeZone getTidssone() {
         this.tidssone = TimeZone.getDefault();
         return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
     }
 
-    public synchronized List<OktStatus> getTemptreningsOkter() {
+    public List<OktStatus> getTemptreningsOkter() {
         temptreningsOkter.clear();
         tempOkt.nullstill();
         temptreningsOkter.add(new OktStatus(tempOkt));
@@ -72,7 +71,7 @@ public class treningsOktBehandler implements Serializable {
         this.nyOkt = nyOkt;
     }
 
-    public boolean getDatafins() throws InterruptedException {
+    public boolean getDatafins() {
        
         if ((getManed() >= 1)) {
             getTabelldata();
@@ -82,7 +81,7 @@ public class treningsOktBehandler implements Serializable {
         
     }
 
-    public synchronized List<OktStatus> getTabelldata() {
+    public List<OktStatus> getTabelldata() {
 
         int m;
         m = maned;
@@ -155,9 +154,10 @@ public class treningsOktBehandler implements Serializable {
 
     }
 
-    public synchronized String oppdater() {
+    public String oppdater() {
         nyOkt = false;
         try {
+            if(!(treningsOkter.isEmpty())){
             for (OktStatus r : treningsOkter) {
                 if (r.getSkalSlettes()) {
                     for (TreningsOkt e : nyOversikt.getAlleOkter()) {
@@ -168,6 +168,7 @@ public class treningsOktBehandler implements Serializable {
                     }
                     treningsOkter.remove(r);
                 }
+            }
             }
 
             oppdaterTreningsOktDB();
@@ -237,11 +238,11 @@ public class treningsOktBehandler implements Serializable {
         }
     }
 
-    public synchronized int getManed() {
+    public int getManed() {
         return maned;
     }
 
-    public synchronized void setManed(int Maned) {
+    public void setManed(int Maned) {
         
             this.maned = Maned;
         
@@ -285,11 +286,11 @@ public class treningsOktBehandler implements Serializable {
 
     }
 
-    public synchronized boolean isGetAlle() {
+    public boolean isGetAlle() {
         return getAlle;
     }
 
-    public synchronized void setGetAlle(boolean getAlle) {
+    public void setGetAlle(boolean getAlle) {
         this.getAlle = getAlle;
     }
 
