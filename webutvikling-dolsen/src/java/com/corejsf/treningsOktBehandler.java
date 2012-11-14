@@ -29,7 +29,6 @@ import org.hibernate.validator.constraints.Range;
  * @author deb
  */
 @ManagedBean
-@SessionScoped
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
 public class treningsOktBehandler implements Serializable {
