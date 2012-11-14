@@ -139,7 +139,7 @@ public class treningsOktBehandler implements Serializable {
             for (OktStatus z : treningsOkter) {
                 TreningsOkt k = z.getTreningsikOkt();
                 nyOversikt.slettOkt(k);
-                slettTreningsOkt(k, 1);
+                slettTreningsOkt(k, 0);
                 treningsOkter.remove(z);
             }
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting av all data utført!", "ja,Sletting utført!");
@@ -162,7 +162,7 @@ public class treningsOktBehandler implements Serializable {
                     if (r.getSkalSlettes()) {
                         for (TreningsOkt e : nyOversikt.getAlleOkter()) {
                             if (e.equals(r.getTreningsikOkt())) {
-                                slettTreningsOkt(e, 0);
+                                slettTreningsOkt(e, 1);
                                 nyOversikt.slettOkt(e);
                             }
                         }
@@ -172,21 +172,28 @@ public class treningsOktBehandler implements Serializable {
             }
 
             getAlleTreningsOkter();
-
-
-
             oppdaterTreningsOktDB();
-
             if (!(tempOkt.getVarighet() == 0)) {
                 TreningsOkt nyOkt;
                 nyOkt = new TreningsOkt(tempOkt.getOktNr(), new Date(tempOkt.getDate().getTime()),
                         tempOkt.getVarighet(), tempOkt.getKategori(),
                         tempOkt.getTekst());
 
+
                 nyOversikt.registrerNyOkt(nyOkt);
                 treningsOkter.add(new OktStatus(nyOkt));
                 registrerTreningsOkt(nyOkt);
                 tempOkt = new TreningsOkt();
+            }
+            if (!(temptreningsOkter.isEmpty())) {
+                for (OktStatus k : temptreningsOkter) {
+                    TreningsOkt c = k.getTreningsikOkt();
+                    if (!(c.getVarighet() == 0)) {
+                        nyOversikt.registrerNyOkt(c);
+                        treningsOkter.add(new OktStatus(c));
+                        registrerTreningsOkt(c);
+                    }
+                }
             }
 
         } catch (ConcurrentModificationException e) {
