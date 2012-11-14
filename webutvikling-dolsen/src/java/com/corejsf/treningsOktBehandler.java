@@ -154,18 +154,18 @@ public class treningsOktBehandler implements Serializable {
     }
     public synchronized void registrer(){
         nyOkt = false;
-        if (!(getTempOkt().getVarighet() == 0)) {
-                TreningsOkt nyOkt;
-                nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
-                        getTempOkt().getVarighet(), getTempOkt().getKategori(),
-                        getTempOkt().getTekst());
-
-
-                nyOversikt.registrerNyOkt(nyOkt);
-                treningsOkter.add(new OktStatus(nyOkt));
-                registrerTreningsOkt(nyOkt);
-                tempOkt = new TreningsOkt();
-            }
+//        if (!(getTempOkt().getVarighet() == 0)) {
+//                TreningsOkt nyOkt;
+//                nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
+//                        getTempOkt().getVarighet(), getTempOkt().getKategori(),
+//                        getTempOkt().getTekst());
+//
+//
+//                nyOversikt.registrerNyOkt(nyOkt);
+//                treningsOkter.add(new OktStatus(nyOkt));
+//                registrerTreningsOkt(nyOkt);
+//                tempOkt = new TreningsOkt();
+//            }
             if (!(getTemptreningsOkter().isEmpty())) {
                 for (OktStatus k : getTemptreningsOkter()) {
                     TreningsOkt c = k.getTreningsikOkt();
