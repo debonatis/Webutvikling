@@ -53,12 +53,10 @@ public class Bruker implements Serializable {
     }
 
     public String changePassword() {
-        if (getNewPassword().equals(getNewPassword2())) {
+       
             return skiftPassord(newPassword);
 
-        }
-        return "ikkeOk";
-
+        
     }
 
     public String getRolle() {
