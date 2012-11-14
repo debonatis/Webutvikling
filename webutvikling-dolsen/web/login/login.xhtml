@@ -16,7 +16,7 @@
             <ui:define name="content">
                 <p>#{texts.loginwelcome}</p>
                 <h:panelGrid styleClass="center">
-                    <h:form>
+                    
                     <form method="post" action="j_security_check">
                         <h:outputLabel for="j_username" value="#{texts.username}" />
                         <h:inputText  id="j_username"/>
@@ -29,7 +29,7 @@
                         <input type="submit" name="submit" value="#{texts.login}" />                        
                        
                     </form>
-                    </h:form>
+                   
                 </h:panelGrid>
 
             </ui:define>

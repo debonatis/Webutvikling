@@ -15,6 +15,7 @@ import javax.faces.application.*;
 import javax.faces.component.*;
 import javax.faces.context.*;
 import javax.faces.validator.*;
+import javax.inject.Named;
 
 /**
  *
@@ -22,6 +23,7 @@ import javax.faces.validator.*;
  */
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
+@Named
 public class ValidatorTekst implements Validator {
 
     
