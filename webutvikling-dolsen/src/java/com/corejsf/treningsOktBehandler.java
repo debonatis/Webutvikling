@@ -196,9 +196,9 @@ public class treningsOktBehandler implements Serializable {
 
 
 
-
-            getAlleTreningsOkter();
             oppdaterTreningsOktDB();
+            getAlleTreningsOkter();
+            
 
         } catch (ConcurrentModificationException e) {
             oppdater();
