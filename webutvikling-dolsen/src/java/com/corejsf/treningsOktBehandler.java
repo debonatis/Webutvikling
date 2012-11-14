@@ -178,10 +178,10 @@ public class treningsOktBehandler implements Serializable {
                 treningsOkter.add(new OktStatus(nyOkt));
                 registrerTreningsOkt(nyOkt);
                 tempOkt = new TreningsOkt();
-            }
+            }            
 
-            if (!(treningsOkter.isEmpty())) {
-                for (OktStatus r : treningsOkter) {
+            if (!(getTabelldata().isEmpty())) {
+                for (OktStatus r : getTabelldata()) {
                     if (r.getSkalSlettes()) {
                         for (TreningsOkt e : nyOversikt.getAlleOkter()) {
                             if (e.equals(r.getTreningsikOkt())) {
@@ -290,8 +290,7 @@ public class treningsOktBehandler implements Serializable {
             return false;
         } finally {
             conn.closeP(reg);
-            conn.close();
-            getAlleTreningsOkter();
+            conn.close();            
         }
 
 
