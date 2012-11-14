@@ -390,4 +390,6 @@ public class treningsOktBehandler implements Serializable {
         return false;
         
     }
+    
+   
 }

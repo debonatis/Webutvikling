@@ -5,6 +5,8 @@ package com.corejsf;
  * and open the template in the editor.
  */
 import java.io.Serializable;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.security.DeclareRoles;
@@ -22,20 +24,42 @@ import javax.servlet.http.HttpServletRequest;
  * @author deb
  */
 @ManagedBean
-@DeclareRoles({"admin", "bruker"})
-@RolesAllowed({"admin", "bruker"})
 @Cacheable(false)
 public class Bruker implements Serializable {
 
     private String name;
-    private String rolle;
     private String newPassword;
-    private int count;
-    private boolean loggedIn;
+    private String newPassword2;
+
+    public String getNewPassword2() {
+        return newPassword2;
+    }
+
+    public void setNewPassword2(String newPassword2) {
+        this.newPassword2 = newPassword2;
+    }
     private static final Logger logger = Logger.getLogger("com.corejsf");
     private FacesMessage fm = new FacesMessage();
     private FacesContext fc;
     private final String[] roller = {"admin", "bruker"};
+    private boolean changePassword;
+
+    public boolean isChangePassword() {
+        return changePassword;
+    }
+
+    public void setChangePassword(boolean changePassword) {
+        this.changePassword = changePassword;
+    }
+
+    public String changePassword() {
+        if (getNewPassword().equals(getNewPassword2())) {
+            return skiftPassord(newPassword);
+
+        }
+        return "ikkeOk";
+
+    }
 
     public String getRolle() {
         for (String r : roller) {
@@ -47,10 +71,6 @@ public class Bruker implements Serializable {
         return "NO ROLE, logging you out!";
     }
 
-    public void setRolle(String rolle) {
-        this.rolle = rolle;
-    }
-
     public String getName() {
         if (name == null) {
             getUserData();
@@ -60,10 +80,6 @@ public class Bruker implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void changePassword() {
-        if (loggedIn); //do_changePassword(password);
     }
 
     public void setNewPassword(String newPassword) {
@@ -119,9 +135,55 @@ public class Bruker implements Serializable {
         } catch (ServletException e) {
             logger.log(Level.SEVERE, "Failed to logout user!", e);
             logout();
-            
+
         }
 
         return result;
+    }
+
+    synchronized String skiftPassord(String passord) {
+
+        DBConnection conn = new DBConnection();
+        PreparedStatement oppdaterPassord = null;
+        String oppdaterString =
+                "update WAPLJ.BRUKER set PASSORD = ? where BRUKERNAVN= ?";
+
+
+        try {
+
+            conn.getConn().setAutoCommit(false);
+            oppdaterPassord = conn.getConn().prepareStatement(oppdaterString);
+            oppdaterPassord.setString(1, passord);
+            oppdaterPassord.setString(2, getName());
+            oppdaterPassord.executeUpdate();
+            conn.getConn().commit();
+
+
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Endring av passord utført!", "");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
+
+
+        } catch (SQLException e) {
+            conn.failed();
+            if (conn.getConn() != null) {
+                try {
+                    System.err.print("Endring har blitt trekk tilbake");
+                    conn.getConn().rollback();
+                } catch (SQLException excep) {
+                    conn.failed();
+                }
+            }
+            return "ikkeOk";
+
+        } finally {
+            conn.closeS(oppdaterPassord);
+            conn.close();
+
+        }
+
+        return "ok";
+
     }
 }

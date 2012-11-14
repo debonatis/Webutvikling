@@ -7,7 +7,7 @@
         <title>IGNORED</title>
     </h:head>
     <h:body>
-        <ui:composition template="/templates/mainTemplate.xhtml">
+        <ui:composition template="/login/mainTemplate.xhtml">
             <ui:define name="windowTitle">
                 #{texts.loginwelcome}
             </ui:define>
@@ -16,6 +16,7 @@
             <ui:define name="content">
                 <p>#{texts.loginwelcome}</p>
                 <h:panelGrid styleClass="center">
+                    <h:form>
                     <form method="post" action="j_security_check">
                         <h:outputLabel for="j_username" value="#{texts.username}" />
                         <h:inputText  id="j_username"/>
@@ -24,9 +25,11 @@
                         <h:inputSecret  id="j_password"/>
 
                         <h:outputText value="" />
-
-                        <input type="submit" name="submit" value="#{texts.login}" />
+                        
+                        <input type="submit" name="submit" value="#{texts.login}" />                        
+                       
                     </form>
+                    </h:form>
                 </h:panelGrid>
 
             </ui:define>
