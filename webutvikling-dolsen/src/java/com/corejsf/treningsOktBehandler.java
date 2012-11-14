@@ -193,11 +193,10 @@ public class treningsOktBehandler implements Serializable {
                     }
                 }
             }
-
-
-
-            oppdaterTreningsOktDB();
+            boolean oppdaterTreningsOktDB = oppdaterTreningsOktDB();
+            if(oppdaterTreningsOktDB){
             getAlleTreningsOkter();
+            }
             
 
         } catch (ConcurrentModificationException e) {
@@ -384,8 +383,11 @@ public class treningsOktBehandler implements Serializable {
             } finally {
                 conn.closeS(oppdaterOkter);
                 conn.close();
+                return true;
             }
+            
         }
-        return true;
+        return false;
+        
     }
 }
