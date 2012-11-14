@@ -251,8 +251,8 @@ public class treningsOktBehandler implements Serializable {
         //oktnr blir autogenerert i databasen
         DBConnection conn = new DBConnection();
         PreparedStatement reg = null;
-        String regTekst = "INSERT INTO WAPLJ.TRENING (dato, varighet, kategorinavn, tekst, brukernavn) "
-                + "VALUES (?,?,?,?,?)";
+        String regTekst = "INSERT INTO WAPLJ.TRENING(dato, varighet, kategorinavn, tekst, brukernavn)"
+                + " VALUES (?,?,?,?,?)";
         try {
 
             conn.getConn().setAutoCommit(false);
