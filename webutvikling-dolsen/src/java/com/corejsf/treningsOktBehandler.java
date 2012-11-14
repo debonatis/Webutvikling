@@ -186,7 +186,7 @@ public class treningsOktBehandler implements Serializable {
                 }
             }
         }
-        oppdaterTreningsOktDB();
+        
         nyOkt = false;
     }
 
@@ -209,9 +209,10 @@ public class treningsOktBehandler implements Serializable {
             }
 
 
-            oppdaterTreningsOktDB();
+           
 
             getAlleTreningsOkter();
+            oppdaterTreningsOktDB();
 
         } catch (ConcurrentModificationException e) {
             oppdater();
