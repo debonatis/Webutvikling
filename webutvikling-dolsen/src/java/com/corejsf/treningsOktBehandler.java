@@ -163,37 +163,23 @@ public class treningsOktBehandler implements Serializable {
 
     }
 
-    
-
     public synchronized String oppdater() {
 
-
-        try {
-              if (!(getTempOkt().getVarighet() == 0)) {
-            TreningsOkt nyOkt;
-            nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
-                    getTempOkt().getVarighet(), getTempOkt().getKategori(),
-                    getTempOkt().getTekst());
-
-
-            nyOversikt.registrerNyOkt(nyOkt);
-            treningsOkter.add(new OktStatus(nyOkt));
-            registrerTreningsOkt(nyOkt);
-            tempOkt = new TreningsOkt();
-        }
-        if (!(getTemptreningsOkter().isEmpty())) {
-            for (OktStatus k : getTemptreningsOkter()) {
-                TreningsOkt c = k.getTreningsikOkt();
-                if (!(c.getVarighet() == 0)) {
-                    nyOversikt.registrerNyOkt(c);
-                    treningsOkter.add(new OktStatus(c));
-                    registrerTreningsOkt(c);
-                }
-            }
-        }
-        
         nyOkt = false;
-        
+        try {
+            if (!(getTempOkt().getVarighet() == 0)) {
+                TreningsOkt nyOkt;
+                nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
+                        getTempOkt().getVarighet(), getTempOkt().getKategori(),
+                        getTempOkt().getTekst());
+
+
+                nyOversikt.registrerNyOkt(nyOkt);
+                treningsOkter.add(new OktStatus(nyOkt));
+                registrerTreningsOkt(nyOkt);
+                tempOkt = new TreningsOkt();
+            }
+
             if (!(treningsOkter.isEmpty())) {
                 for (OktStatus r : treningsOkter) {
                     if (r.getSkalSlettes()) {
@@ -209,7 +195,7 @@ public class treningsOktBehandler implements Serializable {
             }
 
 
-           
+
 
             getAlleTreningsOkter();
             oppdaterTreningsOktDB();
