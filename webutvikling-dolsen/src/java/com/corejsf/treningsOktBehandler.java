@@ -62,7 +62,7 @@ public class treningsOktBehandler implements Serializable {
 
     public List<OktStatus> getTemptreningsOkter() {
         temptreningsOkter.clear();
-        tempOkt.nullstill();
+        tempOkt = new TreningsOkt();
         temptreningsOkter.add(new OktStatus(tempOkt));
         return temptreningsOkter;
     }
@@ -182,7 +182,7 @@ public class treningsOktBehandler implements Serializable {
                 nyOversikt.registrerNyOkt(nyOkt);
                 treningsOkter.add(new OktStatus(nyOkt));
                 registrerTreningsOkt(nyOkt);
-                tempOkt.nullstill();
+                tempOkt = new TreningsOkt();
             }
             if (isGetAlle()) {
                 setGetAlle(false);
@@ -326,15 +326,14 @@ public class treningsOktBehandler implements Serializable {
     public synchronized boolean oppdaterTreningsOktDB() {
         
             hjelp.clear();
-            if (!treningsOkter.isEmpty()) {
+            if (!this.treningsOkter.isEmpty()) {
                 for (OktStatus j : treningsOkter) {
                     if (j.getTreningsikOkt().isEndret()) {
                         j.getTreningsikOkt().setEndret(false);
                         hjelp.add(j);
                     }
                 }
-            }
-        
+            }     
 
 
         DBConnection conn = new DBConnection();
