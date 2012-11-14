@@ -33,7 +33,7 @@ import org.hibernate.validator.constraints.Range;
 @RolesAllowed({"admin", "bruker"})
 public class treningsOktBehandler implements Serializable {
 
-    private FacesMessage fm = new FacesMessage();
+    private FacesMessage fm;
     private List<OktStatus> DBtreningsobjekter;
     private Oversikt nyOversikt;
     private List<OktStatus> treningsOkter;
@@ -194,8 +194,8 @@ public class treningsOktBehandler implements Serializable {
 
 
         try {
-            if (!(getTabelldata().isEmpty())) {
-                for (OktStatus r : getTabelldata()) {
+            if (!(treningsOkter.isEmpty())) {
+                for (OktStatus r : treningsOkter) {
                     if (r.getSkalSlettes()) {
                         for (TreningsOkt e : nyOversikt.getAlleOkter()) {
                             if (e.equals(r.getTreningsikOkt())) {
