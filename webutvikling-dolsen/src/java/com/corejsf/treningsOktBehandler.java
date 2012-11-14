@@ -13,15 +13,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
@@ -29,41 +28,50 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author deb
  */
-@ManagedBean
+@Named
 @SessionScoped
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
 public class treningsOktBehandler implements Serializable {
 
-    private FacesMessage fm = new FacesMessage();
-    private List<OktStatus> DBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private Oversikt nyOversikt = new Oversikt();
-    private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private TreningsOkt tempOkt = new TreningsOkt();
-    private ArrayList<TreningsOkt> hjelp2 = new ArrayList<>();
+    private FacesMessage fm;
+    private List<OktStatus> DBtreningsobjekter;
+    private Oversikt nyOversikt;
+    private List<OktStatus> treningsOkter;
+    private List<OktStatus> temptreningsOkter;
+    private List<OktStatus> hjelp;
+    private TreningsOkt tempOkt;
+    private ArrayList<TreningsOkt> hjelp2;
     private @NotNull
     @Range(min = 0, max = 12)
     int maned = 0;
     private boolean nyOkt = false;
-    private boolean getAlle = true;
-    final Object laas1 = new Object();
     private FacesContext fc;
     private TimeZone tidssone;
 
-    public synchronized boolean isNyOkt() {
+    public treningsOktBehandler() {
+
+        DBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
+        nyOversikt = new Oversikt();
+        treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
+        temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
+        hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
+        tempOkt = new TreningsOkt();
+        hjelp2 = new ArrayList<>();
+    }
+
+    public boolean isNyOkt() {
         return nyOkt;
     }
 
-    public synchronized TimeZone getTidssone() {
+    public TimeZone getTidssone() {
         this.tidssone = TimeZone.getDefault();
         return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
     }
 
     public synchronized List<OktStatus> getTemptreningsOkter() {
         temptreningsOkter.clear();
-        tempOkt.nullstill();
+        tempOkt = new TreningsOkt();
         temptreningsOkter.add(new OktStatus(tempOkt));
         return temptreningsOkter;
     }
@@ -72,27 +80,27 @@ public class treningsOktBehandler implements Serializable {
         this.nyOkt = nyOkt;
     }
 
-    public boolean getDatafins() throws InterruptedException {
-       
+    public boolean getDatafins() {
+
         if ((getManed() >= 1)) {
             getTabelldata();
             return (!hjelp.isEmpty());
         }
         return (!treningsOkter.isEmpty());
-        
+
     }
 
-    public synchronized List<OktStatus> getTabelldata() {
+    public List<OktStatus> getTabelldata() {
 
         int m;
         m = maned;
         if ((getManed() >= 1)) {
             hjelp.clear();
             hjelp2 = nyOversikt.getPaManed(m);
-            try {                
-                    for (TreningsOkt g : hjelp2) {
-                        hjelp.add(new OktStatus(g));
-                    }                
+            try {
+                for (TreningsOkt g : hjelp2) {
+                    hjelp.add(new OktStatus(g));
+                }
                 return hjelp;
             } catch (ConcurrentModificationException e) {
                 getTabelldata();
@@ -100,9 +108,9 @@ public class treningsOktBehandler implements Serializable {
             setManed(0);
 
         }
-          
+
         return treningsOkter;
-          
+
     }
 
     public synchronized int getAntOkter() {
@@ -141,14 +149,14 @@ public class treningsOktBehandler implements Serializable {
             for (OktStatus z : treningsOkter) {
                 TreningsOkt k = z.getTreningsikOkt();
                 nyOversikt.slettOkt(k);
-                slettTreningsOkt(k, 1);
+                slettTreningsOkt(k, 0);
                 treningsOkter.remove(z);
             }
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting av all data utført!", "ja,Sletting utført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
-            setGetAlle(true);
+
         } catch (ConcurrentModificationException s) {
             slettAlleOkter();
         }
@@ -156,38 +164,41 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized String oppdater() {
+
         nyOkt = false;
-        try {
-            for (OktStatus r : treningsOkter) {
-                if (r.getSkalSlettes()) {
-                    for (TreningsOkt e : nyOversikt.getAlleOkter()) {
-                        if (e.equals(r.getTreningsikOkt())) {
-                            slettTreningsOkt(e, 0);
-                            nyOversikt.slettOkt(e);
+        try {          
+
+            if (!(treningsOkter.isEmpty())) {
+                for (OktStatus r : treningsOkter) {
+                    if (r.getSkalSlettes()) {
+                        for (TreningsOkt e : nyOversikt.getAlleOkter()) {
+                            if (e.equals(r.getTreningsikOkt())) {
+                                slettTreningsOkt(e, 1);
+                                nyOversikt.slettOkt(e);
+                            }
                         }
+                        treningsOkter.remove(r);
                     }
-                    treningsOkter.remove(r);
                 }
             }
-
-            oppdaterTreningsOktDB();
-
-            if (!(tempOkt.getVarighet() == 0)) {
+            if (!(getTempOkt().getVarighet() == 0)) {
                 TreningsOkt nyOkt;
-                nyOkt = new TreningsOkt(tempOkt.getOktNr(), new Date(tempOkt.getDate().getTime()),
-                        tempOkt.getVarighet(), tempOkt.getKategori(),
-                        tempOkt.getTekst());
+                nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
+                        getTempOkt().getVarighet(), getTempOkt().getKategori(),
+                        getTempOkt().getTekst());
+
 
                 nyOversikt.registrerNyOkt(nyOkt);
                 treningsOkter.add(new OktStatus(nyOkt));
                 registrerTreningsOkt(nyOkt);
-                tempOkt.nullstill();
+                tempOkt = new TreningsOkt();
             }
-            if (isGetAlle()) {
-                setGetAlle(false);
-                getAlleTreningsOkter();
+            oppdaterTreningsOktDB();
+            
+            getAlleTreningsOkter();
+            
+            
 
-            }
         } catch (ConcurrentModificationException e) {
             oppdater();
         }
@@ -237,14 +248,14 @@ public class treningsOktBehandler implements Serializable {
         }
     }
 
-    public synchronized int getManed() {
+    public int getManed() {
         return maned;
     }
 
-    public synchronized void setManed(int Maned) {
-        
-            this.maned = Maned;
-        
+    public void setManed(int Maned) {
+
+        this.maned = Maned;
+
     }
 
     public synchronized boolean registrerTreningsOkt(TreningsOkt okt) {
@@ -285,14 +296,6 @@ public class treningsOktBehandler implements Serializable {
 
     }
 
-    public synchronized boolean isGetAlle() {
-        return getAlle;
-    }
-
-    public synchronized void setGetAlle(boolean getAlle) {
-        this.getAlle = getAlle;
-    }
-
     public synchronized boolean slettTreningsOkt(TreningsOkt objekt, int i) {
         DBConnection conn = new DBConnection();
         Statement st = null;
@@ -323,17 +326,16 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized boolean oppdaterTreningsOktDB() {
-        
-            hjelp.clear();
-            if (!treningsOkter.isEmpty()) {
-                for (OktStatus j : treningsOkter) {
-                    if (j.getTreningsikOkt().isEndret()) {
-                        j.getTreningsikOkt().setEndret(false);
-                        hjelp.add(j);
-                    }
+
+        hjelp.clear();
+        if (!(treningsOkter.isEmpty())) {
+            for (OktStatus j : treningsOkter) {
+                if (j.getTreningsikOkt().isEndret()) {
+                    j.getTreningsikOkt().setEndret(false);
+                    hjelp.add(j);
                 }
             }
-        
+        }
 
 
         DBConnection conn = new DBConnection();
@@ -344,7 +346,7 @@ public class treningsOktBehandler implements Serializable {
                 + "KATEGORINAVN= ?, TEKST= ? "
                 + "where OKTNR = ? AND BRUKERNAVN= ?";
         if (!hjelp.isEmpty()) {
-            setGetAlle(true);
+
             try {
 
                 conn.getConn().setAutoCommit(false);
@@ -381,8 +383,11 @@ public class treningsOktBehandler implements Serializable {
             } finally {
                 conn.closeS(oppdaterOkter);
                 conn.close();
+                return true;
             }
+            
         }
-        return true;
+        return false;
+        
     }
 }

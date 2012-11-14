@@ -5,10 +5,8 @@
 package com.corejsf;
 
 import java.util.Date;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
@@ -17,8 +15,8 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author deb
  */
-@DeclareRoles({"admin", "bruker"})
-@RolesAllowed({"admin","bruker"})  
+
+@RequestScoped
 public class TreningsOkt {
 
     private @Id
@@ -39,7 +37,7 @@ public class TreningsOkt {
     String Brukernavn = "anne";
     private boolean endret = false;
 
-    public synchronized void setKategori(String kategori) {
+    public void setKategori(String kategori) {
         if (!(this.kategori.trim().equalsIgnoreCase(kategori))) {
             this.setEndret(true);
             this.kategori = kategori;
@@ -61,7 +59,7 @@ public class TreningsOkt {
 
     @NotNull
     @Length(min = 1, max = 30)
-    public synchronized void setTekst(String tekst) {
+    public  void setTekst(String tekst) {
         if (!(this.tekst.trim().equalsIgnoreCase(tekst))) {
             this.setEndret(true);
             this.tekst = tekst;
@@ -76,11 +74,11 @@ public class TreningsOkt {
     private @Length(min = 6, max = 20)
     String brukernavn;
 
-    public synchronized String getBrukernavn() {
+    public String getBrukernavn() {
         return brukernavn;
     }
 
-    public synchronized void setBrukernavn(String brukernavn) {
+    public void setBrukernavn(String brukernavn) {
         this.brukernavn = brukernavn;
 
     }
@@ -96,30 +94,30 @@ public class TreningsOkt {
 
     }
 
-    public synchronized int getOktNr() {
+    public int getOktNr() {
         return oktNr;
     }
 
-    public synchronized java.sql.Date getSqlDate() {
+    public java.sql.Date getSqlDate() {
         java.sql.Date D = new java.sql.Date(dato.getTime());
         return D;
     }
 
-    public synchronized Date getDate() {
+    public Date getDate() {
         dato = new Date(dato.getTime());
         return dato;
     }
 
-    public synchronized int getVarighet() {
+    public int getVarighet() {
         return varighet;
     }
 
-    public synchronized String getKategori() {
+    public String getKategori() {
         return kategori;
     }
 
-    @Transient
-    public synchronized void setDate(Date nyDato) {
+    
+    public void setDate(Date nyDato) {
         if (!(this.dato.equals(nyDato))) {
             this.setEndret(true);
             dato = new Date(nyDato.getTime());
@@ -128,7 +126,7 @@ public class TreningsOkt {
 
     }
 
-    public synchronized void setVarighet(int oktVarighet) {
+    public void setVarighet(int oktVarighet) {
         if (!(this.varighet == oktVarighet)) {
             varighet = oktVarighet;
             this.setEndret(true);
@@ -137,7 +135,7 @@ public class TreningsOkt {
 
     }
 
-    public final synchronized void nullstill() {
+    private void nullstill() {
         oktNr = 0;
         dato = new Date(System.currentTimeMillis());
         kategori = "";

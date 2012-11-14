@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import javax.persistence.Cacheable;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author deb
  */
-@Named("user")
+@ManagedBean
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
 @Cacheable(false)

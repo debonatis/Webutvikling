@@ -16,7 +16,9 @@
             <ui:define name="content">
                 <h:form id="overviewform">           
                     <p>
-                        <h:outputText value="#{texts.overview}: " id="overskrift"/>
+                        <h:outputText value="#{texts.overview}: " id="overskrift"/><br/>
+                         <h:outputLabel value="#{bruker.name}"/><br/>
+                        <h:outputLabel value="#{bruker.rolle}"/>
                     </p>
 
                     <h:commandButton id="NyOktknapp" value="#{texts.newsession}" action="#{treningsOktBehandler.setNyOkt(true)}"/>

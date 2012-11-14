@@ -42,7 +42,7 @@
     </security-constraint>
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Protected Pages user</web-resource-name>
+            <web-resource-name>Protected Pages admin</web-resource-name>
             <url-pattern>/faces/admin/*</url-pattern>
             <url-pattern>/admin/*</url-pattern>
             <http-method>GET</http-method>
