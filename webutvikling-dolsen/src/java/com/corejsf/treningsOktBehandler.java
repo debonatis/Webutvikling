@@ -193,10 +193,10 @@ public class treningsOktBehandler implements Serializable {
                 registrerTreningsOkt(nyOkt);
                 tempOkt = new TreningsOkt();
             }
-            boolean oppdaterTreningsOktDB = oppdaterTreningsOktDB();
-            if(oppdaterTreningsOktDB){
+            oppdaterTreningsOktDB();
+            
             getAlleTreningsOkter();
-            }
+            
             
 
         } catch (ConcurrentModificationException e) {
