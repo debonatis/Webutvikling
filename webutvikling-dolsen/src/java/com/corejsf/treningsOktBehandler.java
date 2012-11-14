@@ -194,8 +194,8 @@ public class treningsOktBehandler implements Serializable {
 
 
         try {
-            if (!(treningsOkter.isEmpty())) {
-                for (OktStatus r : treningsOkter) {
+            if (!(getTabelldata().isEmpty())) {
+                for (OktStatus r : getTabelldata()) {
                     if (r.getSkalSlettes()) {
                         for (TreningsOkt e : nyOversikt.getAlleOkter()) {
                             if (e.equals(r.getTreningsikOkt())) {
