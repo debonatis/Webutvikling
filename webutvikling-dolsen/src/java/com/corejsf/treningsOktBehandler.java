@@ -163,7 +163,7 @@ public class treningsOktBehandler implements Serializable {
     }
 
     public synchronized void registrer() {
-        nyOkt = false;
+        
         if (!(getTempOkt().getVarighet() == 0)) {
             TreningsOkt nyOkt;
             nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
@@ -187,6 +187,7 @@ public class treningsOktBehandler implements Serializable {
             }
         }
         oppdaterTreningsOktDB();
+        nyOkt = false;
     }
 
     public synchronized String oppdater() {
