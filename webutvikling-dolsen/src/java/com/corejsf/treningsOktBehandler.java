@@ -153,7 +153,7 @@ public class treningsOktBehandler implements Serializable {
 
     }
 
-    public String oppdater() {
+    public synchronized String oppdater() {
 
         nyOkt = false;
         try {
@@ -171,13 +171,13 @@ public class treningsOktBehandler implements Serializable {
                 }
             }
 
-            getAlleTreningsOkter();
+            
             oppdaterTreningsOktDB();
-            if (!(tempOkt.getVarighet() == 0)) {
+            if (!(getTempOkt().getVarighet() == 0)) {
                 TreningsOkt nyOkt;
-                nyOkt = new TreningsOkt(tempOkt.getOktNr(), new Date(tempOkt.getDate().getTime()),
-                        tempOkt.getVarighet(), tempOkt.getKategori(),
-                        tempOkt.getTekst());
+                nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
+                        getTempOkt().getVarighet(), getTempOkt().getKategori(),
+                        getTempOkt().getTekst());
 
 
                 nyOversikt.registrerNyOkt(nyOkt);
@@ -185,8 +185,8 @@ public class treningsOktBehandler implements Serializable {
                 registrerTreningsOkt(nyOkt);
                 tempOkt = new TreningsOkt();
             }
-            if (!(temptreningsOkter.isEmpty())) {
-                for (OktStatus k : temptreningsOkter) {
+            if (!(getTemptreningsOkter().isEmpty())) {
+                for (OktStatus k : getTemptreningsOkter()) {
                     TreningsOkt c = k.getTreningsikOkt();
                     if (!(c.getVarighet() == 0)) {
                         nyOversikt.registrerNyOkt(c);
@@ -195,6 +195,7 @@ public class treningsOktBehandler implements Serializable {
                     }
                 }
             }
+            getAlleTreningsOkter();
 
         } catch (ConcurrentModificationException e) {
             oppdater();
