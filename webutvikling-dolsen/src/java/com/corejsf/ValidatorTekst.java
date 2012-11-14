@@ -4,26 +4,18 @@
  */
 package com.corejsf;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.regex.*;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
 import javax.faces.application.*;
 import javax.faces.component.*;
 import javax.faces.context.*;
 import javax.faces.validator.*;
-import javax.inject.Named;
 
 /**
  *
  * @author deb
  */
-@DeclareRoles({"admin", "bruker"})
-@RolesAllowed({"admin", "bruker"})
-@Named
+
+@FacesValidator("validatorTekst")
 public class ValidatorTekst implements Validator {
 
     
