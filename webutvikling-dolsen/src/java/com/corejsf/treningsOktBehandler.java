@@ -178,25 +178,27 @@ public class treningsOktBehandler implements Serializable {
                 treningsOkter.add(new OktStatus(nyOkt));
                 registrerTreningsOkt(nyOkt);
                 tempOkt = new TreningsOkt();
-            }            
+            }      
+            
+            
 
-            if (!(getTabelldata().isEmpty())) {
-                for (OktStatus r : getTabelldata()) {
+            if (!(treningsOkter.isEmpty())) {
+                for (OktStatus r : treningsOkter) {
                     if (r.getSkalSlettes()) {
                         for (TreningsOkt e : nyOversikt.getAlleOkter()) {
                             if (e.equals(r.getTreningsikOkt())) {
                                 slettTreningsOkt(e, 1);
                                 nyOversikt.slettOkt(e);
+                                treningsOkter.remove(r);
                             }
-                        }
-                        treningsOkter.remove(r);
+                        }                        
                     }
                 }
             }
             
             oppdaterTreningsOktDB();
             
-            getAlleTreningsOkter();
+           
             
             
 
@@ -303,7 +305,7 @@ public class treningsOktBehandler implements Serializable {
             st = conn.getConn().createStatement();
             st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE OKTNR =" + objekt.getOktNr() + " AND BRUKERNAVN = '" + getNavn() + "'");
             st.getConnection().commit();
-            if (i == 0) {
+            if (i == 1) {
                 fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
                 fc = FacesContext.getCurrentInstance();
                 fc.addMessage("null", fm);
@@ -366,7 +368,7 @@ public class treningsOktBehandler implements Serializable {
                 fc = FacesContext.getCurrentInstance();
                 fc.addMessage("null", fm);
                 fc.renderResponse();
-                return true;
+                
 
             } catch (SQLException e) {
                 conn.failed();
@@ -383,6 +385,7 @@ public class treningsOktBehandler implements Serializable {
             } finally {
                 conn.closeS(oppdaterOkter);
                 conn.close();
+                 getAlleTreningsOkter();
                 return true;
             }
             
