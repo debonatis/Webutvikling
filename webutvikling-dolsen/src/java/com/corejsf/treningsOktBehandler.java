@@ -35,20 +35,30 @@ import org.hibernate.validator.constraints.Range;
 public class treningsOktBehandler implements Serializable {
 
     private FacesMessage fm = new FacesMessage();
-    private List<OktStatus> DBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private Oversikt nyOversikt = new Oversikt();
-    private List<OktStatus> treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private List<OktStatus> temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private TreningsOkt tempOkt = new TreningsOkt();
-    private ArrayList<TreningsOkt> hjelp2 = new ArrayList<>();
+    private List<OktStatus> DBtreningsobjekter;
+    private Oversikt nyOversikt;
+    private List<OktStatus> treningsOkter;
+    private List<OktStatus> temptreningsOkter;
+    private List<OktStatus> hjelp;
+    private TreningsOkt tempOkt;
+    private ArrayList<TreningsOkt> hjelp2;
     private @NotNull
     @Range(min = 0, max = 12)
     int maned = 0;
     private boolean nyOkt = false;
-    final Object laas1 = new Object();
     private FacesContext fc;
     private TimeZone tidssone;
+
+    public treningsOktBehandler() {
+
+        DBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
+        nyOversikt = new Oversikt();
+        treningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
+        temptreningsOkter = Collections.synchronizedList(new ArrayList<OktStatus>());
+        hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
+        tempOkt = new TreningsOkt();
+        hjelp2 = new ArrayList<>();
+    }
 
     public boolean isNyOkt() {
         return nyOkt;
@@ -152,36 +162,37 @@ public class treningsOktBehandler implements Serializable {
         }
 
     }
-    public synchronized void registrer(){
+
+    public synchronized void registrer() {
         nyOkt = false;
-//        if (!(getTempOkt().getVarighet() == 0)) {
-//                TreningsOkt nyOkt;
-//                nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
-//                        getTempOkt().getVarighet(), getTempOkt().getKategori(),
-//                        getTempOkt().getTekst());
-//
-//
-//                nyOversikt.registrerNyOkt(nyOkt);
-//                treningsOkter.add(new OktStatus(nyOkt));
-//                registrerTreningsOkt(nyOkt);
-//                tempOkt = new TreningsOkt();
-//            }
-            if (!(getTemptreningsOkter().isEmpty())) {
-                for (OktStatus k : getTemptreningsOkter()) {
-                    TreningsOkt c = k.getTreningsikOkt();
-                    if (!(c.getVarighet() == 0)) {
-                        nyOversikt.registrerNyOkt(c);
-                        treningsOkter.add(new OktStatus(c));
-                        registrerTreningsOkt(c);
-                    }
+        if (!(getTempOkt().getVarighet() == 0)) {
+            TreningsOkt nyOkt;
+            nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
+                    getTempOkt().getVarighet(), getTempOkt().getKategori(),
+                    getTempOkt().getTekst());
+
+
+            nyOversikt.registrerNyOkt(nyOkt);
+            treningsOkter.add(new OktStatus(nyOkt));
+            registrerTreningsOkt(nyOkt);
+            tempOkt = new TreningsOkt();
+        }
+        if (!(getTemptreningsOkter().isEmpty())) {
+            for (OktStatus k : getTemptreningsOkter()) {
+                TreningsOkt c = k.getTreningsikOkt();
+                if (!(c.getVarighet() == 0)) {
+                    nyOversikt.registrerNyOkt(c);
+                    treningsOkter.add(new OktStatus(c));
+                    registrerTreningsOkt(c);
                 }
             }
-            oppdaterTreningsOktDB();
+        }
+        oppdaterTreningsOktDB();
     }
 
     public synchronized String oppdater() {
 
-        
+
         try {
             if (!(treningsOkter.isEmpty())) {
                 for (OktStatus r : treningsOkter) {
@@ -197,9 +208,9 @@ public class treningsOktBehandler implements Serializable {
                 }
             }
 
-            
+
             oppdaterTreningsOktDB();
-            
+
             getAlleTreningsOkter();
 
         } catch (ConcurrentModificationException e) {
