@@ -5,10 +5,8 @@
 package com.corejsf;
 
 import java.util.Date;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
@@ -17,8 +15,8 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author deb
  */
-@DeclareRoles({"admin", "bruker"})
-@RolesAllowed({"admin","bruker"})  
+
+@RequestScoped
 public class TreningsOkt {
 
     private @Id

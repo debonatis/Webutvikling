@@ -4,6 +4,9 @@
  */
 package com.corejsf;
 
+import javax.faces.bean.RequestScoped;
+
+@RequestScoped
  public class OktStatus {
   private TreningsOkt treningsOkten;
   private boolean skalSlettes;
