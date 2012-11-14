@@ -152,28 +152,9 @@ public class treningsOktBehandler implements Serializable {
         }
 
     }
-
-    public synchronized String oppdater() {
-
+    public synchronized void registrer(){
         nyOkt = false;
-        try {
-            if (!(treningsOkter.isEmpty())) {
-                for (OktStatus r : treningsOkter) {
-                    if (r.getSkalSlettes()) {
-                        for (TreningsOkt e : nyOversikt.getAlleOkter()) {
-                            if (e.equals(r.getTreningsikOkt())) {
-                                slettTreningsOkt(e, 1);
-                                nyOversikt.slettOkt(e);
-                            }
-                        }
-                        treningsOkter.remove(r);
-                    }
-                }
-            }
-
-            
-            oppdaterTreningsOktDB();
-            if (!(getTempOkt().getVarighet() == 0)) {
+        if (!(getTempOkt().getVarighet() == 0)) {
                 TreningsOkt nyOkt;
                 nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
                         getTempOkt().getVarighet(), getTempOkt().getKategori(),
@@ -195,6 +176,30 @@ public class treningsOktBehandler implements Serializable {
                     }
                 }
             }
+            oppdaterTreningsOktDB();
+    }
+
+    public synchronized String oppdater() {
+
+        
+        try {
+            if (!(treningsOkter.isEmpty())) {
+                for (OktStatus r : treningsOkter) {
+                    if (r.getSkalSlettes()) {
+                        for (TreningsOkt e : nyOversikt.getAlleOkter()) {
+                            if (e.equals(r.getTreningsikOkt())) {
+                                slettTreningsOkt(e, 1);
+                                nyOversikt.slettOkt(e);
+                            }
+                        }
+                        treningsOkter.remove(r);
+                    }
+                }
+            }
+
+            
+            oppdaterTreningsOktDB();
+            
             getAlleTreningsOkter();
 
         } catch (ConcurrentModificationException e) {
