@@ -4,13 +4,12 @@ package com.corejsf;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
@@ -18,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.Cacheable;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -122,21 +122,27 @@ public class Bruker implements Serializable {
         return foresporrsel2.isUserInRole(hjelp);
     }
 
-    public String logout() {
-        String result = "/templates/input?faces-redirect=true";
+    public void logout() {
+        
 
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 
         try {
             request.logout();
+            HttpServletResponse response = (HttpServletResponse) context.getResponseWriter();  
+            try {  
+                response.sendRedirect("/faces/login/ikkeLogin.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(Bruker.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (ServletException e) {
             logger.log(Level.SEVERE, "Failed to logout user!", e);
-            logout();
+           
 
         }
 
-        return result;
+        
     }
 
     synchronized String skiftPassord(String passord) {

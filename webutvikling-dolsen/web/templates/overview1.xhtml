@@ -72,7 +72,8 @@
                             </h:column>    
                         </h:dataTable>
                         <br/>
-                        <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/>
+                        <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/><br/>
+                        <h:message for="nyOkt"/><br/>
 
                     </h:panelGroup>
                     <br/>
@@ -82,7 +83,7 @@
                                       rendered="#{not treningsOktBehandler.datafins}"/>
                     </p>
                     <div style="height:200px;overflow-x:auto;overflow-y:scroll;">
-                        <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
+                        <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" id="okter" rendered="#{treningsOktBehandler.datafins}">
 
                             <h:column>
                                 <f:facet name="header">
@@ -136,6 +137,8 @@
                                 <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                             </h:column>
                         </h:dataTable>
+                        <br/>
+                        <h:message for="okter"/><br/>
                     </div>
                     <p class ="buttonRightOutput">
 
