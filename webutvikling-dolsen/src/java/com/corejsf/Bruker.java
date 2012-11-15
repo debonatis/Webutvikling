@@ -122,25 +122,30 @@ public class Bruker implements Serializable {
         return foresporrsel2.isUserInRole(hjelp);
     }
 
-    public void logout() {
+    public String logout() {
         
 
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 
         try {
-            request.logout();
-            HttpServletResponse response = (HttpServletResponse) context.getResponseWriter();  
-            try {  
-                response.sendRedirect("/faces/login/ikkeLogin.xhtml");
-            } catch (IOException ex) {
-                Logger.getLogger(Bruker.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            request.logout();           
+           
         } catch (ServletException e) {
             logger.log(Level.SEVERE, "Failed to logout user!", e);
-           
+             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout failed!", "");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
+            
+           return "ikkok";
 
         }
+          fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout OK!", "");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
+        return "ok";
 
         
     }
