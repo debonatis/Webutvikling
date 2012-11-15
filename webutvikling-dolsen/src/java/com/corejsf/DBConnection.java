@@ -64,7 +64,8 @@ public class DBConnection implements Serializable{
         }
     }
 
-    public Connection getConn() {
+    public Connection getConn() {     
+        
         return conn;
     }
 

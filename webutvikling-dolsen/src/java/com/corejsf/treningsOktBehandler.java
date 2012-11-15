@@ -166,7 +166,7 @@ public class treningsOktBehandler implements Serializable {
     public synchronized String oppdater() {
 
         nyOkt = false;
-        try {  
+        try {
             if (!(getTempOkt().getVarighet() == 0)) {
                 TreningsOkt nyOkt;
                 nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
@@ -178,29 +178,41 @@ public class treningsOktBehandler implements Serializable {
                 treningsOkter.add(new OktStatus(nyOkt));
                 registrerTreningsOkt(nyOkt);
                 tempOkt = new TreningsOkt();
-            }      
-            
-            
+            }
+
+
 
             if (!(treningsOkter.isEmpty())) {
-                for (OktStatus r : treningsOkter) {
-                    if (r.getSkalSlettes()) {
-                        for (TreningsOkt e : nyOversikt.getAlleOkter()) {
-                            if (e.equals(r.getTreningsikOkt())) {
-                                slettTreningsOkt(e, 1);
-                                nyOversikt.slettOkt(e);
-                                treningsOkter.remove(r);
-                            }
-                        }                        
+//                for (OktStatus r : treningsOkter) {
+//                    if (r.getSkalSlettes()) {
+//                        for (TreningsOkt e : nyOversikt.getAlleOkter()) {
+//                            if (e.equals(r.getTreningsikOkt())) {
+//                                slettTreningsOkt(e, 1);
+//                                nyOversikt.slettOkt(e);
+//
+//                            }
+//                        }
+//                        treningsOkter.remove(r);
+//                    }
+//                }
+                int indeks = treningsOkter.size() - 1;
+                while (indeks >= 0) {
+                    OktStatus ts = treningsOkter.get(indeks);
+                    if (ts.getSkalSlettes()) {  
+                        nyOversikt.slettOkt(ts.getTreningsikOkt());
+                        treningsOkter.remove(indeks);  
+                        slettTreningsOkt(ts.getTreningsikOkt(), 1);
                     }
+                    indeks--;
                 }
             }
-            
+
             oppdaterTreningsOktDB();
-            
-           
-            
-            
+            getAlleTreningsOkter();
+
+
+
+
 
         } catch (ConcurrentModificationException e) {
             oppdater();
@@ -292,7 +304,7 @@ public class treningsOktBehandler implements Serializable {
             return false;
         } finally {
             conn.closeP(reg);
-            conn.close();            
+            conn.close();
         }
 
 
@@ -368,7 +380,7 @@ public class treningsOktBehandler implements Serializable {
                 fc = FacesContext.getCurrentInstance();
                 fc.addMessage("null", fm);
                 fc.renderResponse();
-                
+
 
             } catch (SQLException e) {
                 conn.failed();
@@ -384,15 +396,12 @@ public class treningsOktBehandler implements Serializable {
 
             } finally {
                 conn.closeS(oppdaterOkter);
-                conn.close();
-                 getAlleTreningsOkter();
+                conn.close();                
                 return true;
             }
-            
+
         }
         return false;
-        
+
     }
-    
-   
 }
