@@ -17,7 +17,7 @@
                 <h:form id="overviewform">           
                     <p>
                         <h:outputText value="#{texts.overview}: " id="overskrift"/><br/>
-                         <h:outputLabel value="#{bruker.name}"/><br/>
+                        <h:outputLabel value="#{bruker.name}"/><br/>
                         <h:outputLabel value="#{bruker.rolle}"/>
                     </p>
 
@@ -159,9 +159,10 @@
                         <f:selectItem itemValue ="12" itemLabel="#{texts.december}"/>
                     </h:selectOneMenu>
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test" id="submit"/>
+                </h:form>
+                <h:form>
                     <h:commandButton value="#{texts.Back}" action="input" class="test1"/> 
                     <h:commandButton value="#{texts.logout}" action="#{user.logout()}" class="test3"/>
-
                 </h:form>
             </ui:define>
         </ui:composition>
