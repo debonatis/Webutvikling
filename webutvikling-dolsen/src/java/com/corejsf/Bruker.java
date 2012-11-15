@@ -123,7 +123,7 @@ public class Bruker implements Serializable {
     }
 
     public String logout() {
-        String result = "ok";
+        String result = "/templates/input?faces-redirect=true";
 
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
