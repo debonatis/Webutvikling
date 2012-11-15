@@ -72,9 +72,9 @@
                             </h:column>  
                             <h:message for="datony"/><h:message for="varighetny"/><h:message for="kategori"/><h:message for="tekstny"/>
                         </h:dataTable>
-                        <br/>
+                        <br/><h:message for="nyOkt"/><br/>
                         <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/><br/>
-                        <h:message for="nyOkt"/><br/>
+                        
 
                     </h:panelGroup>
                     <br/>
@@ -92,7 +92,7 @@
                                 </f:facet>
                                 <h:inputText id="date" value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
                                     <f:convertDateTime type="date" locale="#{texts.locale}" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
-                                </h:inputText>
+                                </h:inputText><h:message for="date"/>
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
@@ -104,7 +104,7 @@
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                                <h:inputText id="varighet" value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
+                                <h:inputText id="varighet" value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/><h:message for="varighet"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
@@ -115,7 +115,7 @@
                                     <f:selectItem itemValue ="styrke" itemLabel="#{texts.category2}"/>
                                     <f:selectItem itemValue ="aerobics" itemLabel="#{texts.category3}"/>
                                     <f:selectItem itemValue ="jogging" itemLabel="#{texts.category4}"/>
-                                </h:selectOneMenu><br/>          
+                                </h:selectOneMenu><h:message for="kategori3"/><br/>          
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
@@ -124,7 +124,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.text}"/>
                                 </f:facet>
-                                <h:inputText id="tekst" value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert">
+                                <h:inputText id="tekst" value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert"><h:message for="teskt"/>
 
                                 </h:inputText>
                                 <f:facet name="footer">
@@ -137,7 +137,7 @@
                                 </f:facet>
                                 <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                             </h:column>
-                            <h:message for="date"/><h:message for="varighet"/><h:message for="kategori3"/><h:message for="teskt"/>
+                            <h:message for="teskt"/>
                         </h:dataTable>
                         <br/>
                         <h:message for="okter"/><br/>
