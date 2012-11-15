@@ -30,7 +30,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.date}"/>
                                 </f:facet>
-                                <h:inputText value="#{session2.treningsikOkt.date}" styleClass="venstrejustert">
+                                <h:inputText id="datony" value="#{session2.treningsikOkt.date}" styleClass="venstrejustert">
                                     <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
                                 </h:inputText>
                                 <f:facet name="footer">
@@ -44,7 +44,7 @@
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                                <h:inputText value="#{session2.treningsikOkt.varighet}" styleClass="venstrejustert"/>
+                                <h:inputText id="varighetny" value="#{session2.treningsikOkt.varighet}" styleClass="venstrejustert"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
@@ -64,7 +64,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.text}"/>
                                 </f:facet>
-                                <h:inputText value="#{session2.treningsikOkt.tekst}" styleClass="venstrejustert">
+                                <h:inputText id="tekstny" value="#{session2.treningsikOkt.tekst}" styleClass="venstrejustert">
                                 </h:inputText>
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
@@ -73,7 +73,7 @@
                         </h:dataTable>
                         <br/>
                         <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/><br/>
-                        <h:message for="nyOkt"/><br/>
+                        <h:message for="nyOkt"/><br/><h:message for="datony"/><br/><h:message for="varighetny"/><br/><h:message for="kategori"/><br/><h:message for="tekstny"/><br/>
 
                     </h:panelGroup>
                     <br/>
@@ -89,7 +89,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.date}"/>
                                 </f:facet>
-                                <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
+                                <h:inputText id="date" value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
                                     <f:convertDateTime type="date" locale="#{texts.locale}" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
                                 </h:inputText>
                                 <f:facet name="footer">
@@ -103,7 +103,7 @@
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                                <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
+                                <h:inputText id="varighet" value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
@@ -123,7 +123,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.text}"/>
                                 </f:facet>
-                                <h:inputText value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert">
+                                <h:inputText id="tekst" value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert">
 
                                 </h:inputText>
                                 <f:facet name="footer">
@@ -138,7 +138,7 @@
                             </h:column>
                         </h:dataTable>
                         <br/>
-                        <h:message for="okter"/><br/>
+                        <h:message for="okter"/><br/><h:message for="date"/><br/><h:message for="varighet"/><br/><h:message for="kategori3"/><br/><h:message for="teskt"/><br/>
                     </div>
                     <p class ="buttonRightOutput">
 
