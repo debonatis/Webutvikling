@@ -69,11 +69,12 @@
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                            </h:column>    
+                            </h:column>  
+                            <h:message for="datony"/><h:message for="varighetny"/><h:message for="kategori"/><h:message for="tekstny"/>
                         </h:dataTable>
                         <br/>
                         <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/><br/>
-                        <h:message for="nyOkt"/><br/><h:message for="datony"/><br/><h:message for="varighetny"/><br/><h:message for="kategori"/><br/><h:message for="tekstny"/><br/>
+                        <h:message for="nyOkt"/><br/>
 
                     </h:panelGroup>
                     <br/>
@@ -136,9 +137,10 @@
                                 </f:facet>
                                 <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                             </h:column>
+                            <h:message for="date"/><h:message for="varighet"/><h:message for="kategori3"/><h:message for="teskt"/>
                         </h:dataTable>
                         <br/>
-                        <h:message for="okter"/><br/><h:message for="date"/><br/><h:message for="varighet"/><br/><h:message for="kategori3"/><br/><h:message for="teskt"/><br/>
+                        <h:message for="okter"/><br/>
                     </div>
                     <p class ="buttonRightOutput">
 
