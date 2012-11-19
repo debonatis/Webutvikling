@@ -355,6 +355,7 @@ public class DBController {
 
         DBConnection conn = new DBConnection();
         PreparedStatement oppdaterOkter = null;
+        PreparedStatement oppdaterOkter2 = null;
         String oppdaterString1 =
                 "update WAPLJ.Rolle set rolle.rolle = ? where rolle.BRUKERNAVN= ?";
         String oppdaterString2 =
@@ -366,18 +367,22 @@ public class DBController {
                 conn.getConn().setAutoCommit(false);
                 oppdaterOkter = conn.getConn().prepareStatement(oppdaterString1);
                 for (BrukerStatus f : hjelpBruker) {
-                    oppdaterOkter.setString(1, f.getBruker().getPassord());
-                    oppdaterOkter.setString(2, f.getBruker().getName());
-                    conn.getConn().commit();
-
-                }
-                oppdaterOkter = conn.getConn().prepareStatement(oppdaterString2);
-                for (BrukerStatus f : hjelpBruker) {
                     oppdaterOkter.setString(1, f.getBruker().getRolle());
                     oppdaterOkter.setString(2, f.getBruker().getName());
                     conn.getConn().commit();
+                    
 
                 }
+                 conn.getConn().setAutoCommit(false);
+                oppdaterOkter2 = conn.getConn().prepareStatement(oppdaterString2);
+                for (BrukerStatus f : hjelpBruker) {
+                    oppdaterOkter2.setString(1, f.getBruker().getPassord());
+                    oppdaterOkter2.setString(2, f.getBruker().getName());
+                    conn.getConn().commit();
+                   
+
+                } 
+                
                 fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Oppdatering utført!", "ja,Oppdatering utført!");
                 fc = FacesContext.getCurrentInstance();
                 fc.addMessage("null", fm);
@@ -397,7 +402,7 @@ public class DBController {
 
 
             } finally {
-                conn.closeS(oppdaterOkter);
+                conn.closeP(oppdaterOkter);
                 conn.close();
 
             }
