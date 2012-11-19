@@ -317,7 +317,11 @@ public class DBController {
         Statement st = null;
         try {
             st = conn.getConn().createStatement();
-            st.executeUpdate("DELETE waplj.bruker, waplj.rolle FROM waplj.bruker inner join waplj.rolle WHERE bruker.brukernavn = '" + bruker.getName() + "' AND rolle.brukernavn = '" + bruker.getName() + "'");
+            st.executeUpdate("DELETE FROM waplj.rolle WHERE rolle.brukernavn = '" + bruker.getName() + "'");
+            
+            st.getConnection().commit();
+            
+             st.executeUpdate("DELETE FROM waplj.bruker WHERE bruker.brukernavn = '" + bruker.getName() + "'");
             
             st.getConnection().commit();
 
