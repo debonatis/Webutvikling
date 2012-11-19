@@ -9,36 +9,37 @@ import com.corejsf.brukerAdm.BrukerStatus;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 /**
  *
  * @author deb
  */
 // Er ikke ne bean fordi <f:validator... kunne tydeligvis ikke forekomme mer enn en gang i en form (Ja, det er unike Id'er)
-@FacesValidator("validatorTekst3")
-public class ValidatorTekst3 extends DBController implements Validator {
+public class ValidatorTekst3 extends DBController implements ConstraintValidator<BrukerNavnsjekker, String> {
 
+    private BrukerNavnsjekker sjekker;
     private boolean brukerNavnOK;
     private boolean brukerNavnRegexOK;
-    private String brukerNavnKrav = "(.{6,10})";
     private Pattern brukerNavnSjekk;
-    private Matcher sjekker;
-    private List<BrukerStatus> brukere;
+    private Matcher treff;
+    private String brukerNavnKrav = "(.{6-10})";
+    private List<BrukerStatus> brukere;    
 
     @Override
-    public void validate(FacesContext facesContext, UIComponent uIComponent, Object object) throws ValidatorException {
+    public void initialize(BrukerNavnsjekker sjekker) {
+        this.sjekker = sjekker;
+    }
+
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext arg1) {
         brukerNavnOK = true;
         brukerNavnRegexOK = true;
-        String innLagtTekst = (String) object;
+        String innLagtTekst = value;
         brukerNavnSjekk = Pattern.compile(brukerNavnKrav);
-        sjekker = brukerNavnSjekk.matcher(innLagtTekst);
-        brukerNavnRegexOK = sjekker.matches();
+        treff = brukerNavnSjekk.matcher(innLagtTekst);
+        brukerNavnRegexOK = treff.matches();
 
         brukere = getAlleBrukere();
 
@@ -47,13 +48,8 @@ public class ValidatorTekst3 extends DBController implements Validator {
                 brukerNavnOK = false;
             }
         }
-        if ((!brukerNavnOK) || (!brukerNavnRegexOK) ) {
-            FacesMessage message = new FacesMessage();
-            message.setSummary("This username is already in use, or it is one that is too similar. Write a new one! The username must have a lenght between 6 to 10 characters!");
-
-            throw new ValidatorException(message);
-
-
-        }
+        return ((!brukerNavnOK) || (!brukerNavnRegexOK) );
     }
 }
+
+

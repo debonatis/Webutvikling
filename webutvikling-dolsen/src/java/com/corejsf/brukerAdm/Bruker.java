@@ -5,8 +5,10 @@
 package com.corejsf.brukerAdm;
 
 import javax.faces.bean.RequestScoped;
+import javax.faces.validator.Validator;
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.internal.constraintvalidators.EmailValidator;
 
 /**
  *
@@ -16,7 +18,8 @@ import org.hibernate.validator.constraints.Length;
 public class Bruker {
 
     private @NotNull
-    @Length(min = 6, max = 10) String name;
+    @v
+    String name;
     private String rolle;
     private String passord;
     private boolean endret;
@@ -37,13 +40,14 @@ public class Bruker {
     }
 
     public Bruker(String name, String passord, String rolle) {
-        
-        
+
+
         this.name = name;
         this.rolle = rolle;
         this.passord = passord;
         endret = false;
     }
+
     public Bruker(String name, String passord, String rolle, int i) {
         this.name = name;
         this.rolle = rolle;
@@ -66,10 +70,10 @@ public class Bruker {
      * @param rolle new value of rolle
      */
     public void setRolle(String rolle) {
-         if (!(this.rolle.equalsIgnoreCase(rolle))) {
-        this.rolle = rolle;
-        setEndret(true);
-         }
+        if (!(this.rolle.equalsIgnoreCase(rolle))) {
+            this.rolle = rolle;
+            setEndret(true);
+        }
     }
 
     /**
@@ -87,10 +91,10 @@ public class Bruker {
      * @param passord new value of passord
      */
     public void setPassord(String passord) {
-         if (!(this.passord.equalsIgnoreCase(passord))) {
-        this.passord = passord;
-        setEndret(true);
-         }
+        if (!(this.passord.equalsIgnoreCase(passord))) {
+            this.passord = passord;
+            setEndret(true);
+        }
     }
 
     /**
@@ -108,9 +112,9 @@ public class Bruker {
      * @param name new value of name
      */
     public void setName(String name) {
-         if (!(this.name.equalsIgnoreCase(name))) {
-        this.name = name;
-        setEndret(true);
-         }
+        if (!(this.name.equalsIgnoreCase(name))) {
+            this.name = name;
+            setEndret(true);
+        }
     }
 }
