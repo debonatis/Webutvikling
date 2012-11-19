@@ -317,8 +317,8 @@ public class DBController {
         Statement st = null;
         try {
             st = conn.getConn().createStatement();
-            st.executeUpdate("DELETE FROM WAPLJ.Bruker WHERE BRUKERNAVN = '" + bruker.getName() + "'");
-            st.executeUpdate("DELETE FROM WAPLJ.rolle WHERE BRUKERNAVN = '" + bruker.getName() + "'");
+            st.executeUpdate("DELETE FROM waplj.bruker , waplj.rolle WHERE bruker.brukernavn = '" + bruker.getName() + "' AND rolle.brukernavn = '" + bruker.getName() + "'");
+            
             st.getConnection().commit();
 
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
