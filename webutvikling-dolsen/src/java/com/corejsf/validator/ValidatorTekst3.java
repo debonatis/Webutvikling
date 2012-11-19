@@ -24,7 +24,7 @@ public class ValidatorTekst3 extends DBController implements ConstraintValidator
     private boolean brukerNavnRegexOK;
     private Pattern brukerNavnSjekk;
     private Matcher treff;
-    private String brukerNavnKrav = ".{6-10}";
+    private String brukerNavnKrav = "(.{6,10})";
     private List<BrukerStatus> brukere;    
 
     @Override
