@@ -4,11 +4,9 @@
  */
 package com.corejsf.brukerAdm;
 
+import com.corejsf.validator.BrukerNavnsjekker;
 import javax.faces.bean.RequestScoped;
-import javax.faces.validator.Validator;
 import javax.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.internal.constraintvalidators.EmailValidator;
 
 /**
  *
@@ -18,7 +16,7 @@ import org.hibernate.validator.internal.constraintvalidators.EmailValidator;
 public class Bruker {
 
     private @NotNull
-    @v
+    @BrukerNavnsjekker
     String name;
     private String rolle;
     private String passord;
