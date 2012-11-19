@@ -217,8 +217,8 @@ public class BrukerBehandling extends DBController implements Serializable {
                 setTempBruker(new Bruker());
 
             }
-             int k = bOversikt.size();
-            oppdaterBrukerDB(bOversikt);
+             
+            oppdaterBrukerDB(getBrukerTabell());
             dbBrukerListe = getAlleBrukere();
             if (!dbBrukerListe.isEmpty()) {
                 bOversikt.clear();
