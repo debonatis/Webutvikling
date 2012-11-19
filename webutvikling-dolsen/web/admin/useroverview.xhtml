@@ -27,18 +27,18 @@ and open the template in the editor.
                         <h:panelGroup rendered="#{bruker.nyBruker}">
 
                             <h:dataTable  id="nyBruker" var="tempBruker" value="#{bruker.tempBrukerListe}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
-                                <h:column>
+                                <h:column id="namecol">
                                     <f:facet name="header">
                                         <h:outputText value="#{texts.username}"/>
                                     </f:facet>
                                     <h:inputText id="tempName" value="#{tempBruker.bruker.name}" styleClass="venstrejustert">  
-                                        <f:validator validatorId="validatorTekst3" />
+                                        <f:validator for="tempName" validatorId="validatorTekst3" />
                                     </h:inputText>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
                                     </f:facet>
                                 </h:column>
-                                <h:column>
+                                <h:column id="passcol">
                                     <f:facet name="header">
                                         <h:outputText value="#{texts.password}"/>
                                     </f:facet>
@@ -61,6 +61,9 @@ and open the template in the editor.
                                     </f:facet>
                                 </h:column>    
                             </h:dataTable>
+                            <br/>
+                            <p><h:message for="useroverview:nyBruker:tempcol:tempName"/></p><p><h:message for="useroverview:nyBruker:passcol:tempPassword"/></p>
+                            
                             <br/>
                             <h:commandButton value="#{texts.submit}" action="#{bruker.oppdater()}"/>
 
