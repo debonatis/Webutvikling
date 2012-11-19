@@ -52,7 +52,7 @@ public class ValidatorTekst3 extends DBController implements ConstraintValidator
                 brukerNavnOK = false;
             }
         }
-        return ((!brukerNavnOK) || (!brukerNavnRegexOK) );
+        return  (brukerNavnOK && brukerNavnRegexOK);
     }
 }
 
