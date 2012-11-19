@@ -45,8 +45,8 @@ and open the template in the editor.
                                         <h:outputText value=""/>
                                     </f:facet>
                                     <h:inputText value="#{tempBruker.bruker.passord}" styleClass="venstrejustert">
-                                     <f:validator validatorId="validatorTekst2" /></h:inputText>
-                                        
+                                        <f:validator validatorId="validatorTekst2" /></h:inputText>
+
                                 </h:column>
 
                                 <h:column>
@@ -97,8 +97,8 @@ and open the template in the editor.
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                                <h:inputText value="#{brukerobjekt.bruker.passord}" styleClass="venstrejustert"
-                                             >   </h:inputText>
+                                <h:inputText value="#{brukerobjekt.bruker.passord}" styleClass="venstrejustert">
+                                    <f:validator validatorId="validatorTekst2" />  </h:inputText>
                             </h:column> 
                             <h:column>
                                 <f:facet name="header">
@@ -119,8 +119,7 @@ and open the template in the editor.
                                 <h:selectBooleanCheckbox value="#{brukerobjekt.skalSlettes}"/>
                             </h:column>
                         </h:dataTable>
-                    </div>
-                    <p class ="buttonRightOutput"/>
+                    </div>                  
 
 
 
