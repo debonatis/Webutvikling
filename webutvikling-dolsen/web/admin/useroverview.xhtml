@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <head>
+        <title>IGNORED</title>
+    </head>
+    <body>
+        <ui:composition template="/admin/mainTemplate.xhtml">
+            <ui:define name="windowTitle">
+                #{texts.regTitle}
+            </ui:define>
+            <h3>#{texts.welcome}</h3>
+            <ui:define name="content">
+                <h:form id="overviewform">           
+                    <p>
+                        <h:outputText value="#{texts.overview}: " id="overskrift"/>
+                    </p>
+                    <br/>
+                    <p>
+                        <h:outputText value="#{texts.noUserData}"
+                                      rendered="#{not bruker.datafins()}"/>
+                    </p>
+                    <div style="height:200px;overflow-x:auto;overflow-y:scroll;">
+                        <h:dataTable value="#{bruker.brukerTabell}" var="brukerobjekt" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{bruker.datafins()}">
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.username}"/>
+                                </f:facet>                               
+                                <h:inputText value="#{brukerobjekt.brukernavn}" styleClass="venstrejustert">
+
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.password}"/>
+                                </f:facet>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:inputText value="#{brukerobjekt.passord}" styleClass="venstrejustert"/>
+                            </h:column>                           
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.delete}"/>
+                                </f:facet>
+                                <h:selectBooleanCheckbox value="#{brukerobjekt.skalslettes}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                    <p class ="buttonRightOutput"/>
+
+
+
+                    <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test" id="submit"/>
+
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

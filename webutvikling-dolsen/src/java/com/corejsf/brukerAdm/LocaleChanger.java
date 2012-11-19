@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package com.corejsf;
+package com.corejsf.brukerAdm;
 import java.io.Serializable;
 import java.util.Locale;
 import javax.enterprise.context.SessionScoped;

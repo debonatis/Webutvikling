@@ -4,6 +4,7 @@
  */
 package com.corejsf;
 
+import com.corejsf.brukerAdm.Bruker;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
