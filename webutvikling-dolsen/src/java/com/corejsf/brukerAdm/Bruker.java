@@ -5,6 +5,8 @@
 package com.corejsf.brukerAdm;
 
 import javax.faces.bean.RequestScoped;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -13,7 +15,8 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class Bruker {
 
-    private String name;
+    private @NotNull
+    @Length(min = 6, max = 10) String name;
     private String rolle;
     private String passord;
     private boolean endret;
