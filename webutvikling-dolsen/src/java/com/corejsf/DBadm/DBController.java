@@ -25,12 +25,12 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class DBController {
 
-    private static FacesMessage fm;
-    private static FacesContext fc;
-    private static List<OktStatus> dBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
-    private static List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
+    private FacesMessage fm;
+    private FacesContext fc;
+    private List<OktStatus> dBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
+    private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
 
-    public static synchronized List<OktStatus> getAlleTreningsOkter(String navn) {
+    public synchronized List<OktStatus> getAlleTreningsOkter(String navn) {
         TreningsOkt hjelpeobjekt;
         dBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
@@ -67,7 +67,7 @@ public class DBController {
         }
     }
 
-    public static synchronized void registrerTreningsOkt(TreningsOkt okt, String navn) {
+    public synchronized void registrerTreningsOkt(TreningsOkt okt, String navn) {
         //oktnr blir autogenerert i databasen
         DBConnection conn = new DBConnection();
         PreparedStatement reg = null;
@@ -103,7 +103,7 @@ public class DBController {
 
     }
 
-    public static synchronized void slettTreningsOkt(TreningsOkt objekt, int i, String navn) {
+    public synchronized void slettTreningsOkt(TreningsOkt objekt, int i, String navn) {
         DBConnection conn = new DBConnection();
         Statement st = null;
         try {
@@ -132,7 +132,7 @@ public class DBController {
 
     }
 
-    public static synchronized void oppdaterTreningsOktDB(List<OktStatus> treningsOkter, String navn) {
+    public synchronized void oppdaterTreningsOktDB(List<OktStatus> treningsOkter, String navn) {
 
         hjelp.clear();
         if (!(treningsOkter.isEmpty())) {
@@ -198,7 +198,7 @@ public class DBController {
 
     }
 
-    public static synchronized void slettAlleOkter() {
+    public synchronized void slettAlleOkterDB() {
 
         DBConnection conn = new DBConnection();
         Statement st = null;

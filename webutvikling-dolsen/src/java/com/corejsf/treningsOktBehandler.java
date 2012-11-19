@@ -4,13 +4,8 @@
  */
 package com.corejsf;
 
-import com.corejsf.DBadm.DBConnection;
 import com.corejsf.DBadm.DBController;
 import java.io.Serializable;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
@@ -34,7 +29,7 @@ import org.hibernate.validator.constraints.Range;
 @SessionScoped
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
-public class treningsOktBehandler implements Serializable {
+public class treningsOktBehandler extends DBController implements Serializable {
 
     private FacesMessage fm;
     private List<OktStatus> DBtreningsobjekter;
@@ -147,7 +142,7 @@ public class treningsOktBehandler implements Serializable {
 
     @RolesAllowed("admin")
     public synchronized void slettAlleOkter() {
-        DBController.slettAlleOkter();
+        slettAlleOkterDB();
 
     }
 
@@ -164,7 +159,7 @@ public class treningsOktBehandler implements Serializable {
 
                 nyOversikt.registrerNyOkt(nyOkt);
                 treningsOkter.add(new OktStatus(nyOkt));
-                DBController.registrerTreningsOkt(nyOkt, getNavn());
+                registrerTreningsOkt(nyOkt, getNavn());
                 tempOkt = new TreningsOkt();
                
             }
@@ -178,14 +173,14 @@ public class treningsOktBehandler implements Serializable {
                     if (ts.getSkalSlettes()) {
                         nyOversikt.slettOkt(ts.getTreningsikOkt());
                         treningsOkter.remove(indeks);
-                        DBController.slettTreningsOkt(ts.getTreningsikOkt(), 1, getNavn());
+                        slettTreningsOkt(ts.getTreningsikOkt(), 1, getNavn());
                     }
                     indeks--;
                 }
             }
 
-            DBController.oppdaterTreningsOktDB(treningsOkter, getNavn());
-            DBtreningsobjekter = DBController.getAlleTreningsOkter(getNavn());
+            oppdaterTreningsOktDB(treningsOkter, getNavn());
+            DBtreningsobjekter = getAlleTreningsOkter(getNavn());
             if (!DBtreningsobjekter.isEmpty()) {
                 nyOversikt.slettAlle();
                 treningsOkter.clear();
