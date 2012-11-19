@@ -53,10 +53,8 @@ public class Bruker implements Serializable {
     }
 
     public String changePassword() {
-       
-            return skiftPassord(newPassword);
 
-        
+        return skiftPassord(newPassword);
     }
 
     public String getRolle() {
@@ -123,43 +121,31 @@ public class Bruker implements Serializable {
     }
 
     public String logout() {
-        
-
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-
         try {
-            request.logout();           
-           
+            request.logout();
         } catch (ServletException e) {
             logger.log(Level.SEVERE, "Failed to logout user!", e);
-             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout failed!", "");
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout failed!", "");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
-            
-           return "ikkok";
-
+            return "ikkok";
         }
-          fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout OK!", "");
-            fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);
-            fc.renderResponse();
+        fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout OK!", "");
+        fc = FacesContext.getCurrentInstance();
+        fc.addMessage("null", fm);
+        fc.renderResponse();
         return "ok";
-
-        
     }
 
     synchronized String skiftPassord(String passord) {
-
         DBConnection conn = new DBConnection();
         PreparedStatement oppdaterPassord = null;
         String oppdaterString =
                 "update WAPLJ.BRUKER set PASSORD = ? where BRUKERNAVN= ?";
-
-
         try {
-
             conn.getConn().setAutoCommit(false);
             oppdaterPassord = conn.getConn().prepareStatement(oppdaterString);
             oppdaterPassord.setString(1, passord);
@@ -167,13 +153,10 @@ public class Bruker implements Serializable {
             oppdaterPassord.executeUpdate();
             conn.getConn().commit();
 
-
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Endring av passord utført!", "");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
-
-
         } catch (SQLException e) {
             conn.failed();
             if (conn.getConn() != null) {
@@ -189,10 +172,7 @@ public class Bruker implements Serializable {
         } finally {
             conn.closeS(oppdaterPassord);
             conn.close();
-
         }
-
         return "ok";
-
     }
 }
