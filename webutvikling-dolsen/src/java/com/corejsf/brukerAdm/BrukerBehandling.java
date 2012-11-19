@@ -175,19 +175,17 @@ public class BrukerBehandling extends DBController implements Serializable {
         return skiftPassordDB(passord, getName());
     }
 
-    public List<BrukerStatus> getBrukerTabell() {
+    public synchronized List<BrukerStatus> getBrukerTabell() {
         return bOversikt;
     }
 
-    public boolean datafins() {
-        return (!bOversikt.isEmpty());
+    public synchronized boolean datafins() {
+   return (!bOversikt.isEmpty());
+        
     }
 @RolesAllowed("admin")
     public String oppdater() {
         try {
-
-
-
             if (!(bOversikt.isEmpty())) {
                 int indeks = bOversikt.size() - 1;
                 while (indeks >= 0) {
