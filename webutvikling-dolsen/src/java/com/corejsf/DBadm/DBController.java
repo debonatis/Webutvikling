@@ -286,10 +286,11 @@ public class DBController {
             reg.executeUpdate();
             conn.getConn().commit();
 
-            regTekst = "INSERT INTO WAPLJ.ROLLE"
+            String regTekst2 = "INSERT INTO WAPLJ.ROLLE"
                     + " VALUES (?,?) ";
+            reg = null;
 
-            reg = conn.getConn().prepareStatement(regTekst);
+            reg = conn.getConn().prepareStatement(regTekst2);
             reg.setString(1, bruker.getName());
             reg.setString(2, bruker.getRolle());
             conn.getConn().commit();

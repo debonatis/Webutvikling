@@ -189,6 +189,8 @@ public class BrukerBehandling extends DBController implements Serializable {
 
     @RolesAllowed("admin")
     public synchronized String oppdater() {
+        
+        setNyBruker(false);
         try {
             if (!(bOversikt.isEmpty())) {
                 int indeks = bOversikt.size() - 1;
