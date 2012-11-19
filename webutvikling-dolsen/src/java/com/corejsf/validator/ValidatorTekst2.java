@@ -16,7 +16,7 @@ public class ValidatorTekst2 implements Validator {
     private boolean PassordSjekkOK = false;
     private Pattern passordSjekk;
     private Matcher sjekker;
-    private String passordKrav = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).{6,20})";
+    private String passordKrav = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).{6,10})";
 
     @Override
     public void validate(FacesContext facesContext, UIComponent uIComponent, Object object) throws ValidatorException {
