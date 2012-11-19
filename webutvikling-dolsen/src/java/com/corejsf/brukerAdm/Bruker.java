@@ -4,10 +4,13 @@
  */
 package com.corejsf.brukerAdm;
 
+import javax.faces.bean.RequestScoped;
+
 /**
  *
  * @author deb
  */
+@RequestScoped
 public class Bruker {
 
     private String name;
