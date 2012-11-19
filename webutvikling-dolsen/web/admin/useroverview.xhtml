@@ -47,9 +47,7 @@ and open the template in the editor.
                                     </f:facet>
                                     <h:inputText value="#{tempBruker.bruker.passord}" styleClass="venstrejustert">
                                         <f:validator validatorId="validatorTekst2" /></h:inputText>
-
                                 </h:column>
-
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{texts.role}"/>
@@ -68,13 +66,7 @@ and open the template in the editor.
 
                         </h:panelGroup>
                     </p>
-                    <br/>
-
-
-                </h:form>
-                
-                
-                <h:form>
+                    <br/>                
                     <p>
                         <h:outputText value="#{texts.noUserData}"
                                       rendered="#{not bruker.datafins()}"/>
