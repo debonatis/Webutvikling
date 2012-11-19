@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author deb
  */
-@Named(value = "Bruker")
+@Named("Bruker")
 @SessionScoped
 @Cacheable(false)
 @DeclareRoles({"admin", "bruker"})
