@@ -34,7 +34,7 @@ public class TreningsOkt {
     private boolean endret = false;
 
     public void setKategori(String kategori) {
-        if (!(this.kategori.trim().equalsIgnoreCase(kategori))) {
+        if (!(this.kategori.equalsIgnoreCase(kategori))) {
             this.setEndret(true);
             this.kategori = kategori;
         }

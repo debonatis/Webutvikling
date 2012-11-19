@@ -55,8 +55,10 @@ public class Bruker {
      * @param rolle new value of rolle
      */
     public void setRolle(String rolle) {
+         if (!(this.rolle.equalsIgnoreCase(rolle))) {
         this.rolle = rolle;
         setEndret(true);
+         }
     }
 
     /**
@@ -74,8 +76,10 @@ public class Bruker {
      * @param passord new value of passord
      */
     public void setPassord(String passord) {
+         if (!(this.passord.equalsIgnoreCase(passord))) {
         this.passord = passord;
         setEndret(true);
+         }
     }
 
     /**
@@ -93,7 +97,9 @@ public class Bruker {
      * @param name new value of name
      */
     public void setName(String name) {
+         if (!(this.name.equalsIgnoreCase(name))) {
         this.name = name;
         setEndret(true);
+         }
     }
 }
