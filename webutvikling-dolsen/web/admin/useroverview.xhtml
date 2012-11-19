@@ -21,9 +21,52 @@ and open the template in the editor.
                 <h:form id="overviewform">           
                     <p>
                         <h:outputText value="#{texts.overview}: " id="overskrift"/>
+                        
+                        <h:commandButton id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/>
+
+                        <h:panelGroup rendered="#{bruker.nyBruker}">
+
+                            <h:dataTable  id="nyBruker" var="tempBruker" value="#{bruker.tempBrukerListe}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.username}"/>
+                                </f:facet>
+                                <h:inputText value="#{tempBruker.bruker.name}" styleClass="venstrejustert">                                   
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.password}"/>
+                                </f:facet>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:inputText value="#{tempBruker.bruker.passord}" styleClass="venstrejustert"/>
+                            </h:column>
+                            
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.role}"/>
+                                </f:facet>
+                                <h:inputText value="#{tempBruker.bruker.rolle}" styleClass="venstrejustert">
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>    
+                        </h:dataTable>
+                        <br/>
+                        <h:commandButton value="#{texts.submit}" action="#{bruker.oppdater()}"/>
+
+                    </h:panelGroup>
                     </p>
                     <br/>
+                    
                     <p>
+                        
                         <h:outputText value="#{texts.noUserData}"
                                       rendered="#{not bruker.datafins()}"/>
                     </p>

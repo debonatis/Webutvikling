@@ -411,10 +411,10 @@ public class DBController {
         ResultSet rs = null;
         try {
             st = conn.getConn().createStatement();
-            rs = st.executeQuery("SELECT BRUKER.brukernavn, Bruker.passord, rolle.rolle"
-                    + "FROM BRUKER"
-                    + "RIGHT JOIN ROLLE"
-                    + "ON Bruker.BRUKERNAVN=ROLLE.BRUKERNAVN"
+            rs = st.executeQuery("SELECT BRUKER.brukernavn, Bruker.passord, rolle.rolle\n"
+                    + "FROM BRUKER\n"
+                    + "RIGHT JOIN ROLLE\n"
+                    + "ON Bruker.BRUKERNAVN=ROLLE.BRUKERNAVN\n"
                     + "ORDER BY BRUKER.BRUKERNAVN");
 
 
