@@ -356,9 +356,9 @@ public class DBController {
         DBConnection conn = new DBConnection();
         PreparedStatement oppdaterOkter = null;
         String oppdaterString1 =
-                "update WAPLJ.BRUKER set passord = ? where BRUKERNAVN= ?";
+                "update WAPLJ.Rolle set rolle.rolle = ? where rolle.BRUKERNAVN= ?";
         String oppdaterString2 =
-                "update WAPLJ.Rolle set rolle = ? where BRUKERNAVN= ?";
+                "update WAPLJ.BRUKER set bruker.passord = ? where bruker.BRUKERNAVN= ?";
         if (!hjelpBruker.isEmpty()) {
 
             try {
