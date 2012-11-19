@@ -5,11 +5,16 @@ package com.corejsf.brukerAdm;
  * and open the template in the editor.
  */
 import com.corejsf.DBadm.DBConnection;
+import com.corejsf.OktStatus;
+import com.corejsf.TreningsOkt;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +38,7 @@ public class Bruker implements Serializable {
     private String newPassword;
     private String newPassword2;
     private List<BrukerOversikt> bOversikt = Collections.synchronizedList(new ArrayList<BrukerOversikt>());
+    private List<BrukerOversikt> bOversikthjelp = Collections.synchronizedList(new ArrayList<BrukerOversikt>());
     private static final Logger logger = Logger.getLogger("com.corejsf");
     private FacesMessage fm = new FacesMessage();
     private FacesContext fc;
@@ -195,12 +201,55 @@ public class Bruker implements Serializable {
         return "ok";
 
     }
-    
-    public List<BrukerOversikt> getBrukerTabell(){
+
+    public List<BrukerOversikt> getBrukerTabell() {
         return bOversikt;
     }
-    
-    public boolean datafins(){
+
+    public boolean datafins() {
         return (!bOversikt.isEmpty());
+    }
+
+    public synchronized void getAlleTreningsOkter() {
+        BrukerOversikt hjelpeobjekt;
+        bOversikthjelp.clear();
+        DBConnection conn = new DBConnection();
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.getConn().createStatement();
+            rs = st.executeQuery("SELECT Bruker.brukernavn, Bruker.passord, rolle.rolle "
+                    + "FROM BRUKER "
+                    + "RIGHT JOIN ROLLE "
+                    + "ON Bruker.BRUKERNAVN=ROLLE.BRUKERNAVN "
+                    + "ORDER BY BRUKER.BRUKERNAVN");
+
+
+            while (rs.next()) {
+                hjelpeobjekt = new BrukerOversikt(rs.getString("Brukernavn"), rs.getString("passord"),
+                       rs.getString("rolle"));
+                bOversikthjelp.add(hjelpeobjekt);
+
+
+            }
+            conn.getConn().commit();
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alle Okter skaffet!", "ja,Okter skaffet!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
+        } catch (SQLException e) {
+            conn.failed(); //Rollback
+        } finally {
+            conn.closeS(st);
+            conn.closeR(rs);
+            conn.close();
+
+            if (!bOversikthjelp.isEmpty()) {                
+                bOversikt.clear();
+                for (BrukerOversikt s : bOversikthjelp) {                    
+                    bOversikt.add(s);
+                }
+            }
+        }
     }
 }

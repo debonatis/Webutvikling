@@ -13,10 +13,20 @@ public class BrukerOversikt {
     private String brukernavn;
     private String passord;
     private boolean skalSlettes;
+    private String rolle;
 
-    public BrukerOversikt(String brukernavn, String passord) {
+    public String getRolle() {
+        return rolle;
+    }
+
+    public void setRolle(String rolle) {
+        this.rolle = rolle;
+    }
+
+    public BrukerOversikt(String brukernavn, String passord, String rolle) {
         this.brukernavn = brukernavn;
         this.passord = passord;
+        this.rolle = rolle;
         this.skalSlettes = false;
     }
 
