@@ -37,6 +37,14 @@ public class Bruker {
     }
 
     public Bruker(String name, String passord, String rolle) {
+        
+        
+        this.name = name;
+        this.rolle = rolle;
+        this.passord = passord;
+        endret = false;
+    }
+    public Bruker(String name, String passord, String rolle, int i) {
         this.name = name;
         this.rolle = rolle;
         this.passord = passord;

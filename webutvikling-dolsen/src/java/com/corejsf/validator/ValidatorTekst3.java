@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
@@ -20,32 +19,33 @@ import javax.faces.validator.ValidatorException;
  *
  * @author deb
  */
-@FacesValidator("validatorTekst3")
-public class ValidatorTekst3 extends DBController implements Validator {
+// Er ikke ne bean fordi <f:validator... kunne tydeligvis ikke forekomme mer enn en gang i en form (Ja, det er unike Id'er)
+public abstract class ValidatorTekst3 extends DBController implements Validator {
 
-    private boolean brukerNavnOK = true;
+    private boolean brukerNavnOK;
+    private boolean brukerNavnRegexOK;
     private String brukerNavnKrav = "(.{6,10})";
     private Pattern brukerNavnSjekk;
     private Matcher sjekker;
+    private List<BrukerStatus> brukere;
 
     @Override
     public void validate(FacesContext facesContext, UIComponent uIComponent, Object object) throws ValidatorException {
-        String innlagtTekst = (String) object;
+        brukerNavnOK = true;
+        brukerNavnRegexOK = true;
+        String innLagtTekst = (String) object;
         brukerNavnSjekk = Pattern.compile(brukerNavnKrav);
-        sjekker = brukerNavnSjekk.matcher(innlagtTekst);
-        brukerNavnOK = sjekker.matches();
-        
-        
+        sjekker = brukerNavnSjekk.matcher(innLagtTekst);
+        brukerNavnRegexOK = sjekker.matches();
 
-        List<BrukerStatus> brukere = getAlleBrukere();
+        brukere = getAlleBrukere();
 
         for (BrukerStatus k : brukere) {
-            if (k.getBruker().getName().trim().equalsIgnoreCase(innlagtTekst)) {
+            if (k.getBruker().getName().trim().equalsIgnoreCase(innLagtTekst)) {
                 brukerNavnOK = false;
             }
         }
-
-        if (!brukerNavnOK) {
+        if ((!brukerNavnOK) || (!brukerNavnRegexOK) ) {
             FacesMessage message = new FacesMessage();
             message.setSummary("This username is already in use, or it is one that is too similar. Write a new one! The username must have a lenght between 6 to 10 characters!");
 

@@ -431,7 +431,7 @@ public class DBController {
 
             while (rs.next()) {
                 hjelpeobjekt = new Bruker(rs.getString("Brukernavn"), rs.getString("passord"),
-                        rs.getString("rolle"));
+                        rs.getString("rolle"),1);
                 dbBrukerobjekter.add(new BrukerStatus(hjelpeobjekt));
 
 
