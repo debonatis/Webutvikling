@@ -275,8 +275,11 @@ public class DBController {
         //oktnr blir autogenerert i databasen
         DBConnection conn = new DBConnection();
         PreparedStatement reg = null;
+        PreparedStatement reg2 = null;
         String regTekst = "INSERT INTO WAPLJ.BRUKER"
                 + " VALUES (?,?)";
+        String regTekst2 = "INSERT INTO WAPLJ.ROLLE"
+                + " VALUES (?,?) ";
         try {
 
             conn.getConn().setAutoCommit(false);
@@ -285,14 +288,10 @@ public class DBController {
             reg.setString(2, bruker.getPassord());
             reg.executeUpdate();
             conn.getConn().commit();
-
-            String regTekst2 = "INSERT INTO WAPLJ.ROLLE"
-                    + " VALUES (?,?) ";
-            reg = null;
-
-            reg = conn.getConn().prepareStatement(regTekst2);
-            reg.setString(1, bruker.getName());
-            reg.setString(2, bruker.getRolle());
+            reg2 = conn.getConn().prepareStatement(regTekst2);
+            reg2.setString(1, bruker.getName());
+            reg2.setString(2, bruker.getRolle());
+            reg2.executeUpdate();
             conn.getConn().commit();
 
 
