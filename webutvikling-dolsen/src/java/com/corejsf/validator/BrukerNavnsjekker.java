@@ -26,5 +26,6 @@ public @interface BrukerNavnsjekker {
     String message() default "{com.corejsf.BrukerNavnSjekker.melding}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
+    String eventuellRegEx() default ""; 
     
 }

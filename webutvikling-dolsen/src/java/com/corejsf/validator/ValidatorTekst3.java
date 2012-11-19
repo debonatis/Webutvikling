@@ -25,8 +25,8 @@ public class ValidatorTekst3 extends DBController implements ConstraintValidator
     private Pattern brukerNavnSjekk;
     private Matcher treff;
     private String brukerNavnKrav = "(.{6,10})";
-    private List<BrukerStatus> brukere;   
-    public static String melding = "This username is already in use, or it is one that is too similar.\n Write a new one! The username must have a lenght between 6 to 10 characters!";
+    private List<BrukerStatus> brukere;  
+    
 
     @Override
     public void initialize(BrukerNavnsjekker sjekker) {
@@ -38,6 +38,9 @@ public class ValidatorTekst3 extends DBController implements ConstraintValidator
         brukerNavnOK = true;
         brukerNavnRegexOK = true;
         String innLagtTekst = value;
+        if(!(sjekker.eventuellRegEx().equals(""))){
+            brukerNavnKrav = sjekker.eventuellRegEx();
+        }
         brukerNavnSjekk = Pattern.compile(brukerNavnKrav);
         treff = brukerNavnSjekk.matcher(innLagtTekst);
         brukerNavnRegexOK = treff.matches();
