@@ -51,8 +51,10 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.role}"/>
                                 </f:facet>
-                                <h:inputText value="#{tempBruker.bruker.rolle}" styleClass="venstrejustert">
-                                </h:inputText>
+                                <h:selectOneMenu id="rolle" required="true" value="#{tempBruker.bruker.rolle}"  requiredMessage="#{texts.invalidactivity}">
+                                    <f:selectItem itemValue ="admin" itemLabel="#{texts.admin}"/>
+                                    <f:selectItem itemValue ="bruker" itemLabel="#{texts.bruker}"/>                                    
+                                </h:selectOneMenu><br/>   
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
@@ -92,7 +94,19 @@ and open the template in the editor.
                                     <h:outputText value=""/>
                                 </f:facet>
                                 <h:inputText value="#{brukerobjekt.bruker.passord}" styleClass="venstrejustert"/>
-                            </h:column>                           
+                            </h:column> 
+                             <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.role}"/>
+                                </f:facet>
+                                <h:selectOneMenu id="rolle2" required="true" value="#{brukerobjekt.bruker.rolle}"  requiredMessage="#{texts.invalidactivity}">
+                                    <f:selectItem itemValue ="admin" itemLabel="#{texts.admin}"/>
+                                    <f:selectItem itemValue ="bruker" itemLabel="#{texts.bruker}"/>                                    
+                                </h:selectOneMenu><br/>   
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>   
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.delete}"/>

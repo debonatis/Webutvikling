@@ -52,6 +52,7 @@ public class BrukerBehandling extends DBController implements Serializable {
 
     public List<BrukerStatus> getTempBrukerListe() {
         tempBrukerListe.clear();
+        tempBruker = new Bruker();
         tempBrukerListe.add(new BrukerStatus(tempBruker));
         return tempBrukerListe;
     }
@@ -184,7 +185,7 @@ public class BrukerBehandling extends DBController implements Serializable {
         
     }
 @RolesAllowed("admin")
-    public String oppdater() {
+    public synchronized String oppdater() {
         try {
             if (!(bOversikt.isEmpty())) {
                 int indeks = bOversikt.size() - 1;
@@ -219,6 +220,7 @@ public class BrukerBehandling extends DBController implements Serializable {
                 for (BrukerStatus s : dbBrukerListe) {
                     bOversikt.add(s);
                 }
+                dbBrukerListe.clear();
             }
         } catch (ConcurrentModificationException e) {
             oppdater();
