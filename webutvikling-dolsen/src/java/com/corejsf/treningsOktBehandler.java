@@ -60,6 +60,16 @@ public class treningsOktBehandler extends DBController implements Serializable {
     public boolean isNyOkt() {
         return nyOkt;
     }
+    
+    public int getManed() {
+        return maned;
+    }
+
+    public void setManed(int Maned) {
+
+        this.maned = Maned;
+
+    }
 
     public TimeZone getTidssone() {
         this.tidssone = TimeZone.getDefault();
@@ -195,13 +205,5 @@ public class treningsOktBehandler extends DBController implements Serializable {
         return "success";
     }
 
-    public int getManed() {
-        return maned;
-    }
-
-    public void setManed(int Maned) {
-
-        this.maned = Maned;
-
-    }
+    
 }
