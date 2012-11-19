@@ -18,7 +18,7 @@ and open the template in the editor.
             </ui:define>
             <h3>#{texts.welcome}</h3>
             <ui:define name="content">
-                <h:form id="overviewform">           
+                <h:form id="useroverview">           
                     <p>
                         <h:outputText value="#{texts.overview}: " id="overskrift"/>
 
@@ -44,7 +44,9 @@ and open the template in the editor.
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
                                     </f:facet>
-                                    <h:inputText value="#{tempBruker.bruker.passord}" styleClass="venstrejustert"/>
+                                    <h:inputText value="#{tempBruker.bruker.passord}" styleClass="venstrejustert">
+                                     <f:validator validatorId="validatorTekst2" /></h:inputText>
+                                        
                                 </h:column>
 
                                 <h:column>
@@ -67,8 +69,10 @@ and open the template in the editor.
                     </p>
                     <br/>
 
-                    <p>
 
+                </h:form>
+                <h:form>
+                    <p>
                         <h:outputText value="#{texts.noUserData}"
                                       rendered="#{not bruker.datafins()}"/>
                     </p>
@@ -94,7 +98,7 @@ and open the template in the editor.
                                     <h:outputText value=""/>
                                 </f:facet>
                                 <h:inputText value="#{brukerobjekt.bruker.passord}" styleClass="venstrejustert"
-                                             >    <f:validator validatorId="validatorTekst2" /></h:inputText>
+                                             >   </h:inputText>
                             </h:column> 
                             <h:column>
                                 <f:facet name="header">
