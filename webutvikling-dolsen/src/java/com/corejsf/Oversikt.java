@@ -4,7 +4,7 @@
  */
 package com.corejsf;
 
-import com.corejsf.brukerAdm.Bruker;
+import com.corejsf.brukerAdm.BrukerBehandling;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.Length;
 @RequestScoped
 public class Oversikt implements Serializable {
 
-    private Bruker sessionBruker = new Bruker();
+    private BrukerBehandling sessionBruker = new BrukerBehandling();
     private ArrayList<TreningsOkt> alleOkter = new ArrayList();
     private ArrayList<TreningsOkt> hjelp = new ArrayList();
     private @Length(min = 6, max = 20)

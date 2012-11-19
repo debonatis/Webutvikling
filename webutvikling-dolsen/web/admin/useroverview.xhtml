@@ -18,11 +18,60 @@ and open the template in the editor.
             </ui:define>
             <h3>#{texts.welcome}</h3>
             <ui:define name="content">
-                <h:form id="overviewform">           
+                <h:form id="useroverview">           
                     <p>
                         <h:outputText value="#{texts.overview}: " id="overskrift"/>
+
+                        <h:commandButton id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/>
+
+                        <h:panelGroup rendered="#{bruker.nyBruker}">
+
+                            <h:dataTable  id="nyBruker" var="tempBruker" value="#{bruker.tempBrukerListe}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{texts.username}"/>
+                                    </f:facet>
+                                    <h:inputText value="#{tempBruker.bruker.name}" styleClass="venstrejustert">                                   
+                                    </h:inputText>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{texts.password}"/>
+                                    </f:facet>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                    <h:inputText value="#{tempBruker.bruker.passord}" styleClass="venstrejustert">
+                                     <f:validator validatorId="validatorTekst2" /></h:inputText>
+                                        
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{texts.role}"/>
+                                    </f:facet>
+                                    <h:selectOneMenu id="rolle" required="true" value="#{tempBruker.bruker.rolle}"  requiredMessage="#{texts.invalidactivity}">
+                                        <f:selectItem itemValue ="admin" itemLabel="#{texts.admin}"/>
+                                        <f:selectItem itemValue ="bruker" itemLabel="#{texts.bruker}"/>                                    
+                                    </h:selectOneMenu><br/>   
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </h:column>    
+                            </h:dataTable>
+                            <br/>
+                            <h:commandButton value="#{texts.submit}" action="#{}"/>
+
+                        </h:panelGroup>
                     </p>
                     <br/>
+
+
+                </h:form>
+                <h:form>
                     <p>
                         <h:outputText value="#{texts.noUserData}"
                                       rendered="#{not bruker.datafins()}"/>
@@ -34,9 +83,9 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.username}"/>
                                 </f:facet>                               
-                                <h:inputText value="#{brukerobjekt.brukernavn}" styleClass="venstrejustert">
+                                <h:outputText value="#{brukerobjekt.bruker.name}" styleClass="venstrejustert">
 
-                                </h:inputText>
+                                </h:outputText>
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
@@ -48,13 +97,26 @@ and open the template in the editor.
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                                <h:inputText value="#{brukerobjekt.passord}" styleClass="venstrejustert"/>
-                            </h:column>                           
+                                <h:inputText value="#{brukerobjekt.bruker.passord}" styleClass="venstrejustert"
+                                             >   </h:inputText>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.role}"/>
+                                </f:facet>
+                                <h:selectOneMenu id="rolle2" required="true" value="#{brukerobjekt.bruker.rolle}"  requiredMessage="#{texts.invalidactivity}">
+                                    <f:selectItem itemValue ="admin" itemLabel="#{texts.admin}"/>
+                                    <f:selectItem itemValue ="bruker" itemLabel="#{texts.bruker}"/>                                    
+                                </h:selectOneMenu><br/>   
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>   
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.delete}"/>
                                 </f:facet>
-                                <h:selectBooleanCheckbox value="#{brukerobjekt.skalslettes}"/>
+                                <h:selectBooleanCheckbox value="#{brukerobjekt.skalSlettes}"/>
                             </h:column>
                         </h:dataTable>
                     </div>
@@ -62,7 +124,7 @@ and open the template in the editor.
 
 
 
-                    <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test" id="submit"/>
+                    <h:commandButton value="#{texts.update}" action="#{bruker.oppdater()}" class="test" id="submit"/>
 
 
                 </h:form>
