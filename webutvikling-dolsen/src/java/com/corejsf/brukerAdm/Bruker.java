@@ -33,7 +33,7 @@ public class Bruker {
 
     }
 
-    public Bruker(String name,String passord, String rolle) {
+    public Bruker(String name, String passord, String rolle) {
         this.name = name;
         this.rolle = rolle;
         this.passord = passord;
