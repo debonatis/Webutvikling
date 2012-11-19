@@ -18,8 +18,10 @@ and open the template in the editor.
             </ui:define>
             <h3>#{texts.welcome}</h3>
             <ui:define name="content">
-                <h:form id="useroverview">           
+                <h:form id="useroverview">   
+                    
                     <p>
+                        <h:messages/>
                         <h:outputText value="#{texts.overview}: " id="overskrift"/>
 
                         <h:commandButton id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/>
@@ -62,7 +64,7 @@ and open the template in the editor.
                                 </h:column>    
                             </h:dataTable>
                             <br/>
-                            <p><h:message for="useroverview:nyBruker:tempcol:tempName"/></p><p><h:message for="useroverview:nyBruker:passcol:tempPassword"/></p>
+                            
                             
                             <br/>
                             <h:commandButton value="#{texts.submit}" action="#{bruker.oppdater()}"/>
@@ -95,7 +97,7 @@ and open the template in the editor.
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                                <h:inputText value="#{brukerobjekt.bruker.passord}" styleClass="venstrejustert">
+                                <h:inputText id="passord4" value="#{brukerobjekt.bruker.passord}" styleClass="venstrejustert">
                                     <f:validator validatorId="validatorTekst2" />  </h:inputText>
                             </h:column> 
                             <h:column>
