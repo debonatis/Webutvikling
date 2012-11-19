@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.corejsf;
+package com.corejsf.validator;
 
 import java.util.regex.*;
 import javax.faces.application.*;

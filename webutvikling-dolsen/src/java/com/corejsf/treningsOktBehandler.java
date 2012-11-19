@@ -4,6 +4,7 @@
  */
 package com.corejsf;
 
+import com.corejsf.DBadm.DBConnection;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

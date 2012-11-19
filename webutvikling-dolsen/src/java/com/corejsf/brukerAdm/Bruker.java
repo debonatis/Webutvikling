@@ -1,9 +1,10 @@
-package com.corejsf;
+package com.corejsf.brukerAdm;
 
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+import com.corejsf.DBadm.DBConnection;
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.PreparedStatement;

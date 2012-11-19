@@ -1,4 +1,4 @@
-package com.corejsf;
+package com.corejsf.validator;
 
 import java.util.regex.*;
 import javax.faces.application.*;
