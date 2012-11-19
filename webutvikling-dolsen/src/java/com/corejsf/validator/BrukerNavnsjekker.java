@@ -22,8 +22,8 @@ import javax.validation.constraints.NotNull;
 @Constraint(validatedBy = ValidatorTekst3.class)
 @Documented
 @NotNull
-public @interface BrukerNavnsjekker {   
-    String message() default "This username is already in use, or it is one that is too similar.\n Write a new one! The username must have a lenght between 6 to 10 characters!";
+public @interface BrukerNavnsjekker {
+    String message() default "{com.corejsf.BrukerNavnSjekker.melding}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     
