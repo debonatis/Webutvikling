@@ -31,7 +31,8 @@ and open the template in the editor.
                                     <f:facet name="header">
                                         <h:outputText value="#{texts.username}"/>
                                     </f:facet>
-                                    <h:inputText value="#{tempBruker.bruker.name}" styleClass="venstrejustert">                                   
+                                    <h:inputText value="#{tempBruker.bruker.name}" styleClass="venstrejustert">  
+                                        <f:validator validatorId="validatorTekst3" />
                                     </h:inputText>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
