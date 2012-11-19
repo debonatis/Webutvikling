@@ -14,8 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -27,7 +27,8 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author deb
  */
-@ManagedBean(name="bruker")
+@Named(value = "Bruker")
+@SessionScoped
 @Cacheable(false)
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
