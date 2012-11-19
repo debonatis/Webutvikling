@@ -173,10 +173,14 @@ public class BrukerBehandling extends DBController implements Serializable {
 
 
     }
-
-    synchronized String skiftPassord(String passord) {
-        return skiftPassordDB(passord, getName());
+    
+    public synchronized String changePassword(){
+        return skiftPassordDB(getNewPassword(), getName());   
     }
+
+
+        
+    
 
     public synchronized List<BrukerStatus> getBrukerTabell() {
         return bOversikt;
