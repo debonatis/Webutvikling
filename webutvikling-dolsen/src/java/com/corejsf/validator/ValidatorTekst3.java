@@ -22,7 +22,7 @@ import javax.faces.validator.ValidatorException;
  */
 // Er ikke ne bean fordi <f:validator... kunne tydeligvis ikke forekomme mer enn en gang i en form (Ja, det er unike Id'er)
 @FacesValidator("validatorTekst3")
-public abstract class ValidatorTekst3 extends DBController implements Validator {
+public class ValidatorTekst3 extends DBController implements Validator {
 
     private boolean brukerNavnOK;
     private boolean brukerNavnRegexOK;
