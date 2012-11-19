@@ -369,6 +369,7 @@ public class DBController {
                 for (BrukerStatus f : hjelpBruker) {
                     oppdaterOkter.setString(1, f.getBruker().getRolle());
                     oppdaterOkter.setString(2, f.getBruker().getName());
+                    oppdaterOkter.executeUpdate();
                     conn.getConn().commit();
                     
 
@@ -378,6 +379,7 @@ public class DBController {
                 for (BrukerStatus f : hjelpBruker) {
                     oppdaterOkter2.setString(1, f.getBruker().getPassord());
                     oppdaterOkter2.setString(2, f.getBruker().getName());
+                    oppdaterOkter2.executeUpdate();
                     conn.getConn().commit();
                    
 
