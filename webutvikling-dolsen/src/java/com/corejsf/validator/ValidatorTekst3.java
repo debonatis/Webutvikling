@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
@@ -20,6 +21,7 @@ import javax.faces.validator.ValidatorException;
  * @author deb
  */
 // Er ikke ne bean fordi <f:validator... kunne tydeligvis ikke forekomme mer enn en gang i en form (Ja, det er unike Id'er)
+@FacesValidator("validatorTekst2")
 public abstract class ValidatorTekst3 extends DBController implements Validator {
 
     private boolean brukerNavnOK;
