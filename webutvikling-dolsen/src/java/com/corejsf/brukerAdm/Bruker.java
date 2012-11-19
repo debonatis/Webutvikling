@@ -209,8 +209,12 @@ public class Bruker implements Serializable {
     public boolean datafins() {
         return (!bOversikt.isEmpty());
     }
+    
+    public void oppdater(){
+        
+    }
 
-    public synchronized void getAlleTreningsOkter() {
+    public synchronized void getAlleBrukere() {
         BrukerOversikt hjelpeobjekt;
         bOversikthjelp.clear();
         DBConnection conn = new DBConnection();
@@ -233,7 +237,7 @@ public class Bruker implements Serializable {
 
             }
             conn.getConn().commit();
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alle Okter skaffet!", "ja,Okter skaffet!");
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alle Brukere skaffet!", "ja,Okter skaffet!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();

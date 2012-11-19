@@ -15,7 +15,6 @@ import org.hibernate.validator.constraints.Range;
  *
  * @author deb
  */
-
 @RequestScoped
 public class TreningsOkt {
 
@@ -32,9 +31,6 @@ public class TreningsOkt {
     private @NotNull
     @Length(min = 0, max = 30)
     String tekst;
-    private @Length(min = 6, max = 20)
-    @Id
-    String Brukernavn = "anne";
     private boolean endret = false;
 
     public void setKategori(String kategori) {
@@ -59,7 +55,7 @@ public class TreningsOkt {
 
     @NotNull
     @Length(min = 1, max = 30)
-    public  void setTekst(String tekst) {
+    public void setTekst(String tekst) {
         if (!(this.tekst.trim().equalsIgnoreCase(tekst))) {
             this.setEndret(true);
             this.tekst = tekst;
@@ -116,7 +112,6 @@ public class TreningsOkt {
         return kategori;
     }
 
-    
     public void setDate(Date nyDato) {
         if (!(this.dato.equals(nyDato))) {
             this.setEndret(true);
