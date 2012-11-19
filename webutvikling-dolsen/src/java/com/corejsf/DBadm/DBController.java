@@ -320,7 +320,7 @@ public class DBController {
             st.executeUpdate("DELETE FROM waplj.rolle WHERE rolle.brukernavn = '" + bruker.getName() + "'");
             
             st.getConnection().commit();
-            
+            st = conn.getConn().createStatement();
              st.executeUpdate("DELETE FROM waplj.bruker WHERE bruker.brukernavn = '" + bruker.getName() + "'");
             
             st.getConnection().commit();
