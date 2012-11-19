@@ -166,6 +166,7 @@ public class treningsOktBehandler implements Serializable {
                 treningsOkter.add(new OktStatus(nyOkt));
                 DBController.registrerTreningsOkt(nyOkt, getNavn());
                 tempOkt = new TreningsOkt();
+               
             }
 
 
