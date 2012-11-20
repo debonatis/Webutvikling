@@ -34,7 +34,7 @@
              <p>
                  <h:outputText value="#{texts.newUser}: " id="overskrift"/>
                  </p><h:form>      
-            <p> <h:commandButton id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/></p>
+            <p> <h:commandLink id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/></p>
             </h:form>
             <h:panelGroup rendered="#{bruker.nyBruker}">
             <h:form>

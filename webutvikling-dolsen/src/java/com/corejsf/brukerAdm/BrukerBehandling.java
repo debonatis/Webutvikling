@@ -38,7 +38,6 @@ public class BrukerBehandling extends DBController implements Serializable {
     private String newPassword;
     private String newPassword2;
     private List<BrukerStatus> bOversikt = Collections.synchronizedList(new ArrayList<BrukerStatus>());
-    private List<BrukerStatus> bOversikthjelp = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private static final Logger logger = Logger.getLogger("com.corejsf");
     private FacesMessage fm = new FacesMessage();
     private FacesContext fc;
@@ -105,8 +104,8 @@ public class BrukerBehandling extends DBController implements Serializable {
         return "NO ROLE, logging you out!";
     }
 
-    public String getName() {        
-            getUserData();        
+    public String getName() {
+        getUserData();
         return name == null ? "" : name;
     }
 
@@ -142,7 +141,7 @@ public class BrukerBehandling extends DBController implements Serializable {
         }
         HttpServletRequest foresporrsel = (HttpServletRequest) forsporrselobject;
         return foresporrsel.isUserInRole(k);
-    }  
+    }
 
     public String logout() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -151,25 +150,19 @@ public class BrukerBehandling extends DBController implements Serializable {
         try {
             request.logout();
             request.logout();
-
         } catch (ServletException e) {
             logger.log(Level.SEVERE, "Failed to logout user!", e);
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout ikke OK!", "");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
-
-
             return "ok";
-
         }
         fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout OK!", "");
         fc = FacesContext.getCurrentInstance();
         fc.addMessage("null", fm);
         fc.renderResponse();
         return "ok";
-
-
     }
 
     public static List<BrukerStatus> getStatiskdbBrukerListe() {
