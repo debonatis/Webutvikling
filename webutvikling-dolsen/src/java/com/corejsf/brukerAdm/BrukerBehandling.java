@@ -238,8 +238,8 @@ public class BrukerBehandling extends DBController implements Serializable {
         }
         return "success";
     }
-    
-     public String sorterPaaRolle() {
+
+    public String sorterPaaRolle() {
 
         if (sortRolle) {
 
@@ -257,11 +257,42 @@ public class BrukerBehandling extends DBController implements Serializable {
         } else {
 
 
-           Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
+            Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
                 @Override
                 public int compare(BrukerStatus bruker1, BrukerStatus bruker2) {
 
                     return bruker2.getBruker().getRolle().compareTo(bruker1.getBruker().getRolle());
+
+                }
+            });
+            sortRolle = true;
+        }
+        return null;
+    }
+
+    public String sorterPaaBrukernavn() {
+
+        if (sortRolle) {
+
+
+            Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
+                @Override
+                public int compare(BrukerStatus bruker1, BrukerStatus bruker2) {
+
+                    return bruker1.getBruker().getName().compareTo(bruker2.getBruker().getName());
+
+                }
+            });
+            sortRolle = false;
+
+        } else {
+
+
+            Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
+                @Override
+                public int compare(BrukerStatus bruker1, BrukerStatus bruker2) {
+
+                    return bruker2.getBruker().getName().compareTo(bruker1.getBruker().getName());
 
                 }
             });

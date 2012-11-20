@@ -19,7 +19,7 @@
                     <p>
                         <h:outputText value="#{texts.overview}: " id="overskrift"/>
                     </p>
-                    
+
 
                     <h:commandButton id="NyOktknapp" value="#{texts.newsession}" action="#{treningsOktBehandler.setNyOkt(true)}"/>
 
@@ -72,7 +72,7 @@
                             </h:column>    
                         </h:dataTable>
                         <br/>
-                        
+
                         <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/>
 
                     </h:panelGroup>
@@ -87,7 +87,8 @@
 
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{texts.date}"/>
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaDato()}">
+                                        <h:outputText value="#{texts.date}"/></h:commandLink>
                                 </f:facet>
                                 <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
                                     <f:convertDateTime type="date" locale="#{texts.locale}" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
@@ -98,7 +99,8 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{texts.duration}"/>
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaVarighet()}">
+                                        <h:outputText value="#{texts.duration}"/></h:commandLink>
                                 </f:facet>
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
@@ -107,7 +109,8 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{texts.category}"/>
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaKategori()}">
+                                        <h:outputText value="#{texts.category}"/></h:commandLink>
                                 </f:facet>
                                 <h:selectOneMenu id="kategori3" required="true" value="#{sessions.treningsikOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
                                     <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}"/>
@@ -121,7 +124,8 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{texts.text}"/>
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaTekst()}">
+                                        <h:outputText value="#{texts.text}"/></h:commandLink>
                                 </f:facet>
                                 <h:inputText value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert">
 
@@ -160,7 +164,7 @@
                         <f:selectItem itemValue ="12" itemLabel="#{texts.december}"/>
                     </h:selectOneMenu>                    
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test" id="submit"/>
-                                     
+
 
                 </h:form>
             </ui:define>
