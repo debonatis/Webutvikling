@@ -30,31 +30,30 @@
 
 
         <div id="sideBar">
-            
-             <p>
-                 <h:outputText value="#{texts.newUser}: " id="overskrift"/>
-                 </p><h:form>      
-            <p> <h:commandLink id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/></p>
+
+            <h:form>
+                <p>   <h:commandLink action="ok" value="#{texts.login}" /></p>
+                <p> <h:commandLink id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/></p>
             </h:form>
             <h:panelGroup rendered="#{bruker.nyBruker}">
-            <h:form>
-                <h:outputLabel for="brukernavn" value="#{texts.username}" /><br/>
-                <h:inputText id="brukernavn" value="#{bruker.tempBruker.name}" ></h:inputText><br/>
-                <h:outputLabel for="sjekkpassord" value="#{texts.newPassword}" /><br/>
-                <h:inputSecret id="sjekkpassord" binding="#{passwordComponent}" value="#{bruker.tempBruker.passord}" >
-                    <f:validator validatorId="validatorTekst2" />
-                </h:inputSecret> <br/>
-                <h:message for="sjekkpassord" /><br/>
-                <h:outputLabel for="confirmPassword" value="#{texts.confirmNewPassword}" /><br/>
-                <h:inputSecret id="confirmPassword" required="#{not empty passwordComponent.value}">
-                    <f:validator validatorId="validatorTekst" />
-                    <f:attribute name="passwordComponent" value="#{passwordComponent}" />
-                </h:inputSecret>
-                <h:message for="confirmPassword" /><br/>
-                <h:outputText value="" />
-                <h:commandButton value="#{texts.ok}" action="#{bruker.oppdater()}"  />
-            </h:form>  
-                </h:panelGroup>
+                <h:form>
+                    <h:outputLabel for="brukernavn" value="#{texts.username}" /><br/>
+                    <h:inputText id="brukernavn" value="#{bruker.tempBruker.name}" ></h:inputText><br/>
+                    <h:outputLabel for="sjekkpassord" value="#{texts.newPassword}" /><br/>
+                    <h:inputSecret id="sjekkpassord" binding="#{passwordComponent}" value="#{bruker.tempBruker.passord}" >
+                        <f:validator validatorId="validatorTekst2" />
+                    </h:inputSecret> <br/>
+                    <h:message for="sjekkpassord" /><br/>
+                    <h:outputLabel for="confirmPassword" value="#{texts.confirmNewPassword}" /><br/>
+                    <h:inputSecret id="confirmPassword" required="#{not empty passwordComponent.value}">
+                        <f:validator validatorId="validatorTekst" />
+                        <f:attribute name="passwordComponent" value="#{passwordComponent}" />
+                    </h:inputSecret>
+                    <h:message for="confirmPassword" /><br/>
+                    <h:outputText value="" />
+                    <h:commandButton value="#{texts.ok}" action="#{bruker.oppdater()}"  />
+                </h:form>  
+            </h:panelGroup>
         </div>
         <ui:debug/>
     </h:body>
