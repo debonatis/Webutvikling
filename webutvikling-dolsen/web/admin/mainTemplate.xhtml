@@ -33,12 +33,13 @@
             </p>
             <p> <h:outputLabel value="#{texts.role} : #{bruker.rolle}" />
             </p>
-            <p> <h:commandButton value="#{texts.logout}" action="#{bruker.logout()}" />
-            </p>
+            <p> <h:commandButton value="#{texts.logout}" action="#{bruker.logout()}" />            </p>
                  
                  <p> <h:commandLink action="adminok1" value="#{texts.overview}" /></p>
                     <p> <h:commandLink action="adminok2" value="#{texts.changePassword}" /></p>
-                    <p> <h:commandLink action="adminok3" value="#{texts.userAdm}" /> </p>  
+                    <p> <h:commandLink action="adminok3" value="#{texts.userAdm}" /> </p>
+                    <p> <h:commandLink value="#{texts.logout}" action="#{bruker.logout()}" />
+            </p>
                 </h:form>
             
         </div>
