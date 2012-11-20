@@ -5,6 +5,7 @@ package com.corejsf.brukerAdm;
  * and open the template in the editor.
  */
 import com.corejsf.DBadm.DBController;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 public class BrukerBehandling extends DBController implements Serializable {
 
     private String name;
+    private String newName;
     private String newPassword;
     private String newPassword2;
     private List<BrukerStatus> bOversikt = Collections.synchronizedList(new ArrayList<BrukerStatus>());
@@ -176,9 +178,9 @@ public class BrukerBehandling extends DBController implements Serializable {
         return "ok";
 
 
-    }
+    }    
 
-    public static List<BrukerStatus> getStatiskdbBrukerListe() {
+    public static List<BrukerStatus> getStatiskdbBrukerListe() {        
         return statiskdbBrukerListe;
     }
 
@@ -186,10 +188,12 @@ public class BrukerBehandling extends DBController implements Serializable {
         return skiftPassordDB(getNewPassword(), getName());
     }
 
+    @RolesAllowed("admin")
     public synchronized List<BrukerStatus> getBrukerTabell() {
         return bOversikt;
     }
 
+    @RolesAllowed("admin")
     public synchronized boolean datafins() {
         return (!bOversikt.isEmpty());
 
