@@ -5,6 +5,7 @@ package com.corejsf.brukerAdm;
  * and open the template in the editor.
  */
 import com.corejsf.DBadm.DBController;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -176,7 +177,7 @@ public class BrukerBehandling extends DBController implements Serializable {
         return "ok";
 
 
-    }
+    }    
 
     public static List<BrukerStatus> getStatiskdbBrukerListe() {
         return statiskdbBrukerListe;
@@ -186,10 +187,12 @@ public class BrukerBehandling extends DBController implements Serializable {
         return skiftPassordDB(getNewPassword(), getName());
     }
 
+    @RolesAllowed("admin")
     public synchronized List<BrukerStatus> getBrukerTabell() {
         return bOversikt;
     }
 
+    @RolesAllowed("admin")
     public synchronized boolean datafins() {
         return (!bOversikt.isEmpty());
 
