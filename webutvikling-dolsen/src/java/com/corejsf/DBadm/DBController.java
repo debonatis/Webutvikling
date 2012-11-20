@@ -275,10 +275,11 @@ public class DBController {
             fc.renderResponse();
         } catch (SQLException e) {
             conn.failed();
+            slettBruker(bruker);
         } finally {
             conn.closeS(st);
             conn.close();
-        }
+        }        
         slettalleTreningsOkterNavn(bruker.getName());
     }
 
