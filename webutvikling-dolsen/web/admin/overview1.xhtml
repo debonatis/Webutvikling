@@ -19,6 +19,7 @@
                     <p>
                         <h:outputText value="#{texts.overview}: " id="overskrift"/>
                     </p>
+                    <p><h:messages/></p>
 
                     <h:commandButton id="NyOktknapp" value="#{texts.newsession}" action="#{treningsOktBehandler.setNyOkt(true)}"/>
 
@@ -71,6 +72,7 @@
                             </h:column>    
                         </h:dataTable>
                         <br/>
+                        
                         <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/>
 
                     </h:panelGroup>

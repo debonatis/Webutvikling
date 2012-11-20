@@ -17,9 +17,8 @@
                 <h:form id="overviewform">           
                     <p>
                         <h:outputText value="#{texts.overview}: " id="overskrift"/><br/>
-                        <h:outputLabel value="#{bruker.name}"/><br/>
-                        <h:outputLabel value="#{bruker.rolle}"/>
                     </p>
+                    <p><h:messages/></p>
 
                     <h:commandButton id="NyOktknapp" value="#{texts.newsession}" action="#{treningsOktBehandler.setNyOkt(true)}"/>
 
@@ -74,7 +73,7 @@
                         </h:dataTable>
                         <br/><h:message for="nyOkt"/><br/>
                         <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/><br/>
-                        
+
 
                     </h:panelGroup>
                     <br/>
