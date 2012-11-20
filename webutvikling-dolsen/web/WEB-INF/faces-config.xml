@@ -118,5 +118,29 @@
             <from-outcome>userok2</from-outcome>
             <to-view-id>/templates/changePassword.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>      
+    </navigation-rule> 
+    <navigation-rule>
+        <from-view-id>/templates/*</from-view-id>
+        <navigation-case>
+            <from-action>adminok3</from-action>
+            <from-outcome>adminok3</from-outcome>
+            <to-view-id>/admin/useroverview.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule> 
+    <navigation-rule>
+        <from-view-id>/templates/*</from-view-id>
+        <navigation-case>
+            <from-action>adminok1</from-action>
+            <from-outcome>adminok1</from-outcome>
+            <to-view-id>/admin/overview1.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule> 
+    <navigation-rule>
+        <from-view-id>/templates/*</from-view-id>
+        <navigation-case>
+            <from-action>adminok2</from-action>
+            <from-outcome>adminok2</from-outcome>
+            <to-view-id>/admin/changePassword.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>     
 </faces-config>
