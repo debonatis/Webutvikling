@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 @Documented
 @NotNull
 public  @interface Lurifakssjekker {
-    String message() default "{com.corejsf.BrukerNavnSjekker.melding}";
+    String message() default "{com.corejsf.Lurifakssjekker.melding}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     String eventuellRegEx() default "";

@@ -5,7 +5,6 @@ package com.corejsf.brukerAdm;
  * and open the template in the editor.
  */
 import com.corejsf.DBadm.DBController;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 @RolesAllowed({"admin", "bruker"})
 public class BrukerBehandling extends DBController implements Serializable {
 
-    private String name;    
+    private String name;
     private String newPassword;
     private String newPassword2;
     private List<BrukerStatus> bOversikt = Collections.synchronizedList(new ArrayList<BrukerStatus>());
@@ -53,16 +52,13 @@ public class BrukerBehandling extends DBController implements Serializable {
     private boolean adminOK;
 
     public boolean isAdminOK() {
-        this.adminOK = (getRolle().equals("admin"))? true: false;
-        return true;
+        this.adminOK = (getRolle().equals("admin")) ? true : false;
+        return adminOK;
     }
 
     public void setAdminOK(boolean adminOK) {
         this.adminOK = adminOK;
     }
-    
-    
-    
 
     public boolean isNyBruker() {
         return nyBruker;
@@ -190,9 +186,9 @@ public class BrukerBehandling extends DBController implements Serializable {
         return "ok";
 
 
-    }    
+    }
 
-    public static List<BrukerStatus> getStatiskdbBrukerListe() {        
+    public static List<BrukerStatus> getStatiskdbBrukerListe() {
         return statiskdbBrukerListe;
     }
 
@@ -211,7 +207,6 @@ public class BrukerBehandling extends DBController implements Serializable {
 
     }
 
-    
     public synchronized String oppdater() {
 
         setNyBruker(false);
@@ -232,7 +227,7 @@ public class BrukerBehandling extends DBController implements Serializable {
 
             if (!(getTempBruker().getName().equalsIgnoreCase(""))) {
                 Bruker nyBruker;
-                String rolle = (getTempBruker().getRolle().equals(""))? "bruker": getTempBruker().getRolle();
+                String rolle = (getTempBruker().getRolle().equals("")) ? "bruker" : getTempBruker().getRolle();
                 nyBruker = new Bruker(getTempBruker().getName(), getTempBruker().getPassord(),
                         rolle);
 

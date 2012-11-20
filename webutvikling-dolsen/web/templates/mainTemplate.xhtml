@@ -35,13 +35,13 @@
                 <p> <h:commandButton value="#{texts.logout}" action="#{bruker.logout()}" />
                 </p>
                 <h:panelGroup  rendered="#{bruker.adminOK}">
-                    <h:outputLink onclick="adminok1" value="#{texts.overview}" />
-                    <h:outputLink onclick="adminok2" value="#{texts.changePassword}" />
-                    <h:outputLink onclick="adminok3" value="#{texts.userAdm}" />                    
+                    <h:commandLink action="adminok1" value="#{texts.overview}" />
+                    <h:commandLink action="adminok2" value="#{texts.changePassword}" />
+                    <h:commandLink action="adminok3" value="#{texts.userAdm}" />                    
                 </h:panelGroup>
                 <h:panelGroup rendered="#{not bruker.adminOK}">
-                    <h:outputLink onclick="userok1" value="#{texts.overview}" />
-                    <h:outputLink onclick="userok2" value="#{texts.changePassword}"/> 
+                    <h:commandLink action="userok1" value="#{texts.overview}" />
+                    <h:commandLink action="userok2" value="#{texts.changePassword}"/> 
                 </h:panelGroup>
             </h:form>
 
