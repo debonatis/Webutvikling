@@ -17,7 +17,23 @@ body {
     font-size: small;
     line-height: 1.3em;
 }
-
+#sideBar{
+    background-color: transparent;
+    background-image: url("images/wrapcolor.png");
+    background-position: 0% 0%;
+    background-repeat: repeat;
+    margin-bottom: 0px;
+    margin-left: 2px;
+    margin-right: 20px;
+    margin-top: 50px;
+    padding-bottom: 18px;
+    padding-top: 27px;
+    position: fixed;
+    left: 5%;
+    width: 10%;
+    color: white;
+    
+}
 #content{
     background-color: transparent;
     background-image: url("images/wrapcolor.png");
