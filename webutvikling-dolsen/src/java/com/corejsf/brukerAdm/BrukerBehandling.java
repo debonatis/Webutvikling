@@ -144,23 +144,9 @@ public class BrukerBehandling extends DBController implements Serializable {
         }
         HttpServletRequest foresporrsel = (HttpServletRequest) forsporrselobject;
         return foresporrsel.isUserInRole(k);
-    }
-
-    public boolean isAdmin() {
-        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-        Object forsporrselobject = context.getRequest();
-        if (!(forsporrselobject instanceof HttpServletRequest)) {
-            logger.log(Level.SEVERE, "Det forespurte objektet er av type {0}", forsporrselobject.getClass());
-            return false;
-        }
-        String hjelp = "admin";
-        HttpServletRequest foresporrsel2 = (HttpServletRequest) forsporrselobject;
-        return foresporrsel2.isUserInRole(hjelp);
-    }
+    }  
 
     public String logout() {
-
-
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 
