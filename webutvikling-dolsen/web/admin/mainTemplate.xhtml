@@ -36,9 +36,9 @@
             <p> <h:commandButton value="#{texts.logout}" action="#{bruker.logout()}" />
             </p>
                  
-                 <h:outputLink onclick="adminok1" value="#{texts.overview}" />
-                    <h:outputLink onclick="adminok2" value="#{texts.changePassword}" />
-                    <h:outputLink onclick="adminok3" value="#{texts.userAdm}" />  
+                 <p> <h:commandLink action="adminok1" value="#{texts.overview}" /></p>
+                    <p> <h:commandLink action="adminok2" value="#{texts.changePassword}" /></p>
+                    <p> <h:commandLink action="adminok3" value="#{texts.userAdm}" /> </p>  
                 </h:form>
             
         </div>
