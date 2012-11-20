@@ -8,6 +8,7 @@ import com.corejsf.DBadm.DBController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.logging.Level;
@@ -49,6 +50,7 @@ public class BrukerBehandling extends DBController implements Serializable {
     private static int teller = 0;
     private static List<BrukerStatus> statiskdbBrukerListe = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private boolean adminOK;
+    private boolean sortRolle = true;
 
     public boolean isAdminOK() {
         this.adminOK = (getRolle().equals("admin")) ? true : false;
@@ -235,5 +237,36 @@ public class BrukerBehandling extends DBController implements Serializable {
             oppdater();
         }
         return "success";
+    }
+    
+     public String sorterPaaRolle() {
+
+        if (sortRolle) {
+
+
+            Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
+                @Override
+                public int compare(BrukerStatus bruker1, BrukerStatus bruker2) {
+
+                    return bruker1.getBruker().getRolle().compareTo(bruker2.getBruker().getRolle());
+
+                }
+            });
+            sortRolle = false;
+
+        } else {
+
+
+           Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
+                @Override
+                public int compare(BrukerStatus bruker1, BrukerStatus bruker2) {
+
+                    return bruker2.getBruker().getRolle().compareTo(bruker1.getBruker().getRolle());
+
+                }
+            });
+            sortRolle = true;
+        }
+        return null;
     }
 }
