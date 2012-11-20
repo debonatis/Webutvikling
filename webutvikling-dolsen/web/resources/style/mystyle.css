@@ -30,8 +30,10 @@ body {
     padding-top: 27px;
     position: fixed;
     left: 5%;
-    width: 10%;
+    width: 15%;
     color: white;
+    padding-left: 25px;
+    padding-right: 25px;
     
 }
 #content{
