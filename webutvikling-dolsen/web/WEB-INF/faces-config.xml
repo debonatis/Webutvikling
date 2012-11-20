@@ -157,5 +157,13 @@
             <from-outcome>ok</from-outcome>
             <to-view-id>/templates/changePassword.xhtml</to-view-id>
         </navigation-case>
+    </navigation-rule> 
+    <navigation-rule>
+        <from-view-id>/login/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{bruker.oppdater()}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/login/index.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>      
 </faces-config>
