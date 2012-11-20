@@ -166,7 +166,7 @@ public class BrukerBehandling extends DBController implements Serializable {
             fc.renderResponse();
 
 
-            return "ikkok";
+            return "ok";
 
         }
         fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout OK!", "");
