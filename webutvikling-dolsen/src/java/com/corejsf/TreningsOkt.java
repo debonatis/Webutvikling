@@ -23,7 +23,7 @@ public class TreningsOkt {
     private @NotNull(message= "This is not a valid date. Try a new one!")
     Date dato;
     private @NotNull
-    @Range(min = 1, max = 976, message= "The duration must be a number")
+    @Range(min = 1, max = 976, message= "The duration must be a number or it is ridiculous high!")
     int varighet = 0;
     private @NotNull
     @Id

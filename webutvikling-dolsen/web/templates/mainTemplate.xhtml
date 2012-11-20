@@ -26,16 +26,26 @@
             <ui:insert name="content"/>
         </div>
         <div id="sideBar">
-             <h:form>
-            
-            <p> <h:outputLabel value="#{texts.username} : #{bruker.name}" />
-            </p>
-            <p> <h:outputLabel value="#{texts.role} : #{bruker.rolle}" />
-            </p>
-            <p> <h:commandButton value="#{texts.logout}" action="#{bruker.logout()}" />
-            </p>
-                </h:form>
-            
+            <h:form>
+
+                <p> <h:outputLabel value="#{texts.username} : #{bruker.name}" />
+                </p>
+                <p> <h:outputLabel value="#{texts.role} : #{bruker.rolle}" />
+                </p>
+                <p> <h:commandButton value="#{texts.logout}" action="#{bruker.logout()}" />
+                </p>
+                <h:panelGroup rendered="#{bruker.admin}">
+                    <h:outputLink onclick="adminok1" value="#{texts.overview}" />
+                    <h:outputLink onclick="adminok2" value="#{texts.changePassword}" />
+                    <h:outputLink onclick="adminok3" value="#{texts.userAdm}" />                    
+                </h:panelGroup>
+                <h:panelGroup rendered="#{not bruker.admin}">
+                    <h:outputLink onclick="userok1" value="#{texts.overview}" />
+                    <h:outputLink onclick="userok2" value="#{texts.changePassword}"/> 
+                </h:panelGroup>
+            </h:form>
+
+
         </div>
         <ui:debug/>
     </h:body>
