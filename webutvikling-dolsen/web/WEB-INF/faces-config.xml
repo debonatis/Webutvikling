@@ -38,8 +38,8 @@
             <to-view-id>/templates/overview1.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule> 
-      <navigation-rule>
-       <from-view-id>/admin/mainTemplate.xhtml</from-view-id>
+    <navigation-rule>
+        <from-view-id>/admin/mainTemplate.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{bruker.logout()}</from-action>
             <from-outcome>ok</from-outcome>
@@ -76,6 +76,22 @@
             <from-action>#{bruker.oppdater()}</from-action>
             <from-outcome>success</from-outcome>
             <to-view-id>/admin/useroverview.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule> 
+    <navigation-rule>
+        <from-view-id>/admin/mainTemplate.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{bruker.logout()}</from-action>
+            <from-outcome>ikkeok</from-outcome>
+            <to-view-id>/login/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>  
+    <navigation-rule>
+        <from-view-id>/templates/mainTemplate.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{bruker.logout()}</from-action>
+            <from-outcome>ikkeok</from-outcome>
+            <to-view-id>/login/index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>      
 </faces-config>

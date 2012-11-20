@@ -156,13 +156,15 @@ public class BrukerBehandling extends DBController implements Serializable {
 
         try {
             request.logout();
+            request.logout();
 
         } catch (ServletException e) {
             logger.log(Level.SEVERE, "Failed to logout user!", e);
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout failed!", "");
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout ikke OK!", "");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
+
 
             return "ikkok";
 
@@ -179,14 +181,10 @@ public class BrukerBehandling extends DBController implements Serializable {
     public static List<BrukerStatus> getStatiskdbBrukerListe() {
         return statiskdbBrukerListe;
     }
-    
-    public synchronized String changePassword(){
-        return skiftPassordDB(getNewPassword(), getName());   
+
+    public synchronized String changePassword() {
+        return skiftPassordDB(getNewPassword(), getName());
     }
-
-
-        
-    
 
     public synchronized List<BrukerStatus> getBrukerTabell() {
         return bOversikt;
@@ -199,7 +197,7 @@ public class BrukerBehandling extends DBController implements Serializable {
 
     @RolesAllowed("admin")
     public synchronized String oppdater() {
-        
+
         setNyBruker(false);
         teller++;
         try {
@@ -229,21 +227,21 @@ public class BrukerBehandling extends DBController implements Serializable {
                 setTempBruker(new Bruker());
 
             }
-             
-          int antall =  oppdaterBrukerDB(getBrukerTabell());
-          if(antall >=1 || teller == 1){
-            dbBrukerListe = getAlleBrukere();
-            if (!dbBrukerListe.isEmpty()) {
-                bOversikt.clear();
-                statiskdbBrukerListe.clear();
-                for (BrukerStatus s : dbBrukerListe) {
-                    bOversikt.add(s);
-                    statiskdbBrukerListe.add(s);
-                    
+
+            int antall = oppdaterBrukerDB(getBrukerTabell());
+            if (antall >= 1 || teller == 1) {
+                dbBrukerListe = getAlleBrukere();
+                if (!dbBrukerListe.isEmpty()) {
+                    bOversikt.clear();
+                    statiskdbBrukerListe.clear();
+                    for (BrukerStatus s : dbBrukerListe) {
+                        bOversikt.add(s);
+                        statiskdbBrukerListe.add(s);
+
+                    }
+                    dbBrukerListe.clear();
                 }
-                dbBrukerListe.clear();
             }
-          }
         } catch (ConcurrentModificationException e) {
             oppdater();
         }
