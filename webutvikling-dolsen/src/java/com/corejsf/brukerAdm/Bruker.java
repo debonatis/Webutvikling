@@ -20,7 +20,7 @@ public class Bruker {
             + "Write a new one! "
             + "The username must have a lenght between 6 and 10 characters!", sjekkDB=1)
     String name;
-    private String rolle;
+    private String rolle = "";
     private @Lurifakssjekker(passordsjekk=1 ,message= "The password must contain at least one uppercase "
                     + "and one lowercase letter and one number. \n  The password must also contain one of following special characters(@#$%&). "
                     + "Password must be between 6-10 characters!") 

@@ -199,7 +199,7 @@ public class BrukerBehandling extends DBController implements Serializable {
 
     }
 
-    @RolesAllowed("admin")
+    
     public synchronized String oppdater() {
 
         setNyBruker(false);
@@ -220,8 +220,9 @@ public class BrukerBehandling extends DBController implements Serializable {
 
             if (!(getTempBruker().getName().equalsIgnoreCase(""))) {
                 Bruker nyBruker;
+                String rolle = (getTempBruker().getRolle().equals(""))? "bruker": getTempBruker().getRolle();
                 nyBruker = new Bruker(getTempBruker().getName(), getTempBruker().getPassord(),
-                        getTempBruker().getRolle());
+                        rolle);
 
 
 
