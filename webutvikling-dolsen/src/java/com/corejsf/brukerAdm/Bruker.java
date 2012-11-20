@@ -6,7 +6,6 @@ package com.corejsf.brukerAdm;
 
 import com.corejsf.annotations.Lurifakssjekker;
 import javax.faces.bean.RequestScoped;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @RequestScoped
 public class Bruker {
 
-    private @NotNull
+    private 
     @Lurifakssjekker(passordsjekk=0 ,message= "This username is already in use,"
             + " or it is one that is too similar.\n "
             + "Write a new one! "
@@ -28,11 +27,11 @@ public class Bruker {
             String passord;
     private boolean endret;
 
-    public boolean isEndret() {
+    public synchronized boolean isEndret() {
         return endret;
     }
 
-    public void setEndret(boolean endret) {
+    public synchronized void setEndret(boolean endret) {
         this.endret = endret;
     }
 
@@ -44,8 +43,6 @@ public class Bruker {
     }
 
     public Bruker(String name, String passord, String rolle) {
-
-
         this.name = name;
         this.rolle = rolle;
         this.passord = passord;
@@ -64,7 +61,7 @@ public class Bruker {
      *
      * @return the value of rolle
      */
-    public String getRolle() {
+    public synchronized String getRolle() {
         return rolle;
     }
 
@@ -73,7 +70,7 @@ public class Bruker {
      *
      * @param rolle new value of rolle
      */
-    public void setRolle(String rolle) {
+    public synchronized void setRolle(String rolle) {
         if (!(this.rolle.equalsIgnoreCase(rolle))) {
             this.rolle = rolle;
             setEndret(true);
@@ -85,7 +82,7 @@ public class Bruker {
      *
      * @return the value of passord
      */
-    public String getPassord() {
+    public synchronized String getPassord() {
         return passord;
     }
 
@@ -94,7 +91,7 @@ public class Bruker {
      *
      * @param passord new value of passord
      */
-    public void setPassord(String passord) {
+    public synchronized void setPassord(String passord) {
         if (!(this.passord.equalsIgnoreCase(passord))) {
             this.passord = passord;
             setEndret(true);
@@ -106,7 +103,7 @@ public class Bruker {
      *
      * @return the value of name
      */
-    public String getName() {
+    public synchronized String getName() {
         return name;
     }
 
@@ -115,7 +112,7 @@ public class Bruker {
      *
      * @param name new value of name
      */
-    public void setName(String name) {
+    public synchronized void setName(String name) {
         if (!(this.name.equalsIgnoreCase(name))) {
             this.name = name;
             setEndret(true);

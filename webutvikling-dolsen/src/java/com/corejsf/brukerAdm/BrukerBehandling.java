@@ -53,7 +53,7 @@ public class BrukerBehandling extends DBController implements Serializable {
         return nyBruker;
     }
 
-    public List<BrukerStatus> getTempBrukerListe() {
+    public synchronized List<BrukerStatus> getTempBrukerListe() {
         tempBrukerListe.clear();
         tempBruker = new Bruker();
         tempBrukerListe.add(new BrukerStatus(tempBruker));
@@ -64,11 +64,11 @@ public class BrukerBehandling extends DBController implements Serializable {
         this.tempBrukerListe = tempBrukerListe;
     }
 
-    public Bruker getTempBruker() {
+    public synchronized Bruker getTempBruker() {
         return tempBruker;
     }
 
-    public void setTempBruker(Bruker tempBruker) {
+    public synchronized void setTempBruker(Bruker tempBruker) {
         this.tempBruker = tempBruker;
     }
 
