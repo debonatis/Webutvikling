@@ -20,16 +20,16 @@ public class TreningsOkt {
 
     private @Id
     int oktNr;
-    private @NotNull
+    private @NotNull(message= "This is not a valid date. Try a new one!")
     Date dato;
     private @NotNull
-    @Range(min = 1, max = 97696697)
+    @Range(min = 1, max = 97696697, message= "The duration must be a number")
     int varighet = 0;
     private @NotNull
     @Id
     String kategori;
     private @NotNull
-    @Length(min = 0, max = 30)
+    @Length(min = 0, max = 30, message="The textfield can be empty, or contain maximum 30 characters")
     String tekst;
     private boolean endret = false;
 
