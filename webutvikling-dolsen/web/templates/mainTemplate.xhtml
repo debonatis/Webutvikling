@@ -26,6 +26,15 @@
             <ui:insert name="content"/>
         </div>
         <div id="sideBar">
+             <h:form>
+            
+            <p> <h:outputLabel value="#{texts.username} : #{bruker.name}" />
+            </p>
+            <p> <h:outputLabel value="#{texts.role} : #{bruker.rolle}" />
+            </p>
+            <p> <h:commandButton value="#{texts.logout}" action="#{bruker.logout()}" />
+            </p>
+                </h:form>
             
         </div>
         <ui:debug/>
