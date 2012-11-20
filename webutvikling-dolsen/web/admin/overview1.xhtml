@@ -21,17 +21,17 @@
                     </p>
 
 
-                    <h:commandButton id="NyOktknapp" value="#{texts.newsession}" action="#{treningsOktBehandler.setNyOkt(true)}"/>
+                    <h:commandButton id="NyOktknapp" value="#{texts.newsession}" action="#{treningsOktBehandling.setNyOkt(true)}"/>
 
-                    <h:panelGroup rendered="#{treningsOktBehandler.nyOkt}">
+                    <h:panelGroup rendered="#{treningsOktBehandling.nyOkt}">
 
-                        <h:dataTable  id="nyOKt" var="session2" value="#{treningsOktBehandler.temptreningsOkter}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
+                        <h:dataTable  id="nyOKt" var="session2" value="#{treningsOktBehandling.temptreningsOkter}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.date}"/>
                                 </f:facet>
                                 <h:inputText value="#{session2.treningsikOkt.date}" styleClass="venstrejustert">
-                                    <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
+                                    <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandling.tidssone}" dateStyle="short"/>
                                 </h:inputText>
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
@@ -73,17 +73,17 @@
                         </h:dataTable>
                         <br/>
 
-                        <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/>
+                        <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandling.oppdater()}"/>
 
                     </h:panelGroup>
                     <br/>
                     <br/>
                     <p>
                         <h:outputText value="#{texts.noData}"
-                                      rendered="#{not treningsOktBehandler.datafins}"/>
+                                      rendered="#{not treningsOktBehandling.datafins}"/>
                     </p>
                     <div style="height:200px;overflow-x:auto;overflow-y:scroll;">
-                        <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandler.datafins}">
+                        <h:dataTable value="#{treningsOktBehandling.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{treningsOktBehandling.datafins}">
 
                             <h:column>
                                 <f:facet name="header">
@@ -91,7 +91,7 @@
                                         <h:outputText value="#{texts.date}"/></h:commandLink>
                                 </f:facet>
                                 <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
-                                    <f:convertDateTime type="date" locale="#{texts.locale}" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
+                                    <f:convertDateTime type="date" locale="#{texts.locale}" timeZone="#{treningsOktBehandling.tidssone}" dateStyle="short"/>
                                 </h:inputText>
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
@@ -144,11 +144,11 @@
                     </div>
                     <p class ="buttonRightOutput">
 
-                        <h:outputText value="#{texts.totalSessions}  #{treningsOktBehandler.antOkter}" rendered="#{treningsOktBehandler.datafins}"/><br/>
-                        <h:outputText value="#{texts.average}  #{treningsOktBehandler.gjennomsnitt}" rendered="#{treningsOktBehandler.datafins}" /><br/>
+                        <h:outputText value="#{texts.totalSessions}  #{treningsOktBehandling.antOkter}" rendered="#{treningsOktBehandling.datafins}"/><br/>
+                        <h:outputText value="#{texts.average}  #{treningsOktBehandling.gjennomsnitt}" rendered="#{treningsOktBehandling.datafins}" /><br/>
                     </p>
                     <h:outputLabel value="#{texts.monthsort}: "></h:outputLabel>
-                    <h:selectOneMenu id="Maned" required="true" value="#{treningsOktBehandler.maned}"  requiredMessage="#{texts.invalidactivity}">
+                    <h:selectOneMenu id="Maned" required="true" value="#{treningsOktBehandling.maned}"  requiredMessage="#{texts.invalidactivity}">
                         <f:selectItem itemValue ="0" itemLabel="#{texts.all}"/>
                         <f:selectItem itemValue ="1" itemLabel="#{texts.january}"/>
                         <f:selectItem itemValue ="2" itemLabel="#{texts.february}"/>
@@ -163,7 +163,7 @@
                         <f:selectItem itemValue ="11" itemLabel="#{texts.November}"/>
                         <f:selectItem itemValue ="12" itemLabel="#{texts.december}"/>
                     </h:selectOneMenu>                    
-                    <h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test" id="submit"/>
+                    <h:commandButton value="#{texts.update}" action="#{treningsOktBehandling.oppdater()}" class="test" id="submit"/>
 
 
                 </h:form>
