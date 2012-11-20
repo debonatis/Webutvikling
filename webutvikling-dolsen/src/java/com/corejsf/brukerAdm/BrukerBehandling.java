@@ -101,14 +101,12 @@ public class BrukerBehandling extends DBController implements Serializable {
                 return r;
             }
         }
-        logout();
+        this.logout();
         return "NO ROLE, logging you out!";
     }
 
-    public String getName() {
-        if (name == null) {
-            getUserData();
-        }
+    public String getName() {        
+            getUserData();        
         return name == null ? "" : name;
     }
 
