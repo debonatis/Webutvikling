@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 public class BrukerBehandling extends DBController implements Serializable {
 
     private String name;
+    private String newName;
     private String newPassword;
     private String newPassword2;
     private List<BrukerStatus> bOversikt = Collections.synchronizedList(new ArrayList<BrukerStatus>());
@@ -179,7 +180,7 @@ public class BrukerBehandling extends DBController implements Serializable {
 
     }    
 
-    public static List<BrukerStatus> getStatiskdbBrukerListe() {
+    public static List<BrukerStatus> getStatiskdbBrukerListe() {        
         return statiskdbBrukerListe;
     }
 
