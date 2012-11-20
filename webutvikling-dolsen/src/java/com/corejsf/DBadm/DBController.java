@@ -122,6 +122,31 @@ public class DBController {
             }
 
 
+        } catch (SQLException e) {
+            conn.failed();
+
+
+        } finally {
+            conn.closeS(st);
+            conn.close();
+        }
+
+    }
+    private synchronized void slettalleTreningsOkterNavn(int i, String navn) {
+        DBConnection conn = new DBConnection();
+        Statement st = null;
+        try {
+            st = conn.getConn().createStatement();
+            st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE BRUKERNAVN = '" + navn + "'");
+            st.getConnection().commit();
+            if (i == 1) {
+                fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting av treningsøkt/er utført!", "ja,Sletting utført!");
+                fc = FacesContext.getCurrentInstance();
+                fc.addMessage("null", fm);
+                fc.renderResponse();
+            }
+
+
 
 
 
@@ -337,6 +362,8 @@ public class DBController {
             conn.closeS(st);
             conn.close();
         }
+        
+        slettalleTreningsOkterNavn(1, bruker.getName());
 
     }
 
