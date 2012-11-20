@@ -33,7 +33,10 @@
             
              <p>
                  <h:outputText value="#{texts.newUser}: " id="overskrift"/>
-                    </p>
+                 </p><h:form>      
+            <p> <h:commandButton id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/></p>
+            </h:form>
+            <h:panelGroup rendered="#{bruker.nyBruker}">
             <h:form>
                 <h:outputLabel for="brukernavn" value="#{texts.username}" /><br/>
                 <h:inputText id="brukernavn" value="#{bruker.tempBruker.name}" ></h:inputText><br/>
@@ -50,7 +53,8 @@
                 <h:message for="confirmPassword" /><br/>
                 <h:outputText value="" />
                 <h:commandButton value="#{texts.ok}" action="#{bruker.oppdater()}"  />
-            </h:form>   
+            </h:form>  
+                </h:panelGroup>
         </div>
         <ui:debug/>
     </h:body>
