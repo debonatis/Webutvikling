@@ -66,9 +66,7 @@ public class treningsOktBehandler extends DBController implements Serializable {
     }
 
     public void setManed(int Maned) {
-
         this.maned = Maned;
-
     }
 
     public TimeZone getTidssone() {
@@ -94,11 +92,9 @@ public class treningsOktBehandler extends DBController implements Serializable {
             return (!hjelp.isEmpty());
         }
         return (!treningsOkter.isEmpty());
-
     }
 
     public List<OktStatus> getTabelldata() {
-
         int m;
         m = maned;
         if ((getManed() >= 1)) {
@@ -113,11 +109,8 @@ public class treningsOktBehandler extends DBController implements Serializable {
                 getTabelldata();
             }
             setManed(0);
-
         }
-
         return treningsOkter;
-
     }
 
     public synchronized int getAntOkter() {
@@ -133,7 +126,6 @@ public class treningsOktBehandler extends DBController implements Serializable {
         }
         if (indeks == 0) {
             indeks = 1;
-
         }
         return max / indeks;
     }
@@ -148,13 +140,7 @@ public class treningsOktBehandler extends DBController implements Serializable {
 
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
         tempOkt = nyTempOkt;
-    }
-
-    @RolesAllowed("admin")
-    public synchronized void slettAlleOkter() {
-        slettAlleOkterDB();
-
-    }
+    }    
 
     public synchronized String oppdater() {
 
@@ -165,17 +151,11 @@ public class treningsOktBehandler extends DBController implements Serializable {
                 nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
                         getTempOkt().getVarighet(), getTempOkt().getKategori(),
                         getTempOkt().getTekst());
-
-
                 nyOversikt.registrerNyOkt(nyOkt);
                 treningsOkter.add(new OktStatus(nyOkt));
                 registrerTreningsOkt(nyOkt, getNavn());
-                tempOkt = new TreningsOkt();
-               
+                tempOkt = new TreningsOkt();               
             }
-
-
-
             if (!(treningsOkter.isEmpty())) {
                 int indeks = treningsOkter.size() - 1;
                 while (indeks >= 0) {
@@ -188,7 +168,6 @@ public class treningsOktBehandler extends DBController implements Serializable {
                     indeks--;
                 }
             }
-
             oppdaterTreningsOktDB(treningsOkter, getNavn());
             DBtreningsobjekter = getAlleTreningsOkter(getNavn());
             if (!DBtreningsobjekter.isEmpty()) {
@@ -203,7 +182,5 @@ public class treningsOktBehandler extends DBController implements Serializable {
             oppdater();
         }
         return "success";
-    }
-
-    
+    }    
 }
