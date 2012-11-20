@@ -35,8 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 @RolesAllowed({"admin", "bruker"})
 public class BrukerBehandling extends DBController implements Serializable {
 
-    private String name;
-    private String newName;
+    private String name;    
     private String newPassword;
     private String newPassword2;
     private List<BrukerStatus> bOversikt = Collections.synchronizedList(new ArrayList<BrukerStatus>());
@@ -51,6 +50,19 @@ public class BrukerBehandling extends DBController implements Serializable {
     private List<BrukerStatus> dbBrukerListe = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private static int teller = 0;
     private static List<BrukerStatus> statiskdbBrukerListe = Collections.synchronizedList(new ArrayList<BrukerStatus>());
+    private boolean adminOK;
+
+    public boolean isAdminOK() {
+        this.adminOK = (getRolle().equals("admin"))? true: false;
+        return adminOK;
+    }
+
+    public void setAdminOK(boolean adminOK) {
+        this.adminOK = adminOK;
+    }
+    
+    
+    
 
     public boolean isNyBruker() {
         return nyBruker;
