@@ -48,6 +48,7 @@ public class BrukerBehandling extends DBController implements Serializable {
     private Bruker tempBruker = new Bruker();
     private List<BrukerStatus> dbBrukerListe = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private static int teller = 0;
+    private static List<BrukerStatus> statiskdbBrukerListe = Collections.synchronizedList(new ArrayList<BrukerStatus>());
 
     public boolean isNyBruker() {
         return nyBruker;
@@ -174,6 +175,10 @@ public class BrukerBehandling extends DBController implements Serializable {
 
 
     }
+
+    public static List<BrukerStatus> getStatiskdbBrukerListe() {
+        return statiskdbBrukerListe;
+    }
     
     public synchronized String changePassword(){
         return skiftPassordDB(getNewPassword(), getName());   
@@ -219,18 +224,22 @@ public class BrukerBehandling extends DBController implements Serializable {
 
 
                 bOversikt.add(new BrukerStatus(nyBruker));
+                statiskdbBrukerListe.add(new BrukerStatus(nyBruker));
                 registrerBruker(nyBruker);
                 setTempBruker(new Bruker());
 
             }
              
           int antall =  oppdaterBrukerDB(getBrukerTabell());
-          if(antall >=1 || teller > 0){
+          if(antall >=1 || teller == 1){
             dbBrukerListe = getAlleBrukere();
             if (!dbBrukerListe.isEmpty()) {
                 bOversikt.clear();
+                statiskdbBrukerListe.clear();
                 for (BrukerStatus s : dbBrukerListe) {
                     bOversikt.add(s);
+                    statiskdbBrukerListe.add(s);
+                    
                 }
                 dbBrukerListe.clear();
             }

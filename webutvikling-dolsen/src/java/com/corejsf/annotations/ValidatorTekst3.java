@@ -47,7 +47,7 @@ public class ValidatorTekst3 extends BrukerBehandling implements ConstraintValid
             treff = brukerNavnSjekk.matcher(innLagtTekst);
             brukerNavnRegexOK = treff.matches();
             if (sjekker.sjekkDB() == 1) {
-                brukere = this.getBrukerTabell();
+                brukere = getStatiskdbBrukerListe();
                 if (brukere.isEmpty()) {
                     brukerNavnOK = true;
                 } else {
