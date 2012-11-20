@@ -35,7 +35,7 @@ public class DBController {
     private List<BrukerStatus> dbBrukerobjekter = Collections.synchronizedList(new ArrayList<BrukerStatus>());
 
     public synchronized List<OktStatus> getAlleTreningsOkter(String navn) {
-        
+
         TreningsOkt hjelpeobjekt;
         dBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
@@ -225,7 +225,7 @@ public class DBController {
     }
 
     public synchronized void registrerBruker(Bruker bruker) {
-        
+
         //oktnr blir autogenerert i databasen
         DBConnection conn = new DBConnection();
         PreparedStatement reg = null;
@@ -259,7 +259,7 @@ public class DBController {
     }
 
     public synchronized void slettBruker(Bruker bruker) {
-        
+        int i = 0;
         DBConnection conn = new DBConnection();
         Statement st = null;
         try {
@@ -275,11 +275,14 @@ public class DBController {
             fc.renderResponse();
         } catch (SQLException e) {
             conn.failed();
-            slettBruker(bruker);
+            i++;
         } finally {
             conn.closeS(st);
             conn.close();
-        }        
+            if (i>0) {
+                slettBruker(bruker);
+            }
+        }
         slettalleTreningsOkterNavn(bruker.getName());
     }
 
@@ -342,7 +345,7 @@ public class DBController {
     }
 
     public synchronized List<BrukerStatus> getAlleBrukere() {
-        
+
         Bruker hjelpeobjekt;
         dbBrukerobjekter.clear();
         DBConnection conn = new DBConnection();
