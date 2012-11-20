@@ -34,7 +34,7 @@
                 </p>
                 <p> <h:commandButton value="#{texts.logout}" action="#{bruker.logout()}" />
                 </p>
-                <h:panelGroup rendered="#{bruker.adminOK}">
+                <h:panelGroup  rendered="#{bruker.adminOK}">
                     <h:outputLink onclick="adminok1" value="#{texts.overview}" />
                     <h:outputLink onclick="adminok2" value="#{texts.changePassword}" />
                     <h:outputLink onclick="adminok3" value="#{texts.userAdm}" />                    

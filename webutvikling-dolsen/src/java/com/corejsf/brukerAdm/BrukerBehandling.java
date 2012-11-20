@@ -54,7 +54,7 @@ public class BrukerBehandling extends DBController implements Serializable {
 
     public boolean isAdminOK() {
         this.adminOK = (getRolle().equals("admin"))? true: false;
-        return adminOK;
+        return true;
     }
 
     public void setAdminOK(boolean adminOK) {
