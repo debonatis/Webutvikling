@@ -340,7 +340,7 @@ public class DBController {
 
     }
 
-    public synchronized void oppdaterBrukerDB(List<BrukerStatus> brukere) {
+    public synchronized int oppdaterBrukerDB(List<BrukerStatus> brukere) {
 
         hjelpBruker.clear();
         if (!(brukere.isEmpty())) {
@@ -410,6 +410,8 @@ public class DBController {
             }
 
         }
+        
+        return hjelpBruker.size();
 
 
     }

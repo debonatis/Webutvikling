@@ -222,7 +222,8 @@ public class BrukerBehandling extends DBController implements Serializable {
 
             }
              
-            oppdaterBrukerDB(getBrukerTabell());
+          int antall =  oppdaterBrukerDB(getBrukerTabell());
+          if(antall >=1){
             dbBrukerListe = getAlleBrukere();
             if (!dbBrukerListe.isEmpty()) {
                 bOversikt.clear();
@@ -231,6 +232,7 @@ public class BrukerBehandling extends DBController implements Serializable {
                 }
                 dbBrukerListe.clear();
             }
+          }
         } catch (ConcurrentModificationException e) {
             oppdater();
         }
