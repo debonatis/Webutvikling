@@ -5,6 +5,7 @@
 package com.corejsf.annotations;
 
 import com.corejsf.DBadm.DBController;
+import com.corejsf.brukerAdm.BrukerBehandling;
 import com.corejsf.brukerAdm.BrukerStatus;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -17,7 +18,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author deb
  */
 // Er ikke ne bean fordi <f:validator... kunne tydeligvis ikke forekomme mer enn en gang i en form (Ja, det er unike Id'er)
-public class ValidatorTekst3 extends DBController implements ConstraintValidator<Lurifakssjekker, String> {
+public class ValidatorTekst3 extends BrukerBehandling implements ConstraintValidator<Lurifakssjekker, String> {
 
     private Lurifakssjekker sjekker;
     private boolean brukerNavnOK;
@@ -46,10 +47,14 @@ public class ValidatorTekst3 extends DBController implements ConstraintValidator
             treff = brukerNavnSjekk.matcher(innLagtTekst);
             brukerNavnRegexOK = treff.matches();
             if (sjekker.sjekkDB() == 1) {
-                brukere = getAlleBrukere();
-                for (BrukerStatus k : brukere) {
-                    if (k.getBruker().getName().trim().equalsIgnoreCase(innLagtTekst)) {
-                        brukerNavnOK = false;
+                brukere = this.getBrukerTabell();
+                if (brukere.isEmpty()) {
+                    brukerNavnOK = true;
+                } else {
+                    for (BrukerStatus k : brukere) {
+                        if (k.getBruker().getName().trim().equalsIgnoreCase(innLagtTekst)) {
+                            brukerNavnOK = false;
+                        }
                     }
                 }
             }
