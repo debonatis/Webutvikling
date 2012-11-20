@@ -70,5 +70,13 @@
             <to-view-id>/admin/useroverview.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>  
+    <navigation-rule>
+        <from-view-id>/login/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>ok</from-action>
+            <from-outcome>ok</from-outcome>
+            <to-view-id>/template/input.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>  
     
 </faces-config>
