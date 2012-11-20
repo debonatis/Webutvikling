@@ -8,6 +8,7 @@ import com.corejsf.DBadm.DBController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +30,7 @@ import org.hibernate.validator.constraints.Range;
 @SessionScoped
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
-public class treningsOktBehandler extends DBController implements Serializable {
+public class TreningsOktBehandling extends DBController implements Serializable {
 
     private FacesMessage fm;
     private List<OktStatus> DBtreningsobjekter;
@@ -45,8 +46,12 @@ public class treningsOktBehandler extends DBController implements Serializable {
     private boolean nyOkt = false;
     private FacesContext fc;
     private TimeZone tidssone;
+    private boolean sortAscendingK = true;
+    private boolean sortAscendingT = true;
+    private boolean sortAscendingV = true;
+    private boolean sortAscendingD = true;
 
-    public treningsOktBehandler() {
+    public TreningsOktBehandling() {
 
         DBtreningsobjekter = Collections.synchronizedList(new ArrayList<OktStatus>());
         nyOversikt = new Oversikt();
@@ -60,15 +65,13 @@ public class treningsOktBehandler extends DBController implements Serializable {
     public boolean isNyOkt() {
         return nyOkt;
     }
-    
+
     public int getManed() {
         return maned;
     }
 
     public void setManed(int Maned) {
-
         this.maned = Maned;
-
     }
 
     public TimeZone getTidssone() {
@@ -94,7 +97,6 @@ public class treningsOktBehandler extends DBController implements Serializable {
             return (!hjelp.isEmpty());
         }
         return (!treningsOkter.isEmpty());
-
     }
 
     public List<OktStatus> getTabelldata() {
@@ -113,11 +115,8 @@ public class treningsOktBehandler extends DBController implements Serializable {
                 getTabelldata();
             }
             setManed(0);
-
         }
-
         return treningsOkter;
-
     }
 
     public synchronized int getAntOkter() {
@@ -133,7 +132,6 @@ public class treningsOktBehandler extends DBController implements Serializable {
         }
         if (indeks == 0) {
             indeks = 1;
-
         }
         return max / indeks;
     }
@@ -150,12 +148,6 @@ public class treningsOktBehandler extends DBController implements Serializable {
         tempOkt = nyTempOkt;
     }
 
-    @RolesAllowed("admin")
-    public synchronized void slettAlleOkter() {
-        slettAlleOkterDB();
-
-    }
-
     public synchronized String oppdater() {
 
         nyOkt = false;
@@ -165,17 +157,11 @@ public class treningsOktBehandler extends DBController implements Serializable {
                 nyOkt = new TreningsOkt(getTempOkt().getOktNr(), new Date(getTempOkt().getDate().getTime()),
                         getTempOkt().getVarighet(), getTempOkt().getKategori(),
                         getTempOkt().getTekst());
-
-
                 nyOversikt.registrerNyOkt(nyOkt);
                 treningsOkter.add(new OktStatus(nyOkt));
                 registrerTreningsOkt(nyOkt, getNavn());
                 tempOkt = new TreningsOkt();
-               
             }
-
-
-
             if (!(treningsOkter.isEmpty())) {
                 int indeks = treningsOkter.size() - 1;
                 while (indeks >= 0) {
@@ -188,7 +174,6 @@ public class treningsOktBehandler extends DBController implements Serializable {
                     indeks--;
                 }
             }
-
             oppdaterTreningsOktDB(treningsOkter, getNavn());
             DBtreningsobjekter = getAlleTreningsOkter(getNavn());
             if (!DBtreningsobjekter.isEmpty()) {
@@ -205,5 +190,127 @@ public class treningsOktBehandler extends DBController implements Serializable {
         return "success";
     }
 
-    
+    public String sorterPaaKategori() {
+
+        if (sortAscendingK) {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return okt1.getTreningsikOkt().getKategori().compareTo(okt2.getTreningsikOkt().getKategori());
+
+                }
+            });
+            sortAscendingK = false;
+
+        } else {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return okt2.getTreningsikOkt().getKategori().compareTo(okt1.getTreningsikOkt().getKategori());
+
+                }
+            });
+            sortAscendingK = true;
+        }
+        return null;
+    }
+
+    public String sorterPaaTekst() {
+
+        if (sortAscendingT) {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return okt1.getTreningsikOkt().getTekst().compareTo(okt2.getTreningsikOkt().getTekst());
+
+                }
+            });
+            sortAscendingT = false;
+
+        } else {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return okt2.getTreningsikOkt().getTekst().compareTo(okt1.getTreningsikOkt().getTekst());
+
+                }
+            });
+            sortAscendingT = true;
+        }
+        return null;
+    }
+
+    public String sorterPaaDato() {
+
+        if (sortAscendingD) {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return okt1.getTreningsikOkt().getDate().compareTo(okt2.getTreningsikOkt().getDate());
+
+                }
+            });
+            sortAscendingD = false;
+
+        } else {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return okt2.getTreningsikOkt().getDate().compareTo(okt1.getTreningsikOkt().getDate());
+
+                }
+            });
+            sortAscendingD = true;
+        }
+        return null;
+    }
+
+    public String sorterPaaVarighet() {
+
+        if (sortAscendingV) {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return ((Integer) okt1.getTreningsikOkt().getVarighet()).compareTo(((Integer) okt2.getTreningsikOkt().getVarighet()));
+
+                }
+            });
+            sortAscendingV = false;
+
+        } else {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return ((Integer) okt2.getTreningsikOkt().getVarighet()).compareTo(((Integer) okt1.getTreningsikOkt().getVarighet()));
+
+                }
+            });
+            sortAscendingV = true;
+        }
+        return null;
+    }
 }

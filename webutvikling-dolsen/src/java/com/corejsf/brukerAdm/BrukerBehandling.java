@@ -8,6 +8,7 @@ import com.corejsf.DBadm.DBController;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.logging.Level;
@@ -38,7 +39,6 @@ public class BrukerBehandling extends DBController implements Serializable {
     private String newPassword;
     private String newPassword2;
     private List<BrukerStatus> bOversikt = Collections.synchronizedList(new ArrayList<BrukerStatus>());
-    private List<BrukerStatus> bOversikthjelp = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private static final Logger logger = Logger.getLogger("com.corejsf");
     private FacesMessage fm = new FacesMessage();
     private FacesContext fc;
@@ -50,6 +50,7 @@ public class BrukerBehandling extends DBController implements Serializable {
     private static int teller = 0;
     private static List<BrukerStatus> statiskdbBrukerListe = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private boolean adminOK;
+    private boolean sortRolle = true;
 
     public boolean isAdminOK() {
         this.adminOK = (getRolle().equals("admin")) ? true : false;
@@ -105,8 +106,8 @@ public class BrukerBehandling extends DBController implements Serializable {
         return "NO ROLE, logging you out!";
     }
 
-    public String getName() {        
-            getUserData();        
+    public String getName() {
+        getUserData();
         return name == null ? "" : name;
     }
 
@@ -142,7 +143,7 @@ public class BrukerBehandling extends DBController implements Serializable {
         }
         HttpServletRequest foresporrsel = (HttpServletRequest) forsporrselobject;
         return foresporrsel.isUserInRole(k);
-    }  
+    }
 
     public String logout() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -151,25 +152,19 @@ public class BrukerBehandling extends DBController implements Serializable {
         try {
             request.logout();
             request.logout();
-
         } catch (ServletException e) {
             logger.log(Level.SEVERE, "Failed to logout user!", e);
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout ikke OK!", "");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
-
-
             return "ok";
-
         }
         fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout OK!", "");
         fc = FacesContext.getCurrentInstance();
         fc.addMessage("null", fm);
         fc.renderResponse();
         return "ok";
-
-
     }
 
     public static List<BrukerStatus> getStatiskdbBrukerListe() {
@@ -242,5 +237,67 @@ public class BrukerBehandling extends DBController implements Serializable {
             oppdater();
         }
         return "success";
+    }
+
+    public String sorterPaaRolle() {
+
+        if (sortRolle) {
+
+
+            Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
+                @Override
+                public int compare(BrukerStatus bruker1, BrukerStatus bruker2) {
+
+                    return bruker1.getBruker().getRolle().compareTo(bruker2.getBruker().getRolle());
+
+                }
+            });
+            sortRolle = false;
+
+        } else {
+
+
+            Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
+                @Override
+                public int compare(BrukerStatus bruker1, BrukerStatus bruker2) {
+
+                    return bruker2.getBruker().getRolle().compareTo(bruker1.getBruker().getRolle());
+
+                }
+            });
+            sortRolle = true;
+        }
+        return null;
+    }
+
+    public String sorterPaaBrukernavn() {
+
+        if (sortRolle) {
+
+
+            Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
+                @Override
+                public int compare(BrukerStatus bruker1, BrukerStatus bruker2) {
+
+                    return bruker1.getBruker().getName().compareTo(bruker2.getBruker().getName());
+
+                }
+            });
+            sortRolle = false;
+
+        } else {
+
+
+            Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
+                @Override
+                public int compare(BrukerStatus bruker1, BrukerStatus bruker2) {
+
+                    return bruker2.getBruker().getName().compareTo(bruker1.getBruker().getName());
+
+                }
+            });
+            sortRolle = true;
+        }
+        return null;
     }
 }

@@ -35,6 +35,7 @@ public class DBController {
     private List<BrukerStatus> dbBrukerobjekter = Collections.synchronizedList(new ArrayList<BrukerStatus>());
 
     public synchronized List<OktStatus> getAlleTreningsOkter(String navn) {
+
         TreningsOkt hjelpeobjekt;
         dBtreningsobjekter.clear();
         DBConnection conn = new DBConnection();
@@ -44,15 +45,11 @@ public class DBController {
             st = conn.getConn().createStatement();
             rs = st.executeQuery("SELECT * FROM WAPLJ.TRENING "
                     + "where BRUKERNAVN = '" + navn + "'");
-
-
             while (rs.next()) {
                 hjelpeobjekt = new TreningsOkt(rs.getInt("OKTNR"), new Date(rs.getDate("DATO").getTime()),
                         rs.getInt("VARIGHET"), rs.getString("KATEGORINAVN"),
                         rs.getString("TEKST"));
                 dBtreningsobjekter.add(new OktStatus(hjelpeobjekt));
-
-
             }
             conn.getConn().commit();
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alle Okter skaffet!", "ja,Okter skaffet!");
@@ -65,8 +62,6 @@ public class DBController {
             conn.closeS(st);
             conn.closeR(rs);
             conn.close();
-
-
             return dBtreningsobjekter;
         }
     }
@@ -78,7 +73,6 @@ public class DBController {
         String regTekst = "INSERT INTO WAPLJ.TRENING(dato, varighet, kategorinavn, tekst, brukernavn)"
                 + " VALUES (?,?,?,?,?)";
         try {
-
             conn.getConn().setAutoCommit(false);
             reg = conn.getConn().prepareStatement(regTekst);
             reg.setDate(1, okt.getSqlDate());
@@ -88,23 +82,16 @@ public class DBController {
             reg.setString(5, navn);
             reg.executeUpdate();
             conn.getConn().commit();
-
-
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført!", "ja,Nyregistreing fullført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
-
-
-
         } catch (SQLException e) {
             conn.failed();
         } finally {
             conn.closeP(reg);
             conn.close();
         }
-
-
     }
 
     public synchronized void slettTreningsOkt(TreningsOkt objekt, int i, String navn) {
@@ -120,45 +107,32 @@ public class DBController {
                 fc.addMessage("null", fm);
                 fc.renderResponse();
             }
-
-
         } catch (SQLException e) {
             conn.failed();
-
-
         } finally {
             conn.closeS(st);
             conn.close();
         }
-
     }
-    private synchronized void slettalleTreningsOkterNavn(int i, String navn) {
+
+    private synchronized void slettalleTreningsOkterNavn(String navn) {
         DBConnection conn = new DBConnection();
         Statement st = null;
         try {
             st = conn.getConn().createStatement();
             st.executeUpdate("DELETE FROM WAPLJ.TRENING WHERE BRUKERNAVN = '" + navn + "'");
             st.getConnection().commit();
-            if (i == 1) {
-                fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting av treningsøkt/er utført!", "ja,Sletting utført!");
-                fc = FacesContext.getCurrentInstance();
-                fc.addMessage("null", fm);
-                fc.renderResponse();
-            }
 
-
-
-
-
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting av treningsøkt/er utført!", "ja,Sletting utført!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
         } catch (SQLException e) {
             conn.failed();
-
-
         } finally {
             conn.closeS(st);
             conn.close();
         }
-
     }
 
     public synchronized void oppdaterTreningsOktDB(List<OktStatus> treningsOkter, String navn) {
@@ -172,8 +146,6 @@ public class DBController {
                 }
             }
         }
-
-
         DBConnection conn = new DBConnection();
         PreparedStatement oppdaterOkter = null;
         String oppdaterString =
@@ -182,9 +154,7 @@ public class DBController {
                 + "KATEGORINAVN= ?, TEKST= ? "
                 + "where OKTNR = ? AND BRUKERNAVN= ?";
         if (!hjelp.isEmpty()) {
-
             try {
-
                 conn.getConn().setAutoCommit(false);
                 oppdaterOkter = conn.getConn().prepareStatement(oppdaterString);
                 for (OktStatus f : hjelp) {
@@ -196,14 +166,11 @@ public class DBController {
                     oppdaterOkter.setString(6, navn);
                     oppdaterOkter.executeUpdate();
                     conn.getConn().commit();
-
                 }
                 fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Oppdatering utført!", "ja,Oppdatering utført!");
                 fc = FacesContext.getCurrentInstance();
                 fc.addMessage("null", fm);
                 fc.renderResponse();
-
-
             } catch (SQLException e) {
                 conn.failed();
                 if (conn.getConn() != null) {
@@ -214,40 +181,11 @@ public class DBController {
                         conn.failed();
                     }
                 }
-
-
             } finally {
                 conn.closeS(oppdaterOkter);
                 conn.close();
-
             }
-
         }
-
-
-    }
-
-    public synchronized void slettAlleOkterDB() {
-
-        DBConnection conn = new DBConnection();
-        Statement st = null;
-
-        try {
-            st = conn.getConn().createStatement();
-            st.execute("TRUNCATE TABLE WAPLJ.TRENING");
-
-            conn.getConn().commit();
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alle Okter slettet!", "ja,Okter skaffet!");
-            fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);
-            fc.renderResponse();
-        } catch (SQLException e) {
-            conn.failed();
-        } finally {
-            conn.closeS(st);
-            conn.close();
-        }
-
     }
 
     public synchronized String skiftPassordDB(String passord, String navn) {
@@ -256,24 +194,17 @@ public class DBController {
         PreparedStatement oppdaterPassord = null;
         String oppdaterString =
                 "update WAPLJ.BRUKER set PASSORD = ? where BRUKERNAVN= ?";
-
-
         try {
-
             conn.getConn().setAutoCommit(false);
             oppdaterPassord = conn.getConn().prepareStatement(oppdaterString);
             oppdaterPassord.setString(1, passord);
             oppdaterPassord.setString(2, navn);
             oppdaterPassord.executeUpdate();
             conn.getConn().commit();
-
-
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Endring av passord utført!", "");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
-
-
         } catch (SQLException e) {
             conn.failed();
             if (conn.getConn() != null) {
@@ -285,18 +216,16 @@ public class DBController {
                 }
             }
             return "ikkeOk";
-
         } finally {
             conn.closeS(oppdaterPassord);
             conn.close();
 
         }
-
         return "ok";
-
     }
 
     public synchronized void registrerBruker(Bruker bruker) {
+
         //oktnr blir autogenerert i databasen
         DBConnection conn = new DBConnection();
         PreparedStatement reg = null;
@@ -306,7 +235,6 @@ public class DBController {
         String regTekst2 = "INSERT INTO WAPLJ.ROLLE"
                 + " VALUES (?,?) ";
         try {
-
             conn.getConn().setAutoCommit(false);
             reg = conn.getConn().prepareStatement(regTekst);
             reg.setString(1, bruker.getName());
@@ -318,53 +246,44 @@ public class DBController {
             reg2.setString(2, bruker.getRolle());
             reg2.executeUpdate();
             conn.getConn().commit();
-
-
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført!", "ja,Nyregistreing fullført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
-
-
-
         } catch (SQLException e) {
             conn.failed();
         } finally {
             conn.closeP(reg);
             conn.close();
         }
-
-
     }
 
     public synchronized void slettBruker(Bruker bruker) {
+        int i = 0;
         DBConnection conn = new DBConnection();
         Statement st = null;
         try {
             st = conn.getConn().createStatement();
             st.executeUpdate("DELETE FROM waplj.rolle WHERE rolle.brukernavn = '" + bruker.getName() + "'");
-            
             st.getConnection().commit();
             st = conn.getConn().createStatement();
-             st.executeUpdate("DELETE FROM waplj.bruker WHERE bruker.brukernavn = '" + bruker.getName() + "'");
-            
+            st.executeUpdate("DELETE FROM waplj.bruker WHERE bruker.brukernavn = '" + bruker.getName() + "'");
             st.getConnection().commit();
-
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
         } catch (SQLException e) {
             conn.failed();
-
-
+            i++;
         } finally {
             conn.closeS(st);
             conn.close();
+            if (i>0) {
+                slettBruker(bruker);
+            }
         }
-        
-        slettalleTreningsOkterNavn(1, bruker.getName());
-
+        slettalleTreningsOkterNavn(bruker.getName());
     }
 
     public synchronized int oppdaterBrukerDB(List<BrukerStatus> brukere) {
@@ -378,8 +297,6 @@ public class DBController {
                 }
             }
         }
-
-
         DBConnection conn = new DBConnection();
         PreparedStatement oppdaterOkter = null;
         PreparedStatement oppdaterOkter2 = null;
@@ -388,9 +305,7 @@ public class DBController {
         String oppdaterString2 =
                 "update WAPLJ.BRUKER set bruker.passord = ? where bruker.BRUKERNAVN= ?";
         if (!hjelpBruker.isEmpty()) {
-
             try {
-
                 conn.getConn().setAutoCommit(false);
                 oppdaterOkter = conn.getConn().prepareStatement(oppdaterString1);
                 for (BrukerStatus f : hjelpBruker) {
@@ -398,26 +313,19 @@ public class DBController {
                     oppdaterOkter.setString(2, f.getBruker().getName());
                     oppdaterOkter.executeUpdate();
                     conn.getConn().commit();
-                    
-
                 }
-                 conn.getConn().setAutoCommit(false);
+                conn.getConn().setAutoCommit(false);
                 oppdaterOkter2 = conn.getConn().prepareStatement(oppdaterString2);
                 for (BrukerStatus f : hjelpBruker) {
                     oppdaterOkter2.setString(1, f.getBruker().getPassord());
                     oppdaterOkter2.setString(2, f.getBruker().getName());
                     oppdaterOkter2.executeUpdate();
                     conn.getConn().commit();
-                   
-
-                } 
-                
+                }
                 fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Oppdatering utført!", "ja,Oppdatering utført!");
                 fc = FacesContext.getCurrentInstance();
                 fc.addMessage("null", fm);
                 fc.renderResponse();
-
-
             } catch (SQLException e) {
                 conn.failed();
                 if (conn.getConn() != null) {
@@ -428,22 +336,16 @@ public class DBController {
                         conn.failed();
                     }
                 }
-
-
             } finally {
                 conn.closeP(oppdaterOkter);
                 conn.close();
-
             }
-
         }
-        
         return hjelpBruker.size();
-
-
     }
 
     public synchronized List<BrukerStatus> getAlleBrukere() {
+
         Bruker hjelpeobjekt;
         dbBrukerobjekter.clear();
         DBConnection conn = new DBConnection();
@@ -456,14 +358,10 @@ public class DBController {
                     + "RIGHT JOIN ROLLE\n"
                     + "ON Bruker.BRUKERNAVN=ROLLE.BRUKERNAVN\n"
                     + "ORDER BY BRUKER.BRUKERNAVN");
-
-
             while (rs.next()) {
                 hjelpeobjekt = new Bruker(rs.getString("Brukernavn"), rs.getString("passord"),
-                        rs.getString("rolle"),1);
+                        rs.getString("rolle"), 1);
                 dbBrukerobjekter.add(new BrukerStatus(hjelpeobjekt));
-
-
             }
             conn.getConn().commit();
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alle Brukere skaffet!", "ja,Brukere skaffet!");
@@ -476,8 +374,6 @@ public class DBController {
             conn.closeS(st);
             conn.closeR(rs);
             conn.close();
-
-
             return dbBrukerobjekter;
         }
     }

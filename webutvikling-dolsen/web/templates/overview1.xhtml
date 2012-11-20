@@ -18,19 +18,19 @@
                     <p>
                         <h:outputText value="#{texts.overview}: " id="overskrift"/><br/>
                     </p>
-                   
 
-                    <h:commandButton id="NyOktknapp" value="#{texts.newsession}" action="#{treningsOktBehandler.setNyOkt(true)}"/>
 
-                    <h:panelGroup rendered="#{treningsOktBehandler.nyOkt}">
+                    <h:commandButton id="NyOktknapp" value="#{texts.newsession}" action="#{treningsOktBehandling.setNyOkt(true)}"/>
 
-                        <h:dataTable  id="nyOKt" var="session2" value="#{treningsOktBehandler.temptreningsOkter}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
+                    <h:panelGroup rendered="#{treningsOktBehandling.nyOkt}">
+
+                        <h:dataTable  id="nyOKt" var="session2" value="#{treningsOktBehandling.temptreningsOkter}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
                             <h:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{texts.date}"/>
                                 </f:facet>
                                 <h:inputText id="datony" value="#{session2.treningsikOkt.date}" styleClass="venstrejustert">
-                                    <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
+                                    <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandling.tidssone}" dateStyle="short"/>
                                 </h:inputText>
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
@@ -72,7 +72,7 @@
                             <h:message for="datony"/><h:message for="varighetny"/><h:message for="kategori"/><h:message for="tekstny"/>
                         </h:dataTable>
                         <br/><h:message for="nyOkt"/><br/>
-                        <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandler.oppdater()}"/><br/>
+                        <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandling.oppdater()}"/><br/>
 
 
                     </h:panelGroup>
@@ -80,50 +80,53 @@
                     <br/>
                     <p>
                         <h:outputText value="#{texts.noData}"
-                                      rendered="#{not treningsOktBehandler.datafins}"/>
+                                      rendered="#{not treningsOktBehandling.datafins}"/>
                     </p>
                     <div style="height:200px;overflow-x:auto;overflow-y:scroll;">
-                        <h:dataTable value="#{treningsOktBehandler.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" id="okter" rendered="#{treningsOktBehandler.datafins}">
-
+                        <h:dataTable value="#{treningsOktBehandling.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" id="okter" rendered="#{treningsOktBehandling.datafins}">
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{texts.date}"/>
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaDato()}">
+                                        <h:outputText value="#{texts.date}"/></h:commandLink>
                                 </f:facet>
-                                <h:inputText id="date" value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
-                                    <f:convertDateTime type="date" locale="#{texts.locale}" timeZone="#{treningsOktBehandler.tidssone}" dateStyle="short"/>
-                                </h:inputText><h:message for="date"/>
+                                <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
+                                    <f:convertDateTime type="date" locale="#{texts.locale}" timeZone="#{treningsOktBehandling.tidssone}" dateStyle="short"/>
+                                </h:inputText>
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{texts.duration}"/>
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaVarighet()}">
+                                        <h:outputText value="#{texts.duration}"/></h:commandLink>
                                 </f:facet>
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                                <h:inputText id="varighet" value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/><h:message for="varighet"/>
+                                <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{texts.category}"/>
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaKategori()}">
+                                        <h:outputText value="#{texts.category}"/></h:commandLink>
                                 </f:facet>
                                 <h:selectOneMenu id="kategori3" required="true" value="#{sessions.treningsikOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
                                     <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}"/>
                                     <f:selectItem itemValue ="styrke" itemLabel="#{texts.category2}"/>
                                     <f:selectItem itemValue ="aerobics" itemLabel="#{texts.category3}"/>
                                     <f:selectItem itemValue ="jogging" itemLabel="#{texts.category4}"/>
-                                </h:selectOneMenu><h:message for="kategori3"/><br/>          
+                                </h:selectOneMenu><br/>          
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{texts.text}"/>
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaTekst()}">
+                                        <h:outputText value="#{texts.text}"/></h:commandLink>
                                 </f:facet>
-                                <h:inputText id="tekst" value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert"><h:message for="teskt"/>
+                                <h:inputText value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert">
 
                                 </h:inputText>
                                 <f:facet name="footer">
@@ -136,18 +139,17 @@
                                 </f:facet>
                                 <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                             </h:column>
-                            <h:message for="teskt"/>
                         </h:dataTable>
                         <br/>
                         <h:message for="okter"/><br/>
                     </div>
                     <p class ="buttonRightOutput">
 
-                        <h:outputText value="#{texts.totalSessions}  #{treningsOktBehandler.antOkter}" rendered="#{treningsOktBehandler.datafins}"/><br/>
-                        <h:outputText value="#{texts.average}  #{treningsOktBehandler.gjennomsnitt}" rendered="#{treningsOktBehandler.datafins}" /><br/>
+                        <h:outputText value="#{texts.totalSessions}  #{treningsOktBehandling.antOkter}" rendered="#{treningsOktBehandling.datafins}"/><br/>
+                        <h:outputText value="#{texts.average}  #{treningsOktBehandling.gjennomsnitt}" rendered="#{treningsOktBehandling.datafins}" /><br/>
                     </p>
                     <h:outputLabel value="#{texts.monthsort}: "></h:outputLabel>
-                    <h:selectOneMenu id="Maned" required="true" value="#{treningsOktBehandler.maned}"  requiredMessage="#{texts.invalidactivity}">
+                    <h:selectOneMenu id="Maned" required="true" value="#{treningsOktBehandling.maned}"  requiredMessage="#{texts.invalidactivity}">
                         <f:selectItem itemValue ="0" itemLabel="#{texts.all}"/>
                         <f:selectItem itemValue ="1" itemLabel="#{texts.january}"/>
                         <f:selectItem itemValue ="2" itemLabel="#{texts.february}"/>
@@ -162,16 +164,13 @@
                         <f:selectItem itemValue ="11" itemLabel="#{texts.November}"/>
                         <f:selectItem itemValue ="12" itemLabel="#{texts.december}"/>
                     </h:selectOneMenu>
-                    <br/><h:commandButton value="#{texts.update}" action="#{treningsOktBehandler.oppdater()}" class="test" id="submit"/>
+                    <br/><h:commandButton value="#{texts.update}" action="#{treningsOktBehandling.oppdater()}" class="test" id="submit"/>
                 </h:form>
-                <h:form>
-                    <h:commandButton value="#{texts.Back}" action="input" class="test1"/> 
-                    <h:commandButton value="#{texts.logout}" action="#{bruker.logout()}" class="test3"/>
-                </h:form>
+
                 <br/>
                 <br/>
             </ui:define>
         </ui:composition>
-         <p><h:messages/></p>
+        <p><h:messages/></p>
     </body>
 </html>

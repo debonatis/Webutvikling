@@ -80,7 +80,8 @@ and open the template in the editor.
 
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{texts.username}"/>
+                                    <h:commandLink action="#{bruker.sorterPaaBrukernavn()}">
+                                    <h:outputText value="#{texts.username}"/></h:commandLink>
                                 </f:facet>                               
                                 <h:outputText value="#{brukerobjekt.bruker.name}" styleClass="venstrejustert">
 
@@ -101,7 +102,8 @@ and open the template in the editor.
                             </h:column> 
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{texts.role}"/>
+                                    <h:commandLink action="#{bruker.sorterPaaRolle()}">
+                                    <h:outputText value="#{texts.role}"/></h:commandLink>
                                 </f:facet>
                                 <h:selectOneMenu id="rolle2" required="true" value="#{brukerobjekt.bruker.rolle}"  requiredMessage="#{texts.invalidactivity}">
                                     <f:selectItem itemValue ="admin" itemLabel="#{texts.admin}"/>
