@@ -19,7 +19,7 @@ public class Bruker {
     @Lurifakssjekker(passordsjekk=0 ,message= "This username is already in use,"
             + " or it is one that is too similar.\n "
             + "Write a new one! "
-            + "The username must have a lenght between 6 to 10 characters!")
+            + "The username must have a lenght between 6 to 10 characters!", sjekkDB=1)
     String name;
     private String rolle;
     private @Lurifakssjekker(passordsjekk=1 ,message= "The password must contain at least one uppercase "

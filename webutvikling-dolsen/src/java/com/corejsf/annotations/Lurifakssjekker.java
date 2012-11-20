@@ -28,5 +28,5 @@ public @interface Lurifakssjekker {
     Class<? extends Payload>[] payload() default {};
     String eventuellRegEx() default "";
     int passordsjekk() default 0; 
-    
+    int sjekkDB() default 0;
 }

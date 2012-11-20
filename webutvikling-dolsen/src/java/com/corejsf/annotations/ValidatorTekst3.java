@@ -35,8 +35,7 @@ public class ValidatorTekst3 extends DBController implements ConstraintValidator
 
     @Override
     public synchronized boolean isValid(String value, ConstraintValidatorContext arg1) {
-        if (!(sjekker.passordsjekk() > 0)) {
-
+        if (sjekker.passordsjekk() == 0) {
             brukerNavnOK = true;
             brukerNavnRegexOK = true;
             String innLagtTekst = value;
@@ -46,12 +45,12 @@ public class ValidatorTekst3 extends DBController implements ConstraintValidator
             brukerNavnSjekk = Pattern.compile(brukerNavnKrav);
             treff = brukerNavnSjekk.matcher(innLagtTekst);
             brukerNavnRegexOK = treff.matches();
-
-            brukere = getAlleBrukere();
-
-            for (BrukerStatus k : brukere) {
-                if (k.getBruker().getName().trim().equalsIgnoreCase(innLagtTekst)) {
-                    brukerNavnOK = false;
+            if (sjekker.sjekkDB() == 1) {
+                brukere = getAlleBrukere();
+                for (BrukerStatus k : brukere) {
+                    if (k.getBruker().getName().trim().equalsIgnoreCase(innLagtTekst)) {
+                        brukerNavnOK = false;
+                    }
                 }
             }
             return (brukerNavnOK && brukerNavnRegexOK);
@@ -61,6 +60,5 @@ public class ValidatorTekst3 extends DBController implements ConstraintValidator
         treff = brukerNavnSjekk.matcher(innLagtTekst);
         brukerNavnRegexOK = treff.matches();
         return brukerNavnRegexOK;
-
     }
 }
