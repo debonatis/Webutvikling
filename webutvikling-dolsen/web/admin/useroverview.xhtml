@@ -21,7 +21,7 @@ and open the template in the editor.
                 <h:form id="useroverview">   
                     
                     <p>
-                        <h:messages/>
+                        
                         <h:outputText value="#{texts.overview}: " id="overskrift"/>
 
                         <h:commandButton id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/>
@@ -130,5 +130,6 @@ and open the template in the editor.
                 <br/>
             </ui:define>
         </ui:composition>
+        <p><h:messages/></p>
     </body>
 </html>
