@@ -47,6 +47,7 @@ public class BrukerBehandling extends DBController implements Serializable {
     private List<BrukerStatus> tempBrukerListe = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private Bruker tempBruker = new Bruker();
     private List<BrukerStatus> dbBrukerListe = Collections.synchronizedList(new ArrayList<BrukerStatus>());
+    private static int teller = 0;
 
     public boolean isNyBruker() {
         return nyBruker;
@@ -195,6 +196,7 @@ public class BrukerBehandling extends DBController implements Serializable {
     public synchronized String oppdater() {
         
         setNyBruker(false);
+        teller++;
         try {
             if (!(bOversikt.isEmpty())) {
                 int indeks = bOversikt.size() - 1;
@@ -223,7 +225,7 @@ public class BrukerBehandling extends DBController implements Serializable {
             }
              
           int antall =  oppdaterBrukerDB(getBrukerTabell());
-          if(antall >=1){
+          if(antall >=1 || teller > 0){
             dbBrukerListe = getAlleBrukere();
             if (!dbBrukerListe.isEmpty()) {
                 bOversikt.clear();
