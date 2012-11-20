@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.corejsf.validator;
+package com.corejsf.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -22,10 +22,11 @@ import javax.validation.constraints.NotNull;
 @Constraint(validatedBy = ValidatorTekst3.class)
 @Documented
 @NotNull
-public @interface BrukerNavnsjekker {
+public @interface Lurifakssjekker {
     String message() default "{com.corejsf.BrukerNavnSjekker.melding}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-    String eventuellRegEx() default ""; 
+    String eventuellRegEx() default "";
+    int passordsjekk() default 0; 
     
 }

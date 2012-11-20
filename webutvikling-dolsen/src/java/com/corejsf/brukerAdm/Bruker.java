@@ -4,7 +4,7 @@
  */
 package com.corejsf.brukerAdm;
 
-import com.corejsf.validator.BrukerNavnsjekker;
+import com.corejsf.annotations.Lurifakssjekker;
 import javax.faces.bean.RequestScoped;
 import javax.validation.constraints.NotNull;
 
@@ -16,10 +16,16 @@ import javax.validation.constraints.NotNull;
 public class Bruker {
 
     private @NotNull
-//    @BrukerNavnsjekker(message= "This username is already in use, or it is one that is too similar.\n Write a new one! The username must have a lenght between 6 to 10 characters!")
+    @Lurifakssjekker(passordsjekk=0 ,message= "This username is already in use,"
+            + " or it is one that is too similar.\n "
+            + "Write a new one! "
+            + "The username must have a lenght between 6 to 10 characters!")
     String name;
     private String rolle;
-    private String passord;
+    private @Lurifakssjekker(passordsjekk=1 ,message= "The password must contain at least one uppercase "
+                    + "and one lowercase letter and one number. \n  The password must also contain one of following special characters(@#$%&). "
+                    + "Password must be between 6-20 characters!") 
+            String passord;
     private boolean endret;
 
     public boolean isEndret() {
