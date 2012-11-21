@@ -22,7 +22,7 @@ import javax.sql.DataSource;
  */
 @DeclareRoles({"admin", "bruker"})
 @RolesAllowed({"admin", "bruker"})
-public class DBConnection implements Serializable{
+public class DBConnection implements Serializable {
 
     private transient @Resource(name = "jdbc/waplj_prosjekt")
     DataSource source;
@@ -35,17 +35,16 @@ public class DBConnection implements Serializable{
             if (source == null) {
                 t++;
                 throw new SQLException("No data source");
-
             }
             conn = source.getConnection();
             if (conn == null) {
                 t++;
                 throw new SQLException("No connection");
-
             }
         } catch (Exception e) {
             System.out.println("Could not connect to database(dev): " + e);
         }
+        
         if (t > 0) {
             try {
                 Context ctx = new InitialContext();
@@ -55,17 +54,14 @@ public class DBConnection implements Serializable{
                     System.out.println("OK!! Database");
                 } catch (SQLException ex) {
                     Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-
                 }
             } catch (NamingException e) {
                 logger.log(Level.SEVERE, "Lookup failed!");
             }
-           
         }
     }
 
-    public Connection getConn() {     
-        
+    public Connection getConn() {
         return conn;
     }
 
@@ -107,8 +103,8 @@ public class DBConnection implements Serializable{
             }
         }
     }
-    
-     public void closeP(PreparedStatement r) {
+
+    public void closeP(PreparedStatement r) {
         if (r != null) {
             try {
                 r.close();

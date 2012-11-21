@@ -7,37 +7,34 @@ package com.corejsf;
 import javax.faces.bean.RequestScoped;
 
 @RequestScoped
- public class OktStatus {
-  private TreningsOkt treningsOkten;
-  private boolean skalSlettes;
+public class OktStatus {
 
-  public OktStatus() {
-    treningsOkten = new TreningsOkt();
-    skalSlettes = false;
-  }
+    private TreningsOkt treningsOkten;
+    private boolean skalSlettes;
 
-  public OktStatus(TreningsOkt treningsOkten) {
-    this.treningsOkten = treningsOkten;
-    skalSlettes = false;
-  }
+    public OktStatus() {
+        treningsOkten = new TreningsOkt();
+        skalSlettes = false;
+    }
 
-  
-  public synchronized boolean getSkalSlettes() {
-    return skalSlettes;
-  }
-  public synchronized void setSkalSlettes(boolean nySkalSlettes) {
-    skalSlettes = nySkalSlettes;
-  }
+    public OktStatus(TreningsOkt treningsOkten) {
+        this.treningsOkten = treningsOkten;
+        skalSlettes = false;
+    }
 
-  
-  public synchronized TreningsOkt getTreningsikOkt() {
-    return treningsOkten;
-  }
-  public synchronized void setTreningsOkten(TreningsOkt nyTreningsOkt) {
-    treningsOkten = nyTreningsOkt;
-  }
+    public synchronized boolean getSkalSlettes() {
+        return skalSlettes;
+    }
+
+    public synchronized void setSkalSlettes(boolean nySkalSlettes) {
+        skalSlettes = nySkalSlettes;
+    }
+
+    public synchronized TreningsOkt getTreningsikOkt() {
+        return treningsOkten;
+    }
+
+    public synchronized void setTreningsOkten(TreningsOkt nyTreningsOkt) {
+        treningsOkten = nyTreningsOkt;
+    }
 }
-
-
-
-

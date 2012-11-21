@@ -96,9 +96,8 @@ public class TreningsOktBehandling extends DBController implements Serializable 
     public synchronized void setNyOkt(boolean nyOkt) {
         this.nyOkt = nyOkt;
     }
-
+    
     public boolean getDatafins() {
-
         if ((getManed() >= 1)) {
             getTabelldata();
             return (!hjelp.isEmpty());
@@ -107,7 +106,6 @@ public class TreningsOktBehandling extends DBController implements Serializable 
     }
 
     public List<OktStatus> getTabelldata() {
-
         int m;
         m = maned;
         if ((getManed() >= 1)) {
@@ -157,7 +155,6 @@ public class TreningsOktBehandling extends DBController implements Serializable 
     
 
     public synchronized String oppdater() {
-
         nyOkt = false;
         try {
             if (!(getTempOkt().getVarighet() == 0)) {
@@ -199,29 +196,20 @@ public class TreningsOktBehandling extends DBController implements Serializable 
     }
 
     public String sorterPaaKategori() {
-
         if (sortAscendingK) {
-
-
             Collections.sort(treningsOkter, new Comparator<OktStatus>() {
                 @Override
                 public int compare(OktStatus okt1, OktStatus okt2) {
-
-                    return okt1.getTreningsikOkt().getKategori().compareTo(okt2.getTreningsikOkt().getKategori());
-
+                    return okt1.getTreningsikOkt().getKategori().
+                            compareTo(okt2.getTreningsikOkt().getKategori());
                 }
             });
             sortAscendingK = false;
-
         } else {
-
-
             Collections.sort(treningsOkter, new Comparator<OktStatus>() {
                 @Override
                 public int compare(OktStatus okt1, OktStatus okt2) {
-
                     return okt2.getTreningsikOkt().getKategori().compareTo(okt1.getTreningsikOkt().getKategori());
-
                 }
             });
             sortAscendingK = true;
@@ -230,78 +218,54 @@ public class TreningsOktBehandling extends DBController implements Serializable 
     }
 
     public String sorterPaaTekst() {
-
         if (sortAscendingT) {
-
-
             Collections.sort(treningsOkter, new Comparator<OktStatus>() {
                 @Override
                 public int compare(OktStatus okt1, OktStatus okt2) {
-
                     return okt1.getTreningsikOkt().getTekst().compareTo(okt2.getTreningsikOkt().getTekst());
-
                 }
             });
             sortAscendingT = false;
-
         } else {
-
-
             Collections.sort(treningsOkter, new Comparator<OktStatus>() {
                 @Override
                 public int compare(OktStatus okt1, OktStatus okt2) {
-
                     return okt2.getTreningsikOkt().getTekst().compareTo(okt1.getTreningsikOkt().getTekst());
-
                 }
             });
             sortAscendingT = true;
         }
         return null;
     }
-
+    
     public String sorterPaaDato() {
-
         if (sortAscendingD) {
-
-
             Collections.sort(treningsOkter, new Comparator<OktStatus>() {
                 @Override
                 public int compare(OktStatus okt1, OktStatus okt2) {
-
                     return okt1.getTreningsikOkt().getDate().compareTo(okt2.getTreningsikOkt().getDate());
-
                 }
             });
             sortAscendingD = false;
-
         } else {
-
-
             Collections.sort(treningsOkter, new Comparator<OktStatus>() {
                 @Override
                 public int compare(OktStatus okt1, OktStatus okt2) {
-
                     return okt2.getTreningsikOkt().getDate().compareTo(okt1.getTreningsikOkt().getDate());
-
                 }
             });
             sortAscendingD = true;
         }
         return null;
     }
-
+   
     public String sorterPaaVarighet() {
-
         if (sortAscendingV) {
-
-
             Collections.sort(treningsOkter, new Comparator<OktStatus>() {
                 @Override
                 public int compare(OktStatus okt1, OktStatus okt2) {
-
-                    return ((Integer) okt1.getTreningsikOkt().getVarighet()).compareTo(((Integer) okt2.getTreningsikOkt().getVarighet()));
-
+                    return ((Integer) okt1.getTreningsikOkt().getVarighet()).
+                            compareTo(((Integer) okt2.getTreningsikOkt().getVarighet()));
                 }
             });
             sortAscendingV = false;
@@ -312,9 +276,8 @@ public class TreningsOktBehandling extends DBController implements Serializable 
             Collections.sort(treningsOkter, new Comparator<OktStatus>() {
                 @Override
                 public int compare(OktStatus okt1, OktStatus okt2) {
-
-                    return ((Integer) okt2.getTreningsikOkt().getVarighet()).compareTo(((Integer) okt1.getTreningsikOkt().getVarighet()));
-
+                    return ((Integer) okt2.getTreningsikOkt().getVarighet()).
+                            compareTo(((Integer) okt1.getTreningsikOkt().getVarighet()));
                 }
             });
             sortAscendingV = true;
@@ -350,6 +313,5 @@ public class TreningsOktBehandling extends DBController implements Serializable 
             sortAscendingV = true;
         }
         return null;
-    }    
-    
+    }
 }

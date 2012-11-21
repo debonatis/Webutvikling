@@ -38,7 +38,6 @@ public class TreningsOkt {
             this.setEndret(true);
             this.kategori = kategori;
         }
-
     }
 
     public boolean isEndret() {
@@ -60,8 +59,6 @@ public class TreningsOkt {
             this.setEndret(true);
             this.tekst = tekst;
         }
-
-
     }
 
     public TreningsOkt() {
@@ -76,18 +73,16 @@ public class TreningsOkt {
 
     public void setBrukernavn(String brukernavn) {
         this.brukernavn = brukernavn;
-
     }
 
     public TreningsOkt(int oktNr, Date date, int varighet, String kategori, String tekst) {
+        
         this.oktNr = oktNr;
         this.dato = new Date(date.getTime());
         this.varighet = varighet;
         this.kategori = kategori;
         this.tekst = tekst;
         this.endret = false;
-
-
     }
 
     public int getOktNr() {
@@ -117,8 +112,6 @@ public class TreningsOkt {
             this.setEndret(true);
             dato = new Date(nyDato.getTime());
         }
-
-
     }
 
     public void setVarighet(int oktVarighet) {
@@ -126,8 +119,6 @@ public class TreningsOkt {
             varighet = oktVarighet;
             this.setEndret(true);
         }
-
-
     }
 
     private void nullstill() {
@@ -136,8 +127,5 @@ public class TreningsOkt {
         kategori = "";
         tekst = "";
         varighet = 0;
-
-
-
     }
 }

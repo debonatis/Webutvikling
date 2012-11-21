@@ -16,7 +16,6 @@ import org.hibernate.validator.constraints.Length;
  *
  * @author Martin
  */
-
 @RequestScoped
 public class Oversikt implements Serializable {
 
@@ -28,7 +27,6 @@ public class Oversikt implements Serializable {
     String bruker;
 
     public synchronized ArrayList<TreningsOkt> getAlleOkter() {
-
         return alleOkter;
     }
 
@@ -47,11 +45,9 @@ public class Oversikt implements Serializable {
                 alleOkter.remove(e);
             }
         }
-
     }
 
     public synchronized ArrayList<TreningsOkt> getPaManed(int m) {
-
         try {
             hjelp.clear();
             for (TreningsOkt k : alleOkter) {
@@ -62,7 +58,6 @@ public class Oversikt implements Serializable {
             return hjelp;
         } catch (ConcurrentModificationException e) {
         }
-
         return hjelp;
     }
 

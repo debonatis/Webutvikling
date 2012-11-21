@@ -137,7 +137,6 @@ public class DBController {
     }
 
     public synchronized void oppdaterTreningsOktDB(List<OktStatus> treningsOkter, String navn) {
-
         hjelp.clear();
         if (!(treningsOkter.isEmpty())) {
             for (OktStatus j : treningsOkter) {
@@ -220,7 +219,6 @@ public class DBController {
         } finally {
             conn.closeS(oppdaterPassord);
             conn.close();
-
         }
         return "ok";
     }
