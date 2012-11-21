@@ -33,6 +33,7 @@ public class DBController {
     private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<BrukerStatus> hjelpBruker = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private List<BrukerStatus> dbBrukerobjekter = Collections.synchronizedList(new ArrayList<BrukerStatus>());
+     
 
     public synchronized List<OktStatus> getAlleTreningsOkter(String navn) {
 
@@ -82,15 +83,16 @@ public class DBController {
             reg.setString(5, navn);
             reg.executeUpdate();
             conn.getConn().commit();
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført!", "ja,Nyregistreing fullført!");
-            fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);
-            fc.renderResponse();
+           
         } catch (SQLException e) {
             conn.failed();
         } finally {
             conn.closeP(reg);
             conn.close();
+             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført!", "ja,Nyregistreing fullført!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);            
+            fc.renderResponse();
         }
     }
 
@@ -268,7 +270,7 @@ public class DBController {
             st.getConnection().commit();
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
             fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);
+            fc.addMessage("null", fm);            
             fc.renderResponse();
         } catch (SQLException e) {
             conn.failed();

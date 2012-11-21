@@ -136,7 +136,8 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
-                                    <h:outputText value="#{texts.delete}"/>
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaSlett()}">
+                                    <h:outputText value="#{texts.delete}"/></h:commandLink>
                                 </f:facet>
                                 <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                             </h:column>

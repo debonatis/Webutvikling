@@ -31,7 +31,8 @@ public class Oversikt implements Serializable {
     }
 
     public synchronized String getBruker() {
-        return bruker == null ? sessionBruker.getName() : bruker;
+       this.bruker = sessionBruker.getName(); 
+        return bruker;
     }
 
     public synchronized void registrerNyOkt(TreningsOkt e) {

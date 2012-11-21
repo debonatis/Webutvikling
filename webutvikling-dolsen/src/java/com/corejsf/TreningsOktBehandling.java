@@ -75,6 +75,13 @@ public class TreningsOktBehandling extends DBController implements Serializable 
     }
 
     public TimeZone getTidssone() {
+// Kan også sette dette i web.xml  
+//        (Skal egentlig ikke brukes hvis side ment brukt internasjonalt)
+//      <context-param>
+//        <param-name>DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+//        <param-value>true</param-value>
+//      </context-param>
+        
         this.tidssone = TimeZone.getDefault();
         return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
     }
@@ -270,6 +277,36 @@ public class TreningsOktBehandling extends DBController implements Serializable 
                 public int compare(OktStatus okt1, OktStatus okt2) {
                     return ((Integer) okt2.getTreningsikOkt().getVarighet()).
                             compareTo(((Integer) okt1.getTreningsikOkt().getVarighet()));
+                }
+            });
+            sortAscendingV = true;
+        }
+        return null;
+    }
+    public String sorterPaaSlett() {
+
+        if (sortAscendingV) {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return ((Boolean)okt1.getSkalSlettes()).compareTo(okt2.getSkalSlettes());
+
+                }
+            });
+            sortAscendingV = false;
+
+        } else {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return ((Boolean) okt2.getSkalSlettes()).compareTo(okt1.getSkalSlettes());
+
                 }
             });
             sortAscendingV = true;
