@@ -33,7 +33,8 @@ public class Oversikt implements Serializable {
     }
 
     public synchronized String getBruker() {
-        return sessionBruker.getName();
+       this.bruker = sessionBruker.getName(); 
+        return bruker;
     }
 
     public synchronized void registrerNyOkt(TreningsOkt e) {
@@ -58,7 +59,6 @@ public class Oversikt implements Serializable {
                     hjelp.add(k);
                 }
             }
-
             return hjelp;
         } catch (ConcurrentModificationException e) {
         }

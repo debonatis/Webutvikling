@@ -313,4 +313,34 @@ public class TreningsOktBehandling extends DBController implements Serializable 
         }
         return null;
     }
+    public String sorterPaaSlett() {
+
+        if (sortAscendingV) {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return ((Boolean)okt1.getSkalSlettes()).compareTo(okt2.getSkalSlettes());
+
+                }
+            });
+            sortAscendingV = false;
+
+        } else {
+
+
+            Collections.sort(treningsOkter, new Comparator<OktStatus>() {
+                @Override
+                public int compare(OktStatus okt1, OktStatus okt2) {
+
+                    return ((Boolean) okt2.getSkalSlettes()).compareTo(okt1.getSkalSlettes());
+
+                }
+            });
+            sortAscendingV = true;
+        }
+        return null;
+    }
 }
