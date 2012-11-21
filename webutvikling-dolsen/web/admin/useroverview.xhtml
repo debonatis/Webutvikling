@@ -24,13 +24,11 @@ and open the template in the editor.
 
                         <h:outputText value="#{texts.overview}: " id="overskrift"/>
 
-                        <h:panelGroup rendered="#{not bruker.nyBruker}">
+                        
                             <h:commandButton id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/>
-                        </h:panelGroup>
+                        
                         <h:panelGroup rendered="#{bruker.nyBruker}">
-                            <h:form>
-                                <h:commandButton id="NyBrukerKnapp2" value="#{texts.newUser}" action="#{bruker.setNyBruker(false)}"/>
-                            </h:form>
+                           
                             <h:dataTable  id="nyBruker" var="tempBruker" value="#{bruker.tempBrukerListe}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
                                 <h:column id="namecol">
                                     <f:facet name="header">
