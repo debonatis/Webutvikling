@@ -6,6 +6,7 @@ package com.corejsf.brukerAdm;
 
 import com.corejsf.annotations.Lurifakssjekker;
 import javax.faces.bean.RequestScoped;
+import javax.persistence.Id;
 
 /**
  *
@@ -14,7 +15,7 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class Bruker {
 
-    private 
+    private @Id
     @Lurifakssjekker(passordsjekk=0 ,message= "This username is already in use,"
             + " or it is one that is too similar.\n "
             + "Write a new one! "
