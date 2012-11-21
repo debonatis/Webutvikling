@@ -136,7 +136,6 @@ public class DBController {
     }
 
     public synchronized void oppdaterTreningsOktDB(List<OktStatus> treningsOkter, String navn) {
-
         hjelp.clear();
         if (!(treningsOkter.isEmpty())) {
             for (OktStatus j : treningsOkter) {
@@ -219,13 +218,11 @@ public class DBController {
         } finally {
             conn.closeS(oppdaterPassord);
             conn.close();
-
         }
         return "ok";
     }
 
     public synchronized void registrerBruker(Bruker bruker) {
-
         //oktnr blir autogenerert i databasen
         DBConnection conn = new DBConnection();
         PreparedStatement reg = null;
