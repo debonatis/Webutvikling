@@ -35,11 +35,10 @@ public class Bruker {
         this.endret = endret;
     }
 
-    public Bruker() {
+    public Bruker() { 
         this.name = "";
         this.rolle = "";
         this.passord = "";
-
     }
 
     public Bruker(String name, String passord, String rolle) {
