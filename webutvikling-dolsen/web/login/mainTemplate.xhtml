@@ -38,8 +38,8 @@
             <h:panelGroup rendered="#{bruker.nyBruker}">
                 <h:form>
                     <h:outputLabel for="brukernavn" value="#{texts.username}" /><br/>
-                    <h:inputText id="brukernavn" value="#{bruker.tempBruker.name}" ></h:inputText><br/>
-                    <h:outputLabel for="sjekkpassord" value="#{texts.newPassword}" /><br/>
+                    <h:inputText id="brukernavn" value="#{bruker.tempBruker.name}"></h:inputText><br/>
+                    <h:outputLabel for="sjekkpassord" value="#{texts.newPassword}"/><br/>
                     <h:inputSecret id="sjekkpassord" binding="#{passwordComponent}" value="#{bruker.tempBruker.passord}" >
                         <f:validator validatorId="validatorTekst2" />
                     </h:inputSecret> <br/>
