@@ -23,6 +23,7 @@ import javax.inject.Named;
 import javax.persistence.Cacheable;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -107,16 +108,18 @@ public class BrukerBehandling extends DBController implements Serializable {
     }
 
     public String logout() {
-                FacesContext context = FacesContext.getCurrentInstance();
-                HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        HttpSession session = request.getSession(true);
+        session.invalidate();
 
-                try {
-                    request.logout();
-                    request.logout();
-                } catch (ServletException e) {
-                }
-                return "ok";
-            }
+        try {
+            request.logout();
+            request.logout();
+        } catch (ServletException e) {
+        }
+        return "ok";
+    }
 
     public String getName() {
         getUserData();
