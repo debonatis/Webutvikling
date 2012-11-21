@@ -17,7 +17,7 @@ import javax.validation.ConstraintValidatorContext;
  *
  * @author deb
  */
-// Er ikke ne bean fordi <f:validator... kunne tydeligvis ikke forekomme mer enn en gang i en form (Ja, det er unike Id'er)
+// Er ikke en "FacesValidator-bean" fordi <f:validator... kaster timeout exeption!
 public class ValidatorTekst3 extends BrukerBehandling implements ConstraintValidator<Lurifakssjekker, String> {
 
     private Lurifakssjekker sjekker;
