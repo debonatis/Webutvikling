@@ -153,7 +153,8 @@ public class TreningsOktBehandling extends DBController implements Serializable 
 
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
         tempOkt = nyTempOkt;
-    }
+    }    
+    
 
     public synchronized String oppdater() {
 
@@ -349,5 +350,6 @@ public class TreningsOktBehandling extends DBController implements Serializable 
             sortAscendingV = true;
         }
         return null;
-    }
+    }    
+    
 }
