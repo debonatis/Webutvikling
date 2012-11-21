@@ -20,7 +20,7 @@
     <navigation-rule>
         <from-view-id>/templates/input.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{treningsOktBehandler.oppdater()}</from-action>
+            <from-action>#{treningsOktBehandling.oppdater()}</from-action>
             <from-outcome>success</from-outcome>
             <to-view-id>/templates/overview1.xhtml</to-view-id>
         </navigation-case>
@@ -32,7 +32,7 @@
     <navigation-rule>
         <from-view-id>/templates/*</from-view-id>
         <navigation-case>
-            <from-action>#{treningsOktBehandler.oppdater()}</from-action>
+            <from-action>#{treningsOktBehandling.oppdater()}</from-action>
             <from-outcome>success</from-outcome>
             <to-view-id>/templates/overview1.xhtml</to-view-id>
         </navigation-case>
@@ -40,7 +40,7 @@
     <navigation-rule>
         <from-view-id>/admin/*</from-view-id>
         <navigation-case>
-            <from-action>#{treningsOktBehandler.oppdater()}</from-action>
+            <from-action>#{treningsOktBehandling.oppdater()}</from-action>
             <from-outcome>success</from-outcome>
             <to-view-id>/admin/overview1.xhtml</to-view-id>
         </navigation-case>
