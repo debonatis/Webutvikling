@@ -30,10 +30,7 @@ public class ValidatorTekst2 implements Validator {
             message.setSummary("The password must contain at least one uppercase "
                     + "and one lowercase letter and one number. \n  The password must also contain one of following special characters(@#$%&). "
                     + "Password must be between 6-20 characters!");
-
             throw new ValidatorException(message);
-
-
         }
     }
 }
