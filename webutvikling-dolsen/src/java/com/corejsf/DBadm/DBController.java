@@ -16,14 +16,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExceptionHandler;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.SystemEvent;
 
 /**
  *
@@ -38,43 +33,7 @@ public class DBController {
     private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<BrukerStatus> hjelpBruker = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private List<BrukerStatus> dbBrukerobjekter = Collections.synchronizedList(new ArrayList<BrukerStatus>());
-    private ExceptionHandler eX= new ExceptionHandler() {
-
-                @Override
-                public void handle() throws FacesException {
-                    throw new UnsupportedOperationException("Not supported yet.");
-                }
-
-                @Override
-                public ExceptionQueuedEvent getHandledExceptionQueuedEvent() {
-                    throw new UnsupportedOperationException("Not supported yet.");
-                }
-
-                @Override
-                public Iterable<ExceptionQueuedEvent> getUnhandledExceptionQueuedEvents() {
-                    throw new UnsupportedOperationException("Not supported yet.");
-                }
-
-                @Override
-                public Iterable<ExceptionQueuedEvent> getHandledExceptionQueuedEvents() {
-                    throw new UnsupportedOperationException("Not supported yet.");
-                }
-
-                @Override
-                public void processEvent(SystemEvent exceptionQueuedEvent) throws AbortProcessingException {
-                    throw new UnsupportedOperationException("Not supported yet.");
-                }
-
-                @Override
-                public boolean isListenerForSource(Object source) {
-                    throw new UnsupportedOperationException("Not supported yet.");
-                }
-
-                @Override
-                public Throwable getRootCause(Throwable t) {
-                    throw new UnsupportedOperationException("Not supported yet.");
-                }
-            }; 
+     
 
     public synchronized List<OktStatus> getAlleTreningsOkter(String navn) {
 
@@ -314,8 +273,7 @@ public class DBController {
             st.getConnection().commit();
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
             fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);
-            fc.setExceptionHandler(eX);
+            fc.addMessage("null", fm);            
             fc.renderResponse();
         } catch (SQLException e) {
             conn.failed();

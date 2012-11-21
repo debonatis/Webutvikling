@@ -75,6 +75,13 @@ public class TreningsOktBehandling extends DBController implements Serializable 
     }
 
     public TimeZone getTidssone() {
+// Kan også sette dette i web.xml  
+//        (Skal egentlig ikke brukes hvis side ment brukt internasjonalt)
+//      <context-param>
+//        <param-name>DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+//        <param-value>true</param-value>
+//      </context-param>
+        
         this.tidssone = TimeZone.getDefault();
         return tidssone == null ? TimeZone.getTimeZone("GMT") : tidssone;
     }
