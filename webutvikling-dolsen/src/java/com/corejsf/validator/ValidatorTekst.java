@@ -19,9 +19,6 @@ public class ValidatorTekst implements Validator {
 
     @Override
     public void validate(FacesContext facesContext, UIComponent uIComponent, Object object) throws ValidatorException {
-
-
-
         UIInput passwordComponent = (UIInput) uIComponent.getAttributes().get("passwordComponent");
         String password = (String) passwordComponent.getValue();
         String confirmPassword = (String) object;
