@@ -105,7 +105,7 @@
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                                <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
+                                <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert" onclick="return confirm(#{texts.duration})"/>
                             </h:column>
                             <h:column>
                                 <f:facet name="header">
