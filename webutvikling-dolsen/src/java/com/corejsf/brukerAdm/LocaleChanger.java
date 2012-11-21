@@ -23,11 +23,13 @@ public class LocaleChanger implements Serializable{
         context.getViewRoot().setLocale(Locale.GERMAN);
         return null;
     }
+    
     public String englishAction(){
         FacesContext context = FacesContext.getCurrentInstance();
         context.getViewRoot().setLocale(Locale.ENGLISH);
         return null;
     }
+    
     public String norwegianAction(){
         FacesContext context = FacesContext.getCurrentInstance();
         //Locale l = new Locale("no");
