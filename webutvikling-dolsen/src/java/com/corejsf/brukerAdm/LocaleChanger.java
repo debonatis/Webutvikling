@@ -18,6 +18,7 @@ import javax.inject.Named;
  * @author Jørgen
  */
 public class LocaleChanger implements Serializable{
+    
     public String germanAction(){
         FacesContext context = FacesContext.getCurrentInstance();
         context.getViewRoot().setLocale(Locale.GERMAN);
