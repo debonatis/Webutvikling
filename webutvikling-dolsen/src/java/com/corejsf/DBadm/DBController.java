@@ -227,28 +227,41 @@ public class DBController {
     }
 
     public synchronized void registrerBruker(Bruker bruker) {
-
-        //oktnr blir autogenerert i databasen
+        
         DBConnection conn = new DBConnection();
-        PreparedStatement reg = null;
-        PreparedStatement reg2 = null;
+        PreparedStatement reg = null;        
         String regTekst = "INSERT INTO WAPLJ.BRUKER"
-                + " VALUES (?,?)";
-        String regTekst2 = "INSERT INTO WAPLJ.ROLLE"
-                + " VALUES (?,?) ";
+                + " VALUES (?,?)";       
         try {
             conn.getConn().setAutoCommit(false);
             reg = conn.getConn().prepareStatement(regTekst);
             reg.setString(1, bruker.getName());
             reg.setString(2, bruker.getPassord());
             reg.executeUpdate();
-            conn.getConn().commit();
-            reg2 = conn.getConn().prepareStatement(regTekst2);
-            reg2.setString(1, bruker.getName());
-            reg2.setString(2, bruker.getRolle());
-            reg2.executeUpdate();
-            conn.getConn().commit();
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført!", "ja,Nyregistreing fullført!");
+            conn.getConn().commit();            
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering av bruker fullført!", "ja,Nyregistreing fullført!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
+        } catch (SQLException e) {
+            conn.failed();
+        } finally {
+            registrerRolle(conn,bruker);            
+        }
+    }
+    private synchronized void registrerRolle(DBConnection conn, Bruker bruker) {        
+        
+        PreparedStatement reg = null;             
+        String regTekst2 = "INSERT INTO WAPLJ.ROLLE"
+                + " VALUES (?,?) ";
+        try {
+            conn.getConn().setAutoCommit(false);
+            reg = conn.getConn().prepareStatement(regTekst2);
+            reg.setString(1, bruker.getName());
+            reg.setString(2, bruker.getRolle());
+            reg.executeUpdate();
+            conn.getConn().commit();           
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering av rolle fullført!", "ja,Nyregistreing fullført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
