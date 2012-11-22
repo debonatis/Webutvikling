@@ -168,7 +168,7 @@
                     </h:selectOneMenu>                    
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandling.oppdater()}" class="test" id="submit"/>
                     <h:commandLink class="test1">
-                        <p:graphicImage value="/resources/images/pdf.png" />  
+                        <h:graphicImage value="/resources/images/pdf.png" />  
                         <opt:exportActionListener type="pdf" target="okter" fileName="#{bruker.name}"  pageOnly="true" />
                     </h:commandLink>                    
                 </h:form>
