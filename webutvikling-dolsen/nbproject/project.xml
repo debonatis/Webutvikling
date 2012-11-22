@@ -21,10 +21,6 @@
                     <path-in-war>/</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.primefaces-3.4.2.jar}</file>
-                    <path-in-war>/</path-in-war>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.optimus-0.7.2.jar}</file>
                     <path-in-war>/</path-in-war>
                 </library>
