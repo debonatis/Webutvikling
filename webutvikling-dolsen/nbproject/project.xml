@@ -25,11 +25,11 @@
             </web-module-libraries>
             <web-module-additional-libraries>
                 <library dirs="200">
-                    <file>${file.reference.itext-2.1.7.jar}</file>
+                    <file>${file.reference.itext-2.1.7.jar-1}</file>
                     <path-in-war>/</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.optimus-0.7.2.jar}</file>
+                    <file>${file.reference.optimus-0.7.2.jar-1}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>
