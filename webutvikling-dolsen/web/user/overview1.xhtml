@@ -84,8 +84,8 @@
                                       rendered="#{not treningsOktBehandling.datafins}"/>
                     </p>
                     <div style="height:200px;overflow-x:auto;overflow-y:scroll;">
-                        <h:dataTable value="#{treningsOktBehandling.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" id="okter" rendered="#{treningsOktBehandling.datafins}">
-                            <h:column>
+                        <p:dataTable value="#{treningsOktBehandling.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" id="okter" rendered="#{treningsOktBehandling.datafins}">
+                            <p:column>
                                 <f:facet name="header">
                                     <h:commandLink action="#{treningsOktBehandling.sorterPaaDato()}">
                                         <h:outputText value="#{texts.date}"/></h:commandLink>
@@ -96,8 +96,8 @@
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                            </h:column>
-                            <h:column>
+                            </p:column>
+                            <p:column>
                                 <f:facet name="header">
                                     <h:commandLink action="#{treningsOktBehandling.sorterPaaVarighet()}">
                                         <h:outputText value="#{texts.duration}"/></h:commandLink>
@@ -106,8 +106,8 @@
                                     <h:outputText value=""/>
                                 </f:facet>
                                 <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
-                            </h:column>
-                            <h:column>
+                            </p:column>
+                            <p:column>
                                 <f:facet name="header">
                                     <h:commandLink action="#{treningsOktBehandling.sorterPaaKategori()}">
                                         <h:outputText value="#{texts.category}"/></h:commandLink>
@@ -121,8 +121,8 @@
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                            </h:column>
-                            <h:column>
+                            </p:column>
+                            <p:column>
                                 <f:facet name="header">
                                     <h:commandLink action="#{treningsOktBehandling.sorterPaaTekst()}">
                                         <h:outputText value="#{texts.text}"/></h:commandLink>
@@ -133,15 +133,15 @@
                                 <f:facet name="footer">
                                     <h:outputText value=""/>
                                 </f:facet>
-                            </h:column>
-                            <h:column>
+                            </p:column>
+                            <p:column>
                                 <f:facet name="header">
                                     <h:commandLink action="#{treningsOktBehandling.sorterPaaSlett()}">
                                     <h:outputText value="#{texts.delete}"/></h:commandLink>
                                 </f:facet>
                                 <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
-                            </h:column>
-                        </h:dataTable>
+                            </p:column>
+                        </p:dataTable>
                         <br/>
                         <h:messages globalOnly="true" rendered="true"/>
                     </div>
