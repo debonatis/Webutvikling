@@ -18,11 +18,11 @@
         </resource-bundle>
     </application>
     <navigation-rule>
-        <from-view-id>/templates/input.xhtml</from-view-id>
+        <from-view-id>/user/input.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{treningsOktBehandling.oppdater()}</from-action>
             <from-outcome>success</from-outcome>
-            <to-view-id>/templates/overview1.xhtml</to-view-id>
+            <to-view-id>/user/overview1.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <validator>
@@ -30,11 +30,11 @@
         <validator-class>com.corejsf.ValidatorTekst</validator-class>
     </validator>
     <navigation-rule>
-        <from-view-id>/templates/*</from-view-id>
+        <from-view-id>/user/*</from-view-id>
         <navigation-case>
             <from-action>#{treningsOktBehandling.oppdater()}</from-action>
             <from-outcome>success</from-outcome>
-            <to-view-id>/templates/overview1.xhtml</to-view-id>
+            <to-view-id>/user/overview1.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule> 
     <navigation-rule>
@@ -54,7 +54,7 @@
         </navigation-case>
     </navigation-rule>  
     <navigation-rule>
-        <from-view-id>/templates/*</from-view-id>
+        <from-view-id>/user/*</from-view-id>
         <navigation-case>
             <from-action>#{bruker.logout()}</from-action>
             <from-outcome>ok</from-outcome>
@@ -74,7 +74,7 @@
         <navigation-case>
             <from-action>ok</from-action>
             <from-outcome>ok</from-outcome>
-            <to-view-id>/templates/input.xhtml</to-view-id>
+            <to-view-id>/user/input.xhtml</to-view-id>
             <redirect />
         </navigation-case>
     </navigation-rule>
@@ -103,23 +103,23 @@
         </navigation-case>
     </navigation-rule> 
     <navigation-rule>
-        <from-view-id>/templates/*</from-view-id>
+        <from-view-id>/user/*</from-view-id>
         <navigation-case>
             <from-action>userok1</from-action>
             <from-outcome>userok1</from-outcome>
-            <to-view-id>/templates/overview1.xhtml</to-view-id>
+            <to-view-id>/user/overview1.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule> 
     <navigation-rule>
-        <from-view-id>/templates/*</from-view-id>
+        <from-view-id>/user/*</from-view-id>
         <navigation-case>
             <from-action>userok2</from-action>
             <from-outcome>userok2</from-outcome>
-            <to-view-id>/templates/changePassword.xhtml</to-view-id>
+            <to-view-id>/user/changePassword.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule> 
     <navigation-rule>
-        <from-view-id>/templates/*</from-view-id>
+        <from-view-id>/user/*</from-view-id>
         <navigation-case>
             <from-action>adminok3</from-action>
             <from-outcome>adminok3</from-outcome>
@@ -127,7 +127,7 @@
         </navigation-case>
     </navigation-rule> 
     <navigation-rule>
-        <from-view-id>/templates/*</from-view-id>
+        <from-view-id>/user/*</from-view-id>
         <navigation-case>
             <from-action>adminok1</from-action>
             <from-outcome>adminok1</from-outcome>
@@ -135,7 +135,7 @@
         </navigation-case>
     </navigation-rule> 
     <navigation-rule>
-        <from-view-id>/templates/*</from-view-id>
+        <from-view-id>/user/*</from-view-id>
         <navigation-case>
             <from-action>adminok2</from-action>
             <from-outcome>adminok2</from-outcome>
@@ -151,11 +151,11 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/templates/*</from-view-id>
+        <from-view-id>/user/*</from-view-id>
         <navigation-case>
             <from-action>#{bruker.changePassword()}</from-action>
             <from-outcome>ok</from-outcome>
-            <to-view-id>/templates/changePassword.xhtml</to-view-id>
+            <to-view-id>/user/changePassword.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule> 
     <navigation-rule>
