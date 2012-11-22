@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <head>
         <title>IGNORED</title>
     </head>
@@ -137,7 +138,7 @@
                             <h:column>
                                 <f:facet name="header">
                                     <h:commandLink action="#{treningsOktBehandling.sorterPaaSlett()}">
-                                    <h:outputText value="#{texts.delete}"/></h:commandLink>
+                                        <h:outputText value="#{texts.delete}"/></h:commandLink>
                                 </f:facet>
                                 <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                             </h:column>
@@ -165,7 +166,8 @@
                         <f:selectItem itemValue ="12" itemLabel="#{texts.december}"/>
                     </h:selectOneMenu>                    
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandling.oppdater()}" class="test" id="submit"/>
-
+                    <p:graphicImage value="/resources/images/pdf.png" />  
+                    <p:dataExporter type="pdf" target="okter" fileName="Økter til #{bruker.name}." />
 
                 </h:form>
             </ui:define>
