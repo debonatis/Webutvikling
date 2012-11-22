@@ -4,8 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:opt="http://primefaces.prime.com.tr/optimus">
+      >
     <head>
         <title>IGNORED</title>
     </head>
@@ -167,10 +166,7 @@
                         <f:selectItem itemValue ="12" itemLabel="#{texts.december}"/>
                     </h:selectOneMenu>
                     <br/><h:commandButton value="#{texts.update}" action="#{treningsOktBehandling.oppdater()}" class="test" id="submit"/>
-                    <h:commandLink class="test1" rendered="#{bruker.datafins()}">  
-                        <h:graphicImage  value="/resources/images/pdf.png" />  
-                        <opt:exportActionListener type="pdf" target="okter" fileName="#{bruker.name}" pageOnly="true"/>  
-                    </h:commandLink> 
+                   
                 </h:form>
                 <h:messages layout="table"/>
 
