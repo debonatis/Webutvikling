@@ -29,7 +29,7 @@ public class ValidatorTekst2 implements Validator {
             FacesMessage message = new FacesMessage();
             message.setSummary("The password must contain at least one uppercase "
                     + "and one lowercase letter and one number. \n  The password must also contain one of following special characters(@#$%&). "
-                    + "Password must be between 6-20 characters!");
+                    + "Password must be between 6-10 characters!");
             throw new ValidatorException(message);
         }
     }
