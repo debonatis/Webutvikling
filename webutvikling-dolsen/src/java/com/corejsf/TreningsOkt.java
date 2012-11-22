@@ -32,6 +32,8 @@ public class TreningsOkt {
     @Length(min = 0, max = 30, message="The textfield can be empty, or contain maximum 30 characters")
     String tekst;
     private boolean endret = false;
+     private @Length(min = 6, max = 20)
+    String brukernavn;
 
     public void setKategori(String kategori) {
         if (!(this.kategori.equalsIgnoreCase(kategori))) {
@@ -64,8 +66,7 @@ public class TreningsOkt {
     public TreningsOkt() {
         nullstill();
     }
-    private @Length(min = 6, max = 20)
-    String brukernavn;
+   
 
     public String getBrukernavn() {
         return brukernavn;
