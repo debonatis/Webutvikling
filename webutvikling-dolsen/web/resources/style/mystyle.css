@@ -74,20 +74,15 @@ body {
 }
 .test{
     position: fixed;
-    left: 70%;
-    padding-bottom: 15px;
-       
+    left: 70%; 
 }
 .test1{
     position: fixed;
     left: 77%;
-    padding-bottom: 15px;
 }
 .test3{
     position: fixed;
-    left: 63%;
-    padding-bottom: 15px;
-    
+    left: 63%;  
 }
 .test4{
     position: fixed;
