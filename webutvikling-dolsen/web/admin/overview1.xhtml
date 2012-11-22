@@ -165,9 +165,9 @@
                         <f:selectItem itemValue ="12" itemLabel="#{texts.december}"/>
                     </h:selectOneMenu>                    
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandling.oppdater()}" class="test" id="submit"/>
-                                 
-                </h:form>
 
+                </h:form>
+                <h:messages layout="table" class="msg"/> 
             </ui:define>
         </ui:composition>
         <p><h:messages/></p>
