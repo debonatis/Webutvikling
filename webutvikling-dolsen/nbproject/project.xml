@@ -29,7 +29,7 @@
                     <path-in-war>/</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.poi-3.5-FINAL-20090928.jar}</file>
+                    <file>${file.reference.optimus-0.7.2.jar}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>

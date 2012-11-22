@@ -979,7 +979,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.optimus-0.7.2.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.itext-2.1.7.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.primefaces-3.4.2.jar}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.poi-3.5-FINAL-20090928.jar}" todir="${build.web.dir}//"/>
+        <copyfiles files="${file.reference.optimus-0.7.2.jar}" todir="${build.web.dir}//"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
@@ -989,7 +989,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.optimus-0.7.2.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.itext-2.1.7.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.primefaces-3.4.2.jar}" todir="${build.web.dir}//"/>
-        <copyfiles files="${file.reference.poi-3.5-FINAL-20090928.jar}" todir="${build.web.dir}//"/>
+        <copyfiles files="${file.reference.optimus-0.7.2.jar}" todir="${build.web.dir}//"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-clean-webinf-lib">
         <delete dir="${build.web.dir}/WEB-INF/lib"/>
