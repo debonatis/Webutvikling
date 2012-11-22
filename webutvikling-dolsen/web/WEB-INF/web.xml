@@ -54,7 +54,7 @@
     </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>wapljRealm</realm-name>
+        <realm-name>waplj_realm</realm-name>
         <form-login-config>
             <form-login-page>/faces/login/login.xhtml</form-login-page>
             <form-error-page>/faces/login/ikkelogin.xhtml</form-error-page>            
