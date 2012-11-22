@@ -51,7 +51,7 @@ public class BrukerBehandling extends DBController implements Serializable {
     private static int teller = 0;
     private static List<BrukerStatus> statiskdbBrukerListe = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private boolean adminOK;
-    private boolean sortRolle = true;
+    private boolean sortRolle = true;    
 
     public boolean isAdminOK() {
         this.adminOK = (getRolle().equals("admin")) ? true : false;
