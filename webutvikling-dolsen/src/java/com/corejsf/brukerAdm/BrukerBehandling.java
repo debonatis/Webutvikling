@@ -23,6 +23,7 @@ import javax.inject.Named;
 import javax.persistence.Cacheable;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -106,6 +107,20 @@ public class BrukerBehandling extends DBController implements Serializable {
         return "NO ROLE, logging you out!";
     }
 
+    public String logout() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        HttpSession session = request.getSession(true);
+        session.invalidate();
+
+        try {
+            request.logout();
+            request.logout();
+        } catch (ServletException e) {
+        }
+        return "ok";
+    }
+
     public String getName() {
         getUserData();
         return name == null ? "" : name;
@@ -143,28 +158,6 @@ public class BrukerBehandling extends DBController implements Serializable {
         }
         HttpServletRequest foresporrsel = (HttpServletRequest) forsporrselobject;
         return foresporrsel.isUserInRole(k);
-    }
-
-    public String logout() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-
-        try {
-            request.logout();
-            request.logout();
-        } catch (ServletException e) {
-            logger.log(Level.SEVERE, "Failed to logout user!", e);
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout ikke OK!", "");
-            fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);
-            fc.renderResponse();
-            return "ok";
-        }
-        fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout OK!", "");
-        fc = FacesContext.getCurrentInstance();
-        fc.addMessage("null", fm);
-        fc.renderResponse();
-        return "ok";
     }
 
     public static List<BrukerStatus> getStatiskdbBrukerListe() {

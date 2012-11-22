@@ -78,7 +78,7 @@ public class TreningsOktBehandling extends DBController implements Serializable 
 // Kan også sette dette i web.xml  
 //        (Skal egentlig ikke brukes hvis side ment brukt internasjonalt)
 //      <context-param>
-//        <param-name>DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+//        <param-name>javax.faces.application.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
 //        <param-value>true</param-value>
 //      </context-param>
         
@@ -151,7 +151,8 @@ public class TreningsOktBehandling extends DBController implements Serializable 
 
     public synchronized void setTempOkt(TreningsOkt nyTempOkt) {
         tempOkt = nyTempOkt;
-    }
+    }    
+    
 
     public synchronized String oppdater() {
         nyOkt = false;

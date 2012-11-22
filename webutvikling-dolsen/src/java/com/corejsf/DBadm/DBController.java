@@ -33,7 +33,6 @@ public class DBController {
     private List<OktStatus> hjelp = Collections.synchronizedList(new ArrayList<OktStatus>());
     private List<BrukerStatus> hjelpBruker = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private List<BrukerStatus> dbBrukerobjekter = Collections.synchronizedList(new ArrayList<BrukerStatus>());
-     
 
     public synchronized List<OktStatus> getAlleTreningsOkter(String navn) {
 
@@ -83,15 +82,15 @@ public class DBController {
             reg.setString(5, navn);
             reg.executeUpdate();
             conn.getConn().commit();
-           
+
         } catch (SQLException e) {
             conn.failed();
         } finally {
             conn.closeP(reg);
             conn.close();
-             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført!", "ja,Nyregistreing fullført!");
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført!", "ja,Nyregistreing fullført!");
             fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);            
+            fc.addMessage("null", fm);
             fc.renderResponse();
         }
     }
@@ -225,14 +224,11 @@ public class DBController {
     }
 
     public synchronized void registrerBruker(Bruker bruker) {
-        //oktnr blir autogenerert i databasen
+
         DBConnection conn = new DBConnection();
         PreparedStatement reg = null;
-        PreparedStatement reg2 = null;
         String regTekst = "INSERT INTO WAPLJ.BRUKER"
                 + " VALUES (?,?)";
-        String regTekst2 = "INSERT INTO WAPLJ.ROLLE"
-                + " VALUES (?,?) ";
         try {
             conn.getConn().setAutoCommit(false);
             reg = conn.getConn().prepareStatement(regTekst);
@@ -240,12 +236,30 @@ public class DBController {
             reg.setString(2, bruker.getPassord());
             reg.executeUpdate();
             conn.getConn().commit();
-            reg2 = conn.getConn().prepareStatement(regTekst2);
-            reg2.setString(1, bruker.getName());
-            reg2.setString(2, bruker.getRolle());
-            reg2.executeUpdate();
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering av bruker fullført!", "ja,Nyregistreing fullført!");
+            fc = FacesContext.getCurrentInstance();
+            fc.addMessage("null", fm);
+            fc.renderResponse();
+        } catch (SQLException e) {
+            conn.failed();
+        } finally {
+            registrerRolle(conn, bruker);
+        }
+    }
+
+    private synchronized void registrerRolle(DBConnection conn, Bruker bruker) {
+
+        PreparedStatement reg = null;
+        String regTekst2 = "INSERT INTO WAPLJ.ROLLE"
+                + " VALUES (?,?) ";
+        try {
+            conn.getConn().setAutoCommit(false);
+            reg = conn.getConn().prepareStatement(regTekst2);
+            reg.setString(1, bruker.getName());
+            reg.setString(2, bruker.getRolle());
+            reg.executeUpdate();
             conn.getConn().commit();
-            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering fullført!", "ja,Nyregistreing fullført!");
+            fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nyregistrering av rolle fullført!", "ja,Nyregistreing fullført!");
             fc = FacesContext.getCurrentInstance();
             fc.addMessage("null", fm);
             fc.renderResponse();
@@ -259,6 +273,7 @@ public class DBController {
 
     public synchronized void slettBruker(Bruker bruker) {
         int i = 0;
+        slettalleTreningsOkterNavn(bruker.getName());
         DBConnection conn = new DBConnection();
         Statement st = null;
         try {
@@ -270,7 +285,7 @@ public class DBController {
             st.getConnection().commit();
             fm = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sletting utført!", "ja,Sletting utført!");
             fc = FacesContext.getCurrentInstance();
-            fc.addMessage("null", fm);            
+            fc.addMessage("null", fm);
             fc.renderResponse();
         } catch (SQLException e) {
             conn.failed();
@@ -278,7 +293,7 @@ public class DBController {
         } finally {
             conn.closeS(st);
             conn.close();
-            if (i>0) {
+            if (i > 0) {
                 slettBruker(bruker);
             }
         }
