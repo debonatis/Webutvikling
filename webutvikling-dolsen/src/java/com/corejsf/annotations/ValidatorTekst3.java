@@ -18,9 +18,9 @@ import javax.validation.ConstraintValidatorContext;
  * @author deb
  */
 // Er ikke en "FacesValidator-bean" fordi <f:validator... kaster timeout exeption!
-public class ValidatorTekst3 extends BrukerBehandling implements ConstraintValidator<Lurifakssjekker, String> {
+public class ValidatorTekst3 extends BrukerBehandling implements ConstraintValidator<UsrPswWaplj, String> {
 
-    private Lurifakssjekker sjekker;
+    private UsrPswWaplj sjekker;
     private boolean brukerNavnOK;
     private boolean brukerNavnRegexOK;
     private Pattern brukerNavnSjekk;
@@ -30,7 +30,7 @@ public class ValidatorTekst3 extends BrukerBehandling implements ConstraintValid
     private List<BrukerStatus> brukere;
 
     @Override
-    public void initialize(Lurifakssjekker sjekker) {
+    public void initialize(UsrPswWaplj sjekker) {
         this.sjekker = sjekker;
     }
 

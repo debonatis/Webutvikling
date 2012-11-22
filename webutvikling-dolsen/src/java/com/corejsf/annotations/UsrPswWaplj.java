@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 @Constraint(validatedBy = ValidatorTekst3.class)
 @Documented
 @NotNull
-public  @interface Lurifakssjekker {
+public  @interface UsrPswWaplj {
     String message() default "{com.corejsf.Lurifakssjekker.melding}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
