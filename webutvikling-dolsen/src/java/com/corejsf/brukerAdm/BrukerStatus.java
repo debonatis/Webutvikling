@@ -4,9 +4,6 @@
  */
 package com.corejsf.brukerAdm;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import javax.faces.bean.RequestScoped;
 
 /**

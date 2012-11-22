@@ -4,7 +4,6 @@
  */
 package com.corejsf.validator;
 
-import java.util.regex.*;
 import javax.faces.application.*;
 import javax.faces.component.*;
 import javax.faces.context.*;

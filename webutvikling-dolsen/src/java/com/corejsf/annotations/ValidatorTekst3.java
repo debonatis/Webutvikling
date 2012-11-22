@@ -4,7 +4,6 @@
  */
 package com.corejsf.annotations;
 
-import com.corejsf.DBadm.DBController;
 import com.corejsf.brukerAdm.BrukerBehandling;
 import com.corejsf.brukerAdm.BrukerStatus;
 import java.util.List;
