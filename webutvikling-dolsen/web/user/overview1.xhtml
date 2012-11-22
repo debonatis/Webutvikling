@@ -84,7 +84,7 @@
                                       rendered="#{not treningsOktBehandling.datafins}"/>
                     </p>
                     <div style="height:200px;overflow-x:auto;overflow-y:scroll;">
-                        <p:dataTable  value="#{treningsOktBehandling.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" id="okter" rendered="#{treningsOktBehandling.datafins}">
+                        <h:dataTable  value="#{treningsOktBehandling.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" id="okter" rendered="#{treningsOktBehandling.datafins}">
                             <h:column>
                                 <f:facet name="header">
                                     <h:commandLink action="#{treningsOktBehandling.sorterPaaDato()}">
@@ -141,7 +141,7 @@
                                 </f:facet>
                                 <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
                             </h:column>
-                        </p:dataTable>                   <br/>
+                        </h:dataTable>                   <br/>
 
                     </div>
                     <p class ="buttonRightOutput">
