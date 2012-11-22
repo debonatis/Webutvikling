@@ -24,19 +24,19 @@ and open the template in the editor.
 
                         <h:outputText value="#{texts.overview}: " id="overskrift"/>
 
-                        
-                            <h:commandButton id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/>
-                        
+
+                        <h:commandButton id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/>
+
                         <h:panelGroup rendered="#{bruker.nyBruker}">
-                           
+
                             <h:dataTable  id="nyBruker" var="tempBruker" value="#{bruker.tempBrukerListe}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
                                 <h:column id="namecol">
                                     <f:facet name="header">
                                         <h:outputText value="#{texts.username}"/>
                                     </f:facet>
-                                    
+
                                     <h:inputText  value="#{tempBruker.bruker.name}" styleClass="venstrejustert">                                         
-                                        </h:inputText>
+                                    </h:inputText>
                                     <f:facet name="footer">
                                         <h:outputText value=""/>
                                     </f:facet>
@@ -123,7 +123,8 @@ and open the template in the editor.
                                 <h:selectBooleanCheckbox value="#{brukerobjekt.skalSlettes}"/>
                             </h:column>
                         </h:dataTable>
-                    </div>                  
+                    </div>  
+                    
 
 
 
@@ -131,6 +132,7 @@ and open the template in the editor.
 
 
                 </h:form>
+                <h:messages layout="table" class="msg"/> 
                 <br/>
                 <br/>
             </ui:define>

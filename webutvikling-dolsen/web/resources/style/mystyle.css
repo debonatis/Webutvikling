@@ -76,9 +76,10 @@ body {
     position: fixed;
     left: 70%; 
 }
-.test1{
+.msg{
     position: fixed;
-    left: 77%;
+    left: 5%;
+    bottom: 25%; 
 }
 .test3{
     position: fixed;

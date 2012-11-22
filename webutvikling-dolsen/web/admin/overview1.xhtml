@@ -8,8 +8,7 @@
     <head>
         <title>IGNORED</title>
     </head>
-    <body>        
-
+    <body>  
         <ui:composition template="/admin/adminTemplate.xhtml">
             <ui:define name="windowTitle">
                 #{texts.regTitle}
@@ -166,9 +165,9 @@
                         <f:selectItem itemValue ="12" itemLabel="#{texts.december}"/>
                     </h:selectOneMenu>                    
                     <h:commandButton value="#{texts.update}" action="#{treningsOktBehandling.oppdater()}" class="test" id="submit"/>
-                                      
+                    <h:messages layout="table" class="msg"/>                
                 </h:form>
-                <h:messages layout="table"/>
+
             </ui:define>
         </ui:composition>
         <p><h:messages/></p>
