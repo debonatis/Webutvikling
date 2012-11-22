@@ -51,7 +51,8 @@ public class BrukerBehandling extends DBController implements Serializable {
     private static int teller = 0;
     private static List<BrukerStatus> statiskdbBrukerListe = Collections.synchronizedList(new ArrayList<BrukerStatus>());
     private boolean adminOK;
-    private boolean sortRolle = true;    
+    private boolean sortRolle = true;
+    private boolean sortBruker = true; 
 
     public boolean isAdminOK() {
         this.adminOK = (getRolle().equals("admin")) ? true : false;
@@ -248,14 +249,14 @@ public class BrukerBehandling extends DBController implements Serializable {
 
     public String sorterPaaBrukernavn() {
 
-        if (sortRolle) {
+        if (sortBruker) {
             Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
                 @Override
                 public int compare(BrukerStatus bruker1, BrukerStatus bruker2) {
                     return bruker1.getBruker().getName().compareTo(bruker2.getBruker().getName());
                 }
             });
-            sortRolle = false;
+            sortBruker = false;
         } else {
             Collections.sort(bOversikt, new Comparator<BrukerStatus>() {
                 @Override
@@ -263,7 +264,7 @@ public class BrukerBehandling extends DBController implements Serializable {
                     return bruker2.getBruker().getName().compareTo(bruker1.getBruker().getName());
                 }
             });
-            sortRolle = true;
+            sortBruker = true;
         }
         return null;
     }
