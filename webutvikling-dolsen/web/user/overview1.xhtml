@@ -167,7 +167,7 @@
                         <f:selectItem itemValue ="12" itemLabel="#{texts.december}"/>
                     </h:selectOneMenu>
                     <br/><h:commandButton value="#{texts.update}" action="#{treningsOktBehandling.oppdater()}" class="test" id="submit"/>
-                     <h:commandLink>  
+                    <h:commandLink class="test1">  
             <p:graphicImage value="/resources/images/pdf.png" />  
             <p:dataExporter type="pdf" target="okter" fileName="Økter til #{bruker.name}." />  
         </h:commandLink> 
