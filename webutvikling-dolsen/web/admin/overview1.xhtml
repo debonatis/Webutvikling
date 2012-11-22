@@ -169,8 +169,9 @@
                     <h:commandLink class="test1">
                         <p:graphicImage value="/resources/images/pdf.png" />  
                         <p:dataExporter type="pdf" target="okter" fileName="#{bruker.name}"  pageOnly="true" />
-                    </h:commandLink>
+                    </h:commandLink>                    
                 </h:form>
+                <h:messages layout="table"/>
             </ui:define>
         </ui:composition>
         <p><h:messages/></p>
