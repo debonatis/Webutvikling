@@ -1,0 +1,51 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <title><ui:insert name="windowTitle"/></title>
+        <h:outputStylesheet library="style" name="mystyle.css"/>
+        <div id="header">
+            <ui:insert name="header">
+                <ui:include src="/sections/header.xhtml"/>
+                
+            </ui:insert>
+        </div>
+    </h:head>
+
+    <h:body>       
+        <div id="content">
+            <!--<h:graphicImage library="images"  name="smiley.png" style="border:0px; position: fixed; left: 69%;" />-->
+            <h:graphicImage id="cloud" library=""  name="images/cloud.png"/>
+            <h:graphicImage id="smallclouds" library=""  name="/images/smallclouds.png"/>
+            <ui:insert name="content"/>
+        </div>
+        <div id="sideBar">
+            <h:form>
+                <p> <h:outputLabel value="#{texts.username} : #{bruker.name}" />
+                </p>
+                <p> <h:outputLabel value="#{texts.role} : #{bruker.rolle}" />
+                </p>                
+                
+                <h:panelGroup  rendered="#{bruker.adminOK}">
+                    <p> <h:commandLink action="adminok1" value="#{texts.overview}" /></p>
+                    <p> <h:commandLink action="adminok2" value="#{texts.changePassword}" /></p>
+                    <p> <h:commandLink action="adminok3" value="#{texts.userAdm}" /> </p>                   
+                </h:panelGroup>
+                
+                <h:panelGroup rendered="#{not bruker.adminOK}">
+                    <p> <h:commandLink action="userok1" value="#{texts.overview}" /></p>
+                    <p> <h:commandLink action="userok2" value="#{texts.changePassword}"/> </p>
+                </h:panelGroup>
+                
+                <p> <h:commandLink value="#{texts.logout}" action="#{bruker.logout()}" />
+                </p>
+            </h:form>
+            
+        </div>
+        <ui:debug/>
+        
+    </h:body>
+</html>

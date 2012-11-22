@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>IGNORED</title>
+    </h:head>
+    <h:body>
+
+
+        <ui:composition template="/login/loginTemplate.xhtml">
+            <ui:define name="windowTitle">
+                #{texts.regTitle}
+            </ui:define>
+            <h3>#{texts.ikkelogin}</h3>
+
+            <ui:define name="content">
+
+                <h:form>
+
+                    <h:outputLabel value="#{texts.loginfailed}"/><br/>
+                    <br/>
+
+
+                    <h:commandButton action="index?faces-redirect=true" value="#{texts.loginny}" />
+
+
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

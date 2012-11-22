@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+    <head>
+        <title>IGNORED</title>
+    </head>
+    <body>        
+        <ui:composition template="/user/userTemplate.xhtml">
+            <ui:define name="windowTitle">
+                #{texts.regTitle}
+            </ui:define>
+            <h3>#{texts.welcome}</h3>
+            <ui:define name="content">
+                <h:form id="overviewform">           
+                    <p>
+                        <h:outputText value="#{texts.overview}: " id="overskrift"/><br/>
+                    </p>
+
+
+                    <h:commandButton id="NyOktknapp" value="#{texts.newsession}" action="#{treningsOktBehandling.setNyOkt(true)}"/>
+
+                    <h:panelGroup rendered="#{treningsOktBehandling.nyOkt}">
+
+                        <h:dataTable  id="nyOKt" var="session2" value="#{treningsOktBehandling.temptreningsOkter}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.date}"/>
+                                </f:facet>
+                                <h:inputText id="datony" value="#{session2.treningsikOkt.date}" styleClass="venstrejustert">
+                                    <f:convertDateTime type="date" locale="no_NO" timeZone="#{treningsOktBehandling.tidssone}" dateStyle="short"/>
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.duration}"/>
+                                </f:facet>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:inputText id="varighetny" value="#{session2.treningsikOkt.varighet}" styleClass="venstrejustert" onclick="return confirm(#{texts.duration})"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.category}"/>
+                                </f:facet>
+                                <h:selectOneMenu id="kategori" required="true" value="#{session2.treningsikOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
+                                    <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}"/>
+                                    <f:selectItem itemValue ="styrke" itemLabel="#{texts.category2}"/>
+                                    <f:selectItem itemValue ="aerobics" itemLabel="#{texts.category3}"/>
+                                    <f:selectItem itemValue ="jogging" itemLabel="#{texts.category4}"/>
+                                </h:selectOneMenu><br/>                              
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.text}"/>
+                                </f:facet>
+                                <h:inputText id="tekstny" value="#{session2.treningsikOkt.tekst}" styleClass="venstrejustert">
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>  
+                            <h:message for="datony"/><h:message for="varighetny"/><h:message for="kategori"/><h:message for="tekstny"/>
+                        </h:dataTable>
+                        <br/><h:message for="nyOkt"/><br/>
+                        <h:commandButton value="#{texts.submit}" action="#{treningsOktBehandling.oppdater()}"/><br/>
+
+
+                    </h:panelGroup>
+                    <br/>
+                    <br/>
+                    <p>
+                        <h:outputText value="#{texts.noData}"
+                                      rendered="#{not treningsOktBehandling.datafins}"/>
+                    </p>
+                    <div style="height:150px;overflow-x:auto;overflow-y:scroll;">
+                        <h:dataTable  value="#{treningsOktBehandling.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" id="okter" rendered="#{treningsOktBehandling.datafins}">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaDato()}">
+                                        <h:outputText value="#{texts.date}"/></h:commandLink>
+                                </f:facet>
+                                <h:inputText value="#{sessions.treningsikOkt.date}" styleClass="venstrejustert">
+                                    <f:convertDateTime type="date" locale="#{texts.locale}" timeZone="#{treningsOktBehandling.tidssone}" dateStyle="short"/>
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaVarighet()}">
+                                        <h:outputText value="#{texts.duration}"/></h:commandLink>
+                                </f:facet>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:inputText value="#{sessions.treningsikOkt.varighet}" styleClass="venstrejustert"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaKategori()}">
+                                        <h:outputText value="#{texts.category}"/></h:commandLink>
+                                </f:facet>
+                                <h:selectOneMenu id="kategori3" required="true" value="#{sessions.treningsikOkt.kategori}"  requiredMessage="#{texts.invalidactivity}">
+                                    <f:selectItem itemValue ="sykling" itemLabel="#{texts.category1}"/>
+                                    <f:selectItem itemValue ="styrke" itemLabel="#{texts.category2}"/>
+                                    <f:selectItem itemValue ="aerobics" itemLabel="#{texts.category3}"/>
+                                    <f:selectItem itemValue ="jogging" itemLabel="#{texts.category4}"/>
+                                </h:selectOneMenu><br/>          
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaTekst()}">
+                                        <h:outputText value="#{texts.text}"/></h:commandLink>
+                                </f:facet>
+                                <h:inputText value="#{sessions.treningsikOkt.tekst}" styleClass="venstrejustert">
+
+                                </h:inputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:commandLink action="#{treningsOktBehandling.sorterPaaSlett()}">
+                                        <h:outputText value="#{texts.delete}"/></h:commandLink>
+                                </f:facet>
+                                <h:selectBooleanCheckbox value="#{sessions.skalSlettes}"/>
+                            </h:column>
+                        </h:dataTable>                   <br/>
+
+                    </div>
+                    <p class ="buttonRightOutput">
+
+                        <h:outputText value="#{texts.totalSessions}  #{treningsOktBehandling.antOkter}" rendered="#{treningsOktBehandling.datafins}"/><br/>
+                        <h:outputText value="#{texts.average}  #{treningsOktBehandling.gjennomsnitt}" rendered="#{treningsOktBehandling.datafins}" /><br/>
+                    </p>
+                    <h:outputLabel value="#{texts.monthsort}: "></h:outputLabel>
+                    <h:selectOneMenu id="Maned" required="true" value="#{treningsOktBehandling.maned}"  requiredMessage="#{texts.invalidactivity}">
+                        <f:selectItem itemValue ="0" itemLabel="#{texts.all}"/>
+                        <f:selectItem itemValue ="1" itemLabel="#{texts.january}"/>
+                        <f:selectItem itemValue ="2" itemLabel="#{texts.february}"/>
+                        <f:selectItem itemValue ="3" itemLabel="#{texts.march}"/>
+                        <f:selectItem itemValue ="4" itemLabel="#{texts.april}"/>
+                        <f:selectItem itemValue ="5" itemLabel="#{texts.May}"/>
+                        <f:selectItem itemValue ="6" itemLabel="#{texts.june}"/>
+                        <f:selectItem itemValue ="7" itemLabel="#{texts.july}"/>
+                        <f:selectItem itemValue ="8" itemLabel="#{texts.august}"/>
+                        <f:selectItem itemValue ="9" itemLabel="#{texts.september}"/>
+                        <f:selectItem itemValue ="10" itemLabel="#{texts.October}"/>
+                        <f:selectItem itemValue ="11" itemLabel="#{texts.November}"/>
+                        <f:selectItem itemValue ="12" itemLabel="#{texts.december}"/>
+                    </h:selectOneMenu>
+                    <br/><h:commandButton value="#{texts.update}" action="#{treningsOktBehandling.oppdater()}" class="test" id="submit"/>
+                   
+                </h:form>
+                <h:messages layout="table" class="msg"/> 
+
+                <br/>
+                <br/>
+            </ui:define>
+        </ui:composition>
+        <p><h:messages/></p>
+    </body>
+</html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <head>
+        <title>IGNORED</title>
+    </head>
+    <body>        
+        <ui:composition template="/admin/adminTemplate.xhtml">
+            <ui:define name="windowTitle">
+                #{texts.regTitle}
+            </ui:define>
+            <h3>#{texts.welcome}</h3>
+            <ui:define name="content">
+                <h:form id="useroverview">   
+
+                    <p>
+
+                        <h:outputText value="#{texts.overview}: " id="overskrift"/>
+
+
+                        <h:commandButton id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/>
+
+                        <h:panelGroup rendered="#{bruker.nyBruker}">
+
+                            <h:dataTable  id="nyBruker" var="tempBruker" value="#{bruker.tempBrukerListe}" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot">
+                                <h:column id="namecol">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{texts.username}"/>
+                                    </f:facet>
+
+                                    <h:inputText  value="#{tempBruker.bruker.name}" styleClass="venstrejustert">                                         
+                                    </h:inputText>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </h:column>
+                                <h:column id="passcol">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{texts.password}"/>
+                                    </f:facet>
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                    <h:inputSecret  id="tempPassword" value="#{tempBruker.bruker.passord}" styleClass="venstrejustert">
+                                    </h:inputSecret>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{texts.role}"/>
+                                    </f:facet>
+                                    <h:selectOneMenu id="rolle" required="true" value="#{tempBruker.bruker.rolle}"  requiredMessage="#{texts.invalidactivity}">
+                                        <f:selectItem itemValue ="admin" itemLabel="#{texts.admin}"/>
+                                        <f:selectItem itemValue ="bruker" itemLabel="#{texts.user}"/>                                    
+                                    </h:selectOneMenu><br/>   
+                                    <f:facet name="footer">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                </h:column>    
+                            </h:dataTable>
+                            <br/>
+
+
+                            <br/>
+                            <h:commandButton value="#{texts.submit}" action="#{bruker.oppdater()}"/>
+
+                        </h:panelGroup>
+                    </p>
+                    <br/>   </h:form>  
+                <h:form id="useroverview2">
+                    <p>
+                        <h:outputText value="#{texts.noUserData}"
+                                      rendered="#{not bruker.datafins()}"/>
+                    </p>
+                    <div style="height:150px;overflow-x:auto;overflow-y:scroll;">
+                        <h:dataTable value="#{bruker.brukerTabell}" var="brukerobjekt" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{bruker.datafins()}">
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:commandLink action="#{bruker.sorterPaaBrukernavn()}">
+                                        <h:outputText value="#{texts.username}"/></h:commandLink>
+                                </f:facet>                               
+                                <h:outputText value="#{brukerobjekt.bruker.name}" styleClass="venstrejustert">
+
+                                </h:outputText>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.password}"/>
+                                </f:facet>
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                                <h:inputSecret redisplay="true"  id="passord4" value="#{brukerobjekt.bruker.passord}" styleClass="venstrejustert">
+                                    <f:validator validatorId="validatorTekst2" />  </h:inputSecret>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:commandLink action="#{bruker.sorterPaaRolle()}">
+                                        <h:outputText value="#{texts.role}"/></h:commandLink>
+                                </f:facet>
+                                <h:selectOneMenu id="rolle2" required="true" value="#{brukerobjekt.bruker.rolle}"  requiredMessage="#{texts.invalidactivity}">
+                                    <f:selectItem itemValue ="admin" itemLabel="#{texts.admin}"/>
+                                    <f:selectItem itemValue ="bruker" itemLabel="#{texts.user}"/>                                    
+                                </h:selectOneMenu><br/>   
+                                <f:facet name="footer">
+                                    <h:outputText value=""/>
+                                </f:facet>
+                            </h:column>   
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{texts.delete}"/>
+                                </f:facet>
+                                <h:selectBooleanCheckbox value="#{brukerobjekt.skalSlettes}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </div>  
+                    
+
+
+
+                    <h:commandButton value="#{texts.update}" action="#{bruker.oppdater()}" class="test" id="submit"/>
+
+
+                </h:form>
+                <h:messages layout="table" class="msg"/> 
+                
+                <br/>
+                <br/>
+            </ui:define>
+        </ui:composition>
+        <p><h:messages/></p>
+    </body>
+</html>

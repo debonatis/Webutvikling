@@ -1,0 +1,61 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title><ui:insert name="windowTitle"/></title>
+        <h:outputStylesheet library="style" name="mystyle.css"/>
+
+        <div id="header">
+            <ui:insert name="header">
+                <ui:include src="/sections/header.xhtml"/>
+            </ui:insert>
+        </div>
+
+    </h:head>
+
+    <h:body>       
+
+        <div id="content">
+            <!--<h:graphicImage library="images"  name="smiley.png" style="border:0px; position: fixed; left: 69%;" />-->
+            <h:graphicImage id="cloud" library=""  name="images/cloud.png"/>
+            <h:graphicImage id="smallclouds" library=""  name="/images/smallclouds.png"/>
+
+            <ui:insert name="content"/>
+        </div>
+
+
+
+        <div id="sideBar">
+
+            <h:form>
+                <p>   <h:commandLink action="ok" value="#{texts.login}" /></p>
+                <p> <h:commandLink id="NyBrukerKnapp" value="#{texts.newUser}" action="#{bruker.setNyBruker(true)}"/></p>
+            </h:form>
+            <h:panelGroup rendered="#{bruker.nyBruker}">
+                <h:form>
+                    <h:outputLabel for="brukernavn" value="#{texts.username}" /><br/>
+                    <h:inputText id="brukernavn" value="#{bruker.tempBruker.name}"></h:inputText><br/>
+                    <h:outputLabel for="sjekkpassord" value="#{texts.newPassword}"/><br/>
+                    <h:inputSecret id="sjekkpassord" binding="#{passwordComponent}" value="#{bruker.tempBruker.passord}" >
+                        <f:validator validatorId="validatorTekst2" />
+                    </h:inputSecret> <br/>
+                    <h:message for="sjekkpassord" /><br/>
+                    <h:outputLabel for="confirmPassword" value="#{texts.confirmNewPassword}" /><br/>
+                    <h:inputSecret id="confirmPassword" required="#{not empty passwordComponent.value}">
+                        <f:validator validatorId="validatorTekst" />
+                        <f:attribute name="passwordComponent" value="#{passwordComponent}" />
+                    </h:inputSecret>
+                    <h:message for="confirmPassword" /><br/>
+                    <h:outputText value="" />
+                    <h:commandButton value="#{texts.ok}" action="#{bruker.oppdater()}"  />
+                </h:form>  
+            </h:panelGroup>
+        </div>
+        <ui:debug/>
+       
+    </h:body>
+</html>

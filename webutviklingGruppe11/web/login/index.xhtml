@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <head>
+        <title>TODO supply a title</title>
+    </head>
+    <body>
+      
+
+        <ui:composition template="/login/mainTemplate.xhtml">
+            <ui:define name="windowTitle">
+                #{texts.regTitle}
+            </ui:define>
+            <h3>#{texts.ikkelogin}</h3>
+
+            <ui:define name="content">
+
+                <h:form>
+                    
+                    <br/>
+                    <br/>
+                    <h:outputText value="#{texts.firstWelcome}: " id="overskrift"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    
+                    
+                   
+
+                   
+
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

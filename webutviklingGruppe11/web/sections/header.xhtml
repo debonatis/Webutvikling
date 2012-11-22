@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>IGNORED</title>
+    </h:head>               
+    <h:body>
+        <ui:composition>
+            <div class="header">
+                <h:form>
+                <h:commandLink  action="#{localeChanger.englishAction}">
+                    <h:graphicImage library=""  name="images/en_flag.gif" style="border: 0px; margin-top: 0px; margin-right: 20px; " />
+                </h:commandLink>
+                <h:commandLink  action="#{localeChanger.norwegianAction}">
+                    <h:graphicImage  library=""  name="images/no_flag.gif" style="border: 0px; margin-top: 0px; margin-right: 20px;" />
+                </h:commandLink>
+                <h:commandLink  action="#{localeChanger.germanAction}">
+                    <h:graphicImage  library=""  name="images/de_flag.gif" style="border: 0px; margin-top: 0px; margin-right: 20px;" />
+                </h:commandLink>              
+            </h:form>
+                <h:graphicImage  library=""  name="images/heipa.png" style="border: 0px; margin-top: -30px; margin-left: 562px; margin-right: 20px;" />
+            </div>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,97 @@
+/* 
+  
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+    background-color: white;/*#d9e6ed; */
+    background-position: 0% 0%;
+    background-image:url(images/background.png);
+    background-repeat: repeat-x,repeat-y;
+    color: white;
+    font-family: "Helvetica", "Arial", "Tahoma", "sans-serif";
+    font-size: small;
+    line-height: 1.3em;
+}
+#sideBar{
+    background-color: transparent;
+    background-image: url("images/wrapcolor.png");
+    background-position: 0% 0%;
+    background-repeat: repeat;
+    margin-bottom: 0px;
+    margin-left: 2px;
+    margin-right: 20px;
+    margin-top: 10px;
+    padding-bottom: 18px;
+    padding-top: 27px;
+    position: fixed;
+    left: 5%;
+    width: 15%;
+    color: white;
+    padding-left: 25px;
+    padding-right: 25px;
+
+}
+#content{
+    background-color: transparent;
+    background-image: url("images/wrapcolor.png");
+    background-position: 0% 0%;
+    background-repeat: repeat;
+    margin-bottom: 0px;
+    margin-left: 2px;
+    margin-right: 20px;
+    margin-top: 10px;
+    padding-bottom: 18px;
+    padding-left: 25px;
+    padding-top: 27px;
+    position: fixed;
+    left: 25%;
+    width: 60%;
+    color: white;
+    padding-right: 25px
+}
+
+#cloud{
+    border: 0px;
+    position: fixed;
+    top: 27%;
+    left: 6%;
+}
+
+#smallclouds{
+    border: 0px;
+    position: fixed;
+    top: 7%;
+    left: 85%;
+}
+
+#padding{
+    padding-left: 25px;
+}
+.test{
+    position: fixed;
+    left: 70%; 
+}
+.msg{
+    position: fixed;
+    left: 60%;
+    bottom: 25%; 
+}
+.test3{
+    position: fixed;
+    left: 63%;  
+}
+.test4{
+    position: fixed;
+    left: 52%;
+    padding-bottom: 15px;
+}
+
+
+
+
+
