@@ -13,11 +13,7 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
-    <context-param>
-        <param-name>primefaces.THEME_FORMS</param-name>
-        <param-value>false</param-value>
-    </context-param>
+    </servlet-mapping>    
     <session-config>
         <session-timeout>
             30
