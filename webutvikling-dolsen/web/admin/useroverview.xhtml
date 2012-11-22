@@ -78,7 +78,7 @@ and open the template in the editor.
                         <h:outputText value="#{texts.noUserData}"
                                       rendered="#{not bruker.datafins()}"/>
                     </p>
-                    <div style="height:200px;overflow-x:auto;overflow-y:scroll;">
+                    <div style="height:150px;overflow-x:auto;overflow-y:scroll;">
                         <h:dataTable value="#{bruker.brukerTabell}" var="brukerobjekt" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" rendered="#{bruker.datafins()}">
 
                             <h:column>

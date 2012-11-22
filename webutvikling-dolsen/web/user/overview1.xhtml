@@ -83,7 +83,7 @@
                         <h:outputText value="#{texts.noData}"
                                       rendered="#{not treningsOktBehandling.datafins}"/>
                     </p>
-                    <div style="height:200px;overflow-x:auto;overflow-y:scroll;">
+                    <div style="height:150px;overflow-x:auto;overflow-y:scroll;">
                         <h:dataTable  value="#{treningsOktBehandling.tabelldata}" var="sessions" styleClass="standard" headerClass="hode" rowClasses="oddeRad, likeRad" footerClass="fot" id="okter" rendered="#{treningsOktBehandling.datafins}">
                             <h:column>
                                 <f:facet name="header">
