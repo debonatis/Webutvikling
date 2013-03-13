@@ -4,3 +4,10 @@
 *.jar
 *.war
 *.ear
+/webutvikling-dolsen/nbproject/private/
+/webutvikling-dolsen/build/
+/webutvikling-dolsen/dist/
+/webutviklingGruppe11/nbproject/private/
+/webutviklingGruppe11/build/
+/webutviklingGruppe11/dist/
+/Gruppe11/nbproject/private/
